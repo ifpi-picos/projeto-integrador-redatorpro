@@ -15,9 +15,9 @@ ScrollReveal().reveal('.subInicial', {
 });
 
 ScrollReveal().reveal('.fea-box', {
-    origin: 'left',
     duraction: 4000,
-    distance: '40%',
+    distance: '20%',
+    interval: 400,
 });
 
 ScrollReveal().reveal('.h1lp', {
@@ -31,3 +31,6 @@ ScrollReveal().reveal('.pazul', {
     duraction: 4000,
     distance: '40%',
 });
+
+ScrollReveal().reveal('.ferramentas', { interval: 400 });
+

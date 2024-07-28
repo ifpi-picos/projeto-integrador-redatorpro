@@ -11,7 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(#50E4E4, #06ADB3);
+    background: linear-gradient(#50E4E4,rgb(98, 215, 211),rgb(49, 143, 154) ,#035356);
   }
 
   .wrapper {
@@ -22,7 +22,7 @@
     padding: 20px
       30px
       120px;
-    background: #fff;
+      background: #ffffffc4;
     box-shadow: 0
       5px
       10px;
@@ -43,7 +43,7 @@
       140px;
     border-radius: 50%;
     height: 100%;
-    background: #C0C0C0;
+    background: rgb(60, 123, 162);
     transition: all
       0.6s
       ease;
@@ -65,7 +65,7 @@
   }
   .form.login
     header {
-    color: #000;
+      color: #ffffff;
     opacity: 0.6;
   }
   .wrapper.active
@@ -96,7 +96,7 @@
     font-weight: 400;
     color: #333;
     border-radius: 8px;
-    background: #C0C0C0;
+    background: #ffffff;
   }
   .form.login
     input {
@@ -147,10 +147,18 @@
   }
   .form.login
     input[type="submit"] {
-    background: #4070f4;
-    color: #fff;
+      background: #246493;
+      color: #fff;
+      font-weight: bold;
     border: none;
   }
+  .cor{
+    color: #f4f4f4;
+}
+.corLogin{
+    background:#65589E;
+    color: #ffffff;
+}
 
 .img {
     width: 50%;

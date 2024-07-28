@@ -1,12 +1,17 @@
 ScrollReveal().reveal('.btn', {
     origin: 'left',
+    delay: 1200,
     duraction: 4000,
     distance: '40%',
 });
 
 ScrollReveal().reveal('.textInicial', {
+    delay: 100,
+});
+ScrollReveal().reveal('.subInicial', {
+    delay: 500,
     duraction: 4000,
-    distance: '40%',
+    distance: '20%',
 });
 
 ScrollReveal().reveal('.fea-box', {
@@ -22,8 +27,7 @@ ScrollReveal().reveal('.h1lp', {
 });
 
 ScrollReveal().reveal('.pazul', {
-    origin: 'right',
+    delay: 500,
     duraction: 4000,
     distance: '40%',
 });
-

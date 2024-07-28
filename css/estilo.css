@@ -194,7 +194,7 @@
 .h1lp{
   font-size: 2.5rem;
   font-weight: 700;
-  color: rgb(255, 255, 255);
+  color: #2e668f;
 }
 .spanlp{
   font-size: .9rem;
@@ -244,7 +244,7 @@
 }
 
 nav .navigation ul li a:hover{
-    color: #fff;
+    color: #cdb230;
 }
 
 .homelp{
@@ -326,9 +326,6 @@ nav .navigation ul li a:hover{
   text-align: start;
 }
 
-#featureslp .h1lp{
-  color: #2e668f;
-}
 
 #features .fea-box i {
   font-size: 2.3rem;
@@ -345,4 +342,45 @@ nav .navigation ul li a:hover{
   font-size: 1rem;
   font-weight: 400;
   color: #203646;
+}
+
+.pazul{
+  color: #203646;
+}
+
+#funções .função-box{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 1rem;
+  margin-top: 50px;
+}
+
+#funções{
+  padding: 8vw 8vw 0 8vw;
+  text-align: center;
+}
+
+#funções .funções{
+  text-align: start;
+  background: #f5f3f3;
+  height: 100%;
+}
+
+#funções .funções img{
+  width: 100%;
+  height: 75%;
+  background-size: cover;
+  background-position: center;
+}
+
+#funções .funções .detalhes{
+  padding: 15px 15px 0 15px;
+}
+
+.navlp .navigation ul li a.hname{
+  color: #246593ac;
+}
+
+nav .navigation ul li a.hname:hover{
+  color: #cdb230;
 }

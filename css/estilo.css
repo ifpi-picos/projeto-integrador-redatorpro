@@ -11,8 +11,38 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(#50E4E4,rgb(98, 215, 211),rgb(49, 143, 154) ,#035356);
+    background: linear-gradient(#50E4E4, #50E4E4, #65589E ,#65589E);
   }
+  
+  h4{
+    color: #fff;
+  }
+
+  .btn3{
+    margin-top: 30px;
+  }
+  
+  a{
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 13px 35px;
+    background-color: #fff;
+    font-weight: 600;
+    border-radius: 5px;
+  }
+  
+  a.color1{
+    color: #fff;
+    background: #246493;
+    transition: all 0.3s ease;
+  }
+  
+  a.color1:hover{
+    color: #246493;
+    background: #fff;
+  }
+  
+
 
   .wrapper {
     position: relative;
@@ -28,6 +58,13 @@
       10px;
     overflow: hidden;
   }
+
+  .imgbox {
+    height: 75px;
+    
+
+  }
+
   .form.login {
     position: absolute;
     left: 50%;
@@ -162,30 +199,9 @@
 
 .img {
     width: 50%;
-    animation: looptxt 5s infinite linear;
+    
 }
 
-@keyframes looptxt {
-    0%{
-       transform: rotate(0deg);
-    }
-
-    25%{
-        transform: rotate(3deg);
-    }
-
-    50%{
-        transform: rotate(0deg);
-    }
-
-    75%{
-        transform: rotate(-3deg);
-    }
-
-    100%{
-        transform: rotate(0deg);
-    }
-}
 
 .bodylp {
   font-family: 'Popins', sans-serif;

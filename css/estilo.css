@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(#50E4E4, #06ADB3);
+    background: linear-gradient(#50E4E4, #C0C0C0);
   }
   .wrapper {
     position: relative;

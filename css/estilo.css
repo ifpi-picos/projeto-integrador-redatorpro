@@ -20,8 +20,9 @@
 
   .btn3{
     margin-top: 30px;
+    margin-left: 250px;
   }
-  
+
   a{
     text-decoration: none;
     font-size: 0.9rem;
@@ -41,8 +42,6 @@
     color: #246493;
     background: #fff;
   }
-  
-
 
   .wrapper {
     position: relative;
@@ -412,4 +411,3 @@ nav .navigation ul li a.hname:hover{
 html {
   scroll-behavior: smooth;
 }
-

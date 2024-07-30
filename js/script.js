@@ -40,3 +40,19 @@ ScrollReveal().reveal('.funções', {
     duraction: 4000,
     distance: '40%',
 });
+
+ScrollReveal().reveal('.logoLogin', {
+    delay: 100,
+});
+
+ScrollReveal().reveal('.subTextLogin', {
+    delay: 700,
+});
+
+ScrollReveal().reveal('.surgir', {
+    delay: 2000,
+});
+
+ScrollReveal().reveal('.btn3', {
+    delay: 2000,
+});

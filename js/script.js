@@ -34,3 +34,9 @@ ScrollReveal().reveal('.pazul', {
 
 ScrollReveal().reveal('.ferramentas', { interval: 400 });
 
+ScrollReveal().reveal('.funções', { 
+    interval: 300,
+    origin: 'left',
+    duraction: 4000,
+    distance: '40%',
+});

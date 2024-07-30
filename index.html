@@ -1,63 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>redatorpro</title>
-    <link rel="stylesheet" href="css/estilo.css" />
-    <script type="text/script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>redatorpro</title>
+  <link rel="stylesheet" href="css/estilo.css" />
+  <script type="text/script.js"></script>
 </head>
-<div class="img">
-    <img src="imagens/logo nome.png"/>
-    <h4>Se você deseja aprimorar suas habilidades em redação e se preparar
-      para exames de vestibular, o RedatorPRO é a solução ideal. Cadastre-se!</h4>
-</div>
-<div class="btn3">
-  <a class="color3" href="landingpage.html">Saiba Mais</a>
-</div>
+
 <body class="bodylogin">
-    <body>
-        <section class="wrapper">
-          <div class="form signup">
-            <header>Cadastre-se!
-              <img src="imagens/LOGO JADER (6).png" class="imgbox"/>
-            </header>
-            <form action="#">
-              <input type="text" placeholder="Nome completo" required />
-              <input type="text" placeholder="Insira o seu e-mail" required />
-              <input type="password" placeholder="Senha" required />
-              <div class="checkbox">
-                <input type="checkbox" id="signupCheck" />
-                <label for="signupCheck">I accept all terms & conditions</label>
-              </div>
-              <input type="submit" value="Signup" class="corLogin"/>
-            </form>
+
+  <body>
+
+    <div class="img">
+      <img src="imagens/logo nome.png" />
+      <h4>Se você deseja aprimorar suas habilidades em redação e se preparar
+        para exames de vestibular, o RedatorPRO é a solução ideal. Cadastre-se!</h4>
+      <div class="btn3">
+        <a class="color3" href="landingpage.html"><b>Saiba Mais</b></a>
+      </div>
+    </div>
+
+    <section class="wrapper">
+      <div class="form signup">
+        <header>Cadastre-se!
+          <img src="imagens/LOGO JADER (6).png" class="imgbox" />
+        </header>
+        <form action="#">
+          <input type="text" placeholder="Nome completo" required />
+          <input type="text" placeholder="Insira o seu e-mail" required />
+          <input type="password" placeholder="Senha" required />
+          <div class="checkbox">
+            <input type="checkbox" id="signupCheck" />
+            <label for="signupCheck">I accept all terms & conditions</label>
           </div>
-    
-          <div class="form login">
-            <header>Login</header>
-            <form action="#">
-              <input type="text" placeholder="Email address" required />
-              <input type="password" placeholder="Password" required />
-              <a href="#" class="cor">Esqueceu a senha?</a>
-              <input type="submit" value="Login" />
-            </form>
-          </div>
-    
-          <script>
-            const wrapper = document.querySelector(".wrapper"),
-              signupHeader = document.querySelector(".signup header"),
-              loginHeader = document.querySelector(".login header");
-    
-            loginHeader.addEventListener("click", () => {
-              wrapper.classList.add("active");
-            });
-            signupHeader.addEventListener("click", () => {
-              wrapper.classList.remove("active");
-            });
-          </script>
-        </section>
-      </body>
-    </html>
+          <input type="submit" value="Signup" class="corLogin" />
+        </form>
+      </div>
+
+      <div class="form login">
+        <header>Login</header>
+        <form action="#">
+          <input type="text" placeholder="Email address" required />
+          <input type="password" placeholder="Password" required />
+          <a href="#" class="cor">Esqueceu a senha?</a>
+          <input type="submit" value="Login" />
+        </form>
+      </div>
+
+      <script>
+        const wrapper = document.querySelector(".wrapper"),
+          signupHeader = document.querySelector(".signup header"),
+          loginHeader = document.querySelector(".login header");
+
+        loginHeader.addEventListener("click", () => {
+          wrapper.classList.add("active");
+        });
+        signupHeader.addEventListener("click", () => {
+          wrapper.classList.remove("active");
+        });
+      </script>
+    </section>
+  </body>
+
+</html>
 </body>
+
 </html>

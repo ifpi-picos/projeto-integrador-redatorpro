@@ -525,7 +525,7 @@ html {
 
 footer{
   padding: 8vw;
-  background-color: #50E4E4;
+  background-color: #5948a3;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -537,14 +537,14 @@ footer .footer-col {
 }
 
 footer h3{
-  color: #245c83;
+  color: #ffffff;
   font-weight: 600;
   padding-bottom: 20px;
 }
 
 footer li{
   list-style: none;
-  color: #2e668f;
+  color: #91cbf4;
   padding: 10px 0;
   font-size: 15px;
   cursor: pointer;
@@ -553,11 +553,11 @@ footer li{
 }
 
 footer li:hover{
-  color: #244d6b;
+  color: #ffb917;
 }
 
 footer p{
-  color: #2e668f;
+  color: #ffffff;
 }
 
 footer .subscribe{
@@ -568,10 +568,10 @@ footer input{
   width: 220px;
   padding: 15px 12px;
   border: none;
-  background: #245b8351;
+  background: #fff;
   border: none;
   outline: none;
-  color: #fff;
+  color: #000;
 }
 
 footer .subscribe a{
@@ -585,11 +585,11 @@ footer .subscribe a{
 
 footer .subscribe a.color2{
   color: #fff;
-  background: #b4820dd6;
+  background: #246493;
   transition: all 0.3s ease;
 }
 
 footer .subscribe a.color2:hover{
-  color: #244d6b;
+  color: #246493;
   background: #fff;
 }

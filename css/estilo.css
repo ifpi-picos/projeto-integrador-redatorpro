@@ -490,6 +490,7 @@ html {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 1rem;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 #experts .expert-box img{
@@ -520,4 +521,75 @@ html {
   color: #fff;
   border: 1px solid #1d2f4e;
   cursor: pointer;
+}
+
+footer{
+  padding: 8vw;
+  background-color: #50E4E4;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+footer .footer-col {
+  padding-bottom: 40px;
+}
+
+footer h3{
+  color: #245c83;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+
+footer li{
+  list-style: none;
+  color: #2e668f;
+  padding: 10px 0;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+footer li:hover{
+  color: #244d6b;
+}
+
+footer p{
+  color: #2e668f;
+}
+
+footer .subscribe{
+  margin-top: 20px;
+}
+
+footer input{
+  width: 220px;
+  padding: 15px 12px;
+  border: none;
+  background: #245b8351;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+footer .subscribe a{
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 13px 35px;
+  background-color: #fff;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+footer .subscribe a.color2{
+  color: #fff;
+  background: #b4820dd6;
+  transition: all 0.3s ease;
+}
+
+footer .subscribe a.color2:hover{
+  color: #244d6b;
+  background: #fff;
 }

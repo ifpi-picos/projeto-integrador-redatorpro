@@ -23,13 +23,16 @@
     margin-left: 250px;
   }
 
-  a{
+  .btn3 .color3{
     text-decoration: none;
     font-size: 0.9rem;
     padding: 13px 35px;
     background-color: #fff;
+    color: #65589E;
     font-weight: 600;
     border-radius: 5px;
+    box-shadow: 0 5px
+      10px rgba(0, 0, 0, 0.3);
   }
   
   a.color1{

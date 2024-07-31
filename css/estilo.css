@@ -384,17 +384,19 @@ nav .navigation ul li a:hover{
 #funções{
   padding: 8vw 8vw 0 8vw;
   text-align: center;
+  margin-bottom: 50px;
 }
 
 #funções .funções{
   text-align: start;
   background: #f5f3f3;
   height: 100%;
+  position: relative;
 }
 
 #funções .funções img{
   width: 100%;
-  height: 75%;
+  height: 70%;
   background-size: cover;
   background-position: center;
 }
@@ -413,4 +415,109 @@ nav .navigation ul li a.hname:hover{
 
 html {
   scroll-behavior: smooth;
+}
+
+#newsletter {
+  padding: 6vw 8vw 6vw 8vw;
+  background-image: linear-gradient(rgba(99, 112, 168, 0.5), rgba(81, 91, 233, 0.5)), url(../imagens/newsletter.png);
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#newsletter .reminder {
+  color: #fff;
+}
+
+#newsletter .reminder h1 {
+  color: #fff;
+}
+
+#newsletter .formlp {
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+#newsletter .formlp input{
+  margin: 15px 0;
+  padding: 15px 10px;
+  border: 1px solid #246493;
+  outline: none;
+}
+
+#newsletter .formlp input::placeholder{
+  color: #413c3c;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+#newsletter .formlp .btn{
+  margin-top: 20px;
+}
+
+#newsletter .formlp a.color2{
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 13px 35px;
+  background-color: #fff;
+  font-weight: 600;
+  border-radius: 5px;
+  color: #fff;
+  background: #b4820d;
+  transition: all 0.3s ease;
+}
+
+#newsletter .formlp a.color2:hover{
+  color: #b4820d;
+  background: #fff;
+}
+
+#experts {
+  padding: 8vw 8vw 0 8vw;
+  text-align: center;
+}
+
+#experts .expert-box{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  margin-top: 50px;
+}
+
+#experts .expert-box img{
+  width: 80%;
+  height: 70%;
+}
+
+#experts .expert-box .profile{
+  background: #f5f3f3;
+  padding: 30px 10px;
+  border-radius: 5px;
+}
+
+.pro-links {
+  margin-top: 10px;
+}
+
+.pro-links i {
+  padding: 10px 13px;
+  border: 1px solid #1d2f4e;
+  cursor: pointer;
+  color: #1d2f4e;
+  transition: 0.3s ease;
+}
+
+.pro-links i:hover {
+  background: #1d2f4e;
+  color: #fff;
+  border: 1px solid #1d2f4e;
+  cursor: pointer;
 }

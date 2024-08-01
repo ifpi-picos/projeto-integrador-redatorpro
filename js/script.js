@@ -56,3 +56,4 @@ ScrollReveal().reveal('.surgir', {
 ScrollReveal().reveal('.btn3', {
     delay: 2000,
 });
+

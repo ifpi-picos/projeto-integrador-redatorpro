@@ -685,4 +685,55 @@ footer .copyright .pro-links i:hover{
   .navlp .navigation ul li a.home-name{
     color: #ffffffac;
   }
+
+  .homelp {
+    padding-top: 0px;
+  }
+
+  .homelp  .subInicial
+  {
+    width: 90%;
+  }
+
+  #featureslp {
+    padding: 8vw 4vw 0 4vw;
+  }
+
+  #funções {
+    padding: 8vw 4vw 0 4vw;
+  }
+
+  #newsletter {
+    margin-top: 8vw;
+    padding: 6vw 4vw 6vw 4vw;
+  }
+
+  #experts {
+    padding: 8vw 8vw 4vw 8vw;
+    text-align: center;
+  }
+
+  footer .copyright .pro-links{
+    margin-top: 15px;
+  }
+  
+}
+
+@media (max-width: 475px) {
+  #newsletter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #newsletter .reminder{
+    padding: 0 0 20px 0;
+  }
+
+  #newsletter .reminder h1{
+    font-size: 2rem;
+  }
+
 }

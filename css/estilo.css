@@ -647,13 +647,16 @@ footer .copyright .pro-links i:hover{
   }
 
   #menu-close{
-    display: none;
+    display: initial;
+    font-size: 1.6rem;
+    color: #fff;
+    padding: 30px 0 20px 20px;
   }
 
   .navlp .navigation ul {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -220px;
     width: 220px;
     height: 100vh;
     background: #2465939a;
@@ -663,6 +666,11 @@ footer .copyright .pro-links i:hover{
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    transition: 0.3s ease-in;
+  }
+
+  .navlp .navigation ul.active {
+    right: 0;
   }
 
   .navlp .navigation ul li {

@@ -20,7 +20,7 @@
 
   .btn3{
     margin-top: 30px;
-    margin-left: 250px;
+    margin-left: 180px;
   }
 
   .btn3 .color3{
@@ -205,14 +205,14 @@
 }
 
 .container {
-  width: 935px;
-  height: 520px;
+  width: 500px;
+  height: 300px;
   border-radius: 20px;
   overflow: hidden;
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-90%, -3%);
   box-shadow: 0 5px 10px #888;
   
   }
@@ -228,12 +228,19 @@
   display: none;
   
   }
+
+.imagens one{
+  width: 25%;
+  transition: .6s;
   
+  
+}
+
 .imagens {
   width: 25%;
   transition: .6s;
   
-  }
+}
   
 .imagens img {
   width: 100%;

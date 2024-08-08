@@ -91,3 +91,15 @@ const mobileNavbar = new MobileNavbar(
     '#menu-close'
 );
 mobileNavbar.init();
+
+
+
+let contador = 1
+
+setInterval(function(){
+
+    document.getElementById('radio-' + contador).checked = true;
+    contador ++;
+    
+
+}, 4000)

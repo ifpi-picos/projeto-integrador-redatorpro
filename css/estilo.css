@@ -740,6 +740,58 @@ footer .copyright .pro-links i:hover{
   letter-spacing: 1px;
 }
 
+#about-container{
+  display: flex;
+  align-items: center;
+  padding: 8vw 8vw 2vw 8vw;
+}
+
+#about-container .about-img{
+  width: 60%;
+  padding-right: 60px;
+}
+
+#about-container .about-img img{
+  width: 100%;
+}
+
+#about-container .about-text{
+  width: 40%;
+}
+
+#about-container .about-text h2{
+  color: #203646;
+  padding-bottom: 15px;
+}
+
+#about-container .about-text p{
+  color: #333;
+  font-weight: 300;
+}
+
+#about-container .about-text .about-fe{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+
+#about-container .about-text .about-fe img{
+  width: 50px;
+  background-size: cover;
+  background-position: center;
+  margin-right: 20px;
+}
+
+#about-container .about-text .about-fe .fe-text{
+  width: 90%;
+}
+
+#about-container .about-text .about-fe .fe-text h5{
+  font-size: 16px;
+  color: #254053;
+}
+
 @media (max-width: 768px) {
   .navlp{
     padding: 15px 20px;

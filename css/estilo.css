@@ -809,6 +809,30 @@ footer .copyright .pro-links i:hover{
   height: auto;
 }
 
+/* Landing Page - Blog */
+
+:root{
+  --container-color: #1e1e21;
+  --second-color: rgba(77, 228, 255);
+  --text-color: #172317;
+  --bg-color: #fff;
+}
+
+::selection{
+  color: var(--bg-color);
+  background: var(--second-color);
+}
+
+#section-blog{
+  padding: 3rem 0 2rem;
+}
+
+.blog-container{
+  max-width: 1068px;
+  margin: auto;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .navlp{
     padding: 15px 20px;

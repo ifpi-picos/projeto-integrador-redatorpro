@@ -928,11 +928,25 @@ li{
   margin-top: 2rem !important;
 }
 
+.filter-item{
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.active-filter{
+  background: var(--second-color);
+  color: var(--bg-color);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
 .post{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, auto));
   justify-content: space-around;
   gap: 3rem;
+  padding-bottom: 50px;
 }
 
 .post-box{
@@ -962,7 +976,7 @@ li{
   font-weight: 600;
   color: var(--text-color);
   display: -webkit-box;
-  -webkit-line-clamb: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -980,7 +994,7 @@ li{
   line-height: 1.5rem;
   margin: 5px 0 10px;
   display: -webkit-box;
-  -webkit-line-clamb: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

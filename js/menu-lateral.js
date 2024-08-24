@@ -46,6 +46,7 @@ $(document).ready(function() {
 
     // Evento de clique em qualquer lugar do documento
     $(document).click(function(event) {
+
         // Verifica se o clique não foi no link com a classe serv-btn
         
         if (!$(event.target).closest(".serv-btn").length && iconeAberto) {

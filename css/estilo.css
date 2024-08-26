@@ -976,7 +976,7 @@ li{
   font-weight: 600;
   color: var(--text-color);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamb: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -994,7 +994,7 @@ li{
   line-height: 1.5rem;
   margin: 5px 0 10px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamb: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1017,6 +1017,17 @@ li{
 .profile-name{
   font-size: .8rem;
   font-weight: 500;
+}
+
+@media (max-width: 1060px){
+
+  /* Landing Page - Blog */
+
+  .blog-container{
+    margin: 0 auto;
+    width: 95%;
+  }
+
 }
 
 
@@ -1117,6 +1128,47 @@ li{
   #trust .trust-img img {
     width: 50px;
     height: auto;
+  }
+
+  /* Landing Page - Blog */
+
+  .section-blog{
+    padding: 2rem 0 !important;
+  }
+
+  .blog{
+    flex-direction: column;
+  }
+
+  .about .content-box{
+    min-width: 100%;
+    width: 100%;
+    text-align: center;
+    padding-right: 0px;
+  }
+
+  .blog .content-box,
+  .blog .imgBx{
+      min-width: 100%;
+      width: 100%;
+      padding-right: 0px;
+      text-align: center;
+  }
+
+  .about .imgBx{
+      min-height: 250px;
+  }
+
+  .btn2{
+      margin-bottom: 30px;
+  }
+
+  .post-header{
+      height: 435px;
+  }
+
+  .post-header{
+      margin-top: 9rem !important;
   }
   
 }

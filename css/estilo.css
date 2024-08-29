@@ -1023,6 +1023,9 @@ li{
 
 #contact{
   padding: 8vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 #contact .getin{
@@ -1092,6 +1095,95 @@ li{
 
 #contact .getin .getin-details .pro-links-ctc i{
   margin-right: 8px;
+}
+
+#contact .form-contact{
+  width: 60%;
+  background: #f7f6fa;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+#contact .form-contact h4{
+  font-size: 24px;
+  color: #244d6b;
+  line-height: 30px;
+  margin-bottom: 8px;
+} 
+
+#contact .form-contact p{
+  color: #686875;
+  line-height: 24px;
+  padding-bottom: 25px;
+}
+
+#contact .form-contact .form-row{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#contact .form-contact .form-row input{
+  width: 48%;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 3px;
+  border: none;
+  background: #fff;
+  color: #7e7c87;
+  outline: none;
+  padding: 20px 30px;
+  margin-bottom: 20px;
+}
+
+#contact .form-contact .form-col input{
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 3px;
+  border: none;
+  background: #fff;
+  color: #7e7c87;
+  outline: none;
+  padding: 20px 30px;
+  margin-bottom: 20px;
+}
+
+#contact .form-contact .form-col input,
+#contact .form-contact .form-col textarea {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 3px;
+  border: none;
+  background: #fff;
+  color: #7e7c87;
+  outline: none;
+  padding: 20px 30px;
+  margin-bottom: 20px;
+}
+
+#contact .form-contact button{
+  font-size: .9rem;
+  padding: 13px 25px;
+  background: #2e668f;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+}
+
+#map{
+  width: 100%;
+  height: 70vh;
+  margin-bottom: 8vw;
+}
+
+#map iframe{
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 1060px){
@@ -1241,7 +1333,16 @@ li{
   .btn-leia{
       margin-bottom: 30px;
   }
-  
+
+  /* Landing Page - Contato */
+  #contact {
+    padding: 8vw  4vw;
+  }
+
+  #contact .getin{
+    width: 250px;
+  }
+
 }
 
 @media (max-width: 475px) {
@@ -1292,6 +1393,24 @@ li{
  
   .post-box{
     padding: 10px;
+ }
+
+ /* Landing Page - Contato */
+ #contact {
+    padding: 8vw 4vw;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: flex-start; 
+ }
+
+ #content .getin{
+    width: 100%;
+    margin-bottom: 30px;
+ }
+
+ #contact .form-contact{
+    width: 100%;
+    padding: 40px 30px;
  }
 
 }

@@ -1021,6 +1021,22 @@ li{
 
 /* Landing Page - Contato */
 
+#contact{
+  padding: 8vw;
+}
+
+#contact .getin{
+  width: 350px;
+}
+
+#contact .getin h2{
+  font-size: 2rem;
+  color: #244d6b;
+  margin-bottom: 20px;
+}
+
+
+
 @media (max-width: 1060px){
 
   /* Landing Page - Blog */

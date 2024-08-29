@@ -297,7 +297,7 @@
 }
 
 
-  /* landing page */
+  /* landing page - home */
 
 .bodylp {
   font-family: 'Popins', sans-serif;
@@ -322,13 +322,13 @@
   position: fixed;
   width: 100%;
   background-color: #50E4E4;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   align-items: center;
-   padding: 1vw 8vw;
-   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-   z-index: 999;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vw 8vw;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 999;
 }
 
 .navlp img{
@@ -875,7 +875,7 @@ img{
   padding-right: 40px;
 }
 
-title-t {
+.title-t {
   font-weight: 600;
   color: #111;
   font-size: 2rem;
@@ -1030,12 +1030,69 @@ li{
 }
 
 #contact .getin h2{
-  font-size: 2rem;
   color: #244d6b;
-  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: .8;
+  margin-bottom: 16px;
 }
 
+#contact .getin p{
+  color: #686875;
+  line-height: 24px;
+  margin-bottom: 33px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #e5e4ed;
+}
 
+#contact .getin h3{
+  color: #244d6b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  margin-bottom: 15px;
+}
+
+#contact .getin .getin-details div{
+  display: flex;
+}
+
+#contact .getin .getin-details div .get{
+  font-size: 16px;
+  line-height: 22px;
+  color: #246493;
+  margin-right: 20px;
+}
+
+.pro-links-ctc {
+  margin-top: 10px;
+}
+
+.pro-links-ctc i {
+  padding: 10px 13px;
+  border: 1px solid #246493;
+  cursor: pointer;
+  color: #246493;
+  transition: 0.3s ease;
+}
+
+.pro-links-ctc i:hover {
+  background: #246493;
+  color: #fff;
+  border: 1px solid #246493;
+  cursor: pointer;
+}
+
+#contact .getin .getin-details div p{
+  font-size: 14px;
+  border-bottom: none;
+  line-height: 22px;
+  margin-bottom: 15px;
+}
+
+#contact .getin .getin-details .pro-links-ctc i{
+  margin-right: 8px;
+}
 
 @media (max-width: 1060px){
 

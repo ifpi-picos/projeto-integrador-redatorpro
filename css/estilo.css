@@ -1019,6 +1019,8 @@ li{
   font-weight: 500;
 }
 
+/* Landing Page - Contato */
+
 @media (max-width: 1060px){
 
   /* Landing Page - Blog */
@@ -1101,6 +1103,10 @@ li{
     padding: 8vw 4vw 0 4vw;
   }
 
+  #funções .funções img{
+    height: 65%;
+  }
+
   #newsletter {
     margin-top: 8vw;
     padding: 6vw 4vw 6vw 4vw;
@@ -1148,27 +1154,19 @@ li{
   }
 
   .blog .content-box,
-  .blog .imgBx{
+  .blog .img-Bx{
       min-width: 100%;
       width: 100%;
       padding-right: 0px;
       text-align: center;
   }
 
-  .about .imgBx{
+  .blog .img-Bx{
       min-height: 250px;
   }
 
-  .btn2{
+  .btn-leia{
       margin-bottom: 30px;
-  }
-
-  .post-header{
-      height: 435px;
-  }
-
-  .post-header{
-      margin-top: 9rem !important;
   }
   
 }
@@ -1216,6 +1214,13 @@ li{
     width: 70px;
     margin: 10px 15px;
   }
+
+  /* Landing Page - Blog */
+ 
+  .post-box{
+    padding: 10px;
+ }
+
 }
 
 @media(max-width: 376px) {

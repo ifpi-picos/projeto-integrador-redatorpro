@@ -1399,18 +1399,57 @@ li{
  #contact {
     padding: 8vw 4vw;
     flex-direction: column;
-    align-content: flex-start;
-    justify-content: flex-start; 
+    align-content: center;
+    justify-content: center; 
+    align-items: center;
  }
 
- #content .getin{
+ #contact .getin{
     width: 100%;
     margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
  }
+
+ #contact .getin .getin-details div{
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+ }
+
+ #contact .getin .getin-details div i{
+    line-height: 24px;
+    padding-bottom: 55px;
+ }
+
+ #contact .getin .getin-details div .get{
+    margin-right: 10px;
+ }
+
+ #contact .getin .getin-details .pro-links-ctc i{
+     padding: 10px 13px;
+}
+
 
  #contact .form-contact{
     width: 100%;
     padding: 40px 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+ }
+
+ #contact .form-contact .form-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+ }
+
+ #contact .form-contact .form-row input{
+    width: 100%;
  }
 
 }

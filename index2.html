@@ -1,17 +1,153 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
     <link rel="stylesheet" href="css/estilo.css" />
-    <script type="text/script.js"></script>
 </head>
 <body>
-    <div index2></div>
-    <header class="header">
-        <nav class="barra">
-          <ul class="links">
+
+    <nav class="nav-login">
+        <img src="imagens/logo nome.png" alt="Logo da RedatorPRO">
+        <div class="navigation">
+            <ul>
+                <i id="menu-close" class="fa-solid fa-xmark"></i>
+                <li><a href="index.html"><b>Home</b></a></li>
+                <li><a href="sobre.html"><b>Sobre</b></a></li>
+                <li><a href="blog.html"><b>Blog</b></a></li>
+                <li><a href="contato.html"><b>Contato</b></a></li>
+                <li><a class="active-clr" href="index2.html"><b>Login</b></a></li>
+            </ul>
+            <img id="menu-btn" src="imagens/menu.png" alt="menu-hambúrguer">
+        </div>
+    </nav>
+
+    <main class="main-login">
+        <div class="box-login">
+          <div class="inner-box">
+            <div class="forms-wrap">
+              <form action="home.html" autocomplete="off" class="sign-in-form">
+  
+                <div class="heading">
+                  <h2>Bem-vindo de volta</h2>
+                  <h6>Não tem uma conta?</h6>
+                  <a href="#" class="toggle">Cadastre-se</a>
+                </div>
+  
+                <div class="actual-form">
+                  <div class="input-wrap">
+                    <input
+                      type="text"
+                      minlength="4"
+                      class="input-field"
+                      autocomplete="off"
+                      required
+                    />
+                    <label>Email</label>
+                  </div>
+  
+                  <div class="input-wrap">
+                    <input
+                      type="password"
+                      minlength="4"
+                      class="input-field"
+                      autocomplete="off"
+                      required
+                    />
+                    <label>Senha</label>
+                  </div>
+  
+                  <input type="submit" value="Login" class="sign-btn" />
+  
+                  <p class="text">
+                    Esqueceu sua senha ou e-mail?
+                    <a href="#">Recuperar</a> login
+                  </p>
+                </div>
+              </form>
+  
+              <form action="home.html" autocomplete="off" class="sign-up-form">
+
+               
+                <div class="heading">
+                  <h2>Vamos começar!</h2>
+                  <h6>Já tem uma conta?</h6>
+                  <a href="#" class="toggle">Login</a>
+                </div>
+  
+                <div class="actual-form">
+                  <div class="input-wrap">
+                    <input
+                      type="text"
+                      minlength="4"
+                      class="input-field"
+                      autocomplete="off"
+                      required
+                    />
+                    <label>Nome</label>
+                  </div>
+  
+                  <div class="input-wrap">
+                    <input
+                      type="email"
+                      class="input-field"
+                      autocomplete="off"
+                      required
+                    />
+                    <label>Email</label>
+                  </div>
+  
+                  <div class="input-wrap">
+                    <input
+                      type="password"
+                      minlength="4"
+                      class="input-field"
+                      autocomplete="off"
+                      required
+                    />
+                    <label>Senha</label>
+                  </div>
+  
+                  <input type="submit" value="Continuar" class="sign-btn" />
+  
+                  <p class="text">
+                    By signing up, I agree to the
+                    <a href="#">Terms of Services</a> and
+                    <a href="#">Privacy Policy</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+  
+            <div class="carousel">
+              <div class="images-wrapper">
+                <img src="./img/image1.png" class="image img-1 show" alt="" />
+                <img src="./img/image2.png" class="image img-2" alt="" />
+                <img src="./img/image3.png" class="image img-3" alt="" />
+              </div>
+  
+              <div class="text-slider">
+                <div class="text-wrap">
+                  <div class="text-group">
+                    <h2>Create your own courses</h2>
+                    <h2>Customize as you like</h2>
+                    <h2>Invite students to your class</h2>
+                  </div>
+                </div>
+  
+                <div class="bullets">
+                  <span class="active" data-value="1"></span>
+                  <span data-value="2"></span>
+                  <span data-value="3"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     
+      <script src="js/login.js"></script>
 </body>
 </html>

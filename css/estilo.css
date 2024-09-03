@@ -1799,25 +1799,18 @@ li{
   background-color: #e3e9f7;
 }
 
-#main-tela-home {
-  padding: 20px;
-  position: fixed;
-  z-index: 1;
-  padding-left: calc(82px + 20px);
-  background-color: #e3e9f7;
-}
-
 #sidebar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: white;
   height: 100vh;
   border-radius: 0px 18px 18px 0px;
   position: relative;
   transition: all .5s;
   min-width: 82px;
   z-index: 2;
+  box-shadow: 20px 20px 50px -30px #848fa8;
 }
 
 #sidebar_content {
@@ -1969,10 +1962,12 @@ nav ul .serv-show.show{
 
 .side-item ul li a{
   font-size: 13px;
-  padding-left: 60px;
-  line-height: 35px;
+  padding-left: 40px;
+  line-height: 25px;
   border-left: 3px solid transparent;
+  margin-bottom: 10px;
 }
+
 .feat-show a{
   color: #6b6b6b;
 }
@@ -1988,4 +1983,111 @@ nav ul .serv-show.show{
 .feat-show a:hover, .serv-show a:hover{
   border-left-color: #4f46e5;
   color: #4d48aa;
+}
+
+@media (max-width: 990px) {
+  .side-item ul li a{
+    padding-left:40px;
+    line-height: 20px;
+  }
+}
+
+
+/* CARDS - TELA HOME */
+
+#main-tela-home {
+  padding: 20px;
+  position: fixed;
+  z-index: 1;
+  padding-left: calc(82px + 20px);
+  background-color: #e3e9f7;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#main-tela-home.cards {
+  display: flex;
+  padding: 32px;
+}
+
+#main-tela-home.cards section.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  max-height: 256px;
+  margin-left: 32px;
+}
+
+#main-tela-home.cards section.card .icon {
+  width: 64px;
+  height: 64px;
+}
+
+#main-tela-home.cards section.card img {
+  width: 100%;
+}
+
+#main-tela-home.cards section.card h3 {
+  font-size: 100%;
+  margin: 16px 0;
+}
+
+#main-tela-home.cards section.card span {
+  font-weight: 300;
+  max-width: 240px;
+  font-size: 80%;
+  margin-bottom: 16px;
+
+}
+
+#main-tela-home.cards section.card button {
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  border-radius: 32px;
+  border: 0;
+  cursor: pointer;
+  font-size: 80%;
+  font-weight: 500;
+  color: white;
+}
+
+#main-tela-home.cards section.card.function-1 button {
+  background: linear-gradient(to right, #7856ff, #c293f9);
+}
+#main-tela-home.cards section.card.function-2 button {
+  background: linear-gradient(to right, #f7b95d, hsl(51, 91%, 50%));
+}
+#main-tela-home.cards section.card.function-3  button {
+  background: linear-gradient(to right, #65f66a, #31aa0c);
+}
+
+#main-tela-home.cards section.card.function-1 {
+  box-shadow: 20px 20px 50px -30px #b387fb;
+}
+#main-tela-home.cards section.card.function-2 {
+  box-shadow: 20px 20px 50px -30px #f7b95d;
+}
+#main-tela-home.cards section.card.function-3 {
+  box-shadow: 20px 20px 50px -30px #65f66a;
+}
+
+@media (max-width: 990px) {
+  #main-tela-home.cards {
+    flex-direction: column;
+  }
+
+  #main-tela-home.cards section.card {
+    margin-left: 0;
+    margin-bottom: 32px;
+  }
+
+  #main-tela-home.cards section.card:last-child {
+    margin-bottom: 0  ;
+  }
 }

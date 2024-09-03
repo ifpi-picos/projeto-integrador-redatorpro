@@ -1804,6 +1804,7 @@ li{
   position: fixed;
   z-index: 1;
   padding-left: calc(82px + 20px);
+  background-color: #e3e9f7;
 }
 
 #sidebar {

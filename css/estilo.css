@@ -682,13 +682,17 @@ main.sign-up-mode .carousel {
 
 .navlp .navigation ul{
     display: flex;
-    justify-content: flex-end;
+    text-align: center;
+    justify-content: space-between;
     align-items: center;
+    align-content: center;
 }
 
 .navlp .navigation ul li{
     list-style: none;
-    margin-left: 30px;
+    margin: 0 20px 0 20px;
+    text-align: center;
+    align-content: center;
 }
 
 .navlp .navigation ul li a{
@@ -702,6 +706,7 @@ main.sign-up-mode .carousel {
     padding: 0;
     background-color: transparent;
 }
+
 
 nav .navigation ul li a.active-clr,
 nav .navigation ul li a:hover{

@@ -1894,6 +1894,38 @@ li{
   height: 0px;
 }
 
+#sidebar .side-item .description{
+  color: #0a0a0a;
+  position: absolute;
+  margin-left: 260px;
+  padding: 5px 10px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
+  transition: .4s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+#sidebar .side-item:hover .description{
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-25px);
+}
+
+
+#sidebar .side-item .description::before{
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  left: -6px;
+  top: 35%;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
 #sidebar.open-sidebar {
   min-width: 15%;
 }

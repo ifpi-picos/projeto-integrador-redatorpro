@@ -29,265 +29,6 @@
     color: #fff;
   }
 
-  /*
-  .btn3{
-    margin-top: 30px;
-    margin-left: 180px;
-  }
-
-  .btn3 .color3{
-    text-decoration: none;
-    font-size: 0.9rem;
-    padding: 13px 35px;
-    background-color: #fff;
-    color: #65589E;
-    font-weight: 600;
-    border-radius: 5px;
-    box-shadow: 0 5px
-      10px rgba(0, 0, 0, 0.3);
-  }
-  
-  a.color1{
-    color: #fff;
-    background: #246493;
-    transition: all 0.3s ease;
-  }
-  
-  a.color1:hover{
-    color: #246493;
-    background: #fff;
-  }
-
-  .wrapper {
-    position: relative;
-    max-width: 470px;
-    width: 100%;
-    border-radius: 12px;
-    padding: 20px
-      30px
-      120px;
-      background: #ffffffc4;
-    box-shadow: 0
-      5px
-      10px;
-    overflow: hidden;
-  }
-
-  .imgbox {
-    height: 75px;
-    
-
-  }
-
-  .form.login {
-    position: absolute;
-    left: 50%;
-    bottom: -86%;
-    transform: translateX(
-      -50%
-    );
-    width: calc(
-      100% +
-        220px
-    );
-    padding: 20px
-      140px;
-    border-radius: 50%;
-    height: 100%;
-    background: rgb(60, 123, 162);
-    transition: all
-      0.6s
-      ease;
-  }
-  .wrapper.active
-    .form.login {
-    bottom: -15%;
-    border-radius: 35%;
-    box-shadow: 0 -5px
-      10px rgba(3, 0, 0, 0.1);
-  }
-  .form
-    header {
-    font-size: 30px;
-    text-align: center;
-    color: #000;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .form.login
-    header {
-      color: #ffffff;
-    opacity: 0.6;
-  }
-  .wrapper.active
-    .form.login
-    header {
-    opacity: 1;
-  }
-  .wrapper.active
-    .signup
-    header {
-    opacity: 0.6;
-  }
-  .wrapper
-    form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 40px;
-  }
-  form
-    input {
-    height: 60px;
-    outline: none;
-    border: none;
-    padding: 0
-      15px;
-    font-size: 16px;
-    font-weight: 400;
-    color: #333;
-    border-radius: 8px;
-    background: #ffffff;
-  }
-  .form.login
-    input {
-    border: 1px
-      solid
-      #aaa;
-  }
-  .form.login
-    input:focus {
-    box-shadow: 0
-      1px 0
-      #ddd;
-  }
-  form
-    .checkbox {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .checkbox
-    input[type="checkbox"] {
-    height: 16px;
-    width: 16px;
-    accent-color: #aaa;
-    cursor: pointer;
-  }
-  form
-    .checkbox
-    label {
-    cursor: pointer;
-    color: #000;
-  }
-  form a {
-    color: #333;
-    text-decoration: none;
-  }
-  form
-    a:hover {
-    text-decoration: underline;
-  }
-  form
-    input[type="submit"] {
-    margin-top: 15px;
-    padding: none;
-    font-size: 18px;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  .form.login
-    input[type="submit"] {
-      background: #246493;
-      color: #fff;
-      font-weight: bold;
-    border: none;
-  }
-  .cor{
-    color: #f4f4f4;
-}
-.corLogin{
-    background:#65589E;
-    color: #ffffff;
-}
-
-.img {
-    width: 50%;
-    
-}
-
-.container {
-  width: 500px;
-  height: 300px;
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-90%, -3%);
-  box-shadow: 0 5px 10px #888;
-  
-  }
-  
-.slides {
-  display: flex;
-  width: 400%;
-  height: 100%;
-  
-  }
-  
-.slides input {
-  display: none;
-  
-  }
-
-.imagens one{
-  width: 25%;
-  transition: .6s;
-  
-  
-}
-
-.imagens {
-  width: 25%;
-  transition: .6s;
-  
-}
-  
-.imagens img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  
-  }
-  
-.navigation-login{
-  position: absolute;
-  bottom: 5px;
-  left: 50%;
-  transform: translate(-50%);
-  display: flex;
-  }
-  
-.navigation-login .nav {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #888;
-  margin: 6px;
-  cursor: pointer;
-  transition: .9s;
-  
-  }
-  
-.navigation-login .nav:hover {
-  background: #fff;
-  border: 2px solid #fff;
-  
-  } */
-
-  /* Nova Tela dde Login */
-
   *,
   *::before,
   *::after {
@@ -1311,6 +1052,26 @@ li{
 
 /* Landing Page - Contato */
 
+#contact-home {
+  background-image: linear-gradient(rgba(7, 4, 44, 0.536), rgba(5, 4, 46, 0.813)), url(../imagens/contatosback.jpeg);
+  width: 100%;
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 40px;
+}
+
+#contact-home h2 {
+  color: #fff;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+
 #contact{
   padding: 8vw;
   display: flex;
@@ -1485,6 +1246,69 @@ li{
     width: 95%;
   }
 
+}
+
+
+@media (max-width: 850px) {
+  /* Login */
+
+  .box {
+    height: auto;
+    max-width: 550px;
+    overflow: hidden;
+  }
+
+  .inner-box {
+    position: static;
+    transform: none;
+    width: revert;
+    height: revert;
+    padding: 2rem;
+  }
+
+  .forms-wrap {
+    position: revert;
+    width: 100%;
+    height: auto;
+  }
+
+  form {
+    max-width: revert;
+    padding: 1.5rem 2.5rem 2rem;
+    transition: transform 0.8s ease-in-out, opacity 0.45s linear;
+  }
+
+  .heading {
+    margin: 2rem 0;
+  }
+
+  form.sign-up-form {
+    transform: translateX(100%);
+  }
+
+  main.sign-up-mode form.sign-in-form {
+    transform: translateX(-100%);
+  }
+
+  main.sign-up-mode form.sign-up-form {
+    transform: translateX(0%);
+  }
+
+  .carousel {
+    position: revert;
+    height: auto;
+    width: 100%;
+    padding: 3rem 2rem;
+    display: flex;
+  }
+
+  .images-wrapper {
+    display: none;
+  }
+
+  .text-slider {
+    width: 100%;
+  }
 }
 
 
@@ -1741,6 +1565,37 @@ li{
  #contact .form-contact .form-row input{
     width: 100%;
  }
+
+ /* Login */
+
+ main {
+  padding: 1rem;
+}
+
+.box {
+  border-radius: 2rem;
+}
+
+.inner-box {
+  padding: 1rem;
+}
+
+.carousel {
+  padding: 1.5rem 1rem;
+  border-radius: 1.6rem;
+}
+
+.text-wrap {
+  margin-bottom: 1rem;
+}
+
+.text-group h2 {
+  font-size: 1.2rem;
+}
+
+form {
+  padding: 1rem 2rem 1.5rem;
+}
 
 }
 

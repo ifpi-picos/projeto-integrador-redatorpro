@@ -1839,8 +1839,33 @@ nav ul .serv-show.show{
   }
 }
 
+/* NOVA TELA HOME */
 
-/* CARDS - TELA HOME */
+#home-header {
+  background: 0;
+}
+
+
+#home-main {
+  background: #e3e9f7;
+  text-align: center;
+  flex-direction: column;
+  position: fixed;
+}
+
+#home-main p {
+  margin-bottom: 30px;
+  height: 100%;
+}
+
+@media (max-width: 990px) {
+  #home-main {
+    padding: 100px;
+    margin-left: 40px;
+  }
+}
+
+/* CARDS - TELA HOME
 
 #main-tela-home {
   padding: 20px;
@@ -1938,3 +1963,4 @@ nav ul .serv-show.show{
     margin-bottom: 0  ;
   }
 }
+*/

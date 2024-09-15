@@ -1842,15 +1842,29 @@ nav ul .serv-show.show{
 /* NOVA TELA HOME */
 
 #home-header {
-  background: 0;
+  z-index: 1;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; 
+  padding: 10px; /* Espaçamento interno opcional */
 }
 
+#home-header h1:first-child {
+  margin-top: 50px ;
+}
 
 #home-main {
   background: #e3e9f7;
   text-align: center;
   flex-direction: column;
   position: fixed;
+}
+
+#home-main a {
+  text-decoration: none;
+  color: #0a0a0a;
 }
 
 #home-main p {
@@ -1862,6 +1876,12 @@ nav ul .serv-show.show{
   #home-main {
     padding: 100px;
     margin-left: 40px;
+  }
+
+  
+  #home-header {
+    font-size: 80%;
+    margin-left: 70px;
   }
 }
 

@@ -1828,8 +1828,8 @@ nav ul .serv-show.show{
 }
 
 .feat-show a:hover, .serv-show a:hover{
-  border-left-color: #4f46e5;
-  color: #4d48aa;
+  border-left-color: #e3e9f7;
+  color: #eec300;
 }
 
 @media (max-width: 990px) {
@@ -1878,7 +1878,10 @@ nav ul .serv-show.show{
     margin-left: 40px;
   }
 
-  
+  #home-main h1 {
+    font-size: 140%;
+  }
+
   #home-header {
     font-size: 80%;
     margin-left: 70px;

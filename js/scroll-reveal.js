@@ -17,13 +17,13 @@ ScrollReveal().reveal('.mensagem-pro', {
 });
 
 ScrollReveal().reveal('.tutorial', {
-    delay: 1600,
+    delay: 2000,
     duraction: 4000,
     distance: '40%',
 });
 
 ScrollReveal().reveal('.icon-tutorial', {
-    delay: 1800,
+    delay: 2200,
     duraction: 4000,
     distance: '40%',
 })

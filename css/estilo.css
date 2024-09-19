@@ -323,6 +323,15 @@
     border-radius: 1rem;
   }
 
+  .sld-text a{
+    text-decoration: none;
+    color: #000;
+  }
+
+  .sld-text a:hover{
+    color: #8371fd;
+  }
+
   /* landing page - home */
 
 .bodylp {

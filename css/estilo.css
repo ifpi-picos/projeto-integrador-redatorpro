@@ -1659,12 +1659,15 @@ form {
   display: flex;
   flex-direction: column;
   font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 #user_infos span:last-child {
   color: #6b6b6b;
   font-size: 12px;
   font-weight: normal;
+  text-overflow: ellipsis;
 }
 
 #side_items {
@@ -1897,15 +1900,10 @@ nav ul .serv-show.show{
   }
 }
 
-/* CARDS - TELA HOME
 
 #main-tela-home {
   padding: 20px;
-  position: fixed;
-  z-index: 1;
-  padding-left: calc(82px + 20px);
   background-color: #e3e9f7;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1995,4 +1993,3 @@ nav ul .serv-show.show{
     margin-bottom: 0  ;
   }
 }
-*/

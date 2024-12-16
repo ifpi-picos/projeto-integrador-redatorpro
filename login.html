@@ -5,9 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="ico/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="ico/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="ico/favicon-16x16.png">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="ico/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="ico/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="ico/favicon-16x16.png"
+    />
     <link rel="stylesheet" href="css/estilo.css" />
   </head>
   <body>
@@ -62,7 +76,7 @@
                 <img src="imagens/logo nome.png" alt="RedatorPRO" />
               </div>
 
-              <div  class="heading">
+              <div class="heading">
                 <h2>Vamos Começar!</h2>
                 <h6>Já tem uma conta?</h6>
                 <a href="#" class="toggle">Login</a>
@@ -71,6 +85,7 @@
               <div class="actual-form">
                 <div class="input-wrap">
                   <input
+                    id="nome"
                     type="text"
                     minlength="4"
                     class="input-field"
@@ -82,6 +97,7 @@
 
                 <div class="input-wrap">
                   <input
+                    id="email"
                     type="email"
                     class="input-field"
                     autocomplete="off"
@@ -92,6 +108,7 @@
 
                 <div class="input-wrap">
                   <input
+                    id="senha"
                     type="password"
                     minlength="4"
                     class="input-field"
@@ -101,7 +118,13 @@
                   <label>Senha</label>
                 </div>
 
-                <input type="submit" value="Continuar" class="sign-btn" />
+                <button
+                  onclick="adicionarUsuario()"
+                  type="button"
+                  class="sign-btn"
+                >
+                  Salvar
+                </button>
 
                 <p class="text">
                   Cadastrando, eu concordo com os
@@ -114,7 +137,11 @@
 
           <div class="carousel">
             <div class="images-wrapper">
-              <img src="imagens/slide (1).jpeg" class="image img-1 show" alt="" />
+              <img
+                src="imagens/slide (1).jpeg"
+                class="image img-1 show"
+                alt=""
+              />
               <img src="imagens/slide (2).jpeg" class="image img-2" alt="" />
               <img src="imagens/slide (3).jpeg" class="image img-3" alt="" />
             </div>
@@ -122,9 +149,9 @@
             <div class="text-slider">
               <div class="text-wrap">
                 <div class="text-group">
-                  <h2  class="sld-text"> <a href="sobre.html">Saiba Mais</a> </h2>
-                  <h2  class="sld-text"> <a href="sobre.html">Saiba Mais</a> </h2>
-                  <h2  class="sld-text"> <a href="sobre.html">Saiba Mais</a> </h2>
+                  <h2 class="sld-text"><a href="sobre.html">Saiba Mais</a></h2>
+                  <h2 class="sld-text"><a href="sobre.html">Saiba Mais</a></h2>
+                  <h2 class="sld-text"><a href="sobre.html">Saiba Mais</a></h2>
                 </div>
               </div>
 
@@ -138,7 +165,8 @@
         </div>
       </div>
     </main>
-    
-      <script src="js/login.js"></script>
-</body>
+
+    <script src="js/login.js"></script>
+    <script src="js/users.js"></script>
+  </body>
 </html>

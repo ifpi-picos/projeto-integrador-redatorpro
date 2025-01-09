@@ -10,7 +10,7 @@ async function adicionarUsuario() {
     password: campoSenha.value
   }
 
-  const resposta = await fetch('https://express-e3hm.onrender.com', {
+  const resposta = await fetch('https://express-e3hm.onrender.com/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

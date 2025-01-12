@@ -1,14 +1,14 @@
 
 async function adicionarUsuario() {
-  const campoNome = document.querySelector('#nome')
-  const campoEmail = document.querySelector("#email")
-  const campoSenha = document.querySelector("#senha")
+  const campoNome = document.querySelector('#nome');
+  const campoEmail = document.querySelector("#email");
+  const campoSenha = document.querySelector("#senha");
 
   const usuario = {
     name: campoNome.value,
     email: campoEmail.value,
     password: campoSenha.value
-  }
+  };
 
   const resposta = await fetch('https://express-e3hm.onrender.com/users', {
     method: 'POST',
@@ -16,15 +16,16 @@ async function adicionarUsuario() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(usuario)
-  })
+  });
 
   if (resposta.ok) {
-    console.log('Cadastro realizado com sucesso!!')
+    console.log('Cadastro realizado com sucesso!!');
     const user = await resposta.json();
-    localStorage.setItem('name', user.name)
-    localStorage.setItem('email', user.email)
-    window.location.href = 'home.html'
+    localStorage.setItem('name', user.name);
+    localStorage.setItem('email', user.email);
+    window.location.href = 'https://jmarcosmoura.github.io/RedatorPro/www/index.html';
   } else {
-    console.log('Erro ao realizar cadastro!!')
+    console.log('Erro ao realizar cadastro!!');
   }
 }
+

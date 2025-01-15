@@ -47,7 +47,7 @@ fetch('js/backend.json')
 function checkLoginStatus() {
     if (localStorage.getItem('isLoggedIn') !== 'true') {
         // Se não estiver logado, redireciona para a página de login
-        window.location.href = '/login.html';
+        window.location.href = '../login.html';
     }
 }
 

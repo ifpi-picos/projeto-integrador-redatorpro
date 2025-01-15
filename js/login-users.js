@@ -28,7 +28,7 @@ document.querySelector('.sign-in-form').addEventListener('submit', async functio
             localStorage.setItem('isLoggedIn', 'true');
 
             // Redireciona para a página principal
-            window.location.href = 'www/index.html';
+            window.location.href = 'index.html';
         } else {
             alert('Email ou senha inválidos. Por favor, tente novamente.');
         }

@@ -41,3 +41,24 @@ fetch('js/backend.json')
 
 })
 .catch(error => console.error('Error ao fazer fetch dos dados: ' + error));
+
+
+// Função para verificar se o usuário está logado
+function checkLoginStatus() {
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+        // Se não estiver logado, redireciona para a página de login
+        window.location.href = '/login.html';
+    }
+}
+
+// Verifica se o usuário está logado
+checkLoginStatus();
+
+// Função de logout
+function logout() {
+    // Remove o status de login do localStorage
+    localStorage.removeItem('isLoggedIn');
+    
+    // Redireciona para a página de login
+    window.location.href = '/login.html';
+}

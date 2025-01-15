@@ -1,3 +1,14 @@
+// Função para verificar se o usuário já está logado
+function checkLoginStatus() {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        // Se estiver logado, redireciona para a página principal
+        window.location.href = 'www/index.html';
+    }
+}
+
+// Verifica se o usuário já está logado
+checkLoginStatus();
+
 // VALIDAR LOGIN
 document.querySelector('.sign-in-form').addEventListener('submit', async function (event) {
     event.preventDefault(); // Impede o envio padrão do formulário
@@ -13,11 +24,11 @@ document.querySelector('.sign-in-form').addEventListener('submit', async functio
         const user = users.find(user => user.email === email && user.password === password);
 
         if (user) {
-            // Armazena o estado de autenticação no localStorage
+            // Define o status de login no localStorage
             localStorage.setItem('isLoggedIn', 'true');
 
             // Redireciona para a página principal
-            window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
+            window.location.href = 'www/index.html';
         } else {
             alert('Email ou senha inválidos. Por favor, tente novamente.');
         }

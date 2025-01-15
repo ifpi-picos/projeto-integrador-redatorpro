@@ -1,0 +1,131 @@
+:root{
+    --branco: #ffff;
+    --gelo: #f1f1f1;
+    --azulclaro: #DFF1FF;
+    --azulgelo: #93B4D7;
+    /*--azul: #006494;*/
+    --azul: #2196f3;
+    --darkazul: #13293D;
+    --preto: #2a2a2a;
+    --cinza: #cbcbcb;
+    --vermelho: #ef4d4d;
+    --verde: #19c463;
+}
+
+.corretor-detail {
+    background: var(--gelo);
+    width: 100%;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.corretor-detail img {
+    max-width: 400px;
+}
+
+.buttons-top {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons-top a{
+    width: 40px;
+    height: 40px;
+    background-color: var(--branco);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--preto);
+    border: 1px solid var(--gelo);
+    font-size: 18px;
+}
+
+.buttons-top a:first-child {
+    margin-left: 20px;
+    margin-right: auto;
+}
+
+.buttons-top a:last-child {
+    margin-left: 5px;
+    margin-right: 20px;
+}
+
+.corretor-content {
+    margin-top: -50px;
+    background: var(--branco);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    position: relative;
+    z-index: 99;
+}
+
+.line b {
+    font-size: 20px;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row wrap;
+}
+
+.specialty-btn {
+    width: 30%;
+    background: var(--azul);
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    color: var(--branco);   
+}
+
+.btn-rates {
+    border: 1px solid var(--cinza);
+    border-radius: 20px;
+    padding: 5px 10px;
+    background: none;
+    margin-right: 5px;
+    width: 80px;
+    font-size: 16px;
+}
+
+.ri-thumb-up-fill {
+    color: var(--verde);
+}
+
+.reviews {
+    color: gray;
+}
+
+.flex-40 {
+    flex: 40%;
+}
+
+.flex-60 {
+    flex: 60%;
+}
+
+.pergunta {
+    font-weight: 800;
+    font-size: 22px;
+}
+
+.add-corretor {
+    width: 90%;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: var(--verde);
+    color: var(--branco);
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 800;
+}

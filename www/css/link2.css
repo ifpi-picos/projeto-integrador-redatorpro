@@ -1,0 +1,162 @@
+:root {
+    --branco: #ffff;
+    --gelo: #f1f1f1;
+    --azulclaro: #DFF1FF;
+    --azulgelo: #93B4D7;
+    /*--azul: #006494;*/
+    --azul: #2196f3;
+    --darkazul: #13293D;
+    --preto: #2a2a2a;
+}
+
+/* Estilos da barra de pesquisa */
+form {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background: var(--branco);
+    position: relative;
+}
+  
+input[type="text"] {
+    width: 90%;
+    height: 45px;
+    border-radius: 10px;
+    margin: auto;
+    padding: 10px 20px;
+    background: var(--gelo);
+}
+  
+::placeholder {
+    color: #B3AFAF;
+}
+  
+.icone-busca {
+    position: absolute;
+    top: 0px;
+    right: 5%;
+    font-size: 27px;
+    padding: 13px;
+}
+  
+.filter-buttons {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    gap: 10px; /* Espaçamento entre os botões */
+    margin: 10px 0;
+}
+
+.filter-buttons button {
+    padding: 8px 12px; /* Menor padding para reduzir o tamanho */
+    background-color: var(--darkazul);
+    color: white;
+    border: none;
+    border-radius: 8px; /* Bordas menores */
+    cursor: pointer;
+    flex: 1; /* Faz os botões ocuparem o mesmo espaço */
+    max-width: 100px; /* Limita o tamanho máximo */
+    font-size: 14px; /* Fonte menor */
+}
+
+.filter-buttons button:hover {
+    background-color: var(--azul);
+}
+  
+  /* Lista de pessoas */
+.person-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+}
+  
+  /* Cartão de pessoa */
+.person-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-radius: 14px;
+    padding: 1rem;
+}
+
+.person-card-skeleton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 1rem;
+}
+  
+.person-info {
+    display: flex;
+    align-items: center;
+}
+  
+.person-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+.person-skeleton {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 1rem;
+    background: var(--gelo);
+}
+
+.color-gelo {
+    background: var(--gelo) !important;
+}
+  
+.person-details {
+    display: flex;
+    flex-direction: column;
+}
+  
+.person-name {
+    font-size: normal;
+    font-weight: normal;
+    margin: 0;
+}
+  
+.person-specialty {
+    font-size: normal;
+    color: #808080; /* Cinza */
+}
+  
+.person-rating {
+    display: flex;
+    align-items: center;
+}
+  
+.rating-score {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.item:last-child {
+    padding-bottom: 220px;
+}
+
+/* Responsividade
+@media (min-width: 768px) {
+    .person-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+  
+@media (min-width: 1024px) {
+    .person-list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .person-card {
+    width: 90%;
+    margin: auto;
+    }
+}
+*/

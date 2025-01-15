@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>Template Tab</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!-- CSS PERSONALIZADO-->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/link2.css">
+    <link rel="stylesheet" href="css/detalhes.css">
+    <link rel="stylesheet" href="css/favoritos.css">
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <!--Ìcones Remix icon-->
+    <link rel="stylesheet" href="css/remixicon/remixicon.css">
+
+</head>
+
+<body>
+    <!-- App root element -->
+    <div id="app">
+
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+
+            <!-- TAB BAR-->
+            <div id="menuPrincipal" class="toolbar toolbar-bottom">
+                <div class="toolbar-inner display-flex">
+                    <a href="/index/" class="tab-link link active">
+                        <i class="ri-home-7-line"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/link2/" class="tab-link link">
+                        <i class="ri-search-2-line"></i>
+                        <span>Pesquisa</span>
+                    </a>
+                    <a href="/favoritos/" class="tab-link link">
+                        <i class="ri-heart-3-line"></i>
+                        <span>Favoritos</span>
+                    </a>
+                    <a href="/link4/" class="tab-link link">
+                        <i class="ri-user-line"></i>
+                        <span>Usuário</span>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="index" class="page color-theme-blue">
+
+                <!-- NAV TOPO -->
+                <div class="top-nav">
+                    <h1 class="title-logo"><span>Redator</span>Pro</h1>
+                    <a href="#" class="btn-cart" data-count="0">
+                        <i class="ri-notification-3-line"></i>
+                    </a>
+                </div>
+
+                <form>
+                    <input placeholder="O que voçê procura?" type="text">
+                    <i class="icone-busca ri-search-2-line"></i>
+                </form>
+
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <div class="block no-margin-top">
+                        <!-- Swiper -->
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img class="img-fluid" src="img/propaganda-1-RP.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="img-fluid" src="img/propaganda-2.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="img-fluid" src="img/propaganda-3.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="img-fluid" src="img/propaganda-4.png">
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+
+                        <div class="margin-top display-flex align-items-center justify-content-space-between">
+                            <h2>Funções</h2>
+                            <a>Veja todas <i class="mdi mdi-arrow-right"></i> </a>
+                        </div>
+
+                        <!-- Swiper -->
+                        <!--<div class="swiper categorias">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="filter-btn">
+                                        Função1
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>-->
+
+
+                        <div id="functions" class="row display-flex align-items-center justify-content-start">
+
+                            <!--ITEM CARD SKELETON-->
+                            <div class="item-card">
+                                <a href="#" class="item">
+                                    <div class="img-skeleton skeleton-effect-wave">
+
+                                    </div>
+                                    <div class="nome-rating">
+                                        <span style="width: 90px;"
+                                            class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--ITEM CARD SKELETON-->
+                            <div class="item-card">
+                                <a href="#" class="item">
+                                    <div class="img-skeleton skeleton-effect-wave">
+
+                                    </div>
+                                    <div class="nome-rating">
+                                        <span style="width: 90px;"
+                                            class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--ITEM CARD PREMIUM-->
+                            <div class="item-card">
+                                <a href="#" class="item">
+                                    <div class="img-skeleton skeleton-effect-wave">
+
+                                    </div>
+                                    <div class="nome-rating">
+
+                                        <span style="width: 90px; margin-right: auto;"
+                                            class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                        <span style="width: 50px; margin-right: 5px;"
+                                            class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                        <span style="width: 20px; margin-right: 15px;"
+                                            class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                        
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!--ITEM CARD SKELETON-->
+                            <div class="item-card">
+                                <a href="#" class="item">
+                                    <div class="img-skeleton skeleton-effect-wave">
+
+                                    </div>
+                                    <div class="nome-rating">
+                                        <span style="width: 90px;"
+                                            class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                    </div>
+                                </a>
+                            </div>
+
+
+
+                            <!--função premium
+                            <div class="item-card">
+                                <a href="#" class="item">
+                                    <div class="img-container">
+                                        <img src="img/coelho-function.png">
+                                    </div>
+                                    <div class="nome-rating">
+                                        <span class="color-gray">Coelho fofis</span>
+                                        <span class="bold margin-right">
+                                            <i class="ri-lock-star-fill"></i>
+                                            <text class="funcao-premium">premium</text>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>-->
+
+                            <!--card corretores
+                            <div class="item-card">
+                                <a href="#" class="item">
+                                    <div class="img-container">
+                                        <img src="img/coelho-function.png">
+                                    </div>
+                                    <div class="nome-rating">
+                                        <span class="color-gray">Coelho fofis</span>
+                                        <span class="bold margin-right">
+                                            <i class="mdi mdi-star"></i>
+                                            4.5
+                                        </span>
+                                    </div>
+                                    <div class="especialidade bold">ENEM</div>
+                                </a>
+                            </div>-->
+
+                        </div>
+                        <br><br><br><br><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+
+    <script>
+        // Previne o envio do formulário
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        });
+
+        // Previne o comportamento global de pressionar Enter
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Impede o comportamento padrão
+            }
+        });
+
+        // Verifica se o usuário está logado ao carregar a página
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+        // Se não estiver logado, redireciona para a página de login
+            window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/login.html';
+        }
+
+    </script>
+
+</body>
+
+</html>

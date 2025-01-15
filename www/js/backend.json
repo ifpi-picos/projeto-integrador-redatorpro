@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "imagem": "img/funcao-folha-de-redação.png",
+        "nome": "Folha de Redação",
+        "rating": "",
+        "icone": ""
+    },
+    {
+        "id": 2,
+        "imagem": "img/funcao-temas.png",
+        "nome": "Temas",
+        "rating": "",
+        "icone": ""
+    },
+    {
+        "id": 3,
+        "imagem": "img/funcao-exercicios.png",
+        "nome": "Exercícios",
+        "rating": "premium",
+        "icone": "ri-lock-star-fill"
+    },
+    {
+        "id": 4,
+        "imagem": "img/funcao-banco-de-redacoes.png",
+        "nome": "Banco de Redações",
+        "rating": "",
+        "icone": ""
+    }
+]

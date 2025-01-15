@@ -23,7 +23,7 @@ async function adicionarUsuario() {
     const user = await resposta.json();
     localStorage.setItem('name', user.name);
     localStorage.setItem('email', user.email);
-    window.location.href = 'https://jmarcosmoura.github.io/RedatorPro/www/index.html';
+    window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
   } else {
     console.log('Erro ao realizar cadastro!!');
   }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>Template Tab</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!-- CSS PERSONALIZADO PARA MENU-->
+    <link rel="stylesheet" href="css/detalhes.css">
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <!--Ìcones Remix icon-->
+    <link rel="stylesheet" href="css/remixicon/remixicon.css">
+
+</head>
+
+<body>
+    <!-- App root element -->
+    <div id="app">
+
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="detalhes" class="page color-theme-blue">
+                <!-- TAB BAR-->
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner display-flex align-items-center justify-content-center">
+                        <div class="flex-40 text-align-center">
+                            <h3 class="pergunta">Gostou?</h3>
+                        </div>
+                        <div class="flex-60">
+                            <button class="add-corretor">Adicionar Corretor</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <div class="corretor-detail">
+                        <div class="buttons-top">
+                            <a href="/link2/"><i class="ri-arrow-left-s-line"></i></a>
+                            <a id="ad-card" href="#"><i class="ri-heart-3-line"></i></a>
+                            <a href="#"><i class="ri-share-line"></i></a>
+                        </div>
+                        <img id="imagem-detalhe" src="img/default.png">
+                    </div>
+                    <div class="corretor-content">
+                        <div class="block">
+                            <div class="line padding-top">
+                                <b id="nome-detalhe" class="margin-left">Nome do Corretor</b>
+                                <button id="especialidade-detalhe" class="specialty-btn">Especialidade</button>
+                            </div>
+                            <div class="margin-top display-flex align-items-center justify-content-start">
+                                <button class="margin-left btn-rates"><i class="mdi mdi-star"></i><span id="rating-detalhe">4.8</span></button>
+                                <button class="btn-rates"><i class="ri-thumb-up-fill"></i><span id="like-detalhe">90%</span></button>
+                                <span id="rewies-detalhe" class="reviews">110 reviews</span>
+                            </div>
+                            <div class="display-flex align-items-center justify-content-center">
+                                <P id="descrição-detalhe">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas at fugiat obcaecati
+                                    assumenda fugit perferendis error ea. Iste quam blanditiis eum, neque ab obcaecati,
+                                    cumque, atque sapiente perferendis corporis sit?</P>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+
+</body>
+
+</html>

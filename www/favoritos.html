@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>Template Tab</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!-- CSS PERSONALIZADO PARA MENU-->
+    <link rel="stylesheet" href="css/detalhes.css">
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <!--Ìcones Remix icon-->
+    <link rel="stylesheet" href="css/remixicon/remixicon.css">
+
+</head>
+
+<body>
+    <!-- App root element -->
+    <div id="app">
+
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="favoritos" class="page color-theme-blue">
+
+                <div class="nav-top favority">
+                    <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
+                    <strong><i class="ri-heart-3-fill"></i> Favoritos</strong>
+                    <a href="#" class="link popover-open" data-popover=".popover-menu"><i class="ri-more-fill"></i></a>
+                </div>
+
+                <div class="popover popover-menu">
+                    <div class="popover-angle"></div>
+                    <div class="popover-inner">
+                        <div class="list">
+                            <ul>
+                                <li>
+                                    <a id="esvaziar" href="#" class="list-button popover-close">
+                                        <i class="mdi mdi-broom"></i>
+                                        <span>Esvaziar a lista</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB BAR
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner display-flex align-items-center justify-content-center">
+                        <div class="flex-40 text-align-center">
+                            <h3 class="pergunta">Gostou?</h3>
+                        </div>
+                        <div class="flex-60">
+                            <button class="add-corretor">Adicionar Corretor</button>
+                        </div>
+                    </div>
+                </div>-->
+
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <div id="listaFavoritos">
+                        <!--CORRETOR FAVORITO-->
+                        <div class="item-favorito">
+                            <div class="area-img">
+                                <img src="img/default.png">
+                            </div>
+                            <div class="area-details">
+                                <div class="sup">
+                                    <span class="name-corretor">
+                                        Nome do Corretor
+                                    </span>
+                                    <a class="delete" href="#">
+                                        <i class="mdi mdi-close"></i>
+                                    </a>
+                                </div>
+                                <div class="middle">
+                                    <span>Especialidade</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--CORRETOR FAVORITO-->
+                        <div class="item-favorito">
+                            <div class="area-img">
+                                <img src="img/default.png">
+                            </div>
+                            <div class="area-details">
+                                <div class="sup">
+                                    <span class="name-corretor">
+                                        Nome do Corretor
+                                    </span>
+                                    <a class="delete" href="#">
+                                        <i class="mdi mdi-close"></i>
+                                    </a>
+                                </div>
+                                <div class="middle">
+                                    <span>Especialidade</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+
+</body>
+
+</html>

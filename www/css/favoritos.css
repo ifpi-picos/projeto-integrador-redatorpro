@@ -1,0 +1,114 @@
+:root {
+    --branco: #ffff;
+    --gelo: #f1f1f1;
+    --azulclaro: #DFF1FF;
+    --azulgelo: #93B4D7;
+    /*--azul: #006494;*/
+    --azul: #2196f3;
+    --darkazul: #13293D;
+    --preto: #2a2a2a;
+    --cinza: #cbcbcb;
+    --vermelho: #ef4d4d;
+    --verde: #19c463;
+}
+
+.nav-top.favority {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--branco);
+    padding: 10px 0px;
+}
+
+.nav-top.favority a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--gelo);
+    border-radius: 50%;
+    color: var(--preto);
+}
+
+.nav-top.favority a:first-child {
+    margin-left: 20px;
+}
+
+.nav-top.favority a:last-child {
+    margin-right: 20px;
+}
+
+#listaFavoritos {
+    display: flex;
+    flex-flow: column wrap;
+    margin-top: 20px;
+    padding-bottom: 280px;
+}
+
+.item-favorito {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 120px;
+    padding: 10px 0px;
+    /*background-color: blue;*/
+    margin: auto;
+    border-bottom: 1px solid var(--gelo);
+}
+
+.area-img {
+    flex: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gelo);
+    border-radius: 20px;
+    overflow: hidden; /* Evita overflow */
+}
+
+.area-img img {
+    width: 100%; /* Ajusta a largura da imagem */
+    height: 100%; /* Ajusta a altura da imagem */
+    object-fit: cover; /* Faz a imagem cobrir a área sem distorção */
+    object-position: center; /* Centraliza a imagem */
+}
+
+.area-details {
+    flex: 70%;
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+    height: 100%;
+}
+
+.sup {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.name-corretor {
+    font-weight: 600;
+    font-size: 20px;
+    margin-left: 15px;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.delete {
+    font-size: 18px;
+    color: #9e9e9e;
+    margin-right: 10px;
+}
+
+.middle span {
+    color: gray;
+    margin-left: 15px;
+}

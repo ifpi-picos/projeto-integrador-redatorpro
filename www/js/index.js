@@ -44,11 +44,13 @@ fetch('js/backend.json')
 
 document.addEventListener('DOMContentLoaded', () => {
     const user = JSON.parse(localStorage.getItem('loggedUser'));
+    console.log('Dados do usuário recuperados do localStorage:', user);
 
     if (user) {
         document.querySelector('#user_infos .item-description:nth-child(1)').textContent = user.name;
         document.querySelector('#user_infos .item-description:nth-child(2)').textContent = user.email;
     } else {
+        console.warn('Nenhum usuário encontrado no localStorage. Redirecionando para login.');
         window.location.href = '../login.html';
     }
 });

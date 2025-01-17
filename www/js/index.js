@@ -41,3 +41,14 @@ fetch('js/backend.json')
 
 })
 .catch(error => console.error('Error ao fazer fetch dos dados: ' + error));
+
+document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+
+    if (user) {
+        document.querySelector('#user_infos .item-description:nth-child(1)').textContent = user.name;
+        document.querySelector('#user_infos .item-description:nth-child(2)').textContent = user.email;
+    } else {
+        window.location.href = '../login.html';
+    }
+});

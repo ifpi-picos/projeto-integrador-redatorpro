@@ -1,4 +1,3 @@
-// VALIDAR LOGIN
 document.querySelector('.sign-in-form').addEventListener('submit', async function (event) {
     event.preventDefault(); // Impede o envio padrão do formulário
 
@@ -13,6 +12,10 @@ document.querySelector('.sign-in-form').addEventListener('submit', async functio
         const user = users.find(user => user.email === email && user.password === password);
 
         if (user) {
+            // Armazena os dados do usuário no localStorage
+            localStorage.setItem('loggedUser', JSON.stringify({ name: user.name, email: user.email }));
+
+            // Redireciona para a página principal
             window.location.href = 'www/index.html';
         } else {
             alert('Email ou senha inválidos. Por favor, tente novamente.');

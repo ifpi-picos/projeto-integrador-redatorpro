@@ -16,7 +16,7 @@ document.querySelector('.sign-in-form').addEventListener('submit', async functio
             localStorage.setItem('loggedUser', JSON.stringify({ name: user.name, email: user.email }));
 
             // Redireciona para a página principal
-            window.location.href = 'www/index.html';
+            window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
         } else {
             alert('Email ou senha inválidos. Por favor, tente novamente.');
         }

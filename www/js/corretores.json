@@ -1,0 +1,233 @@
+[
+    {
+        "id": 1,
+        "imagem": "img/joacas.png",
+        "nome": "João Joaquim",
+        "rating": "0.2",
+        "especialidade": "nenhuma especialidade",
+        "rewies": "82",
+        "likes": "0.1%",
+        "descrição": "Em breve esse corretor será removido da equipe de corretores RedatorPro. Os usuários relataram sofrer humilhações vindas de João Joaquim por conta de erros ortográficos."
+    },
+    {
+        "id": 2,
+        "imagem": "img/default.png",
+        "nome": "Sâmia",
+        "rating": "4.6",
+        "especialidade": "CEO",
+        "rewies": "168",
+        "likes": "89%",
+        "descrição": "<p><strong>Parabéns, você encontrou a CEO do RedatorPro!</strong></p> <p>A Sâmia possui especialização em redação no modelo ENEM e tá ansiosa ( ou não tanto ) para corrigir as redações de todos os usuários!... bom, todos que a buscarem para corrigir suas redações.</p> <p>Como dito no início, ela é da equipe RedatorPro e sem ela o app não existiria. </p>"
+
+    },
+    {
+        "id": 3,
+        "imagem": "img/default.png",
+        "nome": "Sofia Emily",
+        "rating": "5.0",
+        "especialidade": "Enem",
+        "rewies": "392",
+        "likes": "97%",
+        "descrição": "<p><strong>Parabéns, você encontrou a chefona do RedatorPro!</strong></p> <p>A Sofia Emily domina todos os modelos de redação. Dizem que a menor nota que ela tirou numa redação foi 920. Bom, você pode tentar a sorte e adicionar ela como uma dos seus corretores, mas ela provavelmente estará ocupada pois a demanda dos usuários em busca de suas correções é demasiadamente e estupidamente grande.</p> <p>Como dito no início, ela é da equipe RedatorPro e sem ela o app não existiria. </p>"
+
+    },
+    {
+        "id": 4,
+        "imagem": "img/default.png",
+        "nome": "Ana Clara",
+        "rating": "4.0",
+        "especialidade": "Designer",
+        "rewies": "98",
+        "likes": "79%",
+        "descrição": "<p><strong>Parabéns, você encontrou uma designer do RedatorPro!</strong></p> <p>A Ana Clara faz parte da equipe do RedatorPro, ela foi e ainda é uma designer do app. Nesse protótipo do app mobile ela é uma cobaia, está ocupando o posto de corretora.</p> <p>Como dito no início, ela é da equipe RedatorPro e sem ela o app não existiria. </p>"
+
+    },
+    {
+        "id": 5,
+        "imagem": "img/default.png",
+        "nome": "Giovana",
+        "rating": "4.5",
+        "especialidade": "Dev",
+        "rewies": "242",
+        "likes": "90%",
+        "descrição": "<p><strong>Parabéns, você encontrou uma desenvolvedora do RedatorPro!</strong></p> <p>A Giovana tem preferência por redações do tipo Enem. Ela está sempre pronta para corrigir sua redação... bom, isso quando ela não estiver na igreja. A Giovana irá lhe ajudar a ser um viciado em tirar 1000 na redação do Enem.</p> <p>Você pode pensar: 'ah! eu não sou bom em fazer redação, não tem jeito pra mim', mas sabes o que é isso? Falta de fé! Bom, sorte sua que a Giovana é uma pessoa de fé, então ela fará o possível e até rezará por ti para você melhorar nas redações. Amém?</p> <p>Como dito no início, ela é da equipe RedatorPro e sem ela o app não existiria. </p>"
+
+    },
+    {
+        "id": 6,
+        "imagem": "img/default.png",
+        "nome": "Ana Paula",
+        "rating": "4.1",
+        "especialidade": "Marketing",
+        "rewies": "759",
+        "likes": "81%",
+        "descrição": "<p><strong>Parabéns, você encontrou a diretora de marketing do RedatorPro!</strong></p> <p>A Ana Paula pode até trabalhar no marketing, mas como a equipe RedatorPro não exclui ninguém, ela também trabalha como corretora no app.</p> <p>Dizem que ela tem preferência por deixar as redações mais chamativas, ou seja, o objetivo aqui é ganhar o corretor e... baamm! Você vai tirar um 1000zão! Viu aí? Não é atoa que ela trabalha no marketing do nosso app.</p> <p>Como dito no início, ela é da equipe RedatorPro e sem ela o app não existiria. </p>"
+
+    },
+    {
+        "id": 7,
+        "imagem": "img/default.png",
+        "nome": "Antônio Enzo",
+        "rating": "4.3",
+        "especialidade": "Enem",
+        "rewies": "105",
+        "likes": "86%",
+        "descrição": "<p>O Anônio Enzo nunca pensou em ser um corretor de redações, na verdade ele é o futuro médico da sala ( amém ). Mas como virar médico é complicado e nem tudo na vida é mamão e muito menos mel, então, para alcançar o seu sonho, ele teve que focar muito em aprender a fazer redação no modelo Enem.</p> <p>Portanto ele, o orgulho de papai, virou um gênio no que diz respeito a escrever redações no modelo que os corretores do Enem curtem; então ele garante: cola com ele que é sucesso.</p>"
+
+    },
+    {
+        "id": 8,
+        "imagem": "img/default.png",
+        "nome": "Elto Borges",
+        "rating": "3.7",
+        "especialidade": "Enem",
+        "rewies": "93",
+        "likes": "67%",
+        "descrição": "Sendo corretor para conseguir dinheiro enquanto eu não lanço meu aplicativo que vai me deixar rico igual o Elon Musk. Odeio o Enem, mas posso te ajudar nas redações."
+
+    },
+    {
+        "id": 9,
+        "imagem": "img/joao-pedro.png",
+        "nome": "João Pedro",
+        "rating": "5.0",
+        "especialidade": "Vestibular",
+        "rewies": "387",
+        "likes": "95%",
+        "descrição": "A sua característica é ser bom em praticamente tudo, então ele garante que irá transformar no segundo melhor escritor de redações do Brasil. Por que somente o segundo melhor? Bom, porque o primeiro é ele, óbvio."
+
+    },
+    {
+        "id": 10,
+        "imagem": "img/default.png",
+        "nome": "Geíza",
+        "rating": "4.0",
+        "especialidade": "Enem",
+        "rewies": "258",
+        "likes": "88%",
+        "descrição": "Em relação a redações, a sua característica marcante está nos repertórios. A Geíza já assistiu milhares de mídias sul coreanas que abordam os mais variados temas e assuntos; portanto ela possui uma vasta biblioteca de repertórios dentro de sua cachola e está ansiosa para dividir os seus conhecimentos dorameiros, quer dizer, <strong>de repertórios</strong> com você."
+    },
+    {
+        "id": 11,
+        "imagem": "img/default.png",
+        "nome": "Nailan Nobre",
+        "rating": "2.2",
+        "especialidade": "Enem",
+        "rewies": "17",
+        "likes": "71%",
+        "descrição": "<p><strong>Nailan Nobre 🦉</strong></p> <p>O que se pode dizer desse ser corretor? Bom, acho que tem motivo para ter chegado a essa posição...</p> <p>*distorções de flashback*</p> <p>Aos 14 anos este ser pensante, que na época não pensava tão bem, decidiu criar uma história que foi quase totalmente baseada em um sonho (eita minino que sonha). Inspirado ele decidiu seguir na área e por ocasião se tornou corretor. A vida não foi fácil para este ser. Ele teve varias realizações e até mesmo no campo... (a partir desse momento este ser ficou com medo de que fosse agredido fisica e psicologicamente por João Marcos (o texto já tá grande dms))</p> <p>( escrito por: Nailan )</p>"
+
+    },
+    {
+        "id": 12,
+        "imagem": "img/coelho-function.png",
+        "nome": "Neemias Nobre",
+        "rating": "4.9",
+        "especialidade": "Redação ITA",
+        "rewies": "97",
+        "likes": "92%",
+        "descrição": "<p>Segundo Neemias, ele é: o santo dos Chutes, santo das Orelhas, santo Duplo, Coelho Vangante, deus da Morte que Cura.</p> <p>Ainda vamos pensar numa descrição menos estranha para ele.</p>"
+
+    },
+    {
+        "id": 13,
+        "imagem": "img/default.png",
+        "nome": "Yan Carlos",
+        "rating": "4.1",
+        "especialidade": "Vestibular",
+        "rewies": "323",
+        "likes": "75%",
+        "descrição": "Literalmente o Loki. Talvez ele minta sobre sua nota, então fique de olho."
+    },
+    {
+        "id": 14,
+        "imagem": "img/default.png",
+        "nome": "Allan Vitor",
+        "rating": "0.0",
+        "especialidade": "Vestibular",
+        "rewies": "1",
+        "likes": "0%",
+        "descrição": "Ele iria inscrever-se como aluno no app, só que sem querer acabou inscrevendo-se como corretor e tá por aí."
+    },
+    {
+        "id": 15,
+        "imagem": "img/default.png",
+        "nome": "Roberto Augusto",
+        "rating": "4.2",
+        "especialidade": "Vestibular",
+        "rewies": "167",
+        "likes": "87%",
+        "descrição": "<p>Talvez você está pensando que ele é um valentão, afinal ele passa uma aura assim. Mas não se preocupe, ele não é assim como você pensa! O Roberto irá corrigir sua redação com prazer, além de que ele estará sempre conectado no aplicativo pronto para ajudar você... bom, no período da noite, pela manhã ele estará dormindo.</p> <p>( ele afirma ser o Homem Aranha, mas não acreditem nele )"
+    },
+    {
+        "id": 16,
+        "imagem": "img/default.png",
+        "nome": "Wauan",
+        "rating": "3.3",
+        "especialidade": "Enem",
+        "rewies": "84",
+        "likes": "65%",
+        "descrição": "Ele não queria está trabalhando aqui e nem você queria estar fazendo redação. O ódio vos une!"
+    },
+    {
+        "id": 17,
+        "imagem": "img/default.png",
+        "nome": "Fernanda Istéfane",
+        "rating": "4.0",
+        "especialidade": "Vestibular",
+        "rewies": "178",
+        "likes": "83%",
+        "descrição": "<p>No ínicio ela pode parecer fria, mas não se preocupe, logo da primeira vez perceberá que ela é super de boa e até faz crochê; bom, só não diga que seu cabelo é exótico.</p> <p>Pode confiar que a Istéfane irá tentar corrigir sua redação da melhor forma. Inclusive, ela também gosta de desenhar, então é normal que sua redação volte com alguns desenhos.</p>"
+    },
+    {
+        "id": 18,
+        "imagem": "img/ellen.png",
+        "nome": "Fernanda Ellen",
+        "rating": "4.6",
+        "especialidade": "Enem",
+        "rewies": "272",
+        "likes": "96%",
+        "descrição": "<p>🌷</p><p>A Fernanda Ellen está mais interessada na área de programação, mas uma renda extra como corretora é algo muito bem-vindo pois ela precisa comprar skin em joguinho.</p> <p>MAS, mesmo que não esteja focada nessa área, ela ainda é uma boa corretora e definitivamente vai lhe judar a melhorar nas redações. Ela é uma fofa, então não estranhe se sua redação voltar com anotações em cor de rosa e desenhos de estrela.</p> <p>Inclusive, dizem que o cabelo dela é rosa, mas ela sempre tinge de castanho.</p>"
+    },
+    {
+        "id": 19,
+        "imagem": "img/default.png",
+        "nome": "Kassio Dantas",
+        "rating": "3.5",
+        "especialidade": "Vestibular",
+        "rewies": "105",
+        "likes": "60%",
+        "descrição": "<p>Por que a coca-cola e o copo se dão bem? Porque se o copo quebra, a coca-cola</p><p>E por que o jacaré tirou o filho da escola? Porque ele réptil de ano.</p> <p>E para você não repetir de ano, o kassio vai te ajudar na correção de suas redações. Ele não é um professor de natação, que ensina, ensina, e o aluno nada! Aqui a aprendizagem é real. Cola que é sucesso.</p>"
+    },
+    {
+        "id": 20,
+        "imagem": "img/default.png",
+        "nome": "Claryanne Mel",
+        "rating": "4.2",
+        "especialidade": "Enem",
+        "rewies": "105",
+        "likes": "60%",
+        "descrição": "<p><strong>Minha líder! 🍯🐝</strong></p> <p>Sabia que o nome <strong>Mel</strong> não é atoa? É relacionado ao trabalho de seu pai.</p> <p>Ela sempre procura deixar as suas coisas muito bem organizadas, então ela garantirá que a estrutura de suas redações sejam bem organizadas também. A sua especialidade é redações no modelo Enem.</p>"
+    },
+    {
+        "id": 21,
+        "imagem": "img/default.png",
+        "nome": "Lincoln",
+        "rating": "4.0",
+        "especialidade": "Enem",
+        "rewies": "55",
+        "likes": "82%",
+        "descrição": "<p>Lutar! Eis a divisa que trazemos! Vencer! Eis a esperança que nos guia! A glória que o futuro nos confia! Uma listra branca, outra listra azul, essas são as cores do Papão da Curuzu. Somos guerreiros, somos fortes, somos um time que nunca se entrega. Com raça e paixão, vamos em frente, em busca da vitória.</p> <p><strong>Paysandu, o maior do Norte, a nossa paixão, a nossa vida!</strong></p>"
+    },
+    {
+        "id": 22,
+        "imagem": "img/gojo.png",
+        "nome": "Satoru Gojo",
+        "rating": "5.0",
+        "especialidade": "KitKat",
+        "rewies": "867",
+        "likes": "99%",
+        "descrição": "<p>Quem diria que o mundo dos feiticeiros jujutsu teria um professor tão... extravagante? Satoru Gojo, o sensei mais badalado da Escola Técnica Superior de Jujutsu de Tóquio, é a definição de 'cool' levada ao extremo. Com seus cabelos brancos alvíssimos, olhos azuis que hipnotizam e uma venda estilosa que esconde um poder absurdo, ele é o tipo de professor que você não quer irritar (a não ser que você queira ser teletransportado para outra dimensão).</p> <p>Não me julguem. Foi uma IA que fez esse texto!"
+
+    }
+]

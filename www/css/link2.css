@@ -71,6 +71,8 @@ input[type="text"] {
   
   /* Cartão de pessoa */
 .person-card {
+    margin-left: 60px;
+    margin-right: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,6 +82,8 @@ input[type="text"] {
 }
 
 .person-card-skeleton {
+    margin-left: 60px;
+    margin-right: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;

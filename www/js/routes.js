@@ -33,6 +33,15 @@ var app = new Framework7({
         },
         pageInit: function (event, page) {
           // fazer algo quando a página for inicializada
+
+
+          // Evento de logout - ao clicar no botão de logout
+          $('#logoutButton').on('click', function () {
+            // Redirecionar para favoritos.html fora da pasta www
+            window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/login'; // Caminho relativo para o arquivo fora de www
+          });
+
+
           //app.views.main.router.navigate('/detalhes/');
           $.getScript('js/index.js');
 
@@ -217,12 +226,6 @@ var app = new Framework7({
         },
         pageInit: function (event, page) {
           // Fazer algo quando a página de login for inicializada
-    
-          // Evento de logout - ao clicar no botão de logout
-          $('#logoutButton').on('click', function () {
-            // Redirecionar para favoritos.html fora da pasta www
-            window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/login'; // Caminho relativo para o arquivo fora de www
-          });
         },
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM

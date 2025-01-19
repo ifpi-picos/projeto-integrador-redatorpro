@@ -202,6 +202,34 @@ var app = new Framework7({
       }
     },
     {
+      path: '/login/', // Caminho para a página de login
+      url: '',
+      animate: false,
+      options: {
+        transition: 'f7-dive', // Transição da página
+      },
+      on: {
+        pageBeforeIn: function (event, page) {
+          // Fazer algo antes de a página de login ser exibida
+        },
+        pageAfterIn: function (event, page) {
+          // Fazer algo depois de a página de login ser exibida
+        },
+        pageInit: function (event, page) {
+          // Fazer algo quando a página de login for inicializada
+    
+          // Evento de logout - ao clicar no botão de logout
+          $('#logoutButton').on('click', function () {
+            // Redirecionar para favoritos.html fora da pasta www
+            window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/login'; // Caminho relativo para o arquivo fora de www
+          });
+        },
+        pageBeforeRemove: function (event, page) {
+          // Fazer algo antes de a página ser removida do DOM
+        },
+      }
+    },    
+    {
       path: '/link4/',
       url: 'link4.html',
       animate: false,

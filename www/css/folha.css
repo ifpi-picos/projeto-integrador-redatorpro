@@ -1,0 +1,67 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: auto; /* Permite rolagem */
+}
+
+header {
+    width: 100%;
+    background-color: #add8e6; /* Cor azul claro */
+    text-align: center;
+    padding: 20px 0;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Garante que o cabeçalho fique acima do conteúdo */
+}
+
+header h1 {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    color: #000;
+}
+
+.container {
+    display: flex;
+    position: relative;
+    width: 60%; /* Ajuste a largura conforme necessário */
+    height: auto; /* Ajuste a altura conforme necessário */
+    margin-top: 20px; /* Espaço entre o cabeçalho e a folha */
+}
+
+.line-numbers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 15px 0;
+    pointer-events: none; /* Permite clicar através dos números */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 30px; /* Aumenta a altura dos números em relação à linha */
+    color: #ccc;
+    text-align: right;
+    width: 30px; /* Largura suficiente para os números */
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.area {
+    width: calc(100% - 40px); /* Ajuste a largura conforme necessário */
+    height: 930px; /* Aumenta o comprimento da folha */
+    line-height: 30px; /* Aumenta a altura da linha */
+    padding-left: 40px; /* Espaço para os números */
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background: repeating-linear-gradient(
+        white,
+        white 29px,
+        #ccc 30px
+    );
+    border: 1px solid #ccc;
+    resize: none; /* Desativa o redimensionamento */
+    overflow: hidden; /* Evita rolagem */
+}

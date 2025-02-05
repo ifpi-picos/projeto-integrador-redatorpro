@@ -61,7 +61,12 @@ header h1 {
         white 29px,
         #ccc 30px
     );
-    border: 1px solid #ccc;
+    border: 2px solid #add8e6; /* Cor da borda azul */
     resize: none; /* Desativa o redimensionamento */
     overflow: hidden; /* Evita rolagem */
+}
+
+.area:focus {
+    border-color: #add8e6; /* Mantém a cor da borda azul quando em foco */
+    outline: none; /* Remove o contorno padrão */
 }

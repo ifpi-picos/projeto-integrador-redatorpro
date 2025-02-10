@@ -7,63 +7,23 @@
     <header>
         <h1>Folha de Redação</h1>
     </header>
-    <div id="editor">
-        <button id="bold" <i class="fas fa-bold"></i></button>
-        <button id="italic" <i class="fas fa-italic"></i></button>
-        <button id="underline" <i class="fas fa-underline"></i></button>
-        <button id="strike" <i class="fas fa-strikethrough"></i></button>
-        <button id="superscrip" <i class="fas fa-superscript"></i></button>
-        <button id="subscript" <i class="fas fa-subscript"></i></button>
-        <button id="code" <i class="fas fa-code"></i></button>
-
-        <select id="font">
-            <option value="Arial">Arial</option>
-            <option value="Courier New">Courier New</option>
-            <option value="Georgia">Georgia</option>
-            <option value="Times New Roman">Times New Roman</option>
-            <option value="Verdana">Verdana</option>
-        </select>
-
-        <select id="fontSize">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-        </select>
-
-        <button id="textColor" <i class="fas fa-font"></i></button>
-        <button id="bgColor" <i class="fas fa-fill-drip"></i></button>
-
-        <button id="alignLeft" <i class="fas fa-align-left"></i></button>
-        <button id="alignCenter" <i class="fas fa-align-center"></i></button>
-        <button id="alignRight" <i class="fas fa-align-right"></i></button>
-        <button id="alignJustify" <i class="fas fa-align-justify"></i></button>
-        
-        <button id="indent" <i class="fas fa-indent"></i></button>
-        <button id="outdent" <i class="fas fa-outdent"></i></button>
-
-        <button id="orderedList" <i class="fas fa-list-ol"></i></button>
-        <button id="unorderedList" <i class="fas fa-list-ul"></i></button>
-
-        <button id="insertImageUrl" <i class="fas fa-image"></i></button>
-        <button id="insertImageFile" <i class="fas fa-upload"></i></button>  
-        
-    </div>
-
-    <input type="color" id="colorPicker" style="display: none;">
-    <input type="color" id="bgColorPicker" style="display: none;">
-    <input type="file" id="imageUploader" style="display: none;">
-    <input type="imageUrl" id="imageUrl" placeholder="Enter image URL" style="display: none;">
-
-    <script src="js/folha.js"></script>
-
-
     <div class="container">
-        <div class="line-numbers">
-            <pre>2
+        <div class="options">
+            <label for="tema">Escolha o tema da redação:</label>
+            <select id="tema" name="tema">
+                <option value="tema1">Tema 1</option>
+                <option value="tema2">Tema 2</option>
+                <option value="tema3">Tema 3</option>
+            </select>
+            <label for="upload">Envie uma imagem:</label>
+            <div class="upload-wrapper">
+                <input type="file" id="upload" name="upload" accept="image/*">
+                <label for="upload" class="upload-label"><i class="fas fa-upload"></i> Escolher arquivo</label>
+            </div>
+        </div>
+        <div class="writing-area">
+            <div class="line-numbers">
+                <pre>2
 3
 4
 5
@@ -91,16 +51,29 @@
 27
 28
 29
-30
-</pre>
+30</pre>
+            </div>
+            <textarea class="area" rows="30" placeholder="Escreva sua redação aqui..." onfocus="clearPlaceholder(this)" onblur="restorePlaceholder(this)"></textarea>
         </div>
-        <textarea class="area" rows="31" placeholder="Escreva sua redação aqui..." oninput="limitLines(this, 31)"></textarea>
+        <button class="submit-button">Enviar Redação</button>
     </div>
     <script>
         function limitLines(textarea, maxLines) {
             const lines = textarea.value.split('\n');
             if (lines.length > maxLines) {
                 textarea.value = lines.slice(0, maxLines).join('\n');
+            }
+        }
+
+        function clearPlaceholder(textarea) {
+            if (textarea.placeholder === 'Escreva sua redação aqui...') {
+                textarea.placeholder = '';
+            }
+        }
+
+        function restorePlaceholder(textarea) {
+            if (textarea.value === '') {
+                textarea.placeholder = 'Escreva sua redação aqui...';
             }
         }
     </script>

@@ -3,9 +3,7 @@ body {
     flex-direction: column;
     align-items: center;
     margin: 0;
-    padding: 0;
     overflow: auto; /* Permite rolagem */
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -28,10 +26,87 @@ header h1 {
 
 .container {
     display: flex;
-    position: relative;
+    flex-direction: column;
+    align-items: center;
     width: 60%; /* Ajuste a largura conforme necessário */
     height: auto; /* Ajuste a altura conforme necessário */
     margin-top: 20px; /* Espaço entre o cabeçalho e a folha */
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px; /* Espaço entre as opções e a folha */
+    padding: 20px;
+    background-color: #f0f8ff; /* Fundo azul claro */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.options label {
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+.options select,
+.options input[type="file"] {
+    margin-top: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.upload-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.upload-wrapper input[type="file"] {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #add8e6; /* Cor azul claro */
+    color: #000;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.upload-label i {
+    margin-right: 10px;
+}
+
+.options select:focus,
+.options input[type="file"]:focus {
+    border-color: #add8e6; /* Cor da borda azul claro */
+    outline: none;
+}
+
+.writing-area {
+    display: flex;
+    width: 100%;
+    position: relative;
 }
 
 .line-numbers {
@@ -51,8 +126,8 @@ header h1 {
 }
 
 .area {
-    width: calc(100% - 40px); /* Ajuste a largura conforme necessário */
-    height: 900px; /*ta o comprimento da folha */
+    width: calc(100% - 5px); /* Ajuste a largura conforme necessário */
+    height: 900px; /* Aumenta o comprimento da folha */
     line-height: 30px; /* Aumenta a altura da linha */
     padding-left: 40px; /* Espaço para os números */
     box-sizing: border-box;
@@ -73,49 +148,63 @@ header h1 {
     outline: none; /* Remove o contorno padrão */
 }
 
-#editor {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-button {
-    background-color: transparent;
+.submit-button {
+    margin-top: 20px; /* Espaço entre a folha e o botão */
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #add8e6; /* Cor azul claro */
+    color: #000;
     border: none;
     cursor: pointer;
-    font-size: 1.2em;   
-    margin: 5px 5px;
-    color: #777;
+    transition: background-color 0.3s;
+    border-radius: 5px;
 }
 
-button:hover {
-    color: #333;
+.submit-button:hover {
+    background-color: #87ceeb; /* Cor azul mais escuro ao passar o mouse */
 }
 
-select {
-    font-size: 1em;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    margin: 0 5px;
-}
+/* Media query para telas de celular */
+@media (max-width: 600px) {
+    .writing-area,
+    .submit-button {
+        display: none; /* Oculta o campo de texto e o botão de envio em telas pequenas */
+    }
 
-input[type="color"] {
-    margin: 5px;
-    border: 1px solid #ddd; 
-    border-radius: 3px;
-    padding: 3px;
-    width: 50px;
-}
+    .upload-wrapper {
+        width: 100%;
+    }
 
-input[type="text"], input[type="file"] {
-    margin: 5px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    width: 200px;
+    .upload-label {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .options {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Centraliza verticalmente */
+    }
+    
+    .options select,
+    .options input[type="file"] {
+        width: 100%;
+        height: 80px; /* Aumenta a altura dos elementos de seleção e upload */
+    }
+
+    .upload-label {
+        height: 400px; /* Aumenta a altura do rótulo de upload */
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centraliza o texto dentro do rótulo */
+    }
+
+    .submit-image-button {
+        display: block; /* Exibe o botão de enviar imagem em telas pequenas */
+        width: 100%;
+    }
 }

@@ -36,7 +36,7 @@ header h1 {
 .options {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* Centraliza horizontalmente */
     width: 100%;
     margin-bottom: 20px; /* Espaço entre as opções e a folha */
     padding: 20px;
@@ -107,6 +107,7 @@ header h1 {
     display: flex;
     width: 100%;
     position: relative;
+    justify-content: center; /* Centraliza horizontalmente */
 }
 
 .line-numbers {
@@ -120,16 +121,16 @@ header h1 {
     line-height: 30px; /* Aumenta a altura dos números em relação à linha */
     color: #ccc;
     text-align: right;
-    width: 30px; /* Largura suficiente para os números */
+    width: 50px; /* Aumenta a largura para ajustar a posição */
     height: 100%;
     box-sizing: border-box;
 }
 
 .area {
-    width: calc(100% - 5px); /* Ajuste a largura conforme necessário */
+    width: calc(100% - 60px); /* Ajuste a largura conforme necessário */
     height: 900px; /* Aumenta o comprimento da folha */
     line-height: 30px; /* Aumenta a altura da linha */
-    padding-left: 40px; /* Espaço para os números */
+    padding-left: 30px; /* Aumenta o espaço para os números */
     box-sizing: border-box;
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -159,6 +160,7 @@ header h1 {
     cursor: pointer;
     transition: background-color 0.3s;
     border-radius: 5px;
+    margin-bottom: 20px; /* Espaço abaixo do botão */
 }
 
 .submit-button:hover {
@@ -167,9 +169,13 @@ header h1 {
 
 /* Media query para telas de celular */
 @media (max-width: 600px) {
-    .writing-area,
+    .writing-area {
+        display: none; /* Oculta o campo de texto em telas pequenas */
+    }
+
     .submit-button {
-        display: none; /* Oculta o campo de texto e o botão de envio em telas pequenas */
+        display: block; /* Exibe o botão de enviar redação em telas pequenas */
+        width: 100%;
     }
 
     .upload-wrapper {
@@ -189,15 +195,15 @@ header h1 {
         align-items: center;
         justify-content: center; /* Centraliza verticalmente */
     }
-    
+
     .options select,
     .options input[type="file"] {
         width: 100%;
-        height: 80px; /* Aumenta a altura dos elementos de seleção e upload */
+        height: 50px; /* Aumenta a altura dos elementos de seleção e upload */
     }
 
     .upload-label {
-        height: 400px; /* Aumenta a altura do rótulo de upload */
+        height: 50px; /* Aumenta a altura do rótulo de upload */
         display: flex;
         align-items: center;
         justify-content: center; /* Centraliza o texto dentro do rótulo */

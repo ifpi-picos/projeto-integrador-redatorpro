@@ -26,12 +26,97 @@ header h1 {
 
 .container {
     display: flex;
+<<<<<<< HEAD
     position: relative;
+=======
+    flex-direction: column;
+    align-items: center;
+>>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
     width: 60%; /* Ajuste a largura conforme necessário */
     height: auto; /* Ajuste a altura conforme necessário */
     margin-top: 20px; /* Espaço entre o cabeçalho e a folha */
 }
 
+<<<<<<< HEAD
+=======
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+    width: 100%;
+    margin-bottom: 20px; /* Espaço entre as opções e a folha */
+    padding: 20px;
+    background-color: #f0f8ff; /* Fundo azul claro */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.options label {
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+.options select,
+.options input[type="file"] {
+    margin-top: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.upload-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.upload-wrapper input[type="file"] {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #add8e6; /* Cor azul claro */
+    color: #000;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.upload-label i {
+    margin-right: 10px;
+}
+
+.options select:focus,
+.options input[type="file"]:focus {
+    border-color: #add8e6; /* Cor da borda azul claro */
+    outline: none;
+}
+
+.writing-area {
+    display: flex;
+    width: 100%;
+    position: relative;
+    justify-content: center; /* Centraliza horizontalmente */
+}
+
+>>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
 .line-numbers {
     position: absolute;
     top: 0;
@@ -43,16 +128,27 @@ header h1 {
     line-height: 30px; /* Aumenta a altura dos números em relação à linha */
     color: #ccc;
     text-align: right;
+<<<<<<< HEAD
     width: 30px; /* Largura suficiente para os números */
+=======
+    width: 50px; /* Aumenta a largura para ajustar a posição */
+>>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
     height: 100%;
     box-sizing: border-box;
 }
 
 .area {
+<<<<<<< HEAD
     width: calc(100% - 40px); /* Ajuste a largura conforme necessário */
     height: 930px; /* Aumenta o comprimento da folha */
     line-height: 30px; /* Aumenta a altura da linha */
     padding-left: 40px; /* Espaço para os números */
+=======
+    width: calc(100% - 60px); /* Ajuste a largura conforme necessário */
+    height: 900px; /* Aumenta o comprimento da folha */
+    line-height: 30px; /* Aumenta a altura da linha */
+    padding-left: 30px; /* Aumenta o espaço para os números */
+>>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
     box-sizing: border-box;
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -61,7 +157,84 @@ header h1 {
         white 29px,
         #ccc 30px
     );
+<<<<<<< HEAD
     border: 1px solid #ccc;
     resize: none; /* Desativa o redimensionamento */
     overflow: hidden; /* Evita rolagem */
+=======
+    border: 2px solid #add8e6; /* Cor da borda azul */
+    resize: none; /* Desativa o redimensionamento */
+    overflow: hidden; /* Evita rolagem */
+}
+
+.area:focus {
+    border-color: #add8e6; /* Mantém a cor da borda azul quando em foco */
+    outline: none; /* Remove o contorno padrão */
+}
+
+.submit-button {
+    margin-top: 20px; /* Espaço entre a folha e o botão */
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #add8e6; /* Cor azul claro */
+    color: #000;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    margin-bottom: 20px; /* Espaço abaixo do botão */
+}
+
+.submit-button:hover {
+    background-color: #87ceeb; /* Cor azul mais escuro ao passar o mouse */
+}
+
+/* Media query para telas de celular */
+@media (max-width: 600px) {
+    .writing-area {
+        display: none; /* Oculta o campo de texto em telas pequenas */
+    }
+
+    .submit-button {
+        display: block; /* Exibe o botão de enviar redação em telas pequenas */
+        width: 100%;
+    }
+
+    .upload-wrapper {
+        width: 100%;
+    }
+
+    .upload-label {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .options {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Centraliza verticalmente */
+    }
+
+    .options select,
+    .options input[type="file"] {
+        width: 100%;
+        height: 50px; /* Aumenta a altura dos elementos de seleção e upload */
+    }
+
+    .upload-label {
+        height: 50px; /* Aumenta a altura do rótulo de upload */
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centraliza o texto dentro do rótulo */
+    }
+
+    .submit-image-button {
+        display: block; /* Exibe o botão de enviar imagem em telas pequenas */
+        width: 100%;
+    }
+>>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
 }

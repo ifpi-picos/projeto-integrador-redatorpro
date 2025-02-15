@@ -211,8 +211,8 @@ var app = new Framework7({
       }
     },
     {
-      path: '/login/', // Caminho para a página de login
-      url: '',
+      path: '/perfil/', // Caminho para a página de login
+      url: 'perfil.html',
       animate: false,
       options: {
         transition: 'f7-dive', // Transição da página
@@ -263,19 +263,24 @@ var app = new Framework7({
       },
       on: {
         pageBeforeIn: function (event, page) {
-          // fazer algo antes da página ser exibida
+          // Faça algo antes da página ser exibida
+          // Exemplo: ocultar elementos do menu ou outras configurações
         },
         pageAfterIn: function (event, page) {
-          // fazer algo depois da página ser exibida
+          // Adicione algo após a página ser exibida
+          // Exemplo: mostrar elementos do menu
         },
         pageInit: function (event, page) {
-          // fazer algo quando a página for inicializada
+          // Altere diretamente o corpo ou outros elementos específicos da página
+          $('body').addClass('functions-page'); // Classe específica para esta página
+          $.getScript('js/functions.js'); // Carregar um script específico para a página
         },
         pageBeforeRemove: function (event, page) {
-          // fazer algo antes da página ser removida do DOM
+          // Remova modificações antes que a página seja removida do DOM
+          $('body').removeClass('functions-page'); // Remover a classe
         },
       }
-    },
+    },    
     {
       path: '/detalhes/',
       url: 'detalhes.html',

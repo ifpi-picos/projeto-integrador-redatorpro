@@ -26,19 +26,14 @@ header h1 {
 
 .container {
     display: flex;
-<<<<<<< HEAD
     position: relative;
-=======
     flex-direction: column;
     align-items: center;
->>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
     width: 60%; /* Ajuste a largura conforme necessário */
     height: auto; /* Ajuste a altura conforme necessário */
     margin-top: 20px; /* Espaço entre o cabeçalho e a folha */
 }
 
-<<<<<<< HEAD
-=======
 .options {
     display: flex;
     flex-direction: column;
@@ -116,7 +111,6 @@ header h1 {
     justify-content: center; /* Centraliza horizontalmente */
 }
 
->>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
 .line-numbers {
     position: absolute;
     top: 0;
@@ -128,27 +122,21 @@ header h1 {
     line-height: 30px; /* Aumenta a altura dos números em relação à linha */
     color: #ccc;
     text-align: right;
-<<<<<<< HEAD
     width: 30px; /* Largura suficiente para os números */
-=======
     width: 50px; /* Aumenta a largura para ajustar a posição */
->>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
     height: 100%;
     box-sizing: border-box;
 }
 
 .area {
-<<<<<<< HEAD
     width: calc(100% - 40px); /* Ajuste a largura conforme necessário */
     height: 930px; /* Aumenta o comprimento da folha */
     line-height: 30px; /* Aumenta a altura da linha */
     padding-left: 40px; /* Espaço para os números */
-=======
     width: calc(100% - 60px); /* Ajuste a largura conforme necessário */
     height: 900px; /* Aumenta o comprimento da folha */
     line-height: 30px; /* Aumenta a altura da linha */
     padding-left: 30px; /* Aumenta o espaço para os números */
->>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
     box-sizing: border-box;
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -157,11 +145,9 @@ header h1 {
         white 29px,
         #ccc 30px
     );
-<<<<<<< HEAD
     border: 1px solid #ccc;
     resize: none; /* Desativa o redimensionamento */
     overflow: hidden; /* Evita rolagem */
-=======
     border: 2px solid #add8e6; /* Cor da borda azul */
     resize: none; /* Desativa o redimensionamento */
     overflow: hidden; /* Evita rolagem */
@@ -236,5 +222,4 @@ header h1 {
         display: block; /* Exibe o botão de enviar imagem em telas pequenas */
         width: 100%;
     }
->>>>>>> d9c0e2c44e6aab46517cf190dc7b3251ea12bc62
 }

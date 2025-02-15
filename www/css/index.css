@@ -18,6 +18,11 @@ body{
     font-family: "Bebas Neue", sans-serif;
 }
 
+/* Estilo específico para a página /functions/ */
+body.functions-page, .page-functions {
+    background-color: #c62d2d; /* Cor de fundo específica */
+  }
+
 #app{
     margin: 0; /* Remove margens padrão */
     box-sizing: border-box; /* Inclui padding nas dimensões do elemento */
@@ -27,9 +32,11 @@ body{
     padding-left: 72px;
 }
 
+/*
 .toolbar{
     height: 80px;
 }
+*/
 
 .tab-link{
     display: flex;
@@ -37,10 +44,12 @@ body{
     flex-flow: column wrap;
 }
 
+/*
 .toolbar-inner {
     background: var(--branco);
     border-top: 1px solid var(--gelo);
 }
+*/
 
 .toolbar-inner .link{    
     flex:1;

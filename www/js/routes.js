@@ -233,6 +233,51 @@ var app = new Framework7({
       }
     },    
     {
+      path: '/folha/', // Caminho para a página de login
+      url: 'folha.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive', // Transição da página
+      },
+      on: {
+        pageBeforeIn: function (event, page) {
+          // Fazer algo antes de a página de login ser exibida
+        },
+        pageAfterIn: function (event, page) {
+          // Fazer algo depois de a página de login ser exibida
+        },
+        pageInit: function (event, page) {
+          // Fazer algo quando a página de login for inicializada
+          $.getScript('js/folha.js');
+        },
+        pageBeforeRemove: function (event, page) {
+          // Fazer algo antes de a página ser removida do DOM
+        },
+      }
+    },    
+    {
+      path: '/temas/', // Caminho para a página de login
+      url: 'temas.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive', // Transição da página
+      },
+      on: {
+        pageBeforeIn: function (event, page) {
+          // Fazer algo antes de a página de login ser exibida
+        },
+        pageAfterIn: function (event, page) {
+          // Fazer algo depois de a página de login ser exibida
+        },
+        pageInit: function (event, page) {
+          // Fazer algo quando a página de login for inicializada
+        },
+        pageBeforeRemove: function (event, page) {
+          // Fazer algo antes de a página ser removida do DOM
+        },
+      }
+    },    
+    {
       path: '/link4/',
       url: 'link4.html',
       animate: false,

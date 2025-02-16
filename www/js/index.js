@@ -14,7 +14,7 @@ fetch('js/backend.json')
         data.forEach(funcao => {
             var functionHTML = `
             <div class="item-card">
-                <a href="#" class="item-function" data-rating="${funcao.rating}">
+                <a href="${funcao.url}" class="item-function" data-rating="${funcao.rating}">
                     <div class="img-container">
                         <img src="${funcao.imagem}">
                     </div>
@@ -33,9 +33,9 @@ fetch('js/backend.json')
         });
 
         // Agora que os cartões foram adicionados, podemos adicionar o evento de clique
-        $(".item-function").on('click', function () {
-            app.dialog.alert('Essa função ainda não foi desenvolvida...', '<strong>Desculpa</strong> 🥺');
-        });
+        //$(".item-function").on('click', function () {
+            //app.dialog.alert('Essa função ainda não foi desenvolvida...', '<strong>Desculpa</strong> 🥺');
+        //});
 
     }, 1000);
 

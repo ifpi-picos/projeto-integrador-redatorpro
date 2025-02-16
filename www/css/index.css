@@ -18,10 +18,13 @@ body{
     font-family: "Bebas Neue", sans-serif;
 }
 
-/* Estilo específico para a página /functions/ */
-body.functions-page, .page-functions {
-    background-color: #c62d2d; /* Cor de fundo específica */
-  }
+.page[data-name="temas"] {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+}
+
 
 #app{
     margin: 0; /* Remove margens padrão */

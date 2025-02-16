@@ -26,7 +26,6 @@ header h1 {
 
 .container {
     display: flex;
-    position: relative;
     flex-direction: column;
     align-items: center;
     width: 60%; /* Ajuste a largura conforme necessário */
@@ -115,24 +114,24 @@ header h1 {
     position: absolute;
     top: 0;
     left: 0;
-    padding: 15px 0;
+    padding: 0px 0;
     pointer-events: none; /* Permite clicar através dos números */
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 30px; /* Aumenta a altura dos números em relação à linha */
     color: #ccc;
     text-align: right;
-    width: 30px; /* Largura suficiente para os números */
     width: 50px; /* Aumenta a largura para ajustar a posição */
     height: 100%;
     box-sizing: border-box;
 }
 
+.line-numbers pre {
+    margin: 0;
+    padding: 0;
+}
+
 .area {
-    width: calc(100% - 40px); /* Ajuste a largura conforme necessário */
-    height: 930px; /* Aumenta o comprimento da folha */
-    line-height: 30px; /* Aumenta a altura da linha */
-    padding-left: 40px; /* Espaço para os números */
     width: calc(100% - 60px); /* Ajuste a largura conforme necessário */
     height: 900px; /* Aumenta o comprimento da folha */
     line-height: 30px; /* Aumenta a altura da linha */
@@ -145,17 +144,15 @@ header h1 {
         white 29px,
         #ccc 30px
     );
-    border: 1px solid #ccc;
-    resize: none; /* Desativa o redimensionamento */
-    overflow: hidden; /* Evita rolagem */
     border: 2px solid #add8e6; /* Cor da borda azul */
     resize: none; /* Desativa o redimensionamento */
     overflow: hidden; /* Evita rolagem */
+    padding-top: 0; /* Remove o padding superior */
 }
 
 .area:focus {
-    border-color: #add8e6; /* Mantém a cor da borda azul quando em foco */
-    outline: none; /* Remove o contorno padrão */
+    border-color: #add8e6;
+    outline: none;
 }
 
 .submit-button {

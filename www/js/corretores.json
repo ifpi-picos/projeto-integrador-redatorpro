@@ -66,7 +66,7 @@
     },
     {
         "id": 7,
-        "imagem": "img/default.png",
+        "imagem": "img/enzo.png",
         "nome": "Antônio Enzo",
         "rating": "4.3",
         "especialidade": "Enem",
@@ -77,7 +77,7 @@
     },
     {
         "id": 8,
-        "imagem": "img/default.png",
+        "imagem": "img/elto.png",
         "nome": "Elto Borges",
         "rating": "3.7",
         "especialidade": "Enem",
@@ -109,7 +109,7 @@
     },
     {
         "id": 11,
-        "imagem": "img/default.png",
+        "imagem": "img/nailan.png",
         "nome": "Nailan Nobre",
         "rating": "2.2",
         "especialidade": "Enem",
@@ -151,7 +151,7 @@
     },
     {
         "id": 15,
-        "imagem": "img/default.png",
+        "imagem": "img/roberto.png",
         "nome": "Roberto Augusto",
         "rating": "4.2",
         "especialidade": "Vestibular",
@@ -171,7 +171,7 @@
     },
     {
         "id": 17,
-        "imagem": "img/default.png",
+        "imagem": "img/istefane.png",
         "nome": "Fernanda Istéfane",
         "rating": "4.0",
         "especialidade": "Vestibular",
@@ -201,7 +201,7 @@
     },
     {
         "id": 20,
-        "imagem": "img/default.png",
+        "imagem": "img/cary-mel.png",
         "nome": "Claryanne Mel",
         "rating": "4.2",
         "especialidade": "Enem",
@@ -211,7 +211,7 @@
     },
     {
         "id": 21,
-        "imagem": "img/default.png",
+        "imagem": "img/lincoln.png",
         "nome": "Lincoln",
         "rating": "4.0",
         "especialidade": "Enem",

@@ -12,12 +12,16 @@
     --verde: #19c463;
 }
 
+.page[data-name="perfil"]{
+    background-color: #e3e9f7;
+}
+
 .profile-container {
     width: 500px;
-    background-color: #f7f7f7;
+    background-color: var(--branco);
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px #848fa8;
     margin-left: 450px;
     margin-top: 150px;
 }

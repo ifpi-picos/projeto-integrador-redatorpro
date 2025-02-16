@@ -234,7 +234,7 @@ var app = new Framework7({
     },    
     {
       path: '/folha/', // Caminho para a página de login
-      url: 'folha.html',
+      url: 'Folha.html',
       animate: false,
       options: {
         transition: 'f7-dive', // Transição da página

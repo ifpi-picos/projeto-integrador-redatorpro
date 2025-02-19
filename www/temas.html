@@ -1,52 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/temas.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela de Exemplo</title>
+  <link rel="stylesheet" href="css/temas.css">
 </head>
 <body>
+  <div class="menu-lateral">
+    <a href="#">Opção 1</a>
+    <a href="#">Opção 2</a>
+    <a href="#">Opção 3</a>
+  </div>
 
-  <div data-name="temas" class="page">]
-
-    <div class="button-top">
-      <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
+  <div class="conteudo">
+    <div class="card">
+      <h2>ENEM - Obstáculos da inclusão de pessoas com deficiência na acessibilidade digital no Brasil</h2>
+      <img src="img/acessibilidade.jpeg">
+      <p>
+        Lei Brasileira de Inclusão da Pessoa com Deficiência (LBI) foi considerada um grande avanço em relação aos direitos da pessoa com deficiência. 
+        Ela é destinada a "assegurar a promoção de condições de igualdade".
+      </p>
+      <button>Acessar tema</button>
     </div>
 
-    <div class="menu-lateral">
-      <a href="#">Opção 1</a>
-      <a href="#">Opção 2</a>
-      <a href="#">Opção 3</a>
-    </div>
-  
-    <div class="conteudo">
-      <div class="card">
-        <h2>ENEM - Obstáculos da inclusão de pessoas com deficiência na acessibilidade digital no Brasil</h2>
-        <img src="img/acessibilidade.jpeg" alt="Imagem de acessibilidade">
-        <p>
-          Lei Brasileira de Inclusão da Pessoa com Deficiência (LBI) foi considerada um grande avanço em relação aos direitos da pessoa com deficiência. 
-          Ela é destinada a "assegurar a promoção de condições de igualdade".
-        </p>
-        <button>Acessar tema</button>
-      </div>
-
-      <div class="card">
-          <h2>ENEM - Enfrentamento aos desafios da manutenção e eficiência da Farmácia Popular no Brasil</h2>
-          <img src="img/farmacia.jpeg" alt="Imagem de farmacia">
-          <p>
-              O Governo Federal Brasileiro possui algumas iniciativas para auxiliar a população no acesso ao tratamento médico e uma delas é a Farmácia Popular.
-          </p>
-          <button>Acessar tema</button>
-        </div>
-    </div>
-  
-    <div class="menu-direito">
-      <a href="#">Aulas</a>
-      <a href="#">Temas</a>
-      <a href="#">Vestibular</a>
+    <div class="card">
+      <h2>ENEM - Enfrentamento aos desafios da manutenção e eficiência da Farmácia Popular no Brasil</h2>
+      <img src="img/farmacia.jpeg" alt="Imagem de farmacia">
+      <p>
+          O Governo Federal Brasileiro possui algumas iniciativas para auxiliar a população no acesso ao tratamento médico e uma delas é a Farmácia Popular.
+      </p>
+      <button>Acessar tema</button>
     </div>
   </div>
-    
+
+  <div class="menu-direito">
+    <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-aulas')">Aulas</a>
+    <div id="dropdown-aulas" class="dropdown">
+      <a href="#">ENEM</a>
+      <a href="#">VESTIBULARES</a>
+    </div>
+    <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-temas')">Temas</a>
+    <div id="dropdown-temas" class="dropdown">
+      <a href="#">Opção A</a>
+      <a href="#">Opção B</a>
+      <a href="#">Opção C</a>
+    </div>
+    <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-vestibular')">Vestibular</a>
+    <div id="dropdown-vestibular" class="dropdown">
+      <a href="#">FUVEST</a>
+      <a href="#">URCA</a>
+      <a href="#">IFPI</a>
+    </div>
+  </div>
+
+  <script src="temas.js"></script>
 </body>
 </html>

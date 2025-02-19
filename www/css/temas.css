@@ -71,7 +71,7 @@ body {
 
 .menu-direito {
   width: 20%;
-  background-color: #add8;
+  background-color: rgba(238, 243, 243, 0.533);
   padding: 20px;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -86,7 +86,7 @@ body {
 }
 
 .menu-direito a:hover {
-  background-color: #99cdd1;
+  background-color: #f2f5f5;
 }
 
 .dropdown {

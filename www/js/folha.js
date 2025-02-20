@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const submitButton = document.querySelector(".submit-button");
 
+    // Verifique se o botão foi encontrado antes de adicionar o evento
+    if (!submitButton) {
+        console.error("Botão de envio não encontrado!");
+        return;
+    }
+
     submitButton.addEventListener("click", async () => {
         const fileInput = document.getElementById("upload");
         const file = fileInput.files[0];
@@ -19,7 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: formData
             });
 
-            const result = await response.json();
+            // Adicione logging para a resposta
+            const responseText = await response.text();
+            console.log("Resposta do servidor:", responseText);
+
+            // Tente analisar a resposta como JSON
+            let result;
+            try {
+                result = JSON.parse(responseText);
+            } catch (e) {
+                throw new Error("Resposta não é um JSON válido: " + responseText);
+            }
 
             if (response.ok) {
                 alert("Imagem enviada com sucesso!");
@@ -33,11 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 document.querySelector(".container").appendChild(imgPreview);
             } else {
-                throw new Error(result.error || "Erro desconhecido");
+                throw new Error(result.error || "Erro desconhecido: " + response.status);
             }
         } catch (error) {
             console.error("Erro no upload:", error);
-            alert("Erro ao enviar imagem.");
+            alert("Erro ao enviar imagem. " + error.message);
         }
     });
 });

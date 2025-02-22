@@ -276,6 +276,9 @@ var app = new Framework7({
         },
         pageInit: function (event, page) {
           // Fazer algo quando a página de login for inicializada
+          $.getScript('js/temas.js')
+            //.done(() => window.initFolha?.())
+            //.fail(() => console.error("Erro ao carregar folha.js"));
         },
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM

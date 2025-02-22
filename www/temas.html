@@ -7,83 +7,100 @@
   <link rel="stylesheet" href="css/temas.css">
 </head>
 <body>
-  <div class="menu-lateral">
-    <a href="#">Opção 1</a>
-    <a href="#">Opção 2</a>
-    <a href="#">Opção 3</a>
+  <div id="app">
+    <div class="view view-main">
+      <div data-name="temas" class="page">
+
+        <div class="button-top">
+          <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
+        </div>
+
+        <div class="menu-lateral">
+          <a href="#">Opção 1</a>
+          <a href="#">Opção 2</a>
+          <a href="#">Opção 3</a>
+        </div>
+      
+        <div class="conteudo">
+          <div class="card">
+            <h2>ENEM - Obstáculos da inclusão de pessoas com deficiência na acessibilidade digital no Brasil</h2>
+            <img src="img/acessibilidade.jpeg">
+            <p>
+              Lei Brasileira de Inclusão da Pessoa com Deficiência (LBI) foi considerada um grande avanço em relação aos direitos da pessoa com deficiência. 
+              Ela é destinada a "assegurar a promoção de condições de igualdade".
+            </p>
+            <button>Acessar tema</button>
+          </div>
+      
+          <div class="card">
+            <h2>ENEM - Enfrentamento aos desafios da manutenção e eficiência da Farmácia Popular no Brasil</h2>
+            <img src="img/farmacia.jpeg" alt="Imagem de farmacia">
+            <p>
+                O Governo Federal Brasileiro possui algumas iniciativas para auxiliar a população no acesso ao tratamento médico e uma delas é a Farmácia Popular.
+            </p>
+            <button>Acessar tema</button>
+          </div>
+      
+          <div class="card">
+            <h2>ENEM - Caminhos para garantir a regulamentação do Uber no Brasil</h2>
+            <img src="img/uber.jpeg" alt="uber">
+            <p>
+              O Projeto de Lei 1471/22 determina que a regulamentação dos serviços de aplicativo de transporte de passageiros, como Uber e 99, deverá prever um valor mínimo a ser repassado ao motorista, superior ao valor horário do salário mínimo vigente. O texto tramita na Câmara dos Deputados.
+      
+      
+            </p>
+            <button>Acessar tema</button>
+          </div>
+      
+        <div class="card">
+          <h2>ENEM - Desafios no combate aos impactos da vigorexia na sociedade brasileira</h2>
+          <img src="img/vigorexia.jpeg" alt="vigorexia">
+          <p>
+            Vigorexia: entenda transtorno que causa busca incessante por massa muscular. Especialistas explicam sobre problema que pode prejudicar saúde mental e física
+          </p>
+          <button>Acessar tema</button>
+        </div>
+      
+        <div class="card">
+          <h2>ENEM - Caminhos para garantir o direito à greve na sociedade brasileira</h2>
+          <img src="img/greve.jpeg" alt="greve">
+          <p>
+            Art. 9º É assegurado o direito de greve, competindo aos trabalhadores decidir sobre a oportunidade de exercê-lo e sobre os interesses que devam por meio dele defender.
+      
+          </p>
+          <button>Acessar tema</button>
+        </div>
+        </div>
+      
+        <div class="menu-direito">
+          <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-aulas')">Aulas</a>
+          <div id="dropdown-aulas" class="dropdown">
+            <a href="#">ENEM</a>
+            <a href="#">VESTIBULARES</a>
+          </div>
+          <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-temas')">Temas</a>
+          <div id="dropdown-temas" class="dropdown">
+            <a href="#">Opção A</a>
+            <a href="#">Opção B</a>
+            <a href="#">Opção C</a>
+          </div>
+          <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-vestibular')">Vestibular</a>
+          <div id="dropdown-vestibular" class="dropdown">
+            <a href="#">FUVEST</a>
+            <a href="#">URCA</a>
+            <a href="#">IFPI</a>
+          </div>
+        </div>
+      
+        <!-- Path to Framework7 Library Bundle JS-->
+        <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+        <!-- jQuery -->
+        <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+        <!-- Roteamento do app-->
+        <script type="text/javascript" src="js/routes.js"></script>
+        <script src="cordova.js"></script>
+      </div>
+    </div>
   </div>
-
-  <div class="conteudo">
-    <div class="card">
-      <h2>ENEM - Obstáculos da inclusão de pessoas com deficiência na acessibilidade digital no Brasil</h2>
-      <img src="img/acessibilidade.jpeg">
-      <p>
-        Lei Brasileira de Inclusão da Pessoa com Deficiência (LBI) foi considerada um grande avanço em relação aos direitos da pessoa com deficiência. 
-        Ela é destinada a "assegurar a promoção de condições de igualdade".
-      </p>
-      <button>Acessar tema</button>
-    </div>
-
-    <div class="card">
-      <h2>ENEM - Enfrentamento aos desafios da manutenção e eficiência da Farmácia Popular no Brasil</h2>
-      <img src="img/farmacia.jpeg" alt="Imagem de farmacia">
-      <p>
-          O Governo Federal Brasileiro possui algumas iniciativas para auxiliar a população no acesso ao tratamento médico e uma delas é a Farmácia Popular.
-      </p>
-      <button>Acessar tema</button>
-    </div>
-
-    <div class="card">
-      <h2>ENEM - Caminhos para garantir a regulamentação do Uber no Brasil</h2>
-      <img src="img/uber.jpeg" alt="uber">
-      <p>
-        O Projeto de Lei 1471/22 determina que a regulamentação dos serviços de aplicativo de transporte de passageiros, como Uber e 99, deverá prever um valor mínimo a ser repassado ao motorista, superior ao valor horário do salário mínimo vigente. O texto tramita na Câmara dos Deputados.
-
-
-      </p>
-      <button>Acessar tema</button>
-    </div>
-
-  <div class="card">
-    <h2>ENEM - Desafios no combate aos impactos da vigorexia na sociedade brasileira</h2>
-    <img src="img/vigorexia.jpeg" alt="vigorexia">
-    <p>
-      Vigorexia: entenda transtorno que causa busca incessante por massa muscular. Especialistas explicam sobre problema que pode prejudicar saúde mental e física
-    </p>
-    <button>Acessar tema</button>
-  </div>
-
-  <div class="card">
-    <h2>ENEM - Caminhos para garantir o direito à greve na sociedade brasileira</h2>
-    <img src="img/greve.jpeg" alt="greve">
-    <p>
-      Art. 9º É assegurado o direito de greve, competindo aos trabalhadores decidir sobre a oportunidade de exercê-lo e sobre os interesses que devam por meio dele defender.
-
-    </p>
-    <button>Acessar tema</button>
-  </div>
-  </div>
-
-  <div class="menu-direito">
-    <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-aulas')">Aulas</a>
-    <div id="dropdown-aulas" class="dropdown">
-      <a href="#">ENEM</a>
-      <a href="#">VESTIBULARES</a>
-    </div>
-    <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-temas')">Temas</a>
-    <div id="dropdown-temas" class="dropdown">
-      <a href="#">Opção A</a>
-      <a href="#">Opção B</a>
-      <a href="#">Opção C</a>
-    </div>
-    <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-vestibular')">Vestibular</a>
-    <div id="dropdown-vestibular" class="dropdown">
-      <a href="#">FUVEST</a>
-      <a href="#">URCA</a>
-      <a href="#">IFPI</a>
-    </div>
-  </div>
-
-  <script src="temas.js"></script>
 </body>
 </html>

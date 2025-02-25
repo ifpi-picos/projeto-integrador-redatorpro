@@ -7,8 +7,8 @@ body {
 }
 
 .top-bar { 
-    background-color: #77E4C8; 
-    color: rgb(4, 0, 56); 
+    background-color: #00012b; 
+    color: rgb(253, 253, 253); 
     padding: 15px; 
     text-align: center; 
     display: flex; 
@@ -19,7 +19,7 @@ body {
 
 
 .top-bar nav a { 
-    color: rgb(0, 6, 61); 
+    color: rgb(240, 241, 245); 
     text-decoration: none; 
     margin: 0 15px; 
 }
@@ -63,6 +63,13 @@ body {
     width: 300px; 
 }
 
+.pln {
+    text-align: left;
+}
+
+.pln2 {
+    text-align: left;
+}
 
 .depoimentos, .professores { 
     text-align: center; 
@@ -82,8 +89,9 @@ body {
      width: 150px; 
     }
 
+
 footer { 
-    background: #002F6C; 
+    background: #00012b; 
     color: white; 
     text-align: center; 
     padding: 20px; 

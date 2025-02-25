@@ -248,7 +248,12 @@ var app = new Framework7({
         },
         pageInit: function (event, page) {
           // Fazer algo quando a página de login for inicializada
-          $.getScript('js/folha.js');
+          console.log('Folha.html inicializado!');
+
+          // Carregar folha.js dinamicamente
+          $.getScript('js/folha.js')
+            .done(() => window.initFolha?.())
+            .fail(() => console.error("Erro ao carregar folha.js"));
         },
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM
@@ -271,12 +276,91 @@ var app = new Framework7({
         },
         pageInit: function (event, page) {
           // Fazer algo quando a página de login for inicializada
+          $.getScript('js/temas.js')
+            //.done(() => window.initFolha?.())
+            //.fail(() => console.error("Erro ao carregar folha.js"));
         },
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM
         },
       }
-    },    
+    },
+    {
+      path: '/banco/', // Caminho para a página de login
+      url: 'banco.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive', // Transição da página
+      },
+      on: {
+        pageBeforeIn: function (event, page) {
+          // Fazer algo antes de a página de login ser exibida
+        },
+        pageAfterIn: function (event, page) {
+          // Fazer algo depois de a página de login ser exibida
+        },
+        pageInit: function (event, page) {
+          // Fazer algo quando a página de login for inicializada
+          $.getScript('js/filtro.js');
+
+          //ALIMENTAR DE FORMA DINÂMICA A TELA LINK2 ( CORRETORES )
+          fetch('js/backend-redacoes.json')
+          .then(response => response.json())
+          .then(data => {
+              // Ordenar dados por nome com localeCompare para considerar acentuação
+              data.sort((a, b) => a.tema.localeCompare(b.tema));
+
+
+
+              //SALVAR DADOS DO BACK-END LOCALMENTE
+              localStorage.setItem('redacoes', JSON.stringify(data));
+              console.log('Dados dos corretores salvos no localStorage');
+              
+              //SImULAR CARREGAMNETO ONLINE
+              setTimeout(() => {
+
+                  //ESVAZIAR A ÁREA DA LISTA DE CORRETORES
+                  $("#text-list").empty();
+
+                  data.forEach(redacao => {
+                      var redacaoHTML = `
+                      <a data-id="${redacao.id}" href="#" class="item">
+                          <div class="card">
+                            <div class="left">
+                              <div class="icon">${redacao.imagem}</div>
+                              <span class="title">${redacao.tema}</span>
+                              <span class="subtitle">${redacao.tipo}</span>
+                            </div>
+                            <div class="right">
+                              <span class="label">Nota:</span>
+                              <span class="score">${redacao.nota}</span>
+                            </div>
+                          </div>
+                      </a>
+                      `;
+              
+                      $("#text-list").append(redacaoHTML)
+              
+                  });
+
+                  //$(".item").on('click', function () {
+                      //var id = $(this).attr('data-id');
+                      //localStorage.setItem('detalhe', id);
+                      //app.views.main.router.navigate('/detalhes/')
+                  //});
+
+              }, 1200);
+
+
+          })
+          .catch(error => console.error('Error ao fazer fetch dos dados: '+error));
+
+        },
+        pageBeforeRemove: function (event, page) {
+          // Fazer algo antes de a página ser removida do DOM
+        },
+      }
+    },   
     {
       path: '/link4/',
       url: 'link4.html',

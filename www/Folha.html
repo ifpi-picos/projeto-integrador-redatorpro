@@ -16,35 +16,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Folha de Redação</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="js/folha.js" defer></script>
 </head>
 
 <body class="body-folha">
-    <div data-name="folha" class="page">
+    <div id="app">
+        <div class="view view-main">
+            <div data-name="folha" class="page">
 
-        <div class="button-top">
-            <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
-          </div>
-
-        <header>
-            <h1>Folha de Redação</h1>
-        </header>
-        <div class="container">
-            <div class="options">
-                <label for="tema">Escolha o tema da redação:</label>
-                <select id="tema" name="tema">
-                    <option value="tema1">Tema 1</option>
-                    <option value="tema2">Tema 2</option>
-                    <option value="tema3">Tema 3</option>
-                </select>
-                <label for="upload">Envie uma imagem:</label>
-                <div class="upload-wrapper">
-                    <input type="file" id="upload" name="upload" accept="image/*">
-                    <label for="upload" class="upload-label"><i class="fas fa-upload"></i> Escolher arquivo</label>
+                <div class="button-top">
+                    <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
                 </div>
-            </div>
-            <div class="writing-area">
-                <div class="line-numbers">
-                    <pre>1
+
+                <header>
+                    <h1>Folha de Redação</h1>
+                </header>
+                <div class="container">
+                    <div class="options">
+                        <label for="tema">Escolha o tema da redação:</label>
+                        <select id="tema" name="tema">
+                            <option value="tema1">Tema 1</option>
+                            <option value="tema2">Tema 2</option>
+                            <option value="tema3">Tema 3</option>
+                        </select>
+                        <label for="upload">Envie uma imagem:</label>
+                        <div class="upload-wrapper">
+                            <input type="file" id="upload" name="upload" accept="image/*">
+                            <label for="upload" class="upload-label"><i class="fas fa-upload"></i> Escolher arquivo</label>
+                        </div>
+                    </div>
+                    <div class="writing-area">
+                        <div class="line-numbers">
+                            <pre>1
         2
         3
         4
@@ -74,31 +77,42 @@
         28
         29
         30</pre>
+                        </div>
+                        <textarea class="area" rows="30"></textarea>
+                    </div>
+                    <button class="submit-button">Enviar Redação</button>
                 </div>
-                <textarea class="area" rows="30"></textarea>
+
+                <!-- Path to Framework7 Library Bundle JS-->
+                <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+                <!-- jQuery -->
+                <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+                <!-- Roteamento do app-->
+                <script type="text/javascript" src="js/routes.js"></script>
+                <script src="cordova.js"></script>
+
+                <script>
+                    function limitLines(textarea, maxLines) {
+                        const lines = textarea.value.split('\n');
+                        if (lines.length > maxLines) {
+                            textarea.value = lines.slice(0, maxLines).join('\n');
+                        }
+                    }
+
+                    function clearPlaceholder(textarea) {
+                        if (textarea.placeholder === 'Escreva sua redação aqui...') {
+                            textarea.placeholder = '';
+                        }
+                    }
+
+                    function restorePlaceholder(textarea) {
+                        if (textarea.value === '') {
+                            textarea.placeholder = 'Escreva sua redação aqui...';
+                        }
+                    }
+                </script>
             </div>
-            <button class="submit-button">Enviar Redação</button>
         </div>
-        <script>
-            function limitLines(textarea, maxLines) {
-                const lines = textarea.value.split('\n');
-                if (lines.length > maxLines) {
-                    textarea.value = lines.slice(0, maxLines).join('\n');
-                }
-            }
-    
-            function clearPlaceholder(textarea) {
-                if (textarea.placeholder === 'Escreva sua redação aqui...') {
-                    textarea.placeholder = '';
-                }
-            }
-    
-            function restorePlaceholder(textarea) {
-                if (textarea.value === '') {
-                    textarea.placeholder = 'Escreva sua redação aqui...';
-                }
-            }
-        </script>
     </div>
 </body>
 </html>

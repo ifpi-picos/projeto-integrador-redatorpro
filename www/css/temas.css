@@ -1,9 +1,11 @@
-body {
-  font-family: Arial, Helvetica, sans-serif;
+.page[data-name="temas"] {
+  font-family: Arial, sans-serif, sans-serif;
   margin: 0;
   display: flex;
   height: 100vh;
+  overflow: auto; /* Permite rolagem */
 }
+
 
 .menu-lateral {
   width: 20%;

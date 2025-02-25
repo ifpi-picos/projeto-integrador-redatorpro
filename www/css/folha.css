@@ -147,6 +147,7 @@
 .line-numbers pre {
     margin: 0;
     padding: 0;
+    padding-right: 5px;
 }
 
 .area {

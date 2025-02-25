@@ -73,13 +73,15 @@ body {
 
 .depoimentos, .professores { 
     text-align: center; 
-    padding: 50px 20px; 
+    padding: 50px 20px;
+
 }
 
 .prof-lista { 
     display: flex; 
     justify-content: center; 
     gap: 20px; 
+    color: #00012b;
 }
 
 .prof { 

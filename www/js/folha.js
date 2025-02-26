@@ -25,7 +25,7 @@ window.initFolha = function() {
     formData.append("text", text);
 
     try {
-      const response = await fetch("https://express-e3hm.onrender.com/server", {
+      const response = await fetch("https://express-e3hm.onrender.com/server", { // Substitua pela URL do seu servidor no Render
         method: "POST",
         body: formData,
         credentials: 'include' // Inclua as credenciais para manter a sessão

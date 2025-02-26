@@ -301,7 +301,7 @@ var app = new Framework7({
         },
         pageInit: function (event, page) {
           // Fazer algo quando a página de login for inicializada
-          $.getScript('js/filtro.js');
+          $.getScript('js/filtro-redacoes.js');
 
           //ALIMENTAR DE FORMA DINÂMICA A TELA LINK2 ( CORRETORES )
           fetch('js/backend-redacoes.json')

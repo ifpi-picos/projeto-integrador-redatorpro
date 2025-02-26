@@ -5,7 +5,7 @@ document.querySelector('.sign-in-form').addEventListener('submit', async functio
     const password = document.querySelector('.input-wrap input[type="password"]').value;
 
     try {
-        const response = await fetch('https://express-e3hm.onrender.com/users/login', {
+        const response = await fetch('https://express-e3hm.onrender.com/users', {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json'

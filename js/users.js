@@ -1,4 +1,3 @@
-
 async function adicionarUsuario() {
   const campoNome = document.querySelector('#nome');
   const campoEmail = document.querySelector("#email");
@@ -15,7 +14,8 @@ async function adicionarUsuario() {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(usuario)
+    body: JSON.stringify(usuario),
+    credentials: 'include' // Para manter a sessão
   });
 
   if (resposta.ok) {

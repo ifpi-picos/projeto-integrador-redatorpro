@@ -301,7 +301,7 @@ var app = new Framework7({
         },
         pageInit: function (event, page) {
           // Fazer algo quando a página de login for inicializada
-          $.getScript('js/filtro.js');
+          $.getScript('js/filtro-redacoes.js');
 
           //ALIMENTAR DE FORMA DINÂMICA A TELA LINK2 ( CORRETORES )
           fetch('js/backend-redacoes.json')
@@ -325,9 +325,9 @@ var app = new Framework7({
                   data.forEach(redacao => {
                       var redacaoHTML = `
                       <a data-id="${redacao.id}" href="#" class="item">
-                          <div class="card">
+                          <div class="card-${redacao.tipo}">
                             <div class="left">
-                              <div class="icon">${redacao.imagem}</div>
+                              <div class="icon">${redacao.icon}</div>
                               <span class="title">${redacao.tema}</span>
                               <span class="subtitle">${redacao.tipo}</span>
                             </div>

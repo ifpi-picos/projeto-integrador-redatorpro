@@ -1,7 +1,6 @@
 window.initFolha = function() {
   console.log('Inicializando folha.js');
 
-  
   const submitButton = document.querySelector(".submit-button");
   if (!submitButton) {
     console.error("Botão de envio não encontrado!");
@@ -28,7 +27,8 @@ window.initFolha = function() {
     try {
       const response = await fetch("https://express-e3hm.onrender.com/server", {
         method: "POST",
-        body: formData
+        body: formData,
+        credentials: 'include' // Envia cookies para manter a sessão
       });
       const responseText = await response.text();
       console.log("Resposta do servidor:", responseText);

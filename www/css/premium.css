@@ -22,15 +22,22 @@ body {
     color: rgb(240, 241, 245); 
     text-decoration: none; 
     margin: 0 15px; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .hero { 
-    text-align: center; 
+    text-align: center;
     background: #9ACBD0 ; 
     color: rgb(0, 10, 56); 
-    padding: 50px 20px; 
+    padding: 50px 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.container {
+    width: 50%;
+    height: 2px;
+
+}
 
 .btn { 
     display: inline-block; 
@@ -74,6 +81,8 @@ body {
 .depoimentos, .professores { 
     text-align: center; 
     padding: 50px 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #00012b;
 
 }
 

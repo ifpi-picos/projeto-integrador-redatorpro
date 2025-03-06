@@ -1,0 +1,167 @@
+.page[data-name="repertorios"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: auto; /* Permite rolagem */
+}
+
+.button-top a {
+    width: 40px;
+    height: 40px;
+    background-color: var(--branco);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--preto);
+    box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
+    border: 1px solid var(--gelo);
+    font-size: 18px;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 1001;
+}
+
+.page header {
+    width: 100%;
+    background-color: #add8e6; /* Cor azul claro */
+    text-align: center;
+    padding: 10px 0;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Garante que o cabeçalho fique acima do conteúdo */
+}
+
+h2 {
+    font-size: 28px; /* Aumenta o tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    text-align: center;
+    margin-top: 90px; /* Adiciona espaço entre o cabeçalho e a frase */
+    margin-bottom: 40px; /* Adiciona espaço entre a frase e as caixas */
+    color: #333; /* Cor do texto */
+    font-family: 'Arial', sans-serif; /* Fonte do texto */
+    animation: fadeIn 1s ease-in-out; /* Adiciona animação de fade-in */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.repertorios-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.repertorio-box {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-size: 18px;
+    transition: box-shadow 0.3s, background-color 0.3s;
+    opacity: 0;
+    animation: fadeInBox 1s forwards;
+}
+
+@keyframes fadeInBox {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.repertorio-box:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Transição exclusiva para o conteúdo interno */
+.repertorio-content {
+    transition: transform 0.3s;
+}
+
+.repertorio-box:nth-child(1) {
+    animation-delay: 0.2s; /* Atraso para a primeira caixinha */
+}
+
+.repertorio-box:nth-child(2) {
+    animation-delay: 0.4s; /* Atraso para a segunda caixinha */
+}
+
+.repertorio-box:nth-child(3) {
+    animation-delay: 0.6s; /* Atraso para a terceira caixinha */
+}
+
+.repertorio-box:nth-child(4) {
+    animation-delay: 0.8s; /* Atraso para a quarta caixinha */
+}
+
+.repertorio-box img {
+    width: 120px; /* Aumenta a largura das imagens */
+    height: 120px; /* Aumenta a altura das imagens */
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.repertorio-box h3 {
+    font-size: 24px; /* Aumenta o tamanho da fonte dos títulos nas caixinhas */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao texto */
+}
+
+.filmes-series {
+    background: linear-gradient(135deg, #ff6f61, #f9a395); /* Gradiente para Filmes e Séries */
+}
+
+.livros {
+    background: linear-gradient(135deg, #6b5b95, #c1ade6); /* Gradiente para Livros */
+}
+
+.fatos-historicos {
+    background: linear-gradient(135deg, #88b04b, #c1e698); /* Gradiente para Fatos Históricos */
+}
+
+.citacoes-outros {
+    background: linear-gradient(135deg, #f8d3d3, #f8bbd0); /* Gradiente para Citações e Outros */
+}
+
+/* Media query para telas de até 600px */
+/* Media query para telas de até 600px */
+@media screen and (max-width: 600px) {
+    h2 {
+        margin-top: 60px; /* Diminui a margem superior */
+        font-size: 22px; /* Reduz o tamanho da fonte do h2 */
+        margin-bottom: 20px;
+    }
+
+    .repertorios-container {
+        gap: 20px; /* Aumenta o espaço entre as caixinhas */
+        padding: 10px;
+    }
+
+    .repertorio-box {
+        width: 220px; /* Caixinhas menores */
+        height: 150px;
+        padding: 15px;
+        font-size: 16px; /* Reduz o tamanho da fonte interna */
+    }
+
+    .repertorio-box img {
+        width: 80px; /* Imagens menores */
+        height: 80px;
+        margin-top: 3px;
+    }
+
+    .repertorio-box h3 {
+        font-size: 18px; /* Tamanho reduzido para o título */
+    }
+}

@@ -17,7 +17,6 @@ body {
     padding: 10px 50px; 
 }
 
-
 .top-bar nav a { 
     color: rgb(240, 241, 245); 
     text-decoration: none; 
@@ -33,10 +32,26 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    width: 300px;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
 .container {
     width: 50%;
     height: 2px;
-
 }
 
 .btn { 
@@ -83,7 +98,6 @@ body {
     padding: 50px 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #00012b;
-
 }
 
 .prof-lista { 
@@ -97,9 +111,8 @@ body {
     background: #ccc; 
     padding: 10px; 
     border-radius: 10px;
-     width: 150px; 
-    }
-
+    width: 150px; 
+}
 
 footer {
     background: #00012b; 
@@ -107,4 +120,4 @@ footer {
     text-align: center; 
     padding: 20px; 
     margin-top: 20px;
- }
+}

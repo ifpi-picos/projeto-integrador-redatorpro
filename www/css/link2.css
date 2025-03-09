@@ -43,6 +43,10 @@ input[type="text"] {
     justify-content: center; /* Centraliza os botões */
     gap: 10px; /* Espaçamento entre os botões */
     margin: 10px 0;
+    padding-top: 15px;
+    padding-bottom: 25px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 35px;
 }
 
 .filter-buttons button {
@@ -71,8 +75,6 @@ input[type="text"] {
   
   /* Cartão de pessoa */
 .person-card {
-    margin-left: 60px;
-    margin-right: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -82,8 +84,6 @@ input[type="text"] {
 }
 
 .person-card-skeleton {
-    margin-left: 60px;
-    margin-right: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -150,17 +150,32 @@ input[type="text"] {
 /* Responsividade
 @media (min-width: 768px) {
     .person-list {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-  
-@media (min-width: 1024px) {
-    .person-list {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-    .person-card {
-    width: 90%;
-    margin: auto;
+        grid-template-columns: 1fr 1fr !important;
     }
 }
 */
+
+/* Para telas de celular (até 768px) */
+@media (max-width: 768px) {
+    
+}
+  
+@media (min-width: 769px) {
+    /* Container que abriga os cards */
+    .person-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr; 
+      column-gap: 50px;
+      row-gap: 15px;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+  
+    /* Cards individuais */
+    .person-card {
+      margin: 0;
+      width: 100%;
+    }
+  }
+  

@@ -19,19 +19,16 @@ body{
 }
 
 #app{
-    margin: 0; /* Remove margens padrão */
     box-sizing: border-box; /* Inclui padding nas dimensões do elemento */
     overflow-x: hidden; /* Impede rolagem horizontal */
     position: fixed;
     z-index: 1;
-    padding-left: 72px;
 }
 
-/*
+
 .toolbar{
     height: 80px;
 }
-*/
 
 .tab-link{
     display: flex;
@@ -39,12 +36,10 @@ body{
     flex-flow: column wrap;
 }
 
-/*
 .toolbar-inner {
     background: var(--branco);
     border-top: 1px solid var(--gelo);
 }
-*/
 
 .toolbar-inner .link{    
     flex:1;
@@ -64,7 +59,6 @@ body{
 }
 
 .top-nav{
-    margin-top: 20px;
     width: 100%;
     height: 60px;
     background: var(--branco);
@@ -128,7 +122,6 @@ a {
 }
 
 form {
-    padding-right: 20px;
     padding-top: 10px;
     padding-bottom: 20px;
     background: var(--branco);
@@ -149,7 +142,6 @@ input[type="text"] {
 }
 
 .icone-busca {
-    margin-right: 20px;
     position: absolute;
     top: 0px;
     right: 5%;
@@ -162,10 +154,8 @@ input[type="text"] {
 }
 
 .swiper {
-    margin-left: 25px;
-    margin-right: 20px;
-    width: 96%;
-    height: 96%;
+    width: 100%;
+    height: 100%;
 }
 
 .swiper-slide {
@@ -195,16 +185,6 @@ input[type="text"] {
 .img-fluid {
     width: 555px;
     height: 276px;
-}
-
-.h2-left {
-    padding-top: 15px;
-    padding-left: 29px;
-}
-
-.a-right {
-    padding-top: 15px;
-    padding-right: 29px;
 }
 
 .block {
@@ -237,9 +217,6 @@ input[type="text"] {
 }
 
 .item-card {
-    margin-left: 27px;
-    padding-right: 20px;
-    padding-top: 10px;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -322,3 +299,73 @@ input[type="text"] {
 .mdi-star {
     color: orange;
 }
+
+/* Estilos padrões (desktop) */
+#sidebar {
+  display: block !important;
+}
+#menuPrincipal {
+  display: none !important;
+}
+
+
+/* Para telas de celular (até 768px) */
+@media (max-width: 768px) {
+  #sidebar {
+    display: none !important;
+  }
+  #menuPrincipal {
+    display: block !important;
+  }
+  .btn-cart {
+    margin-right: 5%;
+  }
+  .h2-left {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .a-right {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+}
+
+@media (min-width: 769px) {
+    #app{
+        margin: 0;
+        padding-left: 72px;
+    }
+
+    .h2-left {
+      padding-top: 15px;
+      padding-left: 29px;
+    }
+    .a-right {
+      padding-top: 15px;
+      padding-right: 29px;
+    }
+    .item-card {
+      margin-left: 27px;
+      padding-right: 20px;
+      padding-top: 10px;
+    }
+
+    .top-nav {
+      margin-top: 20px;
+    }
+
+    from {
+      padding-right: 20px;
+    }
+
+    .icone-busca {
+      margin-right: 20px;
+    }
+    .swiper {
+      margin-left: 25px;
+      margin-right: 20px;
+      width: 96%;
+      height: 96%;
+    }
+  }
+  

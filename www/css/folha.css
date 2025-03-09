@@ -6,24 +6,6 @@
     overflow: auto; /* Permite rolagem */
 }
 
-.button-top a {
-    width: 40px;
-    height: 40px;
-    background-color: var(--branco);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--preto);
-    box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
-    border: 1px solid var(--gelo);
-    font-size: 18px;
-    position: fixed;
-    top: 30px;
-    right: 30px;
-    z-index: 1001;
-}
-
 .page header {
     width: 100%;
     background-color: #add8e6; /* Cor azul claro */
@@ -236,5 +218,26 @@
     .submit-image-button {
         display: block; /* Exibe o botão de enviar imagem em telas pequenas */
         width: 100%;
+    }
+}
+
+
+@media (min-width: 769px) {
+    .buttons-top a {
+        width: 40px;
+        height: 40px;
+        background-color: var(--branco);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--preto);
+        box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
+        border: 1px solid var(--gelo);
+        font-size: 18px;
+        position: fixed;
+        top: 20px;
+        right: 30px;
+        z-index: 1001;
     }
 }

@@ -9,8 +9,6 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    margin-left: 60px;
-    margin-right: 80px;
     padding: 1rem;
   }
 
@@ -24,8 +22,6 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    margin-left: 60px;
-    margin-right: 80px;
     padding: 1rem;
   }
 
@@ -39,8 +35,6 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    margin-left: 60px;
-    margin-right: 80px;
     padding: 1rem;
   }
 
@@ -106,4 +100,23 @@
   grid-template-columns: 1fr;
   gap: 1rem;
   padding: 1rem;
+}
+
+
+/* Responsividade */
+@media (min-width: 769px) {
+  .card-enem {
+    margin-left: 80px;
+    margin-right: 60px;
+  }
+
+  .card-ita {
+    margin-left: 80px;
+    margin-right: 60px;
+  }
+
+  .card-vestibular {
+    margin-left: 80px;
+    margin-right: 60px;
+  }
 }

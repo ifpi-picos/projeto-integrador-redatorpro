@@ -155,10 +155,11 @@ input[type="text"] {
 }
 */
 
-/* Para telas de celular (até 768px) */
+/* Para telas de celular (até 768px)
 @media (max-width: 768px) {
     
 }
+*/
   
 @media (min-width: 769px) {
     /* Container que abriga os cards */
@@ -177,5 +178,5 @@ input[type="text"] {
       margin: 0;
       width: 100%;
     }
-  }
+}
   

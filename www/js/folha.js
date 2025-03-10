@@ -68,36 +68,32 @@ window.initFolha = function() {
         reader.readAsArrayBuffer(file);
     } 
     // Se não houver arquivo, tenta pegar a imagem que foi exibida (preview)
-    else {
-        const preview = document.querySelector(".container img");
-        if (preview && preview.src) {
-            try {
-                const res = await fetch(preview.src);
-                const imgBuffer = await res.arrayBuffer();
-                const imageBytes = new Uint8Array(imgBuffer);
-                let image;
-                // Verifica a extensão pelo src; ajuste se necessário
-                if (preview.src.toLowerCase().endsWith(".png")) {
-                    image = await pdfDoc.embedPng(imageBytes);
-                } else {
-                    image = await pdfDoc.embedJpg(imageBytes);
-                }
-                const imageDims = image.scale(0.5);
-                page.drawImage(image, {
-                    x: 50,
-                    y: 500,
-                    width: imageDims.width,
-                    height: imageDims.height,
-                });
-                imageEmbedded = true;
-            } catch (error) {
-                console.error("Erro ao carregar a imagem do preview:", error);
-            }
+// Se não houver arquivo, tenta pegar a imagem a partir da URL armazenada
+  else {
+    if (window.imagePreviewUrl) {
+      try {
+        const res = await fetch(window.imagePreviewUrl);
+        const imgBuffer = await res.arrayBuffer();
+        const imageBytes = new Uint8Array(imgBuffer);
+        let image;
+        if (window.imagePreviewUrl.toLowerCase().endsWith(".png")) {
+          image = await pdfDoc.embedPng(imageBytes);
+        } else {
+          image = await pdfDoc.embedJpg(imageBytes);
         }
-  
-        // Se a imagem foi embutida ou não, faz o download do PDF
-        await salvarEPromptDownload(pdfDoc);
+        const imageDims = image.scale(0.5);
+        page.drawImage(image, {
+          x: 50,
+          y: 500,
+          width: imageDims.width,
+          height: imageDims.height,
+        });
+      } catch (error) {
+        console.error("Erro ao carregar a imagem da URL armazenada:", error);
+      }
     }
+    await salvarEPromptDownload(pdfDoc);
+  }
   }
   
   // Função para salvar e forçar o download do PDF
@@ -158,11 +154,12 @@ window.initFolha = function() {
       if (response.ok) {
         alert("Redação enviada com sucesso!");
         console.log("URL da imagem:", result.url);
-        const imgPreview = document.createElement("img");
-        imgPreview.src = result.url;
-        imgPreview.style.maxWidth = "100%";
-        imgPreview.style.marginTop = "10px";
-        document.querySelector(".container").appendChild(imgPreview);
+        window.imagePreviewUrl = result.url;
+        //const imgPreview = document.createElement("img");
+        //imgPreview.src = result.url;
+        //imgPreview.style.maxWidth = "100%";
+        //imgPreview.style.marginTop = "10px";
+        //document.querySelector(".container").appendChild(imgPreview);
       } else {
         throw new Error(result.error || "Erro desconhecido: " + response.status);
       }

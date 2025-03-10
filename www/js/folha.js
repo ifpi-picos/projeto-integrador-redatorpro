@@ -61,52 +61,89 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function gerarPDF() {
-  const { PDFDocument, rgb } = PDFLib;
+  console.log("Gerando PDF...");
 
   // Criar um novo documento PDF
-  const pdfDoc = await PDFDocument.create();
-  const page = pdfDoc.addPage([600, 800]);
+  const pdfDoc = await PDFLib.PDFDocument.create();
+  const page = pdfDoc.addPage([600, 800]); // Define tamanho da página
 
-  // Pegando o texto da redação
+  // Pegar o texto da redação
   const textArea = document.querySelector(".area");
-  const textoRedacao = textArea.value.trim() || "Nenhum texto fornecido.";
+  const textoRedacao = textArea.value || "Sem texto digitado.";
 
-  // Pegando a imagem enviada
-  const imgElement = document.querySelector(".container img");
-  let image;
-  if (imgElement) {
-      const imageUrl = imgElement.src;
-      const imageBytes = await fetch(imageUrl).then(res => res.arrayBuffer());
-      image = await pdfDoc.embedJpg(imageBytes); // Se for PNG, use embedPng
-  }
+  // Pegar a imagem enviada
+  const fileInput = document.getElementById("upload");
+  const file = fileInput.files[0];
 
-  // Adicionando a imagem ao PDF
-  if (image) {
-      const { width, height } = image.scale(0.5);
-      page.drawImage(image, {
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = async function (event) {
+          const imageBytes = new Uint8Array(event.target.result);
+          let image;
+          if (file.type === "image/png") {
+              image = await pdfDoc.embedPng(imageBytes);
+          } else {
+              image = await pdfDoc.embedJpg(imageBytes);
+          }
+
+          const imageDims = image.scale(0.5); // Ajustar tamanho da imagem
+
+          // Adicionar a imagem ao PDF
+          page.drawImage(image, {
+              x: 50,
+              y: 600, // Posição da imagem
+              width: imageDims.width,
+              height: imageDims.height,
+          });
+
+          // Adicionar o texto ao PDF
+          page.drawText(textoRedacao, {
+              x: 50,
+              y: 500,
+              size: 12,
+          });
+
+          // Gerar o arquivo PDF
+          const pdfBytes = await pdfDoc.save();
+
+          // Criar um link para download
+          const blob = new Blob([pdfBytes], { type: "application/pdf" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "redacao.pdf";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+      };
+
+      reader.readAsArrayBuffer(file);
+  } else {
+      // Se não houver imagem, gerar apenas o texto no PDF
+      page.drawText(textoRedacao, {
           x: 50,
-          y: 600,
-          width,
-          height,
+          y: 700,
+          size: 12,
       });
+
+      // Salvar e baixar o PDF
+      const pdfBytes = await pdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "redacao.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
   }
-
-  // Adicionando o texto ao PDF
-  page.drawText(textoRedacao, {
-      x: 50,
-      y: 500,
-      size: 12,
-      color: rgb(0, 0, 0),
-  });
-
-  // Salvando o PDF
-  const pdfBytes = await pdfDoc.save();
-  const blob = new Blob([pdfBytes], { type: "application/pdf" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "redacao.pdf";
-  link.click();
 }
 
-// Adicionando evento ao botão
-document.querySelector(".download-pdf").addEventListener("click", gerarPDF);
+// Adiciona o evento de clique no botão de gerar PDF
+document.addEventListener("DOMContentLoaded", () => {
+  const botaoPDF = document.createElement("button");
+  botaoPDF.textContent = "Baixar PDF";
+  botaoPDF.className = "download-button";
+  botaoPDF.addEventListener("click", gerarPDF);
+  document.querySelector(".container").appendChild(botaoPDF);
+});

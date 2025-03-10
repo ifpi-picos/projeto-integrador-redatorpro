@@ -59,3 +59,54 @@ window.initFolha = function() {
 document.addEventListener('DOMContentLoaded', () => {
   initFolha();
 });
+
+async function gerarPDF() {
+  const { PDFDocument, rgb } = PDFLib;
+
+  // Criar um novo documento PDF
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([600, 800]);
+
+  // Pegando o texto da redação
+  const textArea = document.querySelector(".area");
+  const textoRedacao = textArea.value.trim() || "Nenhum texto fornecido.";
+
+  // Pegando a imagem enviada
+  const imgElement = document.querySelector(".container img");
+  let image;
+  if (imgElement) {
+      const imageUrl = imgElement.src;
+      const imageBytes = await fetch(imageUrl).then(res => res.arrayBuffer());
+      image = await pdfDoc.embedJpg(imageBytes); // Se for PNG, use embedPng
+  }
+
+  // Adicionando a imagem ao PDF
+  if (image) {
+      const { width, height } = image.scale(0.5);
+      page.drawImage(image, {
+          x: 50,
+          y: 600,
+          width,
+          height,
+      });
+  }
+
+  // Adicionando o texto ao PDF
+  page.drawText(textoRedacao, {
+      x: 50,
+      y: 500,
+      size: 12,
+      color: rgb(0, 0, 0),
+  });
+
+  // Salvando o PDF
+  const pdfBytes = await pdfDoc.save();
+  const blob = new Blob([pdfBytes], { type: "application/pdf" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "redacao.pdf";
+  link.click();
+}
+
+// Adicionando evento ao botão
+document.querySelector(".download-pdf").addEventListener("click", gerarPDF);

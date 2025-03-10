@@ -91,7 +91,8 @@ async function gerarPDF() {
       maxWidth: 500,
   });
 
-  // Processar a imagem (se houver)
+  let imageEmbedded = false;
+  // Primeiro, tenta pegar o arquivo do input
   const fileInput = document.getElementById("upload");
   const file = fileInput.files[0];
 
@@ -106,30 +107,55 @@ async function gerarPDF() {
               } else {
                   image = await pdfDoc.embedJpg(imageBytes);
               }
-
               const imageDims = image.scale(0.5);
-
               page.drawImage(image, {
                   x: 50,
                   y: 500,
                   width: imageDims.width,
                   height: imageDims.height,
               });
-
-              // Salvar e baixar o PDF após a imagem ser embutida
+              imageEmbedded = true;
               await salvarEPromptDownload(pdfDoc);
           } catch (error) {
               console.error("Erro ao embutir a imagem no PDF:", error);
           }
       };
       reader.readAsArrayBuffer(file);
-  } else {
-      // Salvar e baixar o PDF se não houver imagem
+  } 
+  // Se não houver arquivo, tenta pegar a imagem que foi exibida (preview)
+  else {
+      const preview = document.querySelector(".container img");
+      if (preview && preview.src) {
+          try {
+              const res = await fetch(preview.src);
+              const imgBuffer = await res.arrayBuffer();
+              const imageBytes = new Uint8Array(imgBuffer);
+              let image;
+              // Verifica a extensão pelo src; ajuste se necessário
+              if (preview.src.toLowerCase().endsWith(".png")) {
+                  image = await pdfDoc.embedPng(imageBytes);
+              } else {
+                  image = await pdfDoc.embedJpg(imageBytes);
+              }
+              const imageDims = image.scale(0.5);
+              page.drawImage(image, {
+                  x: 50,
+                  y: 500,
+                  width: imageDims.width,
+                  height: imageDims.height,
+              });
+              imageEmbedded = true;
+          } catch (error) {
+              console.error("Erro ao carregar a imagem do preview:", error);
+          }
+      }
+
+      // Se a imagem foi embutida ou não, faz o download do PDF
       await salvarEPromptDownload(pdfDoc);
   }
 }
 
-// Função separada para salvar e baixar o PDF
+// Função para salvar e forçar o download do PDF
 async function salvarEPromptDownload(pdfDoc) {
   try {
       const pdfBytes = await pdfDoc.save();
@@ -146,4 +172,3 @@ async function salvarEPromptDownload(pdfDoc) {
       console.error("Erro ao gerar o PDF:", error);
   }
 }
-

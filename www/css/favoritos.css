@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--branco);
-    padding: 25px 70px 10px 40px;
+    padding: 10px 0;
 }
 
 .nav-top.favority a {
@@ -27,7 +27,7 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
+    border: 1px solid var(--gelo);
     border-radius: 50%;
     color: var(--preto);
 }
@@ -111,4 +111,19 @@
 .middle span {
     color: gray;
     margin-left: 15px;
+}
+
+
+@media (min-width: 769px) {
+    .nav-top.favority {
+        padding: 25px 70px 10px 40px;
+    }
+    .nav-top.favority a {
+        box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
+    }
+
+    .item-favorito {
+        height: 200px;
+        width: 85%;
+    }
 }

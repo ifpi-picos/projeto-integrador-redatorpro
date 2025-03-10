@@ -31,8 +31,10 @@
     width: 100%;
     position: absolute;
     top: 20px;
+    left: 8px;
     justify-content: space-between;
     align-items: center;
+    z-index: 1001;
 }
 
 .buttons-top a{

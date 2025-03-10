@@ -56,12 +56,25 @@ window.initFolha = function() {
   });
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  initFolha();
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Página carregada. Preparando geração de PDF...");
+
+  const botaoPDF = document.querySelector(".download-pdf");
+  if (!botaoPDF) {
+      console.error("Botão de gerar PDF não encontrado!");
+      return;
+  }
+
+  botaoPDF.addEventListener("click", gerarPDF);
 });
 
 async function gerarPDF() {
   console.log("Gerando PDF...");
+
+  if (!PDFLib) {
+      console.error("Biblioteca PDFLib não encontrada!");
+      return;
+  }
 
   // Criar um novo documento PDF
   const pdfDoc = await PDFLib.PDFDocument.create();
@@ -69,7 +82,15 @@ async function gerarPDF() {
 
   // Pegar o texto da redação
   const textArea = document.querySelector(".area");
-  const textoRedacao = textArea.value || "Sem texto digitado.";
+  const textoRedacao = textArea.value.trim() || "Sem texto digitado.";
+
+  // Adicionar o texto ao PDF
+  page.drawText(textoRedacao, {
+      x: 50,
+      y: 700,
+      size: 12,
+      maxWidth: 500, // Para evitar que o texto saia da página
+  });
 
   // Pegar a imagem enviada
   const fileInput = document.getElementById("upload");
@@ -78,55 +99,41 @@ async function gerarPDF() {
   if (file) {
       const reader = new FileReader();
       reader.onload = async function (event) {
-          const imageBytes = new Uint8Array(event.target.result);
-          let image;
-          if (file.type === "image/png") {
-              image = await pdfDoc.embedPng(imageBytes);
-          } else {
-              image = await pdfDoc.embedJpg(imageBytes);
+          try {
+              const imageBytes = new Uint8Array(event.target.result);
+              let image;
+              if (file.type === "image/png") {
+                  image = await pdfDoc.embedPng(imageBytes);
+              } else {
+                  image = await pdfDoc.embedJpg(imageBytes);
+              }
+
+              const imageDims = image.scale(0.5); // Ajustar tamanho da imagem
+
+              // Adicionar a imagem ao PDF
+              page.drawImage(image, {
+                  x: 50,
+                  y: 500, // Posição ajustada abaixo do texto
+                  width: imageDims.width,
+                  height: imageDims.height,
+              });
+
+              await salvarEPromptDownload(pdfDoc);
+          } catch (error) {
+              console.error("Erro ao adicionar imagem ao PDF:", error);
           }
-
-          const imageDims = image.scale(0.5); // Ajustar tamanho da imagem
-
-          // Adicionar a imagem ao PDF
-          page.drawImage(image, {
-              x: 50,
-              y: 600, // Posição da imagem
-              width: imageDims.width,
-              height: imageDims.height,
-          });
-
-          // Adicionar o texto ao PDF
-          page.drawText(textoRedacao, {
-              x: 50,
-              y: 500,
-              size: 12,
-          });
-
-          // Gerar o arquivo PDF
-          const pdfBytes = await pdfDoc.save();
-
-          // Criar um link para download
-          const blob = new Blob([pdfBytes], { type: "application/pdf" });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "redacao.pdf";
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
       };
 
       reader.readAsArrayBuffer(file);
   } else {
-      // Se não houver imagem, gerar apenas o texto no PDF
-      page.drawText(textoRedacao, {
-          x: 50,
-          y: 700,
-          size: 12,
-      });
+      // Se não houver imagem, apenas baixa o texto
+      await salvarEPromptDownload(pdfDoc);
+  }
+}
 
-      // Salvar e baixar o PDF
+// Função separada para salvar e baixar o PDF
+async function salvarEPromptDownload(pdfDoc) {
+  try {
       const pdfBytes = await pdfDoc.save();
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
@@ -136,14 +143,9 @@ async function gerarPDF() {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      console.log("PDF baixado com sucesso!");
+  } catch (error) {
+      console.error("Erro ao gerar o PDF:", error);
   }
 }
 
-// Adiciona o evento de clique no botão de gerar PDF
-document.addEventListener("DOMContentLoaded", () => {
-  const botaoPDF = document.createElement("button");
-  botaoPDF.textContent = "Baixar PDF";
-  botaoPDF.className = "download-button";
-  botaoPDF.addEventListener("click", gerarPDF);
-  document.querySelector(".container").appendChild(botaoPDF);
-});

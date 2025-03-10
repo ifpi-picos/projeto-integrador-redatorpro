@@ -1,6 +1,123 @@
 window.initFolha = function() {
   console.log('Inicializando folha.js');
 
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("Página carregada. Preparando geração de PDF...");
+  
+    const botaoPDF = document.querySelector(".download-pdf");
+    if (!botaoPDF) {
+        console.error("Botão de gerar PDF não encontrado!");
+        return;
+    }
+  
+    botaoPDF.addEventListener("click", gerarPDF);
+  });
+  
+  async function gerarPDF() {
+    console.log("Gerando PDF...");
+  
+    if (typeof PDFLib === "undefined") {
+        console.error("Biblioteca PDFLib não carregada!");
+        return;
+    }
+  
+    // Criar um novo documento PDF
+    const pdfDoc = await PDFLib.PDFDocument.create();
+    const page = pdfDoc.addPage([600, 800]);
+  
+    // Pegar o texto da redação
+    const textArea = document.querySelector(".area");
+    const textoRedacao = textArea.value.trim() || "Sem texto digitado.";
+  
+    page.drawText(textoRedacao, {
+        x: 50,
+        y: 700,
+        size: 12,
+        maxWidth: 500,
+    });
+  
+    let imageEmbedded = false;
+    // Primeiro, tenta pegar o arquivo do input
+    const fileInput = document.getElementById("upload");
+    const file = fileInput.files[0];
+  
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = async function (event) {
+            try {
+                const imageBytes = new Uint8Array(event.target.result);
+                let image;
+                if (file.type === "image/png") {
+                    image = await pdfDoc.embedPng(imageBytes);
+                } else {
+                    image = await pdfDoc.embedJpg(imageBytes);
+                }
+                const imageDims = image.scale(0.5);
+                page.drawImage(image, {
+                    x: 50,
+                    y: 500,
+                    width: imageDims.width,
+                    height: imageDims.height,
+                });
+                imageEmbedded = true;
+                await salvarEPromptDownload(pdfDoc);
+            } catch (error) {
+                console.error("Erro ao embutir a imagem no PDF:", error);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    } 
+    // Se não houver arquivo, tenta pegar a imagem que foi exibida (preview)
+    else {
+        const preview = document.querySelector(".container img");
+        if (preview && preview.src) {
+            try {
+                const res = await fetch(preview.src);
+                const imgBuffer = await res.arrayBuffer();
+                const imageBytes = new Uint8Array(imgBuffer);
+                let image;
+                // Verifica a extensão pelo src; ajuste se necessário
+                if (preview.src.toLowerCase().endsWith(".png")) {
+                    image = await pdfDoc.embedPng(imageBytes);
+                } else {
+                    image = await pdfDoc.embedJpg(imageBytes);
+                }
+                const imageDims = image.scale(0.5);
+                page.drawImage(image, {
+                    x: 50,
+                    y: 500,
+                    width: imageDims.width,
+                    height: imageDims.height,
+                });
+                imageEmbedded = true;
+            } catch (error) {
+                console.error("Erro ao carregar a imagem do preview:", error);
+            }
+        }
+  
+        // Se a imagem foi embutida ou não, faz o download do PDF
+        await salvarEPromptDownload(pdfDoc);
+    }
+  }
+  
+  // Função para salvar e forçar o download do PDF
+  async function salvarEPromptDownload(pdfDoc) {
+    try {
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "redacao.pdf";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        console.log("PDF baixado com sucesso!");
+    } catch (error) {
+        console.error("Erro ao gerar o PDF:", error);
+    }
+  }
+
   const submitButton = document.querySelector(".submit-button");
   if (!submitButton) {
     console.error("Botão de envio não encontrado!");
@@ -56,119 +173,3 @@ window.initFolha = function() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log("Página carregada. Preparando geração de PDF...");
-
-  const botaoPDF = document.querySelector(".download-pdf");
-  if (!botaoPDF) {
-      console.error("Botão de gerar PDF não encontrado!");
-      return;
-  }
-
-  botaoPDF.addEventListener("click", gerarPDF);
-});
-
-async function gerarPDF() {
-  console.log("Gerando PDF...");
-
-  if (typeof PDFLib === "undefined") {
-      console.error("Biblioteca PDFLib não carregada!");
-      return;
-  }
-
-  // Criar um novo documento PDF
-  const pdfDoc = await PDFLib.PDFDocument.create();
-  const page = pdfDoc.addPage([600, 800]);
-
-  // Pegar o texto da redação
-  const textArea = document.querySelector(".area");
-  const textoRedacao = textArea.value.trim() || "Sem texto digitado.";
-
-  page.drawText(textoRedacao, {
-      x: 50,
-      y: 700,
-      size: 12,
-      maxWidth: 500,
-  });
-
-  let imageEmbedded = false;
-  // Primeiro, tenta pegar o arquivo do input
-  const fileInput = document.getElementById("upload");
-  const file = fileInput.files[0];
-
-  if (file) {
-      const reader = new FileReader();
-      reader.onload = async function (event) {
-          try {
-              const imageBytes = new Uint8Array(event.target.result);
-              let image;
-              if (file.type === "image/png") {
-                  image = await pdfDoc.embedPng(imageBytes);
-              } else {
-                  image = await pdfDoc.embedJpg(imageBytes);
-              }
-              const imageDims = image.scale(0.5);
-              page.drawImage(image, {
-                  x: 50,
-                  y: 500,
-                  width: imageDims.width,
-                  height: imageDims.height,
-              });
-              imageEmbedded = true;
-              await salvarEPromptDownload(pdfDoc);
-          } catch (error) {
-              console.error("Erro ao embutir a imagem no PDF:", error);
-          }
-      };
-      reader.readAsArrayBuffer(file);
-  } 
-  // Se não houver arquivo, tenta pegar a imagem que foi exibida (preview)
-  else {
-      const preview = document.querySelector(".container img");
-      if (preview && preview.src) {
-          try {
-              const res = await fetch(preview.src);
-              const imgBuffer = await res.arrayBuffer();
-              const imageBytes = new Uint8Array(imgBuffer);
-              let image;
-              // Verifica a extensão pelo src; ajuste se necessário
-              if (preview.src.toLowerCase().endsWith(".png")) {
-                  image = await pdfDoc.embedPng(imageBytes);
-              } else {
-                  image = await pdfDoc.embedJpg(imageBytes);
-              }
-              const imageDims = image.scale(0.5);
-              page.drawImage(image, {
-                  x: 50,
-                  y: 500,
-                  width: imageDims.width,
-                  height: imageDims.height,
-              });
-              imageEmbedded = true;
-          } catch (error) {
-              console.error("Erro ao carregar a imagem do preview:", error);
-          }
-      }
-
-      // Se a imagem foi embutida ou não, faz o download do PDF
-      await salvarEPromptDownload(pdfDoc);
-  }
-}
-
-// Função para salvar e forçar o download do PDF
-async function salvarEPromptDownload(pdfDoc) {
-  try {
-      const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "redacao.pdf";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      console.log("PDF baixado com sucesso!");
-  } catch (error) {
-      console.error("Erro ao gerar o PDF:", error);
-  }
-}

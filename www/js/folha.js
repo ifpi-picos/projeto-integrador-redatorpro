@@ -54,9 +54,9 @@ window.initFolha = function() {
       alert("Erro ao enviar redação. " + error.message);
     }
   });
-};
+}
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   console.log("Página carregada. Preparando geração de PDF...");
 
   const botaoPDF = document.querySelector(".download-pdf");
@@ -71,28 +71,27 @@ document.addEventListener("DOMContentLoaded", () => {
 async function gerarPDF() {
   console.log("Gerando PDF...");
 
-  if (!PDFLib) {
-      console.error("Biblioteca PDFLib não encontrada!");
+  if (typeof PDFLib === "undefined") {
+      console.error("Biblioteca PDFLib não carregada!");
       return;
   }
 
   // Criar um novo documento PDF
   const pdfDoc = await PDFLib.PDFDocument.create();
-  const page = pdfDoc.addPage([600, 800]); // Define tamanho da página
+  const page = pdfDoc.addPage([600, 800]);
 
   // Pegar o texto da redação
   const textArea = document.querySelector(".area");
   const textoRedacao = textArea.value.trim() || "Sem texto digitado.";
 
-  // Adicionar o texto ao PDF
   page.drawText(textoRedacao, {
       x: 50,
       y: 700,
       size: 12,
-      maxWidth: 500, // Para evitar que o texto saia da página
+      maxWidth: 500,
   });
 
-  // Pegar a imagem enviada
+  // Processar a imagem (se houver)
   const fileInput = document.getElementById("upload");
   const file = fileInput.files[0];
 
@@ -108,25 +107,24 @@ async function gerarPDF() {
                   image = await pdfDoc.embedJpg(imageBytes);
               }
 
-              const imageDims = image.scale(0.5); // Ajustar tamanho da imagem
+              const imageDims = image.scale(0.5);
 
-              // Adicionar a imagem ao PDF
               page.drawImage(image, {
                   x: 50,
-                  y: 500, // Posição ajustada abaixo do texto
+                  y: 500,
                   width: imageDims.width,
                   height: imageDims.height,
               });
 
+              // Salvar e baixar o PDF após a imagem ser embutida
               await salvarEPromptDownload(pdfDoc);
           } catch (error) {
-              console.error("Erro ao adicionar imagem ao PDF:", error);
+              console.error("Erro ao embutir a imagem no PDF:", error);
           }
       };
-
       reader.readAsArrayBuffer(file);
   } else {
-      // Se não houver imagem, apenas baixa o texto
+      // Salvar e baixar o PDF se não houver imagem
       await salvarEPromptDownload(pdfDoc);
   }
 }

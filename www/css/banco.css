@@ -12,6 +12,19 @@
     padding: 1rem;
   }
 
+  .card-pm {
+    position: relative;
+    background: linear-gradient(135deg, #212121, #373737);
+    color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
   .card-ita {
     position: relative;
     background: linear-gradient(135deg, #3D087B, #6E3CBC);
@@ -100,6 +113,33 @@
   grid-template-columns: 1fr;
   gap: 1rem;
   padding: 1rem;
+}
+
+.filter-button {
+  display: flex;
+  justify-content: center; /* Centraliza os botões */
+  gap: 5px; /* Espaçamento entre os botões */
+  margin: 10px 0;
+  padding-top: 15px;
+  padding-bottom: 25px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 35px;
+}
+
+.filter-button button {
+  padding: 6px 12px; /* Menor padding para reduzir o tamanho */
+  background-color: var(--darkazul);
+  color: white;
+  border: none;
+  border-radius: 8px; /* Bordas menores */
+  cursor: pointer;
+  flex: 1; /* Faz os botões ocuparem o mesmo espaço */
+  max-width: 90px; /* Limita o tamanho máximo */
+  font-size: 14px; /* Fonte menor */
+}
+
+.filter-button button:hover {
+  background-color: var(--azul);
 }
 
 

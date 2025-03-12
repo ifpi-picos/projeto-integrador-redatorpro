@@ -64,23 +64,25 @@ window.initFolha = function() {
         console.log("📥 Resposta recebida:", response);
 
         const blob = await response.blob();
-        console.log("✅ PDF gerado, iniciando download...");
+        console.log("✅ PDF gerado, iniciando visualização...");
 
         const url = URL.createObjectURL(blob);
         console.log("🔗 URL do PDF:", url);
 
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "redacao.pdf";
-        document.body.appendChild(a);
+        // Em vez de baixar automaticamente, abrir em uma nova aba
+        window.open(url, "_blank");
 
-        // ⏳ Adicionando um pequeno atraso antes de clicar
+        // Opcional: Baixar automaticamente após abrir
         setTimeout(() => {
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "redacao.pdf";
+            document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            URL.revokeObjectURL(url); // Libera a memória do blob
             console.log("📤 PDF baixado com sucesso!");
-        }, 100);
+            URL.revokeObjectURL(url); // Libera memória
+        }, 500);
     } catch (error) {
         console.error("Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");

@@ -63,38 +63,39 @@ window.initFolha = function() {
 
         console.log("📥 Resposta recebida:", response);
 
+        // Converte a resposta em um blob (arquivo)
         const blob = await response.blob();
-        console.log("✅ PDF gerado, iniciando visualização...");
+        console.log("✅ PDF gerado, iniciando download...");
 
+        // Cria um link temporário para baixar o arquivo
         const url = URL.createObjectURL(blob);
         console.log("🔗 URL do PDF:", url);
 
-        // Abre o PDF em uma nova aba primeiro
+        // Tenta abrir em uma nova aba
         const newTab = window.open(url, "_blank");
 
-        // Espera um pouco e baixa automaticamente
-        setTimeout(() => {
+        // Se a aba abrir corretamente, exibe o PDF
+        if (newTab) {
+            console.log("📤 PDF aberto em nova aba.");
+        } else {
+            // Se a aba for bloqueada, força o download
+            console.log("⚠️ A aba foi bloqueada, iniciando download manualmente...");
             const a = document.createElement("a");
             a.href = url;
             a.download = "redacao.pdf";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            console.log("📥 PDF baixado com sucesso!");
+        }
 
-            // Se a aba abriu, baixa diretamente nela
-            if (newTab) {
-                newTab.location.href = url;
-            } else {
-                // Se não abriu, baixa no mesmo navegador
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
-
-            console.log("📤 PDF baixado com sucesso!");
-            URL.revokeObjectURL(url); // Libera memória
-        }, 1000); // Atraso de 1s para evitar bloqueios
+        // Libera memória
+        URL.revokeObjectURL(url);
     } catch (error) {
         console.error("Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");
     }
   });
+
 };
 

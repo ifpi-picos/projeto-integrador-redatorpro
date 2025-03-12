@@ -45,30 +45,37 @@ window.initFolha = function() {
     const textArea = document.querySelector(".area").value.trim();
 
     if (!textArea) {
-      alert("Escreva um texto antes de baixar o PDF!");
-      return;
+        alert("Escreva um texto antes de baixar o PDF!");
+        return;
     }
 
     try {
-      const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ texto: textArea }),
-      });
+        console.log("📩 Enviando requisição para gerar PDF...");
+        const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ texto: textArea }),
+        });
 
-      if (!response.ok) throw new Error("Erro ao gerar PDF");
+        console.log("📥 Resposta recebida:", response);
 
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "redacao.pdf";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+        if (!response.ok) throw new Error("Erro ao gerar PDF");
+
+        const blob = await response.blob();
+        console.log("✅ PDF gerado, iniciando download...");
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "redacao.pdf";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        console.log("📤 PDF baixado com sucesso!");
     } catch (error) {
-      console.error("Erro ao gerar PDF:", error);
-      alert("Erro ao gerar PDF.");
+        console.error("❌ Erro ao gerar PDF:", error);
+        alert("Erro ao gerar PDF.");
     }
   });
 };

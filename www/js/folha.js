@@ -57,37 +57,43 @@ window.initFolha = function() {
             body: JSON.stringify({ texto: textArea }),
         });
 
-        if (!response.ok) {
-            throw new Error(`Erro ao gerar PDF: ${response.statusText}`);
-        }
-
         console.log("📥 Resposta recebida:", response);
 
-        // Converte a resposta em um Blob (arquivo PDF)
-        const blob = await response.blob();
-        console.log("✅ PDF gerado com sucesso!");
+        if (!response.ok) {
+            throw new Error(`Erro ao gerar PDF: ${response.status} - ${response.statusText}`);
+        }
 
-        // Cria um link temporário para baixar o arquivo
+        const blob = await response.blob();
+        console.log("📄 Blob recebido:", blob);
+
+        if (blob.size === 0) {
+            throw new Error("O PDF gerado está vazio!");
+        }
+
         const url = window.URL.createObjectURL(blob);
         console.log("🔗 URL do PDF:", url);
 
-        // Cria um elemento <a> escondido para forçar o download
+        // Criar link temporário para download
         const a = document.createElement("a");
         a.style.display = "none";
         a.href = url;
         a.download = "redacao.pdf";
         document.body.appendChild(a);
-        a.click();  // Força o download automaticamente
+
+        // Disparar o clique no link para download automático
+        a.click();
+
+        // Remover o link temporário após o clique
         document.body.removeChild(a);
 
-        console.log("📥 PDF baixado com sucesso!");
-
-        // Libera a memória
+        // Liberar o objeto URL
         window.URL.revokeObjectURL(url);
+
+        console.log("📤 PDF baixado com sucesso!");
     } catch (error) {
         console.error("❌ Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");
     }
-  });
-};
+});
+
 

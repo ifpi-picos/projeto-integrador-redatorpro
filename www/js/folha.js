@@ -63,39 +63,31 @@ window.initFolha = function() {
 
         console.log("📥 Resposta recebida:", response);
 
-        // Converte a resposta em um blob (arquivo)
+        // Converte a resposta em um Blob (arquivo PDF)
         const blob = await response.blob();
-        console.log("✅ PDF gerado, iniciando download...");
+        console.log("✅ PDF gerado com sucesso!");
 
         // Cria um link temporário para baixar o arquivo
-        const url = URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(blob);
         console.log("🔗 URL do PDF:", url);
 
-        // Tenta abrir em uma nova aba
-        const newTab = window.open(url, "_blank");
+        // Cria um elemento <a> escondido para forçar o download
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = "redacao.pdf";
+        document.body.appendChild(a);
+        a.click();  // Força o download automaticamente
+        document.body.removeChild(a);
 
-        // Se a aba abrir corretamente, exibe o PDF
-        if (newTab) {
-            console.log("📤 PDF aberto em nova aba.");
-        } else {
-            // Se a aba for bloqueada, força o download
-            console.log("⚠️ A aba foi bloqueada, iniciando download manualmente...");
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "redacao.pdf";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            console.log("📥 PDF baixado com sucesso!");
-        }
+        console.log("📥 PDF baixado com sucesso!");
 
-        // Libera memória
-        URL.revokeObjectURL(url);
+        // Libera a memória
+        window.URL.revokeObjectURL(url);
     } catch (error) {
-        console.error("Erro ao gerar PDF:", error);
+        console.error("❌ Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");
     }
   });
-
 };
 

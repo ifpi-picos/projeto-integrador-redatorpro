@@ -80,20 +80,19 @@ window.initFolha = function() {
         a.download = "redacao.pdf";
         document.body.appendChild(a);
 
-        // Disparar o clique no link para download automático
-        a.click();
+        // Forçar o clique no link para download automático
+        setTimeout(() => {
+            a.dispatchEvent(new MouseEvent('click'));  // Forçar o clique no link
+            document.body.removeChild(a);  // Remover o link após o clique
+            window.URL.revokeObjectURL(url);  // Liberar o URL
+            console.log("📤 PDF baixado com sucesso!");
+        }, 100);  // Pequeno delay para garantir o funcionamento
 
-        // Remover o link temporário após o clique
-        document.body.removeChild(a);
-
-        // Liberar o objeto URL
-        window.URL.revokeObjectURL(url);
-
-        console.log("📤 PDF baixado com sucesso!");
     } catch (error) {
         console.error("❌ Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");
     }
   });
+
 };
 

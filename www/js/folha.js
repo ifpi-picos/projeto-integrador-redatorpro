@@ -50,7 +50,7 @@ window.initFolha = function() {
     }
 
     try {
-      const response = await fetch("https://express-e3hm.onrender.com/server/gerar-pdf", {
+      const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ texto: textArea }),

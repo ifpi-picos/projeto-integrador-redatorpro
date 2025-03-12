@@ -63,7 +63,7 @@ window.initFolha = function() {
 
         console.log("📥 Resposta recebida:", response);
 
-        const blob = await response.blob(); // Certifique-se de chamar isso apenas uma vez!
+        const blob = await response.blob();
         console.log("✅ PDF gerado, iniciando download...");
 
         const url = URL.createObjectURL(blob);
@@ -73,10 +73,14 @@ window.initFolha = function() {
         a.href = url;
         a.download = "redacao.pdf";
         document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
 
-        console.log("📤 PDF baixado com sucesso!");
+        // ⏳ Adicionando um pequeno atraso antes de clicar
+        setTimeout(() => {
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url); // Libera a memória do blob
+            console.log("📤 PDF baixado com sucesso!");
+        }, 100);
     } catch (error) {
         console.error("Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");

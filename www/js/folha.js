@@ -94,6 +94,6 @@ window.initFolha = function() {
         console.error("❌ Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");
     }
-});
-
+  });
+};
 

@@ -69,20 +69,28 @@ window.initFolha = function() {
         const url = URL.createObjectURL(blob);
         console.log("🔗 URL do PDF:", url);
 
-        // Em vez de baixar automaticamente, abrir em uma nova aba
-        window.open(url, "_blank");
+        // Abre o PDF em uma nova aba primeiro
+        const newTab = window.open(url, "_blank");
 
-        // Opcional: Baixar automaticamente após abrir
+        // Espera um pouco e baixa automaticamente
         setTimeout(() => {
             const a = document.createElement("a");
             a.href = url;
             a.download = "redacao.pdf";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+
+            // Se a aba abriu, baixa diretamente nela
+            if (newTab) {
+                newTab.location.href = url;
+            } else {
+                // Se não abriu, baixa no mesmo navegador
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
             console.log("📤 PDF baixado com sucesso!");
             URL.revokeObjectURL(url); // Libera memória
-        }, 500);
+        }, 1000); // Atraso de 1s para evitar bloqueios
     } catch (error) {
         console.error("Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");

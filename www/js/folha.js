@@ -57,14 +57,18 @@ window.initFolha = function() {
             body: JSON.stringify({ texto: textArea }),
         });
 
+        if (!response.ok) {
+            throw new Error(`Erro ao gerar PDF: ${response.statusText}`);
+        }
+
         console.log("📥 Resposta recebida:", response);
 
-        if (!response.ok) throw new Error("Erro ao gerar PDF");
-
-        const blob = await response.blob();
+        const blob = await response.blob(); // Certifique-se de chamar isso apenas uma vez!
         console.log("✅ PDF gerado, iniciando download...");
 
         const url = URL.createObjectURL(blob);
+        console.log("🔗 URL do PDF:", url);
+
         const a = document.createElement("a");
         a.href = url;
         a.download = "redacao.pdf";
@@ -74,8 +78,8 @@ window.initFolha = function() {
 
         console.log("📤 PDF baixado com sucesso!");
     } catch (error) {
-        console.error("❌ Erro ao gerar PDF:", error);
-        alert("Erro ao gerar PDF.");
+        console.error("Erro ao gerar PDF:", error);
+        alert("Erro ao gerar PDF. Veja o console para mais detalhes.");
     }
   });
 };

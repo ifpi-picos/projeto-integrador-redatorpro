@@ -134,8 +134,8 @@
     left: 0;
     padding: 0px 0;
     pointer-events: none; /* Permite clicar através dos números */
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
     line-height: 30px; /* Aumenta a altura dos números em relação à linha */
     color: #ccc;
     text-align: right;
@@ -155,8 +155,8 @@
     line-height: 30px; /* Aumenta a altura da linha */
     padding-left: 30px; /* Aumenta o espaço para os números */
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
     background: repeating-linear-gradient(
         white,
         white 29px,

@@ -1,56 +1,71 @@
-//RECUPERAR O ID DETALHE DO LOCALSTORAGE
-var id = parseInt(localStorage.getItem('detalhe'));
+// RECUPERAR O ID DETALHE DO LOCALSTORAGE
+var id = parseInt(localStorage.getItem("detalhe"));
 
-//PEGAR OS DADOS DOS CORRETORES DO LOCALSTORAGE
-var corretores = JSON.parse(localStorage.getItem('corretores'));
+// PEGAR OS DADOS DOS CORRETORES DO LOCALSTORAGE
+var corretores = JSON.parse(localStorage.getItem("corretores"));
 
-var item = corretores.find(corretor => corretor.id === id);
+var item = corretores.find((corretor) => corretor.id === id);
 
-if(item){
-    //ACHOU OBG
-    console.log('Corretor encontrado: ', item);
+if (item) {
+    console.log("Corretor encontrado: ", item);
 
-    //ALIMENTAR A PÁGINA DETALHES
-    $("#imagem-detalhe").attr('src', item.imagem);
+    // ALIMENTAR A PÁGINA DETALHES
+    $("#imagem-detalhe").attr("src", item.imagem);
     $("#nome-detalhe").html(item.nome);
     $("#especialidade-detalhe").html(item.especialidade);
     $("#rating-detalhe").html(item.rating);
     $("#like-detalhe").html(item.likes);
-    $("#rewies-detalhe").html(item.rewies + 'reviews');
+    $("#rewies-detalhe").html(item.rewies + " reviews");
     $("#descrição-detalhe").html(item.descrição);
-
 } else {
-    //NÃO ACHOU. ACHO PAIA
-    console.log('Corretor não encontrado');
+    console.log("Corretor não encontrado");
 }
-var listafav = JSON.parse(localStorage.getItem('listafav')) || [];
 
-//FUNÇÃO PARA ADICIONAR A LISTA DE FAVORITOS
-function adicionarAFavoritos(item, quantidade){
-    var itemEmFavorito = listafav.find(f=> f.item.id === item.id);
+// PEGAR A LISTA DE FAVORITOS
+var listafav = JSON.parse(localStorage.getItem("listafav")) || [];
 
-    if(itemEmFavorito){
-        
+// VERIFICAR SE O CORRETOR JÁ ESTÁ NOS FAVORITOS AO CARREGAR A PÁGINA
+var itemEmFavorito = listafav.find((f) => f.item.id === item.id);
+if (itemEmFavorito) {
+    $("#ad-card i").removeClass("ri-heart-3-line").addClass("ri-heart-fill");
+}
+
+// FUNÇÃO PARA ADICIONAR OU REMOVER DOS FAVORITOS
+function toggleFavorito(item) {
+    var index = listafav.findIndex((f) => f.item.id === item.id);
+    let heartIcon = $("#ad-card i");
+
+    if (index !== -1) {
+        // Se já estiver nos favoritos, remover
+        listafav.splice(index, 1);
+        heartIcon.removeClass("ri-heart-fill").addClass("ri-heart-3-line");
+
+        var toastRemove = app.toast.create({
+            text: `${item.nome} removido(a) da sua lista de favoritos`,
+            position: "center",
+            closeTimeout: 2000,
+        });
+
+        toastRemove.open();
     } else {
-        listafav.push({
-            item: item,
-        })
+        // Se não estiver nos favoritos, adicionar
+        listafav.push({ item: item });
+        heartIcon.removeClass("ri-heart-3-line").addClass("ri-heart-fill");
+
+        var toastCenter = app.toast.create({
+            text: `${item.nome} adicionado(a) à sua lista de favoritos`,
+            position: "center",
+            closeTimeout: 2000,
+        });
+
+        toastCenter.open();
     }
 
-    //ATUALIZAR O LOCALSTROGE DA LISTA FAVORITOS
-    localStorage.setItem('listafav', JSON.stringify(listafav));
-
+    // ATUALIZAR O LOCALSTORAGE
+    localStorage.setItem("listafav", JSON.stringify(listafav));
 }
 
-$("#ad-card").on('click', function () {
-    adicionarAFavoritos(item, 1);
-
-    var toastCenter = app.toast.create({
-        text: `${item.nome} adicionado a sua lista de favoritos`,
-        position: 'center',
-        closeTimeout: 2000,
-      });
-
-      toastCenter.open();
-
+// EVENTO DE CLIQUE NO BOTÃO
+$("#ad-card").on("click", function () {
+    toggleFavorito(item);
 });

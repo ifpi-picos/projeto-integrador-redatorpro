@@ -259,7 +259,7 @@ var app = new Framework7({
           // Fazer algo antes de a página ser removida do DOM
         },
       }
-    },    
+    },
     {
       path: '/temas/', // Caminho para a página de login
       url: 'temas.html',
@@ -277,6 +277,56 @@ var app = new Framework7({
         pageInit: function (event, page) {
           // Fazer algo quando a página de login for inicializada
           $.getScript('js/temas.js')
+            //.done(() => window.initFolha?.())
+            //.fail(() => console.error("Erro ao carregar folha.js"));
+        },
+        pageBeforeRemove: function (event, page) {
+          // Fazer algo antes de a página ser removida do DOM
+        },
+      }
+    },
+    {
+      path: '/repertorios/', // Caminho para a página de login
+      url: 'repertorios.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive', // Transição da página
+      },
+      on: {
+        pageBeforeIn: function (event, page) {
+          // Fazer algo antes de a página de login ser exibida
+        },
+        pageAfterIn: function (event, page) {
+          // Fazer algo depois de a página de login ser exibida
+        },
+        pageInit: function (event, page) {
+          // Fazer algo quando a página de login for inicializada
+          $.getScript('js/repertorios.js')
+            //.done(() => window.initFolha?.())
+            //.fail(() => console.error("Erro ao carregar folha.js"));
+        },
+        pageBeforeRemove: function (event, page) {
+          // Fazer algo antes de a página ser removida do DOM
+        },
+      }
+    },
+    {
+      path: '/premium/', // Caminho para a página de login
+      url: 'premium.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive', // Transição da página
+      },
+      on: {
+        pageBeforeIn: function (event, page) {
+          // Fazer algo antes de a página de login ser exibida
+        },
+        pageAfterIn: function (event, page) {
+          // Fazer algo depois de a página de login ser exibida
+        },
+        pageInit: function (event, page) {
+          // Fazer algo quando a página de login for inicializada
+          //$.getScript('js/premium.js')
             //.done(() => window.initFolha?.())
             //.fail(() => console.error("Erro ao carregar folha.js"));
         },

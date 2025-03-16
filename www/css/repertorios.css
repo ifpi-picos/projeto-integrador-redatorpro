@@ -35,7 +35,7 @@
     z-index: 1000; /* Garante que o cabeçalho fique acima do conteúdo */
 }
 
-h2 {
+.h2-repertorios {
     font-size: 28px; /* Aumenta o tamanho da fonte */
     font-weight: bold; /* Deixa o texto em negrito */
     text-align: center;
@@ -137,7 +137,7 @@ h2 {
 /* Media query para telas de até 600px */
 /* Media query para telas de até 600px */
 @media screen and (max-width: 600px) {
-    h2 {
+    .h2-repertorios {
         margin-top: 60px; /* Diminui a margem superior */
         font-size: 22px; /* Reduz o tamanho da fonte do h2 */
         margin-bottom: 20px;

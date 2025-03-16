@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Painel Lateral - Framework7</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7/framework7-bundle.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- View principal -->
+        <div class="view view-main">
+            <div class="page">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a href="#" class="button button-fill panel-open" data-panel="right">☰ Menu</a>
+                        </div>
+                        <div class="title">Minha Página</div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    <p>Conteúdo principal aqui...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Painel Lateral (Direito) -->
+        <div class="panel panel-right panel-cover">
+            <div class="view">
+                <div class="page">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="title">nome-meme</div>
+                        </div>
+                    </div>
+                    <div class="page-content">
+                        <div class="list">
+                            <ul>
+                                <li><a href="#" class="item-link item-content panel-close">Home</a></li>
+                                <li><a href="#" class="item-link item-content panel-close">Sobre</a></li>
+                                <li><a href="#" class="item-link item-content panel-close">Contato</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/framework7/framework7-bundle.min.js"></script>
+    <script>
+        var app = new Framework7({
+            el: '#app',
+            panel: {
+                swipe: 'right' // Permite abrir o painel deslizando da direita
+            }
+        });
+    </script>
+</body>
+</html>

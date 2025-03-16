@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/folha.css">
     <link rel="stylesheet" href="css/temas.css">
     <link rel="stylesheet" href="css/banco.css">
+    <link rel="stylesheet" href="css/repertorios.css">
     <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
     <!--Ìcones Remix icon-->
@@ -194,11 +195,66 @@
                                 <div class="swiper-pagination"></div>
                             </div>
     
+                            <!-- Botão de abertura do menu -->
                             <div class="margin-top display-flex align-items-center justify-content-space-between">
                                 <h2 class="h2-left">Funções</h2>
-                                <a class="a-right">Veja todas <i class="mdi mdi-arrow-right"></i> </a>
+                                <a class="a-right panel-open" data-panel="right">
+                                Veja todas <i class="mdi mdi-arrow-right"></i>
+                                </a>
                             </div>
-    
+                            
+                            <!-- Painel Direito Estilizado -->
+                            <div class="panel panel-right panel-cover panel-custom">
+                                <div class="view">
+                                <div class="page">
+                                    <!-- Navbar do painel -->
+                                    <div class="navbar">
+                                    <div class="navbar-inner">
+                                        <div class="title">Menu Lateral</div>
+                                        <div class="right">
+                                        <!--<a href="#" class="panel-close">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </a>-->
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="page-content">
+                                    <!-- Lista de opções -->
+                                    <div class="list list-custom">
+                                        <ul>
+                                        <li>
+                                            <a href="/repertorios/" class="item-link item-content panel-close">
+                                            Repertórios
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/premium/" class="item-link item-content panel-close">
+                                            Premium
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/functions/" class="item-link item-content panel-close">
+                                            Chatbot
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/functions/" class="item-link item-content panel-close">
+                                            Configurações
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://www.instagram.com/redatorpro_/" target="_blank" class="item-link item-content panel-close external">
+                                            Instagram
+                                            </a>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+                            
                             <!-- Swiper -->
                             <!--<div class="swiper categorias">
                                 <div class="swiper-wrapper">

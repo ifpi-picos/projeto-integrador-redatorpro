@@ -1,0 +1,47 @@
+.page[data-name="repertorios"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    overflow: auto; /* Permite rolagem */
+}
+
+.button-top a {
+    width: 40px;
+    height: 40px;
+    background-color: var(--branco);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--preto);
+    box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
+    border: 1px solid var(--gelo);
+    font-size: 18px;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 1001;
+}
+
+.page header {
+    width: 100%;
+    background-color: #add8e6; /* Cor azul claro */
+    text-align: center;
+    padding: 10px 0;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Garante que o cabeçalho fique acima do conteúdo */
+}
+
+.h2-repertorios {
+    font-size: 28px; /* Aumenta o tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    text-align: center;
+    margin-top: 90px; /* Adiciona espaço entre o cabeçalho e a frase */
+    margin-bottom: 40px; /* Adiciona espaço entre a frase e as caixas */
+    color: #333; /* Cor do texto */
+    font-family: 'Arial', sans-serif; /* Fonte do texto */
+    animation: fadeIn 1s ease-in-out; /* Adiciona animação de fade-in */
+}

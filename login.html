@@ -25,11 +25,8 @@
     <link rel="stylesheet" href="css/estilo.css" />
   </head>
 
-
   <body>
-
     <main>
-
       <div class="box">
         <div class="inner-box">
           <div class="forms-wrap">
@@ -75,7 +72,7 @@
               </div>
             </form>
 
-            <form action="index.html" autocomplete="off" class="sign-up-form">
+            <form id="signUpForm" action="" autocomplete="off" class="sign-up-form">
               <div class="logo">
                 <img src="imagens/logo nome.png" alt="RedatorPRO" />
               </div>
@@ -87,6 +84,16 @@
               </div>
 
               <div class="actual-form">
+                <!-- Tipo de usuário -->
+              <!-- login.html -->
+              <div class="input-wrap">
+                <label for="tipoUsuario" class="label-fixo">Tipo de Usuário</label>
+                <select id="tipoUsuario" class="input-field" required>
+                  <option value="" disabled selected>Selecione o tipo de usuário</option>
+                  <option value="estudante">Estudante</option>
+                  <option value="corretor">Corretor</option>
+                </select>
+              </div>
                 <div class="input-wrap">
                   <input
                     id="nome"
@@ -120,6 +127,44 @@
                     required
                   />
                   <label>Senha</label>
+                </div>
+
+                <!-- Campos extras para corretor -->
+                <div id="corretorCampos" style="display:none;">
+                  <div class="input-wrap">
+                    <input
+                      id="experiencia"
+                      type="text"
+                      class="input-field"
+                      autocomplete="off"
+                      minlength="4"
+                    />
+                    <label>Experiência</label>
+                  </div>
+                  <div class="input-wrap">
+                    <input
+                      id="escolaridade"
+                      type="text"
+                      class="input-field"
+                      autocomplete="off"
+                      minlength="4"
+                    />
+                    <label>Escolaridade</label>
+                  </div>
+                  <div class="input-wrap">
+                    <label for="certificado" class="label-fixo">Certificado (PDF ou imagem)</label>
+                    <input
+                      id="certificado"
+                      type="file"
+                      class="input-field"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      required
+                    />
+                  </div>
+                  <!-- Adicione outros campos se necessário -->
+                  <p class="text" style="color:#b4820d; margin-top:10px;">
+                    Seu cadastro será avaliado antes da aprovação.
+                  </p>
                 </div>
 
                 <button
@@ -173,6 +218,24 @@
     <script src="js/login.js"></script>
     <script src="js/users.js"></script>
     <script src="js/login-users.js"></script>
-
+    <script>
+      // Mostrar campos extras se for corretor
+      const tipoUsuario = document.getElementById('tipoUsuario');
+      const corretorCampos = document.getElementById('corretorCampos');
+      if (tipoUsuario) {
+        tipoUsuario.addEventListener('change', function() {
+          if (this.value === 'corretor') {
+            corretorCampos.style.display = 'block';
+            // Torna os campos obrigatórios
+            document.getElementById('experiencia').setAttribute('required', 'required');
+            document.getElementById('escolaridade').setAttribute('required', 'required');
+          } else {
+            corretorCampos.style.display = 'none';
+            document.getElementById('experiencia').removeAttribute('required');
+            document.getElementById('escolaridade').removeAttribute('required');
+          }
+        });
+      }
+    </script>
   </body>
 </html>

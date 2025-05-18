@@ -1979,6 +1979,146 @@ nav ul .serv-show.show{
   box-shadow: 20px 20px 50px -30px #65f66a;
 }
 
+/* Estilização do select igual aos inputs */
+.input-wrap select.input-field {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #fff;
+  padding: 0;
+  font-size: 0.95rem;
+  color: #151111;
+  transition: 0.4s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  z-index: 2;
+}
+
+.input-wrap select.input-field:focus {
+  border-bottom-color: #151111;
+}
+
+.input-wrap select.input-field:focus + label,
+.input-wrap select.input-field:not([value=""]):valid + label {
+  font-size: 0.75rem;
+  top: -2px;
+}
+
+.input-wrap select.input-field option {
+  color: #151111;
+  background: #fff;
+}
+
+/* Corrige o label flutuante para select */
+.input-wrap select.input-field:focus + label,
+.input-wrap select.input-field:valid + label {
+  font-size: 0.75rem;
+  top: -2px;
+  color: #151111;
+}
+
+/* Label fixo para selects */
+.label-fixo {
+  position: static;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.9rem;
+  color: #4f4f4f;
+  font-weight: 500;
+  pointer-events: none;
+  transition: none;
+  transform: none;
+}
+
+/* Select estilizado igual aos inputs, mas sem position absolute */
+.input-wrap select.input-field {
+  position: relative;
+  width: 100%;
+  height: 37px;
+  background: none;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #fff;
+  padding: 0 5px;
+  font-size: 0.95rem;
+  color: #151111;
+  transition: 0.4s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  z-index: 2;
+  background-color: transparent;
+}
+
+/* Corrige sobreposição do dropdown */
+.input-wrap {
+  overflow: visible !important;
+  z-index: 10;
+}
+/* Garante que o dropdown não vaze do formulário */
+.input-wrap {
+  overflow: visible;
+  z-index: 10;
+}
+
+/* Limita altura do formulário e permite rolagem interna */
+.actual-form {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Estilização para input file */
+.input-wrap .input-file {
+  border: none;
+  border-bottom: 1px solid #fff;
+  padding: 8px 0;
+  font-size: 0.95rem;
+  color: #151111;
+  background: none;
+  width: 100%;
+  margin-top: 2px;
+}
+
+.input-wrap .input-file::-webkit-file-upload-button {
+  background: #246493;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.input-wrap .input-file::file-selector-button {
+  background: #246493;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.input-wrap .input-file:focus {
+  outline: none;
+  border-bottom: 1px solid #151111;
+}
+
+.input-wrap label.label-fixo {
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+  color: #4f4f4f;
+  font-weight: 500;
+  display: block;
+}
+
 @media (max-width: 990px) {
   #main-tela-home.cards {
     flex-direction: column;

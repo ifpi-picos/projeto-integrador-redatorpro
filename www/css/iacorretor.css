@@ -1,0 +1,326 @@
+html, body, #app, .view-main, .page[data-name="iacorretor"] {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #d6edf5;
+}
+
+body.body-folha {
+    overflow-y: auto !important;
+}
+
+.page[data-name="iacorretor"] .container {
+    max-width: 700px;
+    margin: 32px auto 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 32px 24px 24px 24px;
+    width: 95%;
+}
+
+.page[data-name="iacorretor"] header {
+    width: 100%;
+    background-color: #add8e6;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 16px;
+}
+
+.page[data-name="iacorretor"] header h1 {
+    color: #246493;
+    font-size: 1.8rem;
+    margin: 0;
+    padding: 16px 0;
+}
+
+.page[data-name="iacorretor"] .options label {
+    color: #246493;
+    font-size: 1.15rem;
+    font-weight: bold;
+    margin-top: 12px;
+    display: block;
+}
+
+.page[data-name="iacorretor"] .options select,
+.page[data-name="iacorretor"] .options input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #246493;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}
+
+/* FOLHA NORMAL */
+.page[data-name="iacorretor"] .writing-area {
+    display: flex;
+    flex-direction: row;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    background: #f7f7f7;
+    border-radius: 6px;
+    border: 1px solid #bcd;
+    height: 720px; /* 30 linhas x 24px */
+    min-height: 720px;
+    max-height: 720px;
+    overflow: hidden;
+}
+
+.page[data-name="iacorretor"] .line-numbers {
+    background: #e9e9e9;
+    color: #888;
+    padding: 0 8px 0 8px; /* apenas lateral */
+    text-align: right;
+    user-select: none;
+    font-size: 1rem;
+    border-radius: 6px 0 0 6px;
+    height: 100%;
+    line-height: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.page[data-name="iacorretor"] .line-numbers pre {
+    margin: 0;
+    font-family: inherit;
+    line-height: 24px;
+    box-sizing: border-box;
+}
+
+.page[data-name="iacorretor"] .area {
+    border: none;
+    outline: none;
+    resize: none;
+    width: calc(85ch + 24px); /* 24px = padding lateral */
+    max-width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    padding: 0 12px 0 12px; /* apenas lateral */
+    background: transparent;
+    font-family: monospace !important;
+    border-radius: 0 6px 6px 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 24px;
+}
+
+/* BOTÕES */
+.page[data-name="iacorretor"] .submit-button {
+    background: #246493;
+    color: #fff;
+    border: none;
+    padding: 14px 0;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.page[data-name="iacorretor"] .submit-button:hover {
+    background: #17405e;
+}
+
+/* Responsividade e comportamento mobile */
+@media (max-width: 700px) {
+    .page[data-name="iacorretor"] .container {
+        padding: 12px 4px 16px 4px;
+        max-width: 100vw;
+    }
+    .page[data-name="iacorretor"] .writing-area {
+        display: none !important;
+        height: 480px;
+        min-height: 480px;
+        max-height: 480px;
+    }
+    .page[data-name="iacorretor"] .writing-area.ativo {
+        display: flex !important;
+        align-items: stretch !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+    }
+    .page[data-name="iacorretor"] .mobile-actions {
+        display: block !important;
+        margin: 16px 0 8px 0;
+    }
+    .page[data-name="iacorretor"] .mobile-actions.ativo {
+        display: none !important;
+    }
+    .page[data-name="iacorretor"] .area,
+    .writing-area-ampliada .area {
+        height: 720px !important; /* 30 linhas x 24px */
+        min-height: 720px !important;
+        max-height: 720px !important;
+        overflow-y: hidden !important;
+        resize: none !important;
+        font-family: monospace !important;
+        font-size: 1rem;
+        line-height: 24px;
+        width: calc(85ch + 24px);
+        max-width: 100%;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+    .page[data-name="iacorretor"] .area#textoRedacao,
+    .page[data-name="iacorretor"] .area#textoRedacaoAmpliada {
+        overflow-y: auto !important;
+        min-height: calc(11 * 24px) !important;
+        height: auto !important;
+        max-height: none !important;
+        display: block !important;
+        resize: none !important;
+        font-family: monospace !important;
+        font-size: 1rem !important;
+        line-height: 24px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        background: #fff !important;
+        /* Remove altura fixa para crescer conforme digita */
+        flex: 1 1 0 !important;
+    }
+    .page[data-name="iacorretor"] .writing-area.ativo,
+    .page[data-name="iacorretor"] .writing-area-ampliada {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+        align-items: stretch !important;
+    }
+    .page[data-name="iacorretor"] .writing-area {
+        align-items: stretch !important;
+    }
+    .page[data-name="iacorretor"] .writing-area .line-numbers,
+    .page[data-name="iacorretor"] .writing-area-ampliada .line-numbers {
+        display: none !important;
+    }
+    .page[data-name="iacorretor"] .line-numbers,
+    .writing-area-ampliada .line-numbers {
+        padding: 0 8px 0 8px;
+        line-height: 16px;
+    }
+    .page[data-name="iacorretor"] .line-numbers {
+        height: 720px !important;
+        min-height: 720px !important;
+        max-height: 720px !important;
+    }
+}
+
+/* Esconde botão e ações extras em desktop */
+.page[data-name="iacorretor"] .mobile-actions {
+    display: none;
+}
+
+/* FOLHA AMPLIADA (MODAL) */
+.folha-ampliada-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(3px);
+    justify-content: center;
+    align-items: center;
+}
+
+.folha-ampliada-overlay.ativo {
+    display: flex;
+}
+
+body.folha-ampliada-aberta {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+
+.folha-ampliada {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 98vw;
+    width: 98vw;
+    max-height: 95vh;
+    padding: 16px 8px 8px 8px;
+    box-shadow: 0 4px 32px #0003;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: auto; /* Permite rolagem na folha ampliada */
+}
+
+.btn-fechar-folha {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 2.2rem;
+    color: #246493;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* FOLHA AMPLIADA */
+.writing-area-ampliada {
+    display: flex;
+    flex-direction: row;
+    margin-top: 24px;
+    background: #f7f7f7;
+    border-radius: 6px;
+    border: 1px solid #bcd;
+    height: 720px;
+    min-height: 720px;
+    max-height: 720px;
+    width: 100%;
+    overflow: auto; /* Permite rolagem interna se necessário */
+}
+
+.writing-area-ampliada .line-numbers {
+    background: #e9e9e9;
+    color: #888;
+    padding: 0 8px 0 8px;
+    text-align: right;
+    user-select: none;
+    font-size: 1rem;
+    border-radius: 6px 0 0 6px;
+    height: 100%;
+    line-height: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.writing-area-ampliada .line-numbers pre {
+    margin: 0;
+    font-family: inherit;
+    line-height: 24px;
+    box-sizing: border-box;
+}
+
+.writing-area-ampliada .area {
+    border: none;
+    outline: none;
+    resize: none;
+    width: calc(85ch + 24px); /* 24px = padding lateral */
+    max-width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    padding: 0 12px 0 12px;
+    background: transparent;
+    font-family: monospace !important;
+    border-radius: 0 6px 6px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important; /* Permite rolagem no textarea ampliado */
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 24px;
+}

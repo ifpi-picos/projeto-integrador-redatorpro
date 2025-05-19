@@ -3,7 +3,6 @@ html, body, #app, .view-main, .page[data-name="iacorretor"] {
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: #d6edf5;
 }
 
 body.body-folha {
@@ -13,7 +12,7 @@ body.body-folha {
 .page[data-name="iacorretor"] .container {
     max-width: 700px;
     margin: 32px auto 0 auto;
-    background: #fff;
+    background: #edf8fc;
     border-radius: 8px;
     box-shadow: 0 2px 8px #0001;
     padding: 32px 24px 24px 24px;

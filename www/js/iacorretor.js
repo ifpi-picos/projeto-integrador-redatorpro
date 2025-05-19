@@ -232,12 +232,55 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', ajustarWritingArea);
     ajustarWritingArea();
 
+    // --- ALTERAÇÃO: Envio do formulário para o backend ---
     if (form) {
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
             if (!areaNormal.value.trim()) {
-                e.preventDefault();
+                return;
             } else {
                 writingAreaMobileAberta = false;
+            }
+
+            // Pega os dados do formulário
+            const tipoCorrecao = document.getElementById('tipoCorrecao').value;
+            const temaRedacao = document.getElementById('temaRedacao').value;
+            const temaLivre = document.getElementById('temaLivre').value;
+            const texto = areaNormal.value;
+
+            // Pega o usuário logado do localStorage
+            const user = JSON.parse(localStorage.getItem('loggedUser'));
+            if (!user) {
+                alert('Você precisa estar logado para enviar a redação.');
+                return;
+            }
+
+            // Monta o payload
+            const payload = {
+                tipoCorrecao,
+                tema: temaRedacao === 'livre' ? temaLivre : temaRedacao,
+                texto,
+                userId: user.id // Certifique-se que o id está salvo no localStorage
+            };
+
+            try {
+                const response = await fetch('https://SEU_BACKEND_URL/server', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Redação enviada! Correção: ' + (result.correcao || 'Aguarde a IA responder.'));
+                    // Aqui você pode redirecionar ou atualizar a tela
+                } else {
+                    alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
+                }
+            } catch (err) {
+                alert('Erro de conexão com o servidor.');
             }
         });
     }
@@ -255,7 +298,6 @@ function toggleTemaLivre() {
         campoTemaLivre.required = false;
     }
 }
-
 
 
 

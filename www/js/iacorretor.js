@@ -260,12 +260,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const payload = {
                 tipoCorrecao,
                 tema: temaRedacao === 'livre' ? temaLivre : temaRedacao,
-                texto,
-                userId: user.id // Certifique-se que o id está salvo no localStorage
+                texto
             };
 
             try {
-                const response = await fetch('https://SEU_BACKEND_URL/server', {
+                const response = await fetch('https://express-e3hm.onrender.com/redchat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',

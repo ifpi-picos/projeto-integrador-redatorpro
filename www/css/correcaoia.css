@@ -1,3 +1,14 @@
+html, body, #app, .view-main, .page[data-name="correcaoia"] {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body.body-folha {
+    overflow-y: auto !important;
+}
+
 .correcao-container {
     background: #fff;
     border-radius: 12px;
@@ -15,6 +26,7 @@
     margin-top: 16px;
     display: block;
     color: #333;
+    background: transparent;
 }
 .correcao-texto {
     background: #f7f7f7;
@@ -22,6 +34,7 @@
     padding: 12px;
     margin-bottom: 16px;
     white-space: pre-line;
+    color: #222;
 }
 .correcao-voltar {
     margin-top: 24px;
@@ -38,11 +51,12 @@
     background: #1769aa;
 }
 
+/* Remova o bloco de depuração abaixo */
 #correcaoTexto, #notaTotal {
-    border: 2px dashed red !important;
+    /* border: 2px dashed red !important;
     background: #fffbe6 !important;
     color: #000 !important;
     min-height: 40px;
     padding: 8px;
-    z-index: 9999;
+    z-index: 9999; */
 }

@@ -1,0 +1,39 @@
+.correcao-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 18px;
+    margin: 24px auto;
+    max-width: 700px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.correcao-container h2 {
+    margin-top: 0;
+    color: #2196f3;
+}
+.correcao-label {
+    font-weight: bold;
+    margin-top: 16px;
+    display: block;
+    color: #333;
+}
+.correcao-texto {
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    white-space: pre-line;
+}
+.correcao-voltar {
+    margin-top: 24px;
+    display: inline-block;
+    background: #2196f3;
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+.correcao-voltar:hover {
+    background: #1769aa;
+}

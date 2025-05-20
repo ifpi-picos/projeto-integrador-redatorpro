@@ -271,9 +271,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Pega os dados do formulário
             const tipoCorrecao = document.getElementById('tipoCorrecao').value;
-            const temaRedacao = document.getElementById('temaRedacao').value;
+            const temaRedacaoSelect = document.getElementById('temaRedacao');
             const temaLivre = document.getElementById('temaLivre').value;
             const texto = areaNormal.value;
+
+            // Corrige o envio do tema: envia o texto do option selecionado
+            let tema = '';
+            if (temaRedacaoSelect.value === 'livre') {
+                tema = temaLivre;
+            } else if (temaRedacaoSelect.value) {
+                tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;
+            }
 
             // Pega o usuário logado do localStorage
             const user = JSON.parse(localStorage.getItem('loggedUser'));
@@ -290,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Monta o payload
             const payload = {
                 tipoCorrecao,
-                tema: temaRedacao === 'livre' ? temaLivre : temaRedacao,
+                tema,
                 texto
             };
 
@@ -346,6 +354,5 @@ function toggleTemaLivre() {
         campoTemaLivre.required = false;
     }
 }
-
 
 

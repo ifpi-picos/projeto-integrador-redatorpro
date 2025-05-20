@@ -37,3 +37,12 @@
 .correcao-voltar:hover {
     background: #1769aa;
 }
+
+#correcaoTexto, #notaTotal {
+    border: 2px dashed red !important;
+    background: #fffbe6 !important;
+    color: #000 !important;
+    min-height: 40px;
+    padding: 8px;
+    z-index: 9999;
+}

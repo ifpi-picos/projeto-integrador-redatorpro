@@ -53,12 +53,3 @@ body.body-folha {
     background: #1769aa;
 }
 
-/* Remova o bloco de depuração abaixo */
-#correcaoTexto, #notaTotal {
-    /* border: 2px dashed red !important;
-    background: #fffbe6 !important;
-    color: #000 !important;
-    min-height: 40px;
-    padding: 8px;
-    z-index: 9999; */
-}

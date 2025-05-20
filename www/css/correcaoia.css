@@ -35,6 +35,8 @@ body.body-folha {
     margin-bottom: 16px;
     white-space: pre-line;
     color: #222;
+    max-height: 60vh;
+    overflow-y: auto;
 }
 .correcao-voltar {
     margin-top: 24px;

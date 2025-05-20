@@ -243,6 +243,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 writingAreaMobileAberta = false;
             }
 
+            // Desabilita o botão e muda o texto
+            const submitBtn = form.querySelector('.submit-button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Corrigindo...';
+            }
+
             // Pega os dados do formulário
             const tipoCorrecao = document.getElementById('tipoCorrecao').value;
             const temaRedacao = document.getElementById('temaRedacao').value;
@@ -253,6 +260,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const user = JSON.parse(localStorage.getItem('loggedUser'));
             if (!user) {
                 alert('Você precisa estar logado para enviar a redação.');
+                // Reabilita o botão
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Enviar para o ChatRedator!';
+                }
                 return;
             }
 
@@ -279,9 +291,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.href = 'correcaoia.html';
                 } else {
                     alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
+                    // Reabilita o botão em caso de erro
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerText = 'Enviar para o ChatRedator!';
+                    }
                 }
             } catch (err) {
                 alert('Erro de conexão com o servidor.');
+                // Reabilita o botão em caso de erro
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Enviar para o ChatRedator!';
+                }
             }
         });
     }

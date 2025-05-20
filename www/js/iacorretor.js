@@ -273,8 +273,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert('Redação enviada! Correção: ' + (result.correcao || 'Aguarde a IA responder.'));
-                    // Aqui você pode redirecionar ou atualizar a tela
+                    // Salva a resposta da IA no localStorage
+                    localStorage.setItem('correcaoIA', JSON.stringify(result));
+                    // Redireciona para a página de correção
+                    window.location.href = 'correcaoia.html';
                 } else {
                     alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
                 }
@@ -297,8 +299,6 @@ function toggleTemaLivre() {
         campoTemaLivre.required = false;
     }
 }
-
-
 
 
 

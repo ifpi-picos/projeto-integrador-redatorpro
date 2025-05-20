@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2196f3">
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <title>Correção por IA</title>
+    <style>
+        .correcao-container {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 18px;
+            margin: 24px auto;
+            max-width: 700px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .correcao-container h2 {
+            margin-top: 0;
+            color: #2196f3;
+        }
+        .correcao-label {
+            font-weight: bold;
+            margin-top: 16px;
+            display: block;
+            color: #333;
+        }
+        .correcao-texto {
+            background: #f7f7f7;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            white-space: pre-line;
+        }
+        .correcao-voltar {
+            margin-top: 24px;
+            display: inline-block;
+            background: #2196f3;
+            color: #fff;
+            padding: 10px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .correcao-voltar:hover {
+            background: #1769aa;
+        }
+    </style>
+</head>
+<body class="body-folha">
+    <div id="app">
+        <div class="view view-main">
+            <div class="page" data-name="correcaoia">
+                <div class="buttons-top">
+                    <a href="iacorretor.html"><i class="ri-arrow-left-s-line"></i></a>
+                </div>
+                <header>
+                    <h1>Correção por IA</h1>
+                </header>
+                <div class="correcao-container">
+                    <h2>Resultado da Correção</h2>
+                    <div id="notaTotal" class="correcao-label"></div>
+                    <div id="correcaoTexto" class="correcao-texto"></div>
+                    <a href="iacorretor.html" class="correcao-voltar">Nova Redação</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const resposta = JSON.parse(localStorage.getItem('correcaoIA'));
+        const correcaoTexto = document.getElementById('correcaoTexto');
+        const notaTotal = document.getElementById('notaTotal');
+
+        if (resposta && resposta.correcao) {
+            correcaoTexto.innerText = resposta.correcao;
+
+            // Tenta exibir a nota, se existir
+            if (resposta.nota) {
+                notaTotal.innerText = "Nota Total: " + resposta.nota;
+            } else {
+                // Tenta extrair a nota do texto, caso não venha separada
+                const match = resposta.correcao.match(/nota\s*[:=]?\s*(\d{2,4})/i);
+                if (match) {
+                    notaTotal.innerText = "Nota Total: " + match[1];
+                } else {
+                    notaTotal.innerText = "";
+                }
+            }
+        } else {
+            correcaoTexto.innerText = "Nenhuma correção encontrada.";
+            notaTotal.innerText = "";
+        }
+    });
+    </script>
+</body>
+</html>

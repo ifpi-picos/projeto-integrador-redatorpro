@@ -232,6 +232,16 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', ajustarWritingArea);
     ajustarWritingArea();
 
+    // Limpa o formulário ao carregar a página
+    if (form) {
+        form.reset();
+        if (areaNormal) areaNormal.value = '';
+        if (areaAmpliada) areaAmpliada.value = '';
+        // Limpa seleções extras se necessário
+        const temaLivre = document.getElementById('temaLivre');
+        if (temaLivre) temaLivre.value = '';
+    }
+
     // --- ALTERAÇÃO: Envio do formulário para o backend ---
     if (form) {
         form.addEventListener('submit', async function (e) {
@@ -243,8 +253,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 writingAreaMobileAberta = false;
             }
 
-            // Desabilita o botão e muda o texto
-            const submitBtn = form.querySelector('.submit-button[type="submit"]');
+            // Seleciona o botão de submit correto (não o de digitar)
+            const submitBtns = form.querySelectorAll('.submit-button[type="submit"]');
+            let submitBtn = null;
+            if (submitBtns.length === 1) {
+                submitBtn = submitBtns[0];
+            } else {
+                // Se houver mais de um, pega o que está visível
+                submitBtns.forEach(btn => {
+                    if (btn.offsetParent !== null) submitBtn = btn;
+                });
+            }
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.innerText = 'Corrigindo...';
@@ -287,6 +306,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (response.ok) {
                     // Salva a resposta da IA no localStorage
                     localStorage.setItem('correcaoIA', JSON.stringify(result));
+                    // Limpa o formulário antes de redirecionar
+                    form.reset();
+                    if (areaNormal) areaNormal.value = '';
+                    if (areaAmpliada) areaAmpliada.value = '';
+                    const temaLivre = document.getElementById('temaLivre');
+                    if (temaLivre) temaLivre.value = '';
                     // Redireciona para a página de correção
                     window.location.href = 'correcaoia.html';
                 } else {

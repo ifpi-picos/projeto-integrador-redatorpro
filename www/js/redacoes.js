@@ -1,14 +1,12 @@
 window.initRedacoes = async function () {
   const lista = document.getElementById('text-list');
   if (!lista) {
-    console.error('[redacoes.js] Elemento #text-list não encontrado.');
     return;
   }
   lista.innerHTML = '<p>Carregando...</p>';
 
   // Verifica se o usuário está logado
   const user = JSON.parse(localStorage.getItem('loggedUser'));
-  console.log('[redacoes.js] Usuário logado:', user);
   if (!user) {
     lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
     return;
@@ -16,39 +14,34 @@ window.initRedacoes = async function () {
 
   let redacoes = [];
   try {
-    console.log('[redacoes.js] Buscando redações da API...');
     const resp = await fetch('https://express-e3hm.onrender.com/redacoes', {
       credentials: 'include'
     });
-    console.log('[redacoes.js] Status da resposta:', resp.status);
     if (resp.status === 401) {
       lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
       return;
     }
     redacoes = await resp.json();
-    console.log('[redacoes.js] Redações recebidas:', redacoes);
   } catch (e) {
-    console.error('[redacoes.js] Erro ao carregar redações:', e);
     lista.innerHTML = '<p>Erro ao carregar redações.</p>';
     return;
   }
 
   if (!Array.isArray(redacoes)) {
-    console.error('[redacoes.js] O retorno da API não é um array:', redacoes);
     lista.innerHTML = '<p>Erro inesperado no formato das redações.</p>';
     return;
   }
 
+  // FILTRA apenas as redações do usuário logado
+  redacoes = redacoes.filter(r => r.authorId === user.id);
+
   if (!redacoes.length) {
-    console.warn('[redacoes.js] Nenhuma redação encontrada.');
     lista.innerHTML = '<p id="no-results">Não encontramos nada por aqui...</p>';
     return;
   }
 
   lista.innerHTML = '';
-  console.log('[redacoes.js] Renderizando cards de redação...');
   redacoes.forEach((redacao, idx) => {
-    console.log(`[redacoes.js] Redação #${idx}:`, redacao);
     try {
       const card = document.createElement('a');
       card.href = '#';
@@ -87,15 +80,11 @@ window.initRedacoes = async function () {
           correcao.style.display = correcao.style.display === 'none' ? 'block' : 'none';
           this.innerText = correcao.style.display === 'block' ? 'Ocultar correção' : 'Exibir correção';
         });
-      } else {
-        console.warn(`[redacoes.js] Botão de correção não encontrado para redação #${idx}`);
       }
 
       lista.appendChild(card);
-      console.log(`[redacoes.js] Card de redação #${idx} adicionado ao DOM.`);
     } catch (err) {
-      console.error(`[redacoes.js] Erro ao renderizar card da redação #${idx}:`, err);
+      // Silencia erros de renderização individuais
     }
   });
-  console.log('[redacoes.js] Renderização finalizada. Total de cards:', lista.children.length);
 };

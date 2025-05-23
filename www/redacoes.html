@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+
+    <link rel="stylesheet" href="css/banco.css">
+    <link rel="stylesheet" href="css/link2.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <title>Suas redação</title>
+   
+</head>
+
+<body class="#">
+    <div id="app">
+        <div class="view view-main">
+            <div data-name="redacoes" class="page">
+
+                <!-- CONTEÚDO -->
+
+                <!-- Título topo -->
+                <div class="top-nav">
+                    <h1 class="title-logo"><span></span>Redações</h1>
+                </div>
+
+                <!--filtro e barra de pesquisa-->
+                <form onsubmit="return false;">
+                    <input id="inputBusca" onkeyup="filtrar()" placeholder="Busque aqui" type="text" class="search">
+                    <i class="icone-busca ri-search-2-line"></i>
+                </form>
+
+                <div class="filter-button">
+                    <button onclick="filtrarEspecialidade('')">Geral</button>
+                    <button onclick="filtrarEspecialidade('Enem')">Enem</button>
+                    <button onclick="filtrarEspecialidade('Vestibular')">Fuvest</button>
+                    <button onclick="filtrarEspecialidade('Ita')">FCC</button>
+                </div>
+
+
+                <div class="page-content">
+                    <div id="text-list" class="text-list">
+                        
+                        <!--CARD SKELETON
+                        <a id="redacao" href="#" class="item">
+                            <div class="person-card-skeleton skeleton-effect-wave" data-name="João" data-specialty="Vestibular">
+                                <div class="person-info">
+                                    <div class="person-skeleton skeleton-effect-wave"></div>
+                                    <div class="">
+                                        <span style="width: 90px; margin-bottom: 10px;" class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                        <span style="width: 90px;" class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                    </div>
+                                </div>
+                                <div class="nome-rating">
+                                    <span style="width: 20px; margin-right: 5px;" class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                    <span style="width: 20px; margin-right: 15px;" class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                </div>
+                            </div>
+                        </a>
+                        --->
+                        
+                        <p id="no-results" style="display: none;" class="display-flex justify-content-center align-items-center">Não encontramos nada por aqui...</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/filtro.js"></script>
+
+    <script>
+        // Previne o envio do formulário
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        });
+
+        // Previne o comportamento global de pressionar Enter
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Impede o comportamento padrão
+            }
+        });
+    </script>
+
+</body>
+</html>

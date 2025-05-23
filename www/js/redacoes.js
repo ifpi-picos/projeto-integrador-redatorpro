@@ -1,5 +1,9 @@
-document.addEventListener('DOMContentLoaded', async function () {
+window.initRedacoes = async function () {
   const lista = document.getElementById('text-list');
+  if (!lista) {
+    console.error('[redacoes.js] Elemento #text-list não encontrado.');
+    return;
+  }
   lista.innerHTML = '<p>Carregando...</p>';
 
   // Verifica se o usuário está logado
@@ -94,4 +98,4 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   });
   console.log('[redacoes.js] Renderização finalizada. Total de cards:', lista.children.length);
-});
+};

@@ -231,7 +231,14 @@ var app = new Framework7({
           // fazer algo quando a página for inicializada
           console.log('pageInit /redacoes/ chamado');
           $.getScript('js/redacoes.js')
-            .done(() => console.log('js/redacoes.js carregado com sucesso'))
+            .done(() => {
+              console.log('js/redacoes.js carregado com sucesso');
+              if (window.initRedacoes) {
+                window.initRedacoes();
+              } else {
+                console.error('window.initRedacoes não está definido!');
+              }
+            })
             .fail(() => console.error('Erro ao carregar js/redacoes.js'));
         },
       }

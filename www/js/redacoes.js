@@ -32,9 +32,6 @@ window.initRedacoes = async function () {
     return;
   }
 
-  // FILTRA apenas as redações do usuário logado
-  redacoes = redacoes.filter(r => r.authorId === user.id);
-
   if (!redacoes.length) {
     lista.innerHTML = '<p id="no-results">Não encontramos nada por aqui...</p>';
     return;

@@ -1,6 +1,7 @@
 window.initRedacoes = async function () {
   const lista = document.getElementById('text-list');
   if (!lista) {
+    console.log('[redacoes.js] Elemento #text-list não encontrado.');
     return;
   }
   lista.innerHTML = '<p>Carregando...</p>';
@@ -23,11 +24,13 @@ window.initRedacoes = async function () {
     }
     redacoes = await resp.json();
   } catch (e) {
+    console.error('[redacoes.js] Erro ao carregar redações:', e);
     lista.innerHTML = '<p>Erro ao carregar redações.</p>';
     return;
   }
 
   if (!Array.isArray(redacoes)) {
+    console.error('[redacoes.js] O retorno da API não é um array:', redacoes);
     lista.innerHTML = '<p>Erro inesperado no formato das redações.</p>';
     return;
   }
@@ -89,6 +92,7 @@ window.initRedacoes = async function () {
       if (btnPdf) {
         btnPdf.addEventListener('click', async function (e) {
           e.stopPropagation();
+          console.log('[redacoes.js] Clique no botão Baixar PDF para redação #'+idx);
           if (!redacao.text || !redacao.text.trim()) {
             alert('Não há texto para gerar o PDF.');
             return;
@@ -96,13 +100,16 @@ window.initRedacoes = async function () {
           btnPdf.disabled = true;
           btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Gerando PDF...';
           try {
+            console.log('[redacoes.js] Enviando texto para gerar PDF:', redacao.text);
             const response = await fetch('https://express-e3hm.onrender.com/pdf/gerar-pdf', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ texto: redacao.text })
             });
+            console.log('[redacoes.js] Resposta recebida:', response);
             if (!response.ok) throw new Error('Erro ao gerar PDF');
             const blob = await response.blob();
+            console.log('[redacoes.js] Blob recebido:', blob);
             if (blob.size === 0) throw new Error('PDF vazio');
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -115,7 +122,9 @@ window.initRedacoes = async function () {
               document.body.removeChild(a);
               window.URL.revokeObjectURL(url);
             }, 200);
+            console.log('[redacoes.js] Download do PDF disparado.');
           } catch (err) {
+            console.error('[redacoes.js] Erro ao gerar PDF:', err);
             alert('Erro ao gerar PDF. Tente novamente.');
           }
           btnPdf.disabled = false;
@@ -125,7 +134,7 @@ window.initRedacoes = async function () {
 
       lista.appendChild(card);
     } catch (err) {
-      // Silencia erros de renderização individuais
+      console.error('[redacoes.js] Erro ao renderizar card da redação:', err);
     }
   });
 };

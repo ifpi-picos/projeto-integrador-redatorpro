@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Verifica se o usuário está logado
   const user = JSON.parse(localStorage.getItem('loggedUser'));
+  console.log('[redacoes.js] Usuário logado:', user);
   if (!user) {
     lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
     return;
@@ -11,15 +12,19 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   let redacoes = [];
   try {
+    console.log('[redacoes.js] Buscando redações da API...');
     const resp = await fetch('https://express-e3hm.onrender.com/redacoes', {
       credentials: 'include'
     });
+    console.log('[redacoes.js] Status da resposta:', resp.status);
     if (resp.status === 401) {
       lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
       return;
     }
     redacoes = await resp.json();
+    console.log('[redacoes.js] Redações recebidas:', redacoes);
   } catch (e) {
+    console.error('[redacoes.js] Erro ao carregar redações:', e);
     lista.innerHTML = '<p>Erro ao carregar redações.</p>';
     return;
   }
@@ -41,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
           <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
         </div>
-        <div class="redacao-preview">${(redacao.text || '').slice(0, 80)}${redacao.text.length > 80 ? '...' : ''}</div>
+        <div class="redacao-preview">${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}</div>
       </div>
       <div class="redacao-detalhes" style="display:none;">
         <div class="redacao-texto">${redacao.text}</div>

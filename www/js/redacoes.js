@@ -2,13 +2,22 @@ document.addEventListener('DOMContentLoaded', async function () {
   const lista = document.getElementById('text-list');
   lista.innerHTML = '<p>Carregando...</p>';
 
-  // Exemplo de requisição, ajuste a URL conforme seu backend
+  // Verifica se o usuário está logado
   const user = JSON.parse(localStorage.getItem('loggedUser'));
+  if (!user) {
+    lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
+    return;
+  }
+
   let redacoes = [];
   try {
     const resp = await fetch('https://express-e3hm.onrender.com/redacoes', {
       credentials: 'include'
     });
+    if (resp.status === 401) {
+      lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
+      return;
+    }
     redacoes = await resp.json();
   } catch (e) {
     lista.innerHTML = '<p>Erro ao carregar redações.</p>';

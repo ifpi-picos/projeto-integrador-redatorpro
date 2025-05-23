@@ -6,6 +6,9 @@ window.initFolha = function() {
 
   // ✅ Envio da redação (imagem e/ou texto)
   submitButton.addEventListener("click", async () => {
+    alert("Essa função está temporariamente desativada.");
+    return;
+    /*
     const fileInput = document.getElementById("upload");
     const file = fileInput.files[0];
     const textArea = document.querySelector(".area");
@@ -38,10 +41,14 @@ window.initFolha = function() {
       console.error("Erro no upload:", error);
       alert("Erro ao enviar redação: " + error.message);
     }
+    */
   });
 
   // ✅ Geração do PDF (apenas texto)
   downloadButton.addEventListener("click", async () => {
+    alert("A geração de PDF está temporariamente desativada.");
+    return;
+    /*
     const textArea = document.querySelector(".area").value.trim();
 
     if (!textArea) {
@@ -92,6 +99,7 @@ window.initFolha = function() {
         console.error("❌ Erro ao gerar PDF:", error);
         alert("Erro ao gerar PDF. Veja o console para mais detalhes.");
     }
+    */
   });
 
 };

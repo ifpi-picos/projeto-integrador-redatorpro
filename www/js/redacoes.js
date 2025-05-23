@@ -54,7 +54,12 @@ window.initRedacoes = async function () {
         </div>
         <div class="redacao-detalhes" style="display:none;">
           <div class="redacao-texto">${redacao.text}</div>
-          <button class="btn-exibir-correcao">Exibir correção</button>
+          <div class="redacao-actions">
+            <button class="btn-exibir-correcao">Exibir correção</button>
+            <button class="btn-baixar-pdf">
+              <i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar PDF
+            </button>
+          </div>
           <div class="correcao-ia" style="display:none;">${redacao.correcaoIa || 'Sem correção.'}</div>
         </div>
       `;
@@ -62,7 +67,7 @@ window.initRedacoes = async function () {
       // Ao clicar no card, mostra/oculta detalhes
       card.addEventListener('click', function (e) {
         // Só abre se clicar fora do botão
-        if (e.target.classList.contains('btn-exibir-correcao')) return;
+        if (e.target.classList.contains('btn-exibir-correcao') || e.target.classList.contains('btn-baixar-pdf')) return;
         e.preventDefault();
         const detalhes = card.querySelector('.redacao-detalhes');
         detalhes.style.display = detalhes.style.display === 'none' ? 'block' : 'none';
@@ -76,6 +81,41 @@ window.initRedacoes = async function () {
           const correcao = card.querySelector('.correcao-ia');
           correcao.style.display = correcao.style.display === 'none' ? 'block' : 'none';
           this.innerText = correcao.style.display === 'block' ? 'Ocultar correção' : 'Exibir correção';
+        });
+      }
+
+      // Botão para baixar PDF
+      const btnPdf = card.querySelector('.btn-baixar-pdf');
+      if (btnPdf) {
+        btnPdf.addEventListener('click', async function (e) {
+          e.stopPropagation();
+          btnPdf.disabled = true;
+          btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Gerando PDF...';
+          try {
+            const response = await fetch('https://express-e3hm.onrender.com/pdf/gerar-pdf', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ texto: redacao.text })
+            });
+            if (!response.ok) throw new Error('Erro ao gerar PDF');
+            const blob = await response.blob();
+            if (blob.size === 0) throw new Error('PDF vazio');
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'redacao.pdf';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+              document.body.removeChild(a);
+              window.URL.revokeObjectURL(url);
+            }, 200);
+          } catch (err) {
+            alert('Erro ao gerar PDF. Tente novamente.');
+          }
+          btnPdf.disabled = false;
+          btnPdf.innerHTML = '<i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar PDF';
         });
       }
 

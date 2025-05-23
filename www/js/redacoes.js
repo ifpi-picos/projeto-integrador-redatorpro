@@ -29,49 +29,69 @@ document.addEventListener('DOMContentLoaded', async function () {
     return;
   }
 
+  if (!Array.isArray(redacoes)) {
+    console.error('[redacoes.js] O retorno da API não é um array:', redacoes);
+    lista.innerHTML = '<p>Erro inesperado no formato das redações.</p>';
+    return;
+  }
+
   if (!redacoes.length) {
+    console.warn('[redacoes.js] Nenhuma redação encontrada.');
     lista.innerHTML = '<p id="no-results">Não encontramos nada por aqui...</p>';
     return;
   }
 
   lista.innerHTML = '';
-  redacoes.forEach(redacao => {
-    const card = document.createElement('a');
-    card.href = '#';
-    card.className = 'item redacao-card';
+  console.log('[redacoes.js] Renderizando cards de redação...');
+  redacoes.forEach((redacao, idx) => {
+    console.log(`[redacoes.js] Redação #${idx}:`, redacao);
+    try {
+      const card = document.createElement('a');
+      card.href = '#';
+      card.className = 'item redacao-card';
 
-    card.innerHTML = `
-      <div class="redacao-info">
-        <div class="redacao-header">
-          <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
-          <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
+      card.innerHTML = `
+        <div class="redacao-info">
+          <div class="redacao-header">
+            <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
+            <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
+          </div>
+          <div class="redacao-preview">${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}</div>
         </div>
-        <div class="redacao-preview">${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}</div>
-      </div>
-      <div class="redacao-detalhes" style="display:none;">
-        <div class="redacao-texto">${redacao.text}</div>
-        <button class="btn-exibir-correcao">Exibir correção</button>
-        <div class="correcao-ia" style="display:none;">${redacao.correcaoIa || 'Sem correção.'}</div>
-      </div>
-    `;
+        <div class="redacao-detalhes" style="display:none;">
+          <div class="redacao-texto">${redacao.text}</div>
+          <button class="btn-exibir-correcao">Exibir correção</button>
+          <div class="correcao-ia" style="display:none;">${redacao.correcaoIa || 'Sem correção.'}</div>
+        </div>
+      `;
 
-    // Ao clicar no card, mostra/oculta detalhes
-    card.addEventListener('click', function (e) {
-      // Só abre se clicar fora do botão
-      if (e.target.classList.contains('btn-exibir-correcao')) return;
-      e.preventDefault();
-      const detalhes = card.querySelector('.redacao-detalhes');
-      detalhes.style.display = detalhes.style.display === 'none' ? 'block' : 'none';
-    });
+      // Ao clicar no card, mostra/oculta detalhes
+      card.addEventListener('click', function (e) {
+        // Só abre se clicar fora do botão
+        if (e.target.classList.contains('btn-exibir-correcao')) return;
+        e.preventDefault();
+        const detalhes = card.querySelector('.redacao-detalhes');
+        detalhes.style.display = detalhes.style.display === 'none' ? 'block' : 'none';
+      });
 
-    // Botão para exibir correção
-    card.querySelector('.btn-exibir-correcao').addEventListener('click', function (e) {
-      e.stopPropagation();
-      const correcao = card.querySelector('.correcao-ia');
-      correcao.style.display = correcao.style.display === 'none' ? 'block' : 'none';
-      this.innerText = correcao.style.display === 'block' ? 'Ocultar correção' : 'Exibir correção';
-    });
+      // Botão para exibir correção
+      const btnCorrecao = card.querySelector('.btn-exibir-correcao');
+      if (btnCorrecao) {
+        btnCorrecao.addEventListener('click', function (e) {
+          e.stopPropagation();
+          const correcao = card.querySelector('.correcao-ia');
+          correcao.style.display = correcao.style.display === 'none' ? 'block' : 'none';
+          this.innerText = correcao.style.display === 'block' ? 'Ocultar correção' : 'Exibir correção';
+        });
+      } else {
+        console.warn(`[redacoes.js] Botão de correção não encontrado para redação #${idx}`);
+      }
 
-    lista.appendChild(card);
+      lista.appendChild(card);
+      console.log(`[redacoes.js] Card de redação #${idx} adicionado ao DOM.`);
+    } catch (err) {
+      console.error(`[redacoes.js] Erro ao renderizar card da redação #${idx}:`, err);
+    }
   });
+  console.log('[redacoes.js] Renderização finalizada. Total de cards:', lista.children.length);
 });

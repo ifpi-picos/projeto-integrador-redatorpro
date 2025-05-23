@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/banco.css">
     <link rel="stylesheet" href="css/link2.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/redacoes.css">
 
     <title>Suas redação</title>
    
@@ -51,23 +52,21 @@
                 <div class="page-content">
                     <div id="text-list" class="text-list">
                         
-                        <!--CARD SKELETON
-                        <a id="redacao" href="#" class="item">
-                            <div class="person-card-skeleton skeleton-effect-wave" data-name="João" data-specialty="Vestibular">
-                                <div class="person-info">
-                                    <div class="person-skeleton skeleton-effect-wave"></div>
-                                    <div class="">
-                                        <span style="width: 90px; margin-bottom: 10px;" class="skeleton-block color-gelo skeleton-effect-wave"></span>
-                                        <span style="width: 90px;" class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                       <!-- Exemplo de card de redação -->
+                                <a href="#" class="item redacao-card">
+                                <div class="redacao-info">
+                                    <div class="redacao-header">
+                                    <span class="redacao-tema">Tema: <b><!-- tema aqui --></b></span>
+                                    <span class="redacao-nota">Nota: <b><!-- nota aqui --></b></span>
                                     </div>
+                                    <div class="redacao-preview"><!-- trecho da redação aqui --></div>
                                 </div>
-                                <div class="nome-rating">
-                                    <span style="width: 20px; margin-right: 5px;" class="skeleton-block color-gelo skeleton-effect-wave"></span>
-                                    <span style="width: 20px; margin-right: 15px;" class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                <div class="redacao-detalhes" style="display:none;">
+                                    <div class="redacao-texto"><!-- texto completo da redação --></div>
+                                    <button class="btn-exibir-correcao">Exibir correção</button>
+                                    <div class="correcao-ia" style="display:none;"><!-- correção da IA --></div>
                                 </div>
-                            </div>
-                        </a>
-                        --->
+                                </a>
                         
                         <p id="no-results" style="display: none;" class="display-flex justify-content-center align-items-center">Não encontramos nada por aqui...</p>
                     </div>
@@ -83,6 +82,7 @@
     <script type="text/javascript" src="js/routes.js"></script>
     <script src="cordova.js"></script>
     <script src="js/filtro.js"></script>
+    <script src="js/redacoes.js"></script>
 
     <script>
         // Previne o envio do formulário

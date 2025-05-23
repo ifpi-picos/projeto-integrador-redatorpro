@@ -1,0 +1,67 @@
+.redacao-card {
+  display: block;
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 18px 20px;
+  transition: box-shadow 0.2s;
+  color: #222;
+  text-decoration: none;
+}
+.redacao-card:hover {
+  box-shadow: 0 4px 16px #0002;
+}
+.redacao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.redacao-tema, .redacao-nota {
+  font-size: 1.05em;
+  color: #1976d2;
+}
+.redacao-preview {
+  color: #444;
+  font-size: 1em;
+  margin-bottom: 6px;
+  max-height: 2.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.redacao-detalhes {
+  margin-top: 10px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+.redacao-texto {
+  color: #222;
+  font-size: 1em;
+  margin-bottom: 10px;
+  white-space: pre-line;
+}
+.btn-exibir-correcao {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 18px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  font-size: 1em;
+  transition: background 0.2s;
+}
+.btn-exibir-correcao:hover {
+  background: #125ea2;
+}
+.correcao-ia {
+  background: #f5f7fa;
+  border-radius: 8px;
+  padding: 10px;
+  color: #333;
+  margin-top: 5px;
+  font-size: 0.98em;
+  white-space: pre-line;
+}

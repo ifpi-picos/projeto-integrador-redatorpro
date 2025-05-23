@@ -224,15 +224,15 @@ var app = new Framework7({
         pageAfterIn: function (event, page) {
           // Fazer algo depois de a página de login ser exibida
         },
-        pageInit: function (event, page) {
-          // Fazer algo quando a página de login for inicializada
-        },
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM
         },
         pageInit: function (event, page) {
           // fazer algo quando a página for inicializada
-          $.getScript('js/redacoes.js');
+          console.log('pageInit /redacoes/ chamado');
+          $.getScript('js/redacoes.js')
+            .done(() => console.log('js/redacoes.js carregado com sucesso'))
+            .fail(() => console.error('Erro ao carregar js/redacoes.js'));
         },
       }
     },   

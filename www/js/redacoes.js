@@ -89,6 +89,10 @@ window.initRedacoes = async function () {
       if (btnPdf) {
         btnPdf.addEventListener('click', async function (e) {
           e.stopPropagation();
+          if (!redacao.text || !redacao.text.trim()) {
+            alert('Não há texto para gerar o PDF.');
+            return;
+          }
           btnPdf.disabled = true;
           btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Gerando PDF...';
           try {

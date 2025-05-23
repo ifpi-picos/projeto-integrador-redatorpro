@@ -44,29 +44,13 @@
                 <div class="filter-button">
                     <button onclick="filtrarEspecialidade('')">Geral</button>
                     <button onclick="filtrarEspecialidade('Enem')">Enem</button>
-                    <button onclick="filtrarEspecialidade('Vestibular')">Fuvest</button>
-                    <button onclick="filtrarEspecialidade('Ita')">FCC</button>
+                    <button onclick="filtrarEspecialidade('Fuvest')">Fuvest</button>
+                    <button onclick="filtrarEspecialidade('FCC')">FCC</button>
                 </div>
 
 
                 <div class="page-content">
                     <div id="text-list" class="text-list">
-                        
-                       <!-- Exemplo de card de redação -->
-                                <a href="#" class="item redacao-card">
-                                <div class="redacao-info">
-                                    <div class="redacao-header">
-                                    <span class="redacao-tema">Tema: <b><!-- tema aqui --></b></span>
-                                    <span class="redacao-nota">Nota: <b><!-- nota aqui --></b></span>
-                                    </div>
-                                    <div class="redacao-preview"><!-- trecho da redação aqui --></div>
-                                </div>
-                                <div class="redacao-detalhes" style="display:none;">
-                                    <div class="redacao-texto"><!-- texto completo da redação --></div>
-                                    <button class="btn-exibir-correcao">Exibir correção</button>
-                                    <div class="correcao-ia" style="display:none;"><!-- correção da IA --></div>
-                                </div>
-                                </a>
                         
                         <p id="no-results" style="display: none;" class="display-flex justify-content-center align-items-center">Não encontramos nada por aqui...</p>
                     </div>
@@ -80,7 +64,14 @@
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
     <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
     <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
+    <script>
+        // Carrega cordova.js apenas se estiver disponível
+        if (window.cordova) {
+            var cordovaScript = document.createElement('script');
+            cordovaScript.src = 'cordova.js';
+            document.head.appendChild(cordovaScript);
+        }
+    </script>
     <script src="js/filtro.js"></script>
     <script src="js/redacoes.js"></script>
 

@@ -230,6 +230,10 @@ var app = new Framework7({
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM
         },
+        pageInit: function (event, page) {
+          // fazer algo quando a página for inicializada
+          $.getScript('js/redacoes.js');
+        },
       }
     },   
     {

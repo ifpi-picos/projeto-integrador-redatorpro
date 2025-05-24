@@ -67,9 +67,11 @@ window.initRedacoes = async function () {
     if (filtroAtual && filtroAtual !== "") {
       let tipoFiltro = filtroAtual.toLowerCase();
       let tiposAceitos = mapFiltro[tipoFiltro] || [tipoFiltro];
+      console.log('[redacoes.js] Filtro aplicado:', tipoFiltro, 'Tipos aceitos:', tiposAceitos);
       filtradas = filtradas.filter(r =>
         tiposAceitos.includes((r.tipoCorrecao || '').toLowerCase())
       );
+      console.log('[redacoes.js] Redações após filtro:', filtradas.length);
     }
 
     // Filtro por busca
@@ -138,6 +140,7 @@ window.initRedacoes = async function () {
           btnPdf.addEventListener('click', async function (e) {
             e.stopPropagation();
             e.preventDefault?.();
+            console.log('[redacoes.js] Clique no botão Baixar PDF para redação #'+idx);
             if (!redacao.text || !redacao.text.trim()) {
               alert('Não há texto para gerar o PDF.');
               return;
@@ -145,13 +148,16 @@ window.initRedacoes = async function () {
             btnPdf.disabled = true;
             btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Gerando PDF...';
             try {
+              console.log('[redacoes.js] Enviando texto para gerar PDF:', redacao.text);
               const response = await fetch('https://express-e3hm.onrender.com/pdf/gerar-pdf', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ texto: redacao.text })
               });
+              console.log('[redacoes.js] Resposta recebida:', response);
               if (!response.ok) throw new Error('Erro ao gerar PDF');
               const blob = await response.blob();
+              console.log('[redacoes.js] Blob recebido:', blob);
               if (blob.size === 0) throw new Error('PDF vazio');
               const url = window.URL.createObjectURL(blob);
               const a = document.createElement('a');
@@ -159,16 +165,20 @@ window.initRedacoes = async function () {
               a.href = url;
               a.download = 'redacao.pdf';
               document.body.appendChild(a);
-              if (typeof a.click === 'function') {
-                a.click();
-              } else {
-                window.open(url, '_blank');
-              }
+              // Força o download em navegadores modernos
               setTimeout(() => {
+                if (typeof a.click === 'function') {
+                  a.click();
+                  console.log('[redacoes.js] Download do PDF disparado.');
+                } else {
+                  window.open(url, '_blank');
+                  console.log('[redacoes.js] Download do PDF aberto em nova aba.');
+                }
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
-              }, 500);
+              }, 100);
             } catch (err) {
+              console.error('[redacoes.js] Erro ao gerar PDF:', err);
               alert('Erro ao gerar PDF. Tente novamente.');
             }
             btnPdf.disabled = false;

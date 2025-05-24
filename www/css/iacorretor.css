@@ -95,7 +95,7 @@ body.body-folha {
     border: none;
     outline: none;
     resize: none;
-    width: calc(85ch + 24px); /* 24px = padding lateral */
+    width: calc(72ch + 24px); /* 72 caracteres por linha */
     max-width: 100%;
     height: 100%;
     font-size: 1rem;
@@ -165,7 +165,7 @@ body.body-folha {
         font-family: monospace !important;
         font-size: 1rem;
         line-height: 24px;
-        width: calc(85ch + 24px);
+        width: calc(72ch + 24px);
         max-width: 100%;
         white-space: pre-wrap;
         word-break: break-word;
@@ -309,7 +309,7 @@ body.folha-ampliada-aberta {
     border: none;
     outline: none;
     resize: none;
-    width: calc(85ch + 24px); /* 24px = padding lateral */
+    width: calc(72ch + 24px); /* 72 caracteres por linha */
     max-width: 100%;
     height: 100%;
     font-size: 1rem;

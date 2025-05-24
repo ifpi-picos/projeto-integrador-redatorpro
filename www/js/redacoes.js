@@ -56,8 +56,9 @@ window.initRedacoes = async function () {
   const mapFiltro = {
     'enem': ['enem'],
     'fuvest': ['fuvest'],
-    'fcc': ['concursos', 'fcc', 'ita', 'vestibular', 'vest'],
-    'vestibular': ['fuvest', 'vestibular', 'vest']
+    'fcc': ['concursos', 'fcc'],
+    'vestibular': ['fuvest', 'vestibular', 'vest'],
+    'ita': ['ita', 'concursos', 'fcc'] // Adiciona ita para garantir compatibilidade
   };
 
   function renderizarRedacoes() {
@@ -148,34 +149,28 @@ window.initRedacoes = async function () {
             btnPdf.disabled = true;
             btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Gerando PDF...';
             try {
-              console.log('[redacoes.js] Enviando texto para gerar PDF:', redacao.text);
-              const response = await fetch('https://express-e3hm.onrender.com/pdf/gerar-pdf', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ texto: redacao.text })
+              // --- Inspirado na folha.js ---
+              const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ texto: redacao.text }),
               });
-              console.log('[redacoes.js] Resposta recebida:', response);
-              if (!response.ok) throw new Error('Erro ao gerar PDF');
+              console.log("[redacoes.js] Resposta recebida:", response);
+              if (!response.ok) throw new Error("Erro ao gerar PDF: " + response.status);
               const blob = await response.blob();
-              console.log('[redacoes.js] Blob recebido:', blob);
-              if (blob.size === 0) throw new Error('PDF vazio');
+              console.log("[redacoes.js] Blob recebido:", blob);
+              if (blob.size === 0) throw new Error("O PDF gerado está vazio!");
               const url = window.URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.style.display = 'none';
+              const a = document.createElement("a");
+              a.style.display = "none";
               a.href = url;
-              a.download = 'redacao.pdf';
+              a.download = "redacao.pdf";
               document.body.appendChild(a);
-              // Força o download em navegadores modernos
               setTimeout(() => {
-                if (typeof a.click === 'function') {
-                  a.click();
-                  console.log('[redacoes.js] Download do PDF disparado.');
-                } else {
-                  window.open(url, '_blank');
-                  console.log('[redacoes.js] Download do PDF aberto em nova aba.');
-                }
+                a.dispatchEvent(new MouseEvent('click'));
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
+                console.log("[redacoes.js] PDF baixado com sucesso!");
               }, 100);
             } catch (err) {
               console.error('[redacoes.js] Erro ao gerar PDF:', err);

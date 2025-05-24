@@ -1,40 +1,59 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2196f3">
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
-    <link rel="stylesheet" href="css/correcaoia.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Correção por IA</title>
-    <script src="js/correcaoia.js" defer></script>
+    <link rel="stylesheet" href="correcaoia.css">
 </head>
-<body class="body-folha">
-    <div id="app">
-        <div class="view view-main">
-            <div class="page" data-name="correcaoia">
-                <div class="buttons-top">
-                    <a href="iacorretor.html"><i class="ri-arrow-left-s-line"></i></a>
-                </div>
-                <header>
-                    <h1>Correção por IA</h1>
-                </header>
-                <div class="correcao-container">
-                    <h2>Resultado da Correção</h2>
-                    <div id="notaTotal" class="correcao-label"></div>
-                    <div id="correcaoTexto" class="correcao-texto"></div>
-                    <a href="iacorretor.html" class="correcao-voltar">Nova Redação</a>
-                </div>
-            </div>
+<body>
+    <div class="container">
+        <h1>Correção por IA</h1>
+
+        <textarea id="textoRedacao" rows="30" placeholder="Digite sua redação aqui..."></textarea>
+        <div class="botoes">
+            <button class="btn-corrigir" onclick="corrigirTexto()">Corrigir Redação</button>
+            <button class="btn-nova-redacao" onclick="novaRedacao()">Nova Redação</button>
         </div>
+        
+
+        <div id="resultado" class="comentarios" style="display:none;">
+            <h2>Resultado da Correção</h2>
+            <p><strong>Nota:</strong> <span id="nota"></span></p>
+
+            <p><strong>Comentários:</strong></p>
+            <p><strong>Pontos Positivos:</strong></p>
+            <p><strong>Clareza e Coerência:</strong> <span id="coerencia"></span></p>
+            <p><strong>Argumentação:</strong> <span id="argumentacao"></span></p>
+            <p><strong>Estrutura:</strong> <span id="estrutura"></span></p>
+            <p><strong>Vocabulário:</strong> <span id="vocabulario"></span></p>
+            <p><strong>Conclusão:</strong> <span id="conclusao"></span></p>
+        </div>
+
     </div>
-    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
-    <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
+
+    <script>
+        function corrigirTexto() {
+            const texto = document.getElementById("textoRedacao").value.trim();
+            if (texto === "") {
+                alert("Digite uma redação para corrigir.");
+                return;
+            }
+        // Simulação da IA
+        document.getElementById("nota").textContent = "950";
+        document.getElementById("coerencia").textContent = "O texto apresenta boa clareza e coesão com vocabulário formal.";
+        document.getElementById("argumentacao").textContent = "Apresenta exemplos concretos e diferentes perspectivas.";
+        document.getElementById("estrutura").textContent = "Estrutura organizada, com parágrafos bem delimitados.";
+        document.getElementById("vocabulario").textContent = "Formal, com palavras bem escolhidas como 'implementação', 'configuração', 'imprescindíveis'.";
+        document.getElementById("conclusao").textContent = "Reitera a tese e propõe solução eficaz sem apresentar informações novas.";
+
+        document.getElementById("resultado").style.display = "block";
+}
+
+        function novaRedacao() {
+        document.getElementById("textoRedacao").value = "";
+        document.getElementById("resultado").style.display = "none";
+}
+</script>
 </body>
 </html>

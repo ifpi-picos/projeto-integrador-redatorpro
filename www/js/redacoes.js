@@ -52,16 +52,23 @@ window.initRedacoes = async function () {
     renderizarRedacoes();
   };
 
+  // Mapeamento para normalizar os filtros
+  const mapFiltro = {
+    'enem': ['enem'],
+    'fuvest': ['fuvest'],
+    'fcc': ['concursos', 'fcc', 'ita', 'vestibular', 'vest'],
+    'vestibular': ['fuvest', 'vestibular', 'vest']
+  };
+
   function renderizarRedacoes() {
     let filtradas = redacoes;
 
     // Filtro por tipoCorrecao
     if (filtroAtual && filtroAtual !== "") {
-      // "FCC" no botão corresponde a "concursos" no banco
-      let tipoBanco = filtroAtual.toLowerCase();
-      if (tipoBanco === "fcc") tipoBanco = "concursos";
+      let tipoFiltro = filtroAtual.toLowerCase();
+      let tiposAceitos = mapFiltro[tipoFiltro] || [tipoFiltro];
       filtradas = filtradas.filter(r =>
-        (r.tipoCorrecao || "").toLowerCase() === tipoBanco
+        tiposAceitos.includes((r.tipoCorrecao || '').toLowerCase())
       );
     }
 
@@ -82,8 +89,8 @@ window.initRedacoes = async function () {
 
     filtradas.forEach((redacao, idx) => {
       try {
-        const card = document.createElement('a');
-        card.href = '#';
+        // Troque <a> por <div> para evitar conflitos de download
+        const card = document.createElement('div');
         card.className = 'item redacao-card';
 
         card.innerHTML = `
@@ -109,7 +116,7 @@ window.initRedacoes = async function () {
         // Ao clicar no card, mostra/oculta detalhes
         card.addEventListener('click', function (e) {
           if (e.target.classList.contains('btn-exibir-correcao') || e.target.classList.contains('btn-baixar-pdf')) return;
-          e.preventDefault();
+          e.preventDefault?.();
           const detalhes = card.querySelector('.redacao-detalhes');
           detalhes.style.display = detalhes.style.display === 'none' ? 'block' : 'none';
         });
@@ -130,6 +137,7 @@ window.initRedacoes = async function () {
         if (btnPdf) {
           btnPdf.addEventListener('click', async function (e) {
             e.stopPropagation();
+            e.preventDefault?.();
             if (!redacao.text || !redacao.text.trim()) {
               alert('Não há texto para gerar o PDF.');
               return;

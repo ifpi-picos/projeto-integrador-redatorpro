@@ -246,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (form) {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
+            console.log('Form submit interceptado!');
 
             // Validação dos campos obrigatórios
             const tipoCorrecao = document.getElementById('tipoCorrecao').value;
@@ -261,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
             writingAreaMobileAberta = false;
 
             // Seleciona o botão de submit correto (não o de digitar)
-            const submitBtns = form.querySelectorAll('.submit-button[type="submit"]');
+            const submitBtns = form.querySelectorAll('.submit-button[type="submit"], .submit-button:not([type])');
             let submitBtn = null;
             if (submitBtns.length === 1) {
                 submitBtn = submitBtns[0];
@@ -303,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             try {
+                console.log('Enviando para o backend:', payload);
                 const response = await fetch('https://express-e3hm.onrender.com/redchat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

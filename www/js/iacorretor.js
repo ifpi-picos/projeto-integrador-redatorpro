@@ -246,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (form) {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
+            e.stopPropagation(); // <-- Garante que não propague para outros handlers
             console.log('Form submit interceptado!');
 
             // Validação dos campos obrigatórios
@@ -321,7 +322,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     const temaLivre = document.getElementById('temaLivre');
                     if (temaLivre) temaLivre.value = '';
                     // Redireciona para a página de correção
-                    window.location.href = 'correcaoia.html';
+                    // Preferencialmente use Framework7 router se disponível
+                    if (window.app && app.views && app.views.main && app.views.main.router) {
+                        app.views.main.router.navigate('/correcaoia/');
+                    } else {
+                        window.location.href = 'correcaoia.html';
+                    }
                 } else {
                     alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
                     if (submitBtn) {

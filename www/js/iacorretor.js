@@ -245,9 +245,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- ALTERAÇÃO: Envio do formulário para o backend ---
     if (form) {
         form.addEventListener('submit', async function (e) {
+            console.log('Handler de submit chamado!');
             e.preventDefault();
-            e.stopPropagation(); // <-- Garante que não propague para outros handlers
-            console.log('Form submit interceptado!');
+            e.stopPropagation();
+            // Teste extra: impede envio tradicional
+            if (e.defaultPrevented) {
+                console.log('preventDefault funcionou!');
+            } else {
+                console.error('preventDefault NÃO funcionou!');
+            }
 
             // Validação dos campos obrigatórios
             const tipoCorrecao = document.getElementById('tipoCorrecao').value;
@@ -322,10 +328,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     const temaLivre = document.getElementById('temaLivre');
                     if (temaLivre) temaLivre.value = '';
                     // Redireciona para a página de correção
-                    // Preferencialmente use Framework7 router se disponível
                     if (window.app && app.views && app.views.main && app.views.main.router) {
+                        console.log('Navegando para /correcaoia/ via router');
                         app.views.main.router.navigate('/correcaoia/');
                     } else {
+                        console.log('Navegando para correcaoia.html via location.href');
                         window.location.href = 'correcaoia.html';
                     }
                 } else {
@@ -342,6 +349,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     submitBtn.innerText = 'Enviar para o ChatRedator!';
                 }
             }
+            console.log('Handler de submit FINALIZADO');
+            return false; // <-- Garante que nunca submeta tradicionalmente
         });
     }
 });

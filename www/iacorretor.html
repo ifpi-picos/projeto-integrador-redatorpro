@@ -1,58 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2196f3">
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
-
-    <link rel="stylesheet" href="css/iacorretor.css">
-
-    <title>Correção por IA</title>
-
-    <script src="js/iacorretor.js" defer></script>
-</head>
-<body class="body-folha">
-    <div id="app">
-        <div class="view view-main">
-            <div data-name="iacorretor" class="page">
-
-                <div class="buttons-top">
-                    <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
-                </div>
-
-                <header>
-                    <h1>Correção por IA</h1>
-                </header>
-                <div class="container">
-                    <form id="formCorrecao">
-                        <div class="options">
-                            <label for="tipoCorrecao">Tipo de Correção:</label>
-                            <select id="tipoCorrecao" name="tipoCorrecao" required>
-                                <option value="">Selecione</option>
-                                <option value="enem">ENEM</option>
-                                <option value="concursos">FCC</option>
-                                <option value="fuvest">Fuvest</option>
-                            </select>
-                            <label for="temaRedacao" style="margin-top:16px;">Tema da Redação:</label>
-                            <select id="temaRedacao" name="temaRedacao" required onchange="toggleTemaLivre()">
-                                <option value="">Selecione</option>
-                                <option value="tema1">A violência doméstica e o combate ao feminicídio</option>
-                                <option value="tema2">O papel da IA na transformação da educação: limites e possibilidades</option>
-                                <option value="livre">Tema Livre</option>
-                            </select>
-                            <input type="text" id="temaLivre" name="temaLivre" placeholder="Digite o tema" style="display:none; margin-top:8px;">
-                        </div>
-                        <!-- Botão só aparece no mobile, agora abaixo do seletor de tema -->
-                        <div class="mobile-actions">
-                            <button type="button" id="btnDigitarRedacao" class="submit-button">Digitar Redação</button>
-                        </div>
-                        <div class="writing-area" style="display:none;">
-                            <div class="line-numbers">
-                                <pre>1
+<div data-name="iacorretor" class="page">
+    <div class="buttons-top">
+        <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
+    </div>
+    <header>
+        <h1>Correção por IA</h1>
+    </header>
+    <div class="container">
+        <form id="formCorrecao">
+            <div class="options">
+                <label for="tipoCorrecao">Tipo de Correção:</label>
+                <select id="tipoCorrecao" name="tipoCorrecao" required>
+                    <option value="">Selecione</option>
+                    <option value="enem">ENEM</option>
+                    <option value="concursos">FCC</option>
+                    <option value="fuvest">Fuvest</option>
+                </select>
+                <label for="temaRedacao" style="margin-top:16px;">Tema da Redação:</label>
+                <select id="temaRedacao" name="temaRedacao" required onchange="toggleTemaLivre()">
+                    <option value="">Selecione</option>
+                    <option value="tema1">A violência doméstica e o combate ao feminicídio</option>
+                    <option value="tema2">O papel da IA na transformação da educação: limites e possibilidades</option>
+                    <option value="livre">Tema Livre</option>
+                </select>
+                <input type="text" id="temaLivre" name="temaLivre" placeholder="Digite o tema" style="display:none; margin-top:8px;">
+            </div>
+            <!-- Botão só aparece no mobile, agora abaixo do seletor de tema -->
+            <div class="mobile-actions">
+                <button type="button" id="btnDigitarRedacao" class="submit-button">Digitar Redação</button>
+            </div>
+            <div class="writing-area" style="display:none;">
+                <div class="line-numbers">
+                    <pre>1
 2
 3
 4
@@ -82,19 +60,19 @@
 28
 29
 30</pre>
-                            </div>
-                            <textarea class="area" id="textoRedacao" name="textoRedacao" rows="30" cols="85" placeholder="Escreva sua redação aqui..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-button">Enviar para o ChatRedator!</button>
-                    </form>
                 </div>
-                <!-- Folha ampliada para digitação no mobile -->
-                <div id="folhaAmpliadaOverlay" class="folha-ampliada-overlay">
-                    <div class="folha-ampliada">
-                        <button type="button" id="btnFecharFolha" class="btn-fechar-folha">&times;</button>
-                        <div class="writing-area-ampliada">
-                            <div class="line-numbers">
-                                <pre>1
+                <textarea class="area" id="textoRedacao" name="textoRedacao" rows="30" cols="85" placeholder="Escreva sua redação aqui..." required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Enviar para o ChatRedator!</button>
+        </form>
+    </div>
+    <!-- Folha ampliada para digitação no mobile -->
+    <div id="folhaAmpliadaOverlay" class="folha-ampliada-overlay">
+        <div class="folha-ampliada">
+            <button type="button" id="btnFecharFolha" class="btn-fechar-folha">&times;</button>
+            <div class="writing-area-ampliada">
+                <div class="line-numbers">
+                    <pre>1
 2
 3
 4
@@ -124,17 +102,9 @@
 28
 29
 30</pre>
-                            </div>
-                            <textarea class="area" id="textoRedacaoAmpliada" rows="30" cols="85" placeholder="Escreva sua redação aqui..." required></textarea>
-                        </div>
-                    </div>
                 </div>
+                <textarea class="area" id="textoRedacaoAmpliada" rows="30" cols="85" placeholder="Escreva sua redação aqui..." required></textarea>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
-    <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
-</body>
-</html>
+</div>

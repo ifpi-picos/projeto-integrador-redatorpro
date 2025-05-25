@@ -344,6 +344,20 @@ var app = new Framework7({
       }
     },
     {
+      path: '/iacorretor/',
+      url: 'iacorretor.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive',
+      },
+      on: {
+        pageInit: function (event, page) {
+          // Se quiser rodar algum JS específico do iacorretor, coloque aqui
+          $.getScript('js/iacorretor.js');
+        }
+      }
+    },
+    {
       path: '/premium/', // Caminho para a página de login
       url: 'premium.html',
       animate: false,
@@ -557,3 +571,4 @@ function onDeviceReady() {
   }, false);
 
 }
+

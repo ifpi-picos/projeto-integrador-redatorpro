@@ -1,59 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Correção por IA</title>
-    <link rel="stylesheet" href="correcaoia.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChatRedator</title>
+  <link rel="stylesheet" href="correcaoia.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Correção por IA</h1>
+  <header>
+    <h1>Bem-vindo(a) ao ChatRedator!</h1>
+  </header>
 
-        <textarea id="textoRedacao" rows="30" placeholder="Digite sua redação aqui..."></textarea>
-        <div class="botoes">
-            <button class="btn-corrigir" onclick="corrigirTexto()">Corrigir Redação</button>
-            <button class="btn-nova-redacao" onclick="novaRedacao()">Nova Redação</button>
-        </div>
-        
-
-        <div id="resultado" class="comentarios" style="display:none;">
-            <h2>Resultado da Correção</h2>
-            <p><strong>Nota:</strong> <span id="nota"></span></p>
-
-            <p><strong>Comentários:</strong></p>
-            <p><strong>Pontos Positivos:</strong></p>
-            <p><strong>Clareza e Coerência:</strong> <span id="coerencia"></span></p>
-            <p><strong>Argumentação:</strong> <span id="argumentacao"></span></p>
-            <p><strong>Estrutura:</strong> <span id="estrutura"></span></p>
-            <p><strong>Vocabulário:</strong> <span id="vocabulario"></span></p>
-            <p><strong>Conclusão:</strong> <span id="conclusao"></span></p>
-        </div>
-
+  <main id="chat-container">
+    <div class="message user">
+      <div class="avatar user-avatar"></div>
+      <div class="bubble">
+        <strong>Sarah</strong><br>
+        Oi, boa tarde!
+      </div>
     </div>
+    <div class="message bot">
+      <div class="avatar bot-avatar"></div>
+      <div class="bubble">
+        <strong>ChatRedator</strong><br>
+        Boa tarde! Como vai o aprendizado?
+      </div>
+    </div>
+    <div class="message bot">
+      <div class="avatar bot-avatar"></div>
+      <div class="bubble">
+        Como posso ajudar na sua redação?
+      </div>
+    </div>
+  </main>
 
-    <script>
-        function corrigirTexto() {
-            const texto = document.getElementById("textoRedacao").value.trim();
-            if (texto === "") {
-                alert("Digite uma redação para corrigir.");
-                return;
-            }
-        // Simulação da IA
-        document.getElementById("nota").textContent = "950";
-        document.getElementById("coerencia").textContent = "O texto apresenta boa clareza e coesão com vocabulário formal.";
-        document.getElementById("argumentacao").textContent = "Apresenta exemplos concretos e diferentes perspectivas.";
-        document.getElementById("estrutura").textContent = "Estrutura organizada, com parágrafos bem delimitados.";
-        document.getElementById("vocabulario").textContent = "Formal, com palavras bem escolhidas como 'implementação', 'configuração', 'imprescindíveis'.";
-        document.getElementById("conclusao").textContent = "Reitera a tese e propõe solução eficaz sem apresentar informações novas.";
+  <footer>
+    <textarea id="input" placeholder="Digite sua mensagem, jovem..."></textarea>
+    <button onclick="enviarMensagem()">Enviar</button>
+  </footer>
 
-        document.getElementById("resultado").style.display = "block";
-}
+  <script>
+    function enviarMensagem() {
+      const input = document.getElementById("input");
+      const texto = input.value.trim();
+      if (!texto) return;
 
-        function novaRedacao() {
-        document.getElementById("textoRedacao").value = "";
-        document.getElementById("resultado").style.display = "none";
-}
-</script>
+      const chat = document.getElementById("chat-container");
+
+      // Mensagem do usuário
+      const userMessage = document.createElement("div");
+      userMessage.className = "message user";
+      userMessage.innerHTML = `
+        <div class="bubble">${texto}</div>
+        <div class="avatar user-avatar"></div>
+      `;
+      chat.appendChild(userMessage);
+
+      input.value = "";
+
+      // Simula resposta do bot
+      setTimeout(() => {
+        const resposta = gerarRespostaSimulada(texto);
+        const botMessage = document.createElement("div");
+        botMessage.className = "message bot";
+        botMessage.innerHTML = `
+          <div class="avatar bot-avatar"></div>
+          <div class="bubble">
+            <strong>ChatRedator</strong><br>${resposta}
+          </div>
+        `;
+        chat.appendChild(botMessage);
+        chat.scrollTop = chat.scrollHeight;
+      }, 1000);
+    }
+
+    function gerarRespostaSimulada(redacao) {
+      return "Sua redação foi avaliada. Nota: 880; Competencias: C1: 160; C2: 200; C3: 200; C4: 120; C5: 200.";
+    }
+  </script>
 </body>
 </html>

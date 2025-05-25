@@ -452,6 +452,15 @@
             }
         });
 
+         // Captura a rota passada na query string
+        const params = new URLSearchParams(window.location.search);
+        const route = params.get('route');
+
+        // Redireciona para a rota do Framework7 após a inicialização
+        if (route) {
+            window.location.hash = `#${route}`;
+        }
+
     </script>
 
     <script src="../js/menu-lateral.js"></script>

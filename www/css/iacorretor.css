@@ -323,3 +323,20 @@ body.folha-ampliada-aberta {
     word-break: break-word;
     line-height: 24px;
 }
+
+
+/* Estilos padrões (desktop) */
+#sidebar {
+  display: block !important;
+}
+#menuPrincipal {
+  display: none !important;
+}
+
+
+/* Para telas de celular (até 768px) */
+@media (max-width: 768px) {
+  #sidebar {
+    display: none !important;
+  }
+}

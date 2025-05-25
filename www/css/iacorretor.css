@@ -19,13 +19,13 @@ body.body-folha {
 }
 
 .page[data-name="iacorretor"] .container {
-    max-width: 700px;
+    max-width: 740px; /* aumente para dar mais espaço à folha */
     margin: 48px auto 32px auto;
     background: #edf8fc; /* azul claro */
     border-radius: 8px;
     box-shadow: 0 2px 8px #0001;
     padding: 32px 24px 24px 24px;
-    width: 95%;
+    width: 98%;
     min-height: 400px;
     display: flex;
     flex-direction: column;
@@ -81,20 +81,22 @@ body.body-folha {
     flex-direction: row;
     margin-top: 18px;
     margin-bottom: 18px;
-    background: #fff; /* folha branca */
+    background: #edf8fc; /* azul claro igual ao container */
     border-radius: 6px;
     border: 1px solid #bcd;
-    height: 720px; /* 30 linhas x 24px */
+    height: 720px;
     min-height: 720px;
     max-height: 720px;
     overflow: hidden;
+    width: 100%; /* ocupa toda a largura do container */
+    box-sizing: border-box;
 }
 
-/* Coluna dos números ainda mais compacta */
+/* Coluna dos números compacta */
 .page[data-name="iacorretor"] .line-numbers {
     background: #e9e9e9;
     color: #888;
-    padding: 0 2px 0 2px; /* ainda menos espaço lateral */
+    padding: 0 2px 0 2px;
     text-align: right;
     user-select: none;
     font-size: 1rem;
@@ -105,26 +107,20 @@ body.body-folha {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    min-width: 20px; /* largura mínima menor */
-    max-width: 24px;
+    min-width: 28px;
+    max-width: 32px;
 }
 
-.page[data-name="iacorretor"] .line-numbers pre {
-    margin: 0;
-    font-family: inherit;
-    line-height: 24px;
-    box-sizing: border-box;
-}
-
+/* Ajuste o textarea para não ser tampado pela coluna dos números */
 .page[data-name="iacorretor"] .area {
     border: none;
     outline: none;
     resize: none;
-    width: calc(72ch + 24px); /* 72 caracteres por linha */
+    width: calc(100% - 32px); /* ocupa o restante da writing-area, descontando a coluna dos números */
     max-width: 100%;
     height: 100%;
     font-size: 1rem;
-    padding: 0 12px 0 12px; /* apenas lateral */
+    padding: 0 12px 0 12px;
     background: transparent;
     font-family: monospace !important;
     border-radius: 0 6px 6px 0;

@@ -247,11 +247,18 @@ document.addEventListener('DOMContentLoaded', function () {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            if (!areaNormal.value.trim()) {
+            // Validação dos campos obrigatórios
+            const tipoCorrecao = document.getElementById('tipoCorrecao').value;
+            const temaRedacaoSelect = document.getElementById('temaRedacao');
+            const temaLivre = document.getElementById('temaLivre').value;
+            const texto = areaNormal.value;
+
+            if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || !texto.trim()) {
+                alert('Preencha todos os campos obrigatórios.');
                 return;
-            } else {
-                writingAreaMobileAberta = false;
             }
+
+            writingAreaMobileAberta = false;
 
             // Seleciona o botão de submit correto (não o de digitar)
             const submitBtns = form.querySelectorAll('.submit-button[type="submit"]');
@@ -269,12 +276,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 submitBtn.innerText = 'Corrigindo...';
             }
 
-            // Pega os dados do formulário
-            const tipoCorrecao = document.getElementById('tipoCorrecao').value;
-            const temaRedacaoSelect = document.getElementById('temaRedacao');
-            const temaLivre = document.getElementById('temaLivre').value;
-            const texto = areaNormal.value;
-
             // Corrige o envio do tema: envia o texto do option selecionado
             let tema = '';
             if (temaRedacaoSelect.value === 'livre') {
@@ -287,7 +288,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const user = JSON.parse(localStorage.getItem('loggedUser'));
             if (!user) {
                 alert('Você precisa estar logado para enviar a redação.');
-                // Reabilita o botão
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerText = 'Enviar para o ChatRedator!';
@@ -312,9 +312,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Salva a resposta da IA no localStorage
                     localStorage.setItem('correcaoIA', JSON.stringify(result));
-                    // Limpa o formulário antes de redirecionar
                     form.reset();
                     if (areaNormal) areaNormal.value = '';
                     if (areaAmpliada) areaAmpliada.value = '';
@@ -324,7 +322,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.href = 'correcaoia.html';
                 } else {
                     alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
-                    // Reabilita o botão em caso de erro
                     if (submitBtn) {
                         submitBtn.disabled = false;
                         submitBtn.innerText = 'Enviar para o ChatRedator!';
@@ -332,7 +329,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } catch (err) {
                 alert('Erro de conexão com o servidor.');
-                // Reabilita o botão em caso de erro
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerText = 'Enviar para o ChatRedator!';

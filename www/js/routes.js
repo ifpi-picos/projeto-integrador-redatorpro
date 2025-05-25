@@ -358,6 +358,20 @@ var app = new Framework7({
       }
     },
     {
+      path: '/correcaoia/',
+      url: 'correcaoia.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive',
+      },
+      on: {
+        pageInit: function (event, page) {
+          // Carregue JS específico se necessário
+          // Exemplo: $.getScript('js/correcaoia.js');
+        }
+      }
+    },
+    {
       path: '/premium/', // Caminho para a página de login
       url: 'premium.html',
       animate: false,

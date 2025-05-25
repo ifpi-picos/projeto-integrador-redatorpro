@@ -521,13 +521,10 @@ var app = new Framework7({
   // ... other parameters
 });
 
-// Para testes direto no navegador
-const params = new URLSearchParams(window.location.search);
-const routeFromQuery = params.get('route') || '/index/';
+//Para testes direto no navegador
+var mainView = app.views.create('.view-main', { url: '/index/' });
 
-var mainView = app.views.create('.view-main', { url: routeFromQuery });
-
-// EVENTO PARA SABER O ITEM DO MENU ATUAL
+//EVENTO PARA SABER O ITEM DO MENU ATUAL
 app.on('routeChange', function (route) {
   var currentRoute = route.url;
   console.log(currentRoute);
@@ -540,14 +537,14 @@ app.on('routeChange', function (route) {
   }
 });
 
+
 function onDeviceReady() {
-  const params = new URLSearchParams(window.location.search);
-  const routeFromQuery = params.get('route') || '/index/';
+  //Quando estiver rodando no celular
+  var mainView = app.views.create('.view-main', { url: '/index/' });
 
-  var mainView = app.views.create('.view-main', { url: routeFromQuery });
-
-  // BOTÃO VOLTAR DO ANDROID
+  //COMANDO PARA "OUVIR" O BOTAO VOLTAR NATIVO DO ANDROID 	
   document.addEventListener("backbutton", function (e) {
+
     if (mainView.router.currentRoute.path === '/index/') {
       e.preventDefault();
       app.dialog.confirm('Deseja sair do aplicativo?', function () {
@@ -558,4 +555,5 @@ function onDeviceReady() {
       mainView.router.back({ force: true });
     }
   }, false);
+
 }

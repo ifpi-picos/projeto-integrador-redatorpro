@@ -10,12 +10,12 @@ body.body-folha {
 }
 
 .page[data-name="iacorretor"] {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    /* Remova o flexbox para não interferir no layout do Framework7 */
     min-height: 100vh;
     background: #faf8fc;
-    /* Garante que o fundo ocupe toda a altura */
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
 }
 
 .page[data-name="iacorretor"] .container {

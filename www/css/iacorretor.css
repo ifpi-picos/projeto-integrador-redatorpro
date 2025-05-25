@@ -20,8 +20,8 @@ body.body-folha {
 
 .page[data-name="iacorretor"] .container {
     max-width: 700px;
-    margin: 48px auto 32px auto; /* Mais espaço no topo e embaixo */
-    background: #edf8fc;
+    margin: 48px auto 32px auto;
+    background: #edf8fc; /* azul claro */
     border-radius: 8px;
     box-shadow: 0 2px 8px #0001;
     padding: 32px 24px 24px 24px;
@@ -30,6 +30,15 @@ body.body-folha {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+/* Fundo azul claro também para a área de opções */
+.page[data-name="iacorretor"] .options {
+    background: #edf8fc;
+    border-radius: 8px 8px 0 0;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 12px;
 }
 
 .page[data-name="iacorretor"] header {
@@ -72,7 +81,7 @@ body.body-folha {
     flex-direction: row;
     margin-top: 18px;
     margin-bottom: 18px;
-    background: #f7f7f7;
+    background: #edf8fc; /* azul claro */
     border-radius: 6px;
     border: 1px solid #bcd;
     height: 720px; /* 30 linhas x 24px */
@@ -81,10 +90,11 @@ body.body-folha {
     overflow: hidden;
 }
 
+/* Coluna dos números mais compacta */
 .page[data-name="iacorretor"] .line-numbers {
     background: #e9e9e9;
     color: #888;
-    padding: 0 8px 0 8px; /* apenas lateral */
+    padding: 0 4px 0 4px; /* menos espaço lateral */
     text-align: right;
     user-select: none;
     font-size: 1rem;
@@ -95,6 +105,8 @@ body.body-folha {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    min-width: 28px; /* largura mínima menor */
+    max-width: 32px;
 }
 
 .page[data-name="iacorretor"] .line-numbers pre {

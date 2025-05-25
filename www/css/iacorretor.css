@@ -1,13 +1,3 @@
-html, body, #app, .view-main, .page[data-name="iacorretor"] {
-    height: auto;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-body.body-folha {
-    overflow-y: auto !important;
-}
 
 .page[data-name="iacorretor"] {
     /* Remova o flexbox para não interferir no layout do Framework7 */

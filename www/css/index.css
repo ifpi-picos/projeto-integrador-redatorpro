@@ -18,6 +18,15 @@ body{
     font-family: "Bebas Neue", sans-serif;
 }
 
+.page[data-name="index"]{
+    overflow-y: hidden !important;
+}
+
+.page[data-name="iacorretor"] {
+    overflow-y: auto;
+}
+
+
 #app{
     box-sizing: border-box; /* Inclui padding nas dimensões do elemento */
     overflow-x: hidden; /* Impede rolagem horizontal */

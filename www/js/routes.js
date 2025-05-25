@@ -352,8 +352,15 @@ var app = new Framework7({
       },
       on: {
         pageInit: function (event, page) {
-          // Se quiser rodar algum JS específico do iacorretor, coloque aqui
-          $.getScript('js/iacorretor.js');
+          $.getScript('js/iacorretor.js')
+            .done(() => {
+              if (window.initIACorretor) {
+                window.initIACorretor();
+              } else {
+                console.error('window.initIACorretor não está definido!');
+              }
+            })
+            .fail(() => console.error('Erro ao carregar js/iacorretor.js'));
         }
       }
     },

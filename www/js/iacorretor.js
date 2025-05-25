@@ -1,101 +1,7 @@
 console.log('iacorretor.js carregado!');
 
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOMContentLoaded disparado!');
-    const form = document.getElementById('formCorrecao');
-    if (form) {
-        form.addEventListener('submit', function (e) {
-            console.log('Submit do formCorrecao disparado!');
-            e.preventDefault();
-            e.stopPropagation();
-            alert('Interceptou o submit! Não vai recarregar.');
-            return false;
-        });
-    } else {
-        console.error('formCorrecao não encontrado!');
-    }
-});
-
-function limitarLinhasTextarea(textarea, maxLinhas, maxColunas) {
-    function isMobile() {
-        return window.innerWidth <= 700;
-    }
-
-    textarea.addEventListener('input', function () {
-        // Só limita linhas/colunas no desktop
-        if (!isMobile()) {
-            let linhas = textarea.value.split('\n');
-            let novasLinhas = [];
-            let cursor = textarea.selectionStart;
-            let pos = 0;
-            let novaPos = cursor;
-
-            for (let i = 0; i < linhas.length; i++) {
-                let linha = linhas[i];
-                // Se a linha for maior que o limite, quebra e move o cursor para a próxima linha se necessário
-                while (linha.length > maxColunas) {
-                    novasLinhas.push(linha.slice(0, maxColunas));
-                    linha = linha.slice(maxColunas);
-
-                    // Ajusta a posição do cursor se ele estava após o corte
-                    if (cursor > pos + maxColunas) {
-                        pos += maxColunas;
-                    } else if (cursor > pos) {
-                        // O cursor estava na parte cortada, move para o início da próxima linha
-                        novaPos += 1;
-                        pos += maxColunas;
-                    }
-                }
-                novasLinhas.push(linha);
-                pos += linha.length + 1; // +1 por causa do \n
-            }
-            if (novasLinhas.length > maxLinhas) {
-                novasLinhas = novasLinhas.slice(0, maxLinhas);
-            }
-            textarea.value = novasLinhas.join('\n');
-            // Atualiza o cursor para a posição correta se mudou de linha automaticamente
-            if (textarea.selectionStart !== novaPos) {
-                textarea.selectionStart = textarea.selectionEnd = novaPos;
-            }
-        }
-        // No mobile, não faz nada (sem limite)
-    });
-
-    textarea.addEventListener('keydown', function (e) {
-        // Só limita linhas/colunas no desktop
-        if (!isMobile()) {
-            const linhas = textarea.value.split('\n');
-            const cursorPos = textarea.selectionStart;
-            const linhaAtual = textarea.value.substr(0, cursorPos).split('\n').length - 1;
-            const colunaAtual = cursorPos - (textarea.value.lastIndexOf('\n', cursorPos - 1) + 1);
-
-            if (e.key === 'Enter') {
-                if (linhas.length >= maxLinhas && textarea.selectionStart === textarea.selectionEnd) {
-                    e.preventDefault();
-                }
-            }
-            if (
-                e.key.length === 1 &&
-                colunaAtual >= maxColunas &&
-                !(e.ctrlKey || e.metaKey || e.altKey)
-            ) {
-                if (textarea.selectionStart === textarea.selectionEnd) {
-                    // Ao digitar no final da linha, insere uma quebra de linha automaticamente
-                    if (linhas.length < maxLinhas) {
-                        const before = textarea.value.substring(0, cursorPos);
-                        const after = textarea.value.substring(cursorPos);
-                        textarea.value = before + '\n' + e.key + after;
-                        textarea.selectionStart = textarea.selectionEnd = cursorPos + 2;
-                    }
-                    e.preventDefault();
-                }
-            }
-        }
-        // No mobile, não faz nada (sem limite)
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
+window.initIACorretor = function () {
+    console.log('initIACorretor chamado!');
     const areaNormal = document.getElementById('textoRedacao');
     const areaAmpliada = document.getElementById('textoRedacaoAmpliada');
     const btnDigitar = document.getElementById('btnDigitarRedacao');
@@ -217,173 +123,245 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function ajustarWritingArea() {
         if (isMobile()) {
-            if (writingArea) {');
-                if (!writingAreaMobileAberta) {   writingArea.style.display = 'flex';
-                    writingArea.classList.remove('ativo');reaNormal(true);
+            if (writingArea) {
+                if (!writingAreaMobileAberta) {
+                    writingArea.classList.remove('ativo');
                     writingArea.style.display = 'none';
-                    gerenciarEventoAreaNormal(false);f (mobileActions) {
-                } else {= 'none';
-                    writingArea.classList.add('ativo');   }
-                    writingArea.style.display = 'flex';            writingAreaMobileAberta = false;
+                    gerenciarEventoAreaNormal(false);
+                } else {
+                    writingArea.classList.add('ativo');
+                    writingArea.style.display = 'flex';
                     gerenciarEventoAreaNormal(true);
                 }
-            }   if (folhaAmpliadaOverlay) folhaAmpliadaOverlay.classList.remove('ativo');
-            if (mobileActions) {        document.body.classList.remove('folha-ampliada-aberta');
+            }
+            if (mobileActions) {
                 mobileActions.style.display = writingAreaMobileAberta ? 'none' : 'block';
             }
-        } else {    window.addEventListener('resize', ajustarWritingArea);
+        } else {
+            if (writingArea) {
+                writingArea.classList.add('ativo');
                 writingArea.style.display = 'flex';
                 gerenciarEventoAreaNormal(true);
-            }ário ao carregar a página
+            }
             if (mobileActions) {
                 mobileActions.style.display = 'none';
             }
             writingAreaMobileAberta = false;
-        }io
-   const temaLivre = document.getElementById('temaLivre');
-        if (folhaAmpliadaOverlay) folhaAmpliadaOverlay.classList.remove('ativo');        if (temaLivre) temaLivre.value = '';
+        }
+
+        if (folhaAmpliadaOverlay) folhaAmpliadaOverlay.classList.remove('ativo');
         document.body.classList.remove('folha-ampliada-aberta');
     }
 
     window.addEventListener('resize', ajustarWritingArea);
-    ajustarWritingArea();submit', async function (e) {
- de submit chamado!');
+    ajustarWritingArea();
+
     // Limpa o formulário ao carregar a página
     if (form) {
         form.reset();
-        if (areaNormal) areaNormal.value = '';faultPrevented) {
+        if (areaNormal) areaNormal.value = '';
         if (areaAmpliada) areaAmpliada.value = '';
-        // Limpa seleções extras se necessário else {
-        const temaLivre = document.getElementById('temaLivre');                console.error('preventDefault NÃO funcionou!');
+        const temaLivre = document.getElementById('temaLivre');
         if (temaLivre) temaLivre.value = '';
     }
 
-    // --- ALTERAÇÃO: Envio do formulário para o backend ---value;
-    if (form) {ent.getElementById('temaRedacao');
-        form.addEventListener('submit', async function (e) {            const temaLivre = document.getElementById('temaLivre').value;
+    // --- Envio do formulário para o backend ---
+    if (form) {
+        form.addEventListener('submit', async function (e) {
             console.log('Handler de submit chamado!');
             e.preventDefault();
-            e.stopPropagation();rrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || !texto.trim()) {
-            // Teste extra: impede envio tradicional   alert('Preencha todos os campos obrigatórios.');
-            if (e.defaultPrevented) {                return;
-                console.log('preventDefault funcionou!');
-            } else {
-                console.error('preventDefault NÃO funcionou!');
-            }
-de submit correto (não o de digitar)
-            // Validação dos campos obrigatórioselectorAll('.submit-button[type="submit"], .submit-button:not([type])');
+            e.stopPropagation();
+
+            // Validação dos campos obrigatórios
             const tipoCorrecao = document.getElementById('tipoCorrecao').value;
-            const temaRedacaoSelect = document.getElementById('temaRedacao');itBtns.length === 1) {
+            const temaRedacaoSelect = document.getElementById('temaRedacao');
             const temaLivre = document.getElementById('temaLivre').value;
             const texto = areaNormal.value;
 
-            if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || !texto.trim()) {mitBtns.forEach(btn => {
-                alert('Preencha todos os campos obrigatórios.');       if (btn.offsetParent !== null) submitBtn = btn;
+            if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || !texto.trim()) {
+                alert('Preencha todos os campos obrigatórios.');
                 return;
             }
 
-            writingAreaMobileAberta = false;   submitBtn.disabled = true;
-                submitBtn.innerText = 'Corrigindo...';
+            writingAreaMobileAberta = false;
+
             // Seleciona o botão de submit correto (não o de digitar)
             const submitBtns = form.querySelectorAll('.submit-button[type="submit"], .submit-button:not([type])');
-            let submitBtn = null;do option selecionado
+            let submitBtn = null;
             if (submitBtns.length === 1) {
-                submitBtn = submitBtns[0];e') {
+                submitBtn = submitBtns[0];
             } else {
-                // Se houver mais de um, pega o que está visível else if (temaRedacaoSelect.value) {
-                submitBtns.forEach(btn => {                tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;
+                // Se houver mais de um, pega o que está visível
+                submitBtns.forEach(btn => {
                     if (btn.offsetParent !== null) submitBtn = btn;
                 });
-            }uário logado do localStorage
+            }
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerText = 'Corrigindo...';o para enviar a redação.');
+                submitBtn.innerText = 'Corrigindo...';
             }
-   submitBtn.disabled = false;
-            // Corrige o envio do tema: envia o texto do option selecionadomitBtn.innerText = 'Enviar para o ChatRedator!';
-            let tema = '';   }
-            if (temaRedacaoSelect.value === 'livre') {                return;
+
+            // Corrige o envio do tema: envia o texto do option selecionado
+            let tema = '';
+            if (temaRedacaoSelect.value === 'livre') {
                 tema = temaLivre;
             } else if (temaRedacaoSelect.value) {
-                tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;d
-            }load = {
-orrecao,
-            // Pega o usuário logado do localStorage  tema,
-            const user = JSON.parse(localStorage.getItem('loggedUser'));                texto
+                tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;
+            }
+
+            // Pega o usuário logado do localStorage
+            const user = JSON.parse(localStorage.getItem('loggedUser'));
             if (!user) {
                 alert('Você precisa estar logado para enviar a redação.');
                 if (submitBtn) {
-                    submitBtn.disabled = false;do para o backend:', payload);
-                    submitBtn.innerText = 'Enviar para o ChatRedator!';nrender.com/redchat', {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'Enviar para o ChatRedator!';
                 }
-                return;pplication/json' },
-            } credentials: 'include',
+                return;
+            }
 
-            // Monta o payload                });
-            const payload = {it response.json();
+            // Monta o payload
+            const payload = {
                 tipoCorrecao,
-                tema,{
-                textoN.stringify(result));
+                tema,
+                texto
             };
 
-            try { = '';
-                console.log('Enviando para o backend:', payload);d('temaLivre');
+            try {
+                console.log('Enviando para o backend:', payload);
                 const response = await fetch('https://express-e3hm.onrender.com/redchat', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },p.views.main.router) {
-                    credentials: 'include',ole.log('Navegando para /correcaoia/ via router');
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
                     body: JSON.stringify(payload)
                 });
-                const result = await response.json();   console.log('Navegando para correcaoia.html via location.href');
-window.location.href = 'correcaoia.html';
+                const result = await response.json();
+
                 if (response.ok) {
                     localStorage.setItem('correcaoIA', JSON.stringify(result));
-                    form.reset();ult.error || 'Erro desconhecido'));
+                    form.reset();
                     if (areaNormal) areaNormal.value = '';
-                    if (areaAmpliada) areaAmpliada.value = '';   submitBtn.disabled = false;
-                    const temaLivre = document.getElementById('temaLivre');       submitBtn.innerText = 'Enviar para o ChatRedator!';
+                    if (areaAmpliada) areaAmpliada.value = '';
+                    const temaLivre = document.getElementById('temaLivre');
                     if (temaLivre) temaLivre.value = '';
                     // Redireciona para a página de correção
                     if (window.app && app.views && app.views.main && app.views.main.router) {
-                        console.log('Navegando para /correcaoia/ via router');rvidor.');
+                        console.log('Navegando para /correcaoia/ via router');
                         app.views.main.router.navigate('/correcaoia/');
-                    } else {   submitBtn.disabled = false;
-                        console.log('Navegando para correcaoia.html via location.href');       submitBtn.innerText = 'Enviar para o ChatRedator!';
+                    } else {
+                        console.log('Navegando para correcaoia.html via location.href');
                         window.location.href = 'correcaoia.html';
                     }
-                } else { console.log('Handler de submit FINALIZADO');
-                    alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));       return false; // <-- Garante que nunca submeta tradicionalmente
-                    if (submitBtn) {     });
-                        submitBtn.disabled = false;    }
+                } else {
+                    alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
                         submitBtn.innerText = 'Enviar para o ChatRedator!';
                     }
                 }
-            } catch (err) {    const select = document.getElementById('temaRedacao');
-                alert('Erro de conexão com o servidor.');.getElementById('temaLivre');
+            } catch (err) {
+                alert('Erro de conexão com o servidor.');
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.innerText = 'Enviar para o ChatRedator!';oTemaLivre.style.display = 'block';
+                    submitBtn.innerText = 'Enviar para o ChatRedator!';
                 }
             }
-            console.log('Handler de submit FINALIZADO');   campoTemaLivre.style.display = 'none';
-            return false; // <-- Garante que nunca submeta tradicionalmente       campoTemaLivre.required = false;
-        });    }
-    }}
-});
+            console.log('Handler de submit FINALIZADO');
+            return false; // <-- Garante que nunca submeta tradicionalmente
+        });
+    }
+};
+
+function limitarLinhasTextarea(textarea, maxLinhas, maxColunas) {
+    function isMobile() {
+        return window.innerWidth <= 700;
+    }
+
+    textarea.addEventListener('input', function () {
+        // Só limita linhas/colunas no desktop
+        if (!isMobile()) {
+            let linhas = textarea.value.split('\n');
+            let novasLinhas = [];
+            let cursor = textarea.selectionStart;
+            let pos = 0;
+            let novaPos = cursor;
+
+            for (let i = 0; i < linhas.length; i++) {
+                let linha = linhas[i];
+                // Se a linha for maior que o limite, quebra e move o cursor para a próxima linha se necessário
+                while (linha.length > maxColunas) {
+                    novasLinhas.push(linha.slice(0, maxColunas));
+                    linha = linha.slice(maxColunas);
+
+                    // Ajusta a posição do cursor se ele estava após o corte
+                    if (cursor > pos + maxColunas) {
+                        pos += maxColunas;
+                    } else if (cursor > pos) {
+                        // O cursor estava na parte cortada, move para o início da próxima linha
+                        novaPos += 1;
+                        pos += maxColunas;
+                    }
+                }
+                novasLinhas.push(linha);
+                pos += linha.length + 1; // +1 por causa do \n
+            }
+            if (novasLinhas.length > maxLinhas) {
+                novasLinhas = novasLinhas.slice(0, maxLinhas);
+            }
+            textarea.value = novasLinhas.join('\n');
+            // Atualiza o cursor para a posição correta se mudou de linha automaticamente
+            if (textarea.selectionStart !== novaPos) {
+                textarea.selectionStart = textarea.selectionEnd = novaPos;
+            }
+        }
+        // No mobile, não faz nada (sem limite)
+    });
+
+    textarea.addEventListener('keydown', function (e) {
+        // Só limita linhas/colunas no desktop
+        if (!isMobile()) {
+            const linhas = textarea.value.split('\n');
+            const cursorPos = textarea.selectionStart;
+            const linhaAtual = textarea.value.substr(0, cursorPos).split('\n').length - 1;
+            const colunaAtual = cursorPos - (textarea.value.lastIndexOf('\n', cursorPos - 1) + 1);
+
+            if (e.key === 'Enter') {
+                if (linhas.length >= maxLinhas && textarea.selectionStart === textarea.selectionEnd) {
+                    e.preventDefault();
+                }
+            }
+            if (
+                e.key.length === 1 &&
+                colunaAtual >= maxColunas &&
+                !(e.ctrlKey || e.metaKey || e.altKey)
+            ) {
+                if (textarea.selectionStart === textarea.selectionEnd) {
+                    // Ao digitar no final da linha, insere uma quebra de linha automaticamente
+                    if (linhas.length < maxLinhas) {
+                        const before = textarea.value.substring(0, cursorPos);
+                        const after = textarea.value.substring(cursorPos);
+                        textarea.value = before + '\n' + e.key + after;
+                        textarea.selectionStart = textarea.selectionEnd = cursorPos + 2;
+                    }
+                    e.preventDefault();
+                }
+            }
+        }
+        // No mobile, não faz nada (sem limite)
+    });
+}
+
+// Função global para o select de tema livre
+window.toggleTemaLivre = function () {
+    const select = document.getElementById('temaRedacao');
+    const campoTemaLivre = document.getElementById('temaLivre');
+    if (select.value === 'livre') {
+        campoTemaLivre.style.display = 'block';
+        campoTemaLivre.required = true;
+    } else {
+        campoTemaLivre.style.display = 'none';
+        campoTemaLivre.required = false;
+    }
+};
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}    }        campoTemaLivre.required = false;        campoTemaLivre.style.display = 'none';    } else {        campoTemaLivre.required = true;        campoTemaLivre.style.display = 'block';    if (select.value === 'livre') {    const campoTemaLivre = document.getElementById('temaLivre');    const select = document.getElementById('temaRedacao');function toggleTemaLivre() {

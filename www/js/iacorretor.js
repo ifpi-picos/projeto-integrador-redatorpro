@@ -1,83 +1,7 @@
-function limitarLinhasTextarea(textarea, maxLinhas, maxColunas) {
-    function isMobile() {
-        return window.innerWidth <= 700;
-    }
+console.log('iacorretor.js carregado!');
 
-    textarea.addEventListener('input', function () {
-        // Só limita linhas/colunas no desktop
-        if (!isMobile()) {
-            let linhas = textarea.value.split('\n');
-            let novasLinhas = [];
-            let cursor = textarea.selectionStart;
-            let pos = 0;
-            let novaPos = cursor;
-
-            for (let i = 0; i < linhas.length; i++) {
-                let linha = linhas[i];
-                // Se a linha for maior que o limite, quebra e move o cursor para a próxima linha se necessário
-                while (linha.length > maxColunas) {
-                    novasLinhas.push(linha.slice(0, maxColunas));
-                    linha = linha.slice(maxColunas);
-
-                    // Ajusta a posição do cursor se ele estava após o corte
-                    if (cursor > pos + maxColunas) {
-                        pos += maxColunas;
-                    } else if (cursor > pos) {
-                        // O cursor estava na parte cortada, move para o início da próxima linha
-                        novaPos += 1;
-                        pos += maxColunas;
-                    }
-                }
-                novasLinhas.push(linha);
-                pos += linha.length + 1; // +1 por causa do \n
-            }
-            if (novasLinhas.length > maxLinhas) {
-                novasLinhas = novasLinhas.slice(0, maxLinhas);
-            }
-            textarea.value = novasLinhas.join('\n');
-            // Atualiza o cursor para a posição correta se mudou de linha automaticamente
-            if (textarea.selectionStart !== novaPos) {
-                textarea.selectionStart = textarea.selectionEnd = novaPos;
-            }
-        }
-        // No mobile, não faz nada (sem limite)
-    });
-
-    textarea.addEventListener('keydown', function (e) {
-        // Só limita linhas/colunas no desktop
-        if (!isMobile()) {
-            const linhas = textarea.value.split('\n');
-            const cursorPos = textarea.selectionStart;
-            const linhaAtual = textarea.value.substr(0, cursorPos).split('\n').length - 1;
-            const colunaAtual = cursorPos - (textarea.value.lastIndexOf('\n', cursorPos - 1) + 1);
-
-            if (e.key === 'Enter') {
-                if (linhas.length >= maxLinhas && textarea.selectionStart === textarea.selectionEnd) {
-                    e.preventDefault();
-                }
-            }
-            if (
-                e.key.length === 1 &&
-                colunaAtual >= maxColunas &&
-                !(e.ctrlKey || e.metaKey || e.altKey)
-            ) {
-                if (textarea.selectionStart === textarea.selectionEnd) {
-                    // Ao digitar no final da linha, insere uma quebra de linha automaticamente
-                    if (linhas.length < maxLinhas) {
-                        const before = textarea.value.substring(0, cursorPos);
-                        const after = textarea.value.substring(cursorPos);
-                        textarea.value = before + '\n' + e.key + after;
-                        textarea.selectionStart = textarea.selectionEnd = cursorPos + 2;
-                    }
-                    e.preventDefault();
-                }
-            }
-        }
-        // No mobile, não faz nada (sem limite)
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
+window.initIACorretor = function () {
+    console.log('initIACorretor chamado!');
     const areaNormal = document.getElementById('textoRedacao');
     const areaAmpliada = document.getElementById('textoRedacaoAmpliada');
     const btnDigitar = document.getElementById('btnDigitarRedacao');
@@ -237,24 +161,32 @@ document.addEventListener('DOMContentLoaded', function () {
         form.reset();
         if (areaNormal) areaNormal.value = '';
         if (areaAmpliada) areaAmpliada.value = '';
-        // Limpa seleções extras se necessário
         const temaLivre = document.getElementById('temaLivre');
         if (temaLivre) temaLivre.value = '';
     }
 
-    // --- ALTERAÇÃO: Envio do formulário para o backend ---
+    // --- Envio do formulário para o backend ---
     if (form) {
         form.addEventListener('submit', async function (e) {
+            console.log('Handler de submit chamado!');
             e.preventDefault();
+            e.stopPropagation();
 
-            if (!areaNormal.value.trim()) {
+            // Validação dos campos obrigatórios
+            const tipoCorrecao = document.getElementById('tipoCorrecao').value;
+            const temaRedacaoSelect = document.getElementById('temaRedacao');
+            const temaLivre = document.getElementById('temaLivre').value;
+            const texto = areaNormal.value;
+
+            if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || !texto.trim()) {
+                alert('Preencha todos os campos obrigatórios.');
                 return;
-            } else {
-                writingAreaMobileAberta = false;
             }
 
+            writingAreaMobileAberta = false;
+
             // Seleciona o botão de submit correto (não o de digitar)
-            const submitBtns = form.querySelectorAll('.submit-button[type="submit"]');
+            const submitBtns = form.querySelectorAll('.submit-button[type="submit"], .submit-button:not([type])');
             let submitBtn = null;
             if (submitBtns.length === 1) {
                 submitBtn = submitBtns[0];
@@ -269,12 +201,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 submitBtn.innerText = 'Corrigindo...';
             }
 
-            // Pega os dados do formulário
-            const tipoCorrecao = document.getElementById('tipoCorrecao').value;
-            const temaRedacaoSelect = document.getElementById('temaRedacao');
-            const temaLivre = document.getElementById('temaLivre').value;
-            const texto = areaNormal.value;
-
             // Corrige o envio do tema: envia o texto do option selecionado
             let tema = '';
             if (temaRedacaoSelect.value === 'livre') {
@@ -287,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const user = JSON.parse(localStorage.getItem('loggedUser'));
             if (!user) {
                 alert('Você precisa estar logado para enviar a redação.');
-                // Reabilita o botão
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerText = 'Enviar para o ChatRedator!';
@@ -303,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             try {
+                console.log('Enviando para o backend:', payload);
                 const response = await fetch('https://express-e3hm.onrender.com/redchat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -312,19 +238,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Salva a resposta da IA no localStorage
                     localStorage.setItem('correcaoIA', JSON.stringify(result));
-                    // Limpa o formulário antes de redirecionar
                     form.reset();
                     if (areaNormal) areaNormal.value = '';
                     if (areaAmpliada) areaAmpliada.value = '';
                     const temaLivre = document.getElementById('temaLivre');
                     if (temaLivre) temaLivre.value = '';
                     // Redireciona para a página de correção
-                    window.location.href = 'correcaoia.html';
+                    if (window.app && app.views && app.views.main && app.views.main.router) {
+                        console.log('Navegando para /correcaoia/ via router');
+                        app.views.main.router.navigate('/correcaoia/');
+                    } else {
+                        console.log('Navegando para correcaoia.html via location.href');
+                        window.location.href = 'correcaoia.html';
+                    }
                 } else {
                     alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
-                    // Reabilita o botão em caso de erro
                     if (submitBtn) {
                         submitBtn.disabled = false;
                         submitBtn.innerText = 'Enviar para o ChatRedator!';
@@ -332,20 +261,100 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } catch (err) {
                 alert('Erro de conexão com o servidor.');
-                // Reabilita o botão em caso de erro
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerText = 'Enviar para o ChatRedator!';
                 }
             }
+            console.log('Handler de submit FINALIZADO');
+            return false; // <-- Garante que nunca submeta tradicionalmente
         });
     }
-});
+};
 
-function toggleTemaLivre() {
+function limitarLinhasTextarea(textarea, maxLinhas, maxColunas) {
+    function isMobile() {
+        return window.innerWidth <= 700;
+    }
+
+    textarea.addEventListener('input', function () {
+        // Só limita linhas/colunas no desktop
+        if (!isMobile()) {
+            let linhas = textarea.value.split('\n');
+            let novasLinhas = [];
+            let cursor = textarea.selectionStart;
+            let pos = 0;
+            let novaPos = cursor;
+
+            for (let i = 0; i < linhas.length; i++) {
+                let linha = linhas[i];
+                // Se a linha for maior que o limite, quebra e move o cursor para a próxima linha se necessário
+                while (linha.length > maxColunas) {
+                    novasLinhas.push(linha.slice(0, maxColunas));
+                    linha = linha.slice(maxColunas);
+
+                    // Ajusta a posição do cursor se ele estava após o corte
+                    if (cursor > pos + maxColunas) {
+                        pos += maxColunas;
+                    } else if (cursor > pos) {
+                        // O cursor estava na parte cortada, move para o início da próxima linha
+                        novaPos += 1;
+                        pos += maxColunas;
+                    }
+                }
+                novasLinhas.push(linha);
+                pos += linha.length + 1; // +1 por causa do \n
+            }
+            if (novasLinhas.length > maxLinhas) {
+                novasLinhas = novasLinhas.slice(0, maxLinhas);
+            }
+            textarea.value = novasLinhas.join('\n');
+            // Atualiza o cursor para a posição correta se mudou de linha automaticamente
+            if (textarea.selectionStart !== novaPos) {
+                textarea.selectionStart = textarea.selectionEnd = novaPos;
+            }
+        }
+        // No mobile, não faz nada (sem limite)
+    });
+
+    textarea.addEventListener('keydown', function (e) {
+        // Só limita linhas/colunas no desktop
+        if (!isMobile()) {
+            const linhas = textarea.value.split('\n');
+            const cursorPos = textarea.selectionStart;
+            const linhaAtual = textarea.value.substr(0, cursorPos).split('\n').length - 1;
+            const colunaAtual = cursorPos - (textarea.value.lastIndexOf('\n', cursorPos - 1) + 1);
+
+            if (e.key === 'Enter') {
+                if (linhas.length >= maxLinhas && textarea.selectionStart === textarea.selectionEnd) {
+                    e.preventDefault();
+                }
+            }
+            if (
+                e.key.length === 1 &&
+                colunaAtual >= maxColunas &&
+                !(e.ctrlKey || e.metaKey || e.altKey)
+            ) {
+                if (textarea.selectionStart === textarea.selectionEnd) {
+                    // Ao digitar no final da linha, insere uma quebra de linha automaticamente
+                    if (linhas.length < maxLinhas) {
+                        const before = textarea.value.substring(0, cursorPos);
+                        const after = textarea.value.substring(cursorPos);
+                        textarea.value = before + '\n' + e.key + after;
+                        textarea.selectionStart = textarea.selectionEnd = cursorPos + 2;
+                    }
+                    e.preventDefault();
+                }
+            }
+        }
+        // No mobile, não faz nada (sem limite)
+    });
+}
+
+// Função global para o select de tema livre
+window.toggleTemaLivre = function () {
     const select = document.getElementById('temaRedacao');
     const campoTemaLivre = document.getElementById('temaLivre');
-
     if (select.value === 'livre') {
         campoTemaLivre.style.display = 'block';
         campoTemaLivre.required = true;
@@ -353,6 +362,6 @@ function toggleTemaLivre() {
         campoTemaLivre.style.display = 'none';
         campoTemaLivre.required = false;
     }
-}
+};
 
 

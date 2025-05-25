@@ -344,6 +344,41 @@ var app = new Framework7({
       }
     },
     {
+      path: '/iacorretor/',
+      url: 'iacorretor.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive',
+      },
+      on: {
+        pageInit: function (event, page) {
+          $.getScript('js/iacorretor.js')
+            .done(() => {
+              if (window.initIACorretor) {
+                window.initIACorretor();
+              } else {
+                console.error('window.initIACorretor não está definido!');
+              }
+            })
+            .fail(() => console.error('Erro ao carregar js/iacorretor.js'));
+        }
+      }
+    },
+    {
+      path: '/correcaoia/',
+      url: 'correcaoia.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive',
+      },
+      on: {
+        pageInit: function (event, page) {
+          // Carregue JS específico se necessário
+          // Exemplo: $.getScript('js/correcaoia.js');
+        }
+      }
+    },
+    {
       path: '/premium/', // Caminho para a página de login
       url: 'premium.html',
       animate: false,
@@ -557,3 +592,4 @@ function onDeviceReady() {
   }, false);
 
 }
+

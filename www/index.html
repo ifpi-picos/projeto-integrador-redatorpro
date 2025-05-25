@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/banco.css">
     <link rel="stylesheet" href="css/repertorios.css">
     <link rel="stylesheet" href="css/redacoes.css">
+    <link rel="stylesheet" href="css/iacorretor.css">
     <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
     <!--Ìcones Remix icon-->
@@ -81,9 +82,9 @@
                         </span>
                     </a>
                 </li>
-    
+
                 <li class="side-item">
-                    <a href="#" class="item-link  item-content panel-close" onclick="window.open('https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/iacorretor.html', '_self')">
+                    <a href="/iacorretor/">
                         <i class="fa-solid fa-robot"></i>
                         <span class="description">ChatBot</span>
                         <span class="item-description">
@@ -244,7 +245,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="item-link  item-content panel-close" onclick="window.open('https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/iacorretor.html', '_self')">
+                                            <a href="/iacorretor/" class="item-link  item-content panel-close">
                                                 Chatbot
                                             </a>
                                         </li>
@@ -438,22 +439,6 @@
     <script type="text/javascript" src="js/routes.js"></script>
     <script src="cordova.js"></script>
     <script src="../js/login-users.js"></script>
-
-    <script>
-        // Previne o envio do formulário
-        document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-        });
-
-        // Previne o comportamento global de pressionar Enter
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Impede o comportamento padrão
-            }
-        });
-
-    </script>
-
     <script src="../js/menu-lateral.js"></script>
 
 </body>

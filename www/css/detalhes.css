@@ -12,6 +12,20 @@
     --verde: #19c463;
 }
 
+/* Efeito visual para o botão de compartilhar */
+#share-profile-btn {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#share-profile-btn:hover {
+    transform: scale(1.1);
+    color: #2196f3;
+}
+
+#share-profile-btn:active {
+    transform: scale(0.95);
+}
+
 .corretor-detail {
     background: var(--gelo);
     width: 100%;

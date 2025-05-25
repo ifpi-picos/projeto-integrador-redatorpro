@@ -9,14 +9,27 @@ body.body-folha {
     overflow-y: auto !important;
 }
 
+.page[data-name="iacorretor"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: #faf8fc;
+    /* Garante que o fundo ocupe toda a altura */
+}
+
 .page[data-name="iacorretor"] .container {
     max-width: 700px;
-    margin: 32px auto 0 auto;
+    margin: 48px auto 32px auto; /* Mais espaço no topo e embaixo */
     background: #edf8fc;
     border-radius: 8px;
     box-shadow: 0 2px 8px #0001;
     padding: 32px 24px 24px 24px;
     width: 95%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .page[data-name="iacorretor"] header {
@@ -133,6 +146,7 @@ body.body-folha {
     .page[data-name="iacorretor"] .container {
         padding: 12px 4px 16px 4px;
         max-width: 100vw;
+        margin: 16px 0 24px 0; /* Espaço menor em mobile */
     }
     .page[data-name="iacorretor"] .writing-area {
         display: none !important;

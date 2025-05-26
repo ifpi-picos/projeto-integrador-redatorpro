@@ -373,7 +373,6 @@ var app = new Framework7({
       },
       on: {
         pageInit: function (event, page) {
-          // Carregue JS específico se necessário
           $.getScript('js/correcaoia.js')
             .done(() => {
               console.log('js/correcaoia.js carregado via router!');

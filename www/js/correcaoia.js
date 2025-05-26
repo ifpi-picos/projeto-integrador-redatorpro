@@ -68,3 +68,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return "Sua mensagem foi recebida!";
     }
 });
+
+// Garante que o botão funcione ao navegar via Framework7 SPA
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.id === 'btnNovaRedacao') {
+        if (window.app && app.views && app.views.main && app.views.main.router) {
+            app.views.main.router.navigate('/iacorretor/');
+        } else {
+            window.location.href = 'iacorretor.html';
+        }
+    }
+});

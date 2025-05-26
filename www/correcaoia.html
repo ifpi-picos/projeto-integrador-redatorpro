@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChatRedator</title>
-  <link rel="stylesheet" href="css/correcaoia.css">
-</head>
-<body>
+<div class="page" data-name="correcaoia">
   <header>
     <h1>Bem-vindo(a) ao ChatRedator!</h1>
   </header>
@@ -18,15 +10,4 @@
   <footer>
     <button id="btnNovaRedacao">Escrever nova redação</button>
   </footer>
-
-  <script>
-    document.getElementById('btnNovaRedacao').onclick = function() {
-      if (window.app && app.views && app.views.main && app.views.main.router) {
-        app.views.main.router.navigate('/iacorretor/');
-      } else {
-        window.location.href = 'iacorretor.html';
-      }
-    };
-  </script>
-</body>
-</html>
+</div>

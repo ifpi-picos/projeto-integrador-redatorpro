@@ -110,6 +110,7 @@
     justify-content: flex-start;
     min-width: 20px;
     max-width: 22px;
+    padding-right: 4px; /* espaço para o número */
 }
 
 /* Ajuste o textarea para não ser tampado pela coluna dos números */
@@ -130,7 +131,7 @@
     white-space: pre-wrap;
     word-break: break-word;
     line-height: 24px;
-    padding-right: 17px;
+    padding-left: 20px; /* espaço para o texto não colar na borda */
 }
 
 /* BOTÕES */

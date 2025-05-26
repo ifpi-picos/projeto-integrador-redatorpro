@@ -160,21 +160,9 @@ button {
 .user-avatar {
   background-color: #00aaff;
   background-image: url('https://img.icons8.com/ios/50/user-female-circle.png');
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  position: absolute;
-  top: 0.2rem;
-  right: 0.2rem;
-  margin: 0;
-  align-self: flex-start;
-  z-index: 2;
-  /* Remove flex item behavior */
-  flex-shrink: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover !important;
-  box-shadow: 0 1px 4px #0002;
+  margin-left:0.8rem;
+  background-size: cover !important; /* Corrige o aspecto da imagem */
+  background-position: center !important;
 }
 
 .message.user .bubble {

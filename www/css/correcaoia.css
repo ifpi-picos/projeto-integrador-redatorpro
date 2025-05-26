@@ -123,10 +123,13 @@ button {
 }
 
 .message.user {
+  display: flex;
+  flex-direction: row;
   justify-content: flex-end;
-  /* Mensagem do usuário à direita */
-  /* Alinha tudo mais para a direita */
-  padding-right: 2vw; /* menos padding para colar mais à direita */
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding-right: 2vw;
+  padding-left: 0;
 }
 
 .message.bot {
@@ -155,15 +158,14 @@ button {
 .user-avatar {
   background-color: #00aaff;
   background-image: url('https://img.icons8.com/ios/50/user-female-circle.png');
-  margin-left: 0.5rem;
+  margin-left: 0.5rem;  /* Espaço entre bolha e avatar */
   margin-right: 0;
-  /* Garante que o avatar fique colado à borda direita */
   align-self: flex-end;
 }
 
 .message.user .bubble {
-  margin-right: 0.5rem; /* menos espaço entre bolha e avatar */
-  margin-left: 0;
+  margin-left: auto;    /* Empurra a bolha para a direita */
+  margin-right: 0;      /* Sem margem à direita */
   background-color: #00aaff;
   color: white;
   border-top-right-radius: 0;

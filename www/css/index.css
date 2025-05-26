@@ -323,6 +323,9 @@ input[type="text"] {
   #sidebar {
     display: none !important;
   }
+  .filter-button .geral{
+    display: none !important;
+  }
   #menuPrincipal {
     display: block !important;
   }

@@ -22,7 +22,7 @@ window.initIACorretor = function () {
     }
 
     if (areaNormal) {
-        limitarLinhasTextarea(areaNormal, 30, 72);
+        limitarLinhasTextarea(areaNormal, 30, 80);
 
         if (isMobile()) {
             areaNormal.setAttribute('rows', '11');
@@ -36,8 +36,8 @@ window.initIACorretor = function () {
     }
 
     if (areaAmpliada) {
-        limitarLinhasTextarea(areaAmpliada, 30, 72);
-        areaAmpliada.setAttribute('cols', '72');
+        limitarLinhasTextarea(areaAmpliada, 30, 80);
+        areaAmpliada.setAttribute('cols', '80');
         if (isMobile()) {
             areaAmpliada.setAttribute('rows', '11');
             areaAmpliada.style.overflowY = 'auto';

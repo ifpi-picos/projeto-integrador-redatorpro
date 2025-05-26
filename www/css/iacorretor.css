@@ -123,14 +123,14 @@
     font-size: 1rem;
     padding: 0 12px 0 12px;
     background: transparent;
-    font-family: monospace !important;
+    font-family: Arial, Helvetica, sans-serif!important;
     border-radius: 0 6px 6px 0;
     box-sizing: border-box;
     overflow: hidden;
     white-space: pre-wrap;
     word-break: break-word;
     line-height: 24px;
-    padding-right: 20px;
+    padding-right: 17px;
 }
 
 /* BOTÕES */
@@ -186,7 +186,7 @@
         max-height: 720px !important;
         overflow-y: hidden !important;
         resize: none !important;
-        font-family: monospace !important;
+        font-family: Arial, Helvetica, sans-serif;
         font-size: 1rem;
         line-height: 24px;
         width: calc(72ch + 24px);
@@ -202,7 +202,7 @@
         max-height: none !important;
         display: block !important;
         resize: none !important;
-        font-family: monospace !important;
+        font-family: Arial, Helvetica, sans-serif !important;
         font-size: 1rem !important;
         line-height: 24px !important;
         width: 100% !important;
@@ -339,7 +339,7 @@ body.folha-ampliada-aberta {
     font-size: 1rem;
     padding: 0 12px 0 12px;
     background: transparent;
-    font-family: monospace !important;
+    font-family: Arial, Helvetica, sans-serif!important;
     border-radius: 0 6px 6px 0;
     box-sizing: border-box;
     overflow-y: auto !important; /* Permite rolagem no textarea ampliado */

@@ -79,17 +79,18 @@ footer button {
   background-color: #007acc;
   color: white;
   border: none;
-  padding: 0.7rem 1.2rem;
-  font-size: 1.05rem;
+  padding: 0.7rem 1.1rem;
+  font-size: 1.02rem;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   transition: background 0.2s;
   width: auto;
-  min-width: 180px;
-  max-width: 260px;
+  min-width: 120px;
+  max-width: 180px;
   margin: 0 auto;
   display: block;
+  box-sizing: border-box;
 }
 
 footer button:hover {
@@ -125,7 +126,7 @@ button {
   justify-content: flex-end;
   /* Mensagem do usuário à direita */
   /* Alinha tudo mais para a direita */
-  padding-right: 4vw;
+  padding-right: 6vw; /* mais à direita */
 }
 
 .message.bot {
@@ -140,23 +141,24 @@ button {
   flex-shrink: 0;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain; /* Corrige o aspecto da imagem */
 }
 
 .bot-avatar {
   background-color: #ccc;
   background-image: url('https://img.icons8.com/fluency/48/robot-2.png');
+  margin-right: 0.8rem;
 }
 
 .user-avatar {
   background-color: #00aaff;
   background-image: url('https://img.icons8.com/ios/50/user-female-circle.png');
-  margin-left: 0.8rem;
+  margin-left: 1.2rem;
   margin-right: 0;
 }
 
 .message.user .bubble {
-  margin-right: 0.8rem;
+  margin-right: 1.2rem;
   margin-left: 0;
   background-color: #00aaff;
   color: white;

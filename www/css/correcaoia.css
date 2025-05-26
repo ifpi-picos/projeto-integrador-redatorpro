@@ -31,9 +31,27 @@ h1 {
 
 footer {
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 1rem;
   background-color: #fff;
   border-top: 1px solid #ccc;
+}
+
+footer button {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+footer button:hover {
+  background-color: #005fa3;
 }
 
 textarea {

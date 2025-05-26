@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ChatRedator</title>
-  <link rel="stylesheet" href="correcaoia.css">
+  <link rel="stylesheet" href="css/correcaoia.css">
 </head>
 <body>
   <header>
@@ -12,71 +12,22 @@
   </header>
 
   <main id="chat-container">
-    <div class="message user">
-      <div class="avatar user-avatar"></div>
-      <div class="bubble">
-        <strong>Sarah Leal</strong><br>
-        Oi, boa tarde!
-      </div>
-    </div>
-    <div class="message bot">
-      <div class="avatar bot-avatar"></div>
-      <div class="bubble">
-        <strong>ChatRedator</strong><br>
-        Boa tarde! Como vai o aprendizado?
-      </div>
-    </div>
-    <div class="message bot">
-      <div class="avatar bot-avatar"></div>
-      <div class="bubble">
-        Como posso ajudar na sua redação?
-      </div>
-    </div>
+    <!-- Mensagens serão inseridas via JS -->
   </main>
 
   <footer>
-    <textarea id="input" placeholder="Digite sua mensagem, jovem..."></textarea>
-    <button onclick="enviarMensagem()">Enviar</button>
+    <button id="btnNovaRedacao">Escrever nova redação</button>
   </footer>
 
+  <script src="js/correcaoia.js"></script>
   <script>
-    function enviarMensagem() {
-      const input = document.getElementById("input");
-      const texto = input.value.trim();
-      if (!texto) return;
-
-      const chat = document.getElementById("chat-container");
-
-      // Mensagem do usuário
-      const userMessage = document.createElement("div");
-      userMessage.className = "message user";
-      userMessage.innerHTML = `
-        <div class="bubble">${texto}</div>
-        <div class="avatar user-avatar"></div>
-      `;
-      chat.appendChild(userMessage);
-
-      input.value = "";
-
-      // Simula resposta do bot
-      setTimeout(() => {
-        const resposta = gerarRespostaSimulada(texto);
-        const botMessage = document.createElement("div");
-        botMessage.className = "message bot";
-        botMessage.innerHTML = `
-          <div class="avatar bot-avatar"></div>
-          <div class="bubble">
-            <strong>ChatRedator</strong><br>${resposta}
-          </div>
-        `;
-        chat.appendChild(botMessage);
-        chat.scrollTop = chat.scrollHeight;
-      }, 1000);
-    }
-
-    function gerarRespostaSimulada(redacao) {
-      return "Sua redação foi avaliada. Nota: 880; Competencias: C1: 160; C2: 200; C3: 200; C4: 120; C5: 200.";
-    }
+    document.getElementById('btnNovaRedacao').onclick = function() {
+      if (window.app && app.views && app.views.main && app.views.main.router) {
+        app.views.main.router.navigate('/iacorretor/');
+      } else {
+        window.location.href = 'iacorretor.html';
+      }
+    };
   </script>
 </body>
 </html>

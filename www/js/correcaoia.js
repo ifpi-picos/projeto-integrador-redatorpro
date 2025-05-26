@@ -51,7 +51,13 @@ function renderCorrecaoIA() {
       <div class="message user">
         <div class="bubble">
           <strong>${userName}</strong><br>
-          ${redacaoTexto ? redacaoTexto.replace(/\n/g, '<br>') : "Nenhuma redação enviada."}
+          <p>${
+            redacaoTexto
+              ? redacaoTexto
+                  .replace(/\n\n/g, '</p><p>')
+                  .replace(/\n/g, '<br>')
+              : "Nenhuma redação enviada."
+          }</p>
         </div>
         <div class="avatar user-avatar"></div>
       </div>

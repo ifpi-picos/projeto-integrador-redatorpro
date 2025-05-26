@@ -71,24 +71,17 @@ function renderCorrecaoIA() {
     console.log('[correcaoia.js] Mensagem do bot adicionada.');
 }
 
-// Aguarda o Framework7 carregar a página e o elemento existir
-document.addEventListener('page:afterin', function(e) {
-    if (e.target && e.target.matches('.page[data-name="correcaoia"]')) {
-        console.log('[correcaoia.js] page:afterin para correcaoia');
-        setTimeout(renderCorrecaoIA, 50);
-    }
-});
+// Sempre renderiza ao carregar o script
+setTimeout(renderCorrecaoIA, 100);
 
 // Fallback para acesso direto (não SPA)
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('[correcaoia.js] DOMContentLoaded');
-    setTimeout(renderCorrecaoIA, 50);
+    setTimeout(renderCorrecaoIA, 100);
 });
 
 // Garante que o botão funcione ao navegar via Framework7 SPA
 document.addEventListener('click', function(e) {
     if (e.target && e.target.id === 'btnNovaRedacao') {
-        console.log('[correcaoia.js] btnNovaRedacao clicado');
         if (window.app && app.views && app.views.main && app.views.main.router) {
             app.views.main.router.navigate('/iacorretor/');
         } else {

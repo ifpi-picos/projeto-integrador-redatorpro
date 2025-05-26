@@ -72,9 +72,9 @@ function renderCorrecaoIA() {
 }
 
 // Aguarda o Framework7 carregar a página e o elemento existir
-document.addEventListener('page:init', function(e) {
+document.addEventListener('page:afterin', function(e) {
     if (e.target && e.target.matches('.page[data-name="correcaoia"]')) {
-        console.log('[correcaoia.js] page:init para correcaoia');
+        console.log('[correcaoia.js] page:afterin para correcaoia');
         setTimeout(renderCorrecaoIA, 50);
     }
 });

@@ -372,7 +372,8 @@ var app = new Framework7({
         transition: 'f7-dive',
       },
       on: {
-        pageInit: function (event, page) {
+        // Troque pageInit por pageAfterIn
+        pageAfterIn: function (event, page) {
           $.getScript('js/correcaoia.js')
             .done(() => {
               console.log('js/correcaoia.js carregado via router!');

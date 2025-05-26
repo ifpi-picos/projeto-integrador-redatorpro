@@ -1,4 +1,3 @@
-
 .page[data-name="iacorretor"] {
     /* Remova o flexbox para não interferir no layout do Framework7 */
     min-height: 100vh;
@@ -9,7 +8,7 @@
 }
 
 .page[data-name="iacorretor"] .container {
-    max-width: 740px; /* aumente para dar mais espaço à folha */
+    max-width: 1100px; /* aumente ainda mais a largura máxima */
     margin: 48px auto 32px auto;
     background: #edf8fc; /* azul claro */
     border-radius: 8px;
@@ -90,6 +89,8 @@
     max-height: 720px;
     overflow: hidden;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     box-sizing: border-box;
 }
 
@@ -109,7 +110,7 @@
     flex-direction: column;
     justify-content: flex-start;
     min-width: 20px;
-    max-width: 22px;
+    max-width: 25px;
     padding-right: 4px; /* espaço para o número */
 }
 
@@ -118,10 +119,11 @@
     border: none;
     outline: none;
     resize: none;
-    width: calc(100% - 22px); /* ocupa o restante da writing-area, descontando a coluna dos números */
+    width: 100%; /* ocupa toda a largura da writing-area */
     max-width: 100%;
+    min-width: 0;
     height: 100%;
-    font-size: 1rem;
+    font-size: 1.08rem; /* levemente maior para melhor leitura */
     padding: 0 12px 0 12px;
     background: transparent;
     font-family: Arial, Helvetica, sans-serif!important;
@@ -131,7 +133,7 @@
     white-space: pre-wrap;
     word-break: break-word;
     line-height: 24px;
-    padding-left: 24px;/* espaço para o texto não colar na borda */
+    padding-left: 26px;
 }
 
 /* BOTÕES */

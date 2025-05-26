@@ -125,10 +125,10 @@ button {
 
 .message.user {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-direction: column;
   align-items: flex-end;
-  gap: 0.5rem;
+  justify-content: flex-end;
+  gap: 0.2rem;
   padding-right: 2vw;
   padding-left: 0;
 }
@@ -159,19 +159,18 @@ button {
 .user-avatar {
   background-color: #00aaff;
   background-image: url('https://img.icons8.com/ios/50/user-female-circle.png');
-  margin-left: 0.5rem;  /* Espaço entre bolha e avatar */
-  margin-right: 0;
+  margin: 0 0 0.2rem 0;
   align-self: flex-end;
+  /* Centraliza o avatar acima da bolha */
 }
 
 .message.user .bubble {
-  margin-left: auto;    /* Empurra a bolha para a direita */
-  margin-right: 0;      /* Sem margem à direita */
+  margin: 0;
   background-color: #00aaff;
   color: white;
   border-top-right-radius: 0;
   text-align: right;
-  max-width: 520px; /* limita a largura da bolha do usuário */
+  max-width: 520px;
   align-self: flex-end;
 }
 

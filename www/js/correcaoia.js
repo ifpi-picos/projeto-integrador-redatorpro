@@ -12,18 +12,18 @@ function renderCorrecaoIA() {
     let redacaoTexto = (resposta && resposta.texto) ? resposta.texto : "Nenhuma redação enviada.";
     let correcaoTexto = (resposta && resposta.correcao) ? resposta.correcao : "Nenhuma correção encontrada.";
 
-    // Mensagem do usuário (igual ao exemplo do comentário)
+    // Mensagem do usuário (avatar à direita)
     chat.innerHTML += `
       <div class="message user">
-        <div class="avatar user-avatar"></div>
         <div class="bubble">
           <strong>${userName}</strong><br>
           ${redacaoTexto.replace(/\n/g, '<br>')}
         </div>
+        <div class="avatar user-avatar"></div>
       </div>
     `;
 
-    // Mensagem do bot (igual ao exemplo do comentário)
+    // Mensagem do bot (avatar à esquerda)
     chat.innerHTML += `
       <div class="message bot">
         <div class="avatar bot-avatar"></div>

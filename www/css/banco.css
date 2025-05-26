@@ -187,3 +187,39 @@
     margin-right: 0;
   }
 }
+
+/* [Mantém todos os estilos anteriores...] */
+
+/* Ajustes específicos para o alinhamento interno dos cards */
+.left {
+  padding-left: 15px; /* Empurra o conteúdo da esquerda para a direita */
+  margin-right: auto; /* Garante que ocupe o máximo possível à esquerda */
+}
+
+.right {
+  padding-right: 15px; /* Empurra o conteúdo da direita para a esquerda */
+  margin-left: auto; /* Garante que ocupe o máximo possível à direita */
+}
+
+/* Ajuste opcional para o ícone (se quiser mais alinhamento) */
+.icon {
+  margin-left: 5px; /* Empurra o ícone um pouco para a direita */
+}
+
+/* Versão para desktop */
+@media (min-width: 769px) {
+  .text-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1rem 5%; /* Adiciona um padding nas laterais para não colar nas bordas */
+  }
+  
+  /* Ajuste fino do alinhamento em desktop */
+  .left {
+    padding-left: 20px;
+  }
+  
+  .right {
+    padding-right: 20px;
+  }
+}

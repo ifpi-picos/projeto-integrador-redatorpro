@@ -170,7 +170,7 @@ button {
   background-color: #00aaff;
   color: white;
   border-top-right-radius: 0;
-  text-align: right;
+  text-align: justify;
   max-width: 520px;
   align-self: flex-end;
   position: relative;
@@ -211,7 +211,14 @@ button {
   color: white;
   border-top-right-radius: 0;
   margin-right: 0;
-  text-align: right;
+  text-align: justify;
+}
+
+/* Opcional: recuo no início de cada parágrafo dentro da bolha do usuário */
+.message.user .bubble p {
+  text-indent: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 @media (max-width: 900px) {

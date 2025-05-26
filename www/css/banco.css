@@ -1,113 +1,135 @@
-
+/* Estilos base dos cards (mantidos do seu código original) */
 .card-enem {
-    position: relative;
-    background: linear-gradient(135deg, #007BFF, #00aaff);
-    color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
-    padding: 1rem;
-  }
+  position: relative;
+  background: linear-gradient(135deg, #007BFF, #00aaff);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  padding: 1rem;
+  width: 100%; /* Garante que o card ocupe toda a largura disponível */
+  box-sizing: border-box; /* Inclui padding no cálculo da largura */
+}
 
-  .card-pm {
-    position: relative;
-    background: linear-gradient(135deg, #212121, #373737);
-    color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
-    padding: 1rem;
-  }
+.card-pm {
+  position: relative;
+  background: linear-gradient(135deg, #212121, #373737);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  .card-ita {
-    position: relative;
-    background: linear-gradient(135deg, #3D087B, #6E3CBC);
-    color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
-    padding: 1rem;
-  }
+.card-ita {
+  position: relative;
+  background: linear-gradient(135deg, #3D087B, #6E3CBC);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  .card-vestibular {
-    position: relative;
-    background: linear-gradient(135deg, #00b894, #00cec9);
-    color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
-    padding: 1rem;
-  }
+.card-vestibular {
+  position: relative;
+  background: linear-gradient(135deg, #00b894, #00cec9);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  /* Elementos decorativos */
-  .card::before, 
-  .card::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-  }
-  .card::before {
-    width: 60px;
-    height: 60px;
-    top: -30px;
-    left: -30px;
-  }
-  .card::after {
-    width: 40px;
-    height: 40px;
-    bottom: -20px;
-    right: -20px;
-  }
-  /* Estrutura interna */
-  .left, .right {
-    display: flex;
-    flex-direction: column;
-  }
-  .right {
-    align-items: flex-end;
-  }
-  .title {
-    font-size: 1.3em;
-    font-weight: bold;
-  }
-  .subtitle {
-    font-size: 1em;
-    margin-top: 5px;
-  }
-  .label {
-    font-size: 1em;
-    margin-bottom: 5px;
-  }
-  .score {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  /* Exemplo de um elemento extra: um pequeno ícone decorativo */
-  .icon {
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+/* Elementos decorativos */
+.card-enem::before, .card-enem::after,
+.card-pm::before, .card-pm::after,
+.card-ita::before, .card-ita::after,
+.card-vestibular::before, .card-vestibular::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
 
+.card-enem::before, .card-pm::before, 
+.card-ita::before, .card-vestibular::before {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: -30px;
+}
+
+.card-enem::after, .card-pm::after,
+.card-ita::after, .card-vestibular::after {
+  width: 40px;
+  height: 40px;
+  bottom: -20px;
+  right: -20px;
+}
+
+/* Estrutura interna */
+.left, .right {
+  display: flex;
+  flex-direction: column;
+}
+
+.right {
+  align-items: flex-end;
+}
+
+.title {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1em;
+  margin-top: 5px;
+}
+
+.label {
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+
+.score {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Ícone decorativo */
+.icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Container dos itens */
 .text-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -115,10 +137,11 @@
   padding: 1rem;
 }
 
+/* Botões de filtro */
 .filter-button {
   display: flex;
-  justify-content: center; /* Centraliza os botões */
-  gap: 5px; /* Espaçamento entre os botões */
+  justify-content: center;
+  gap: 5px;
   margin: 10px 0;
   padding-top: 15px;
   padding-bottom: 25px !important;
@@ -127,36 +150,40 @@
 }
 
 .filter-button button {
-  padding: 6px 12px; /* Menor padding para reduzir o tamanho */
+  padding: 6px 12px;
   background-color: var(--darkazul);
   color: white;
   border: none;
-  border-radius: 8px; /* Bordas menores */
+  border-radius: 8px;
   cursor: pointer;
-  flex: 1; /* Faz os botões ocuparem o mesmo espaço */
-  max-width: 90px; /* Limita o tamanho máximo */
-  font-size: 14px; /* Fonte menor */
+  flex: 1;
+  max-width: 90px;
+  font-size: 14px;
 }
 
 .filter-button button:hover {
   background-color: var(--azul);
 }
 
+/* Responsividade - Mobile (default) */
+.item {
+  display: block;
+}
 
-/* Responsividade */
+/* Responsividade - Desktop */
 @media (min-width: 769px) {
-  .card-enem {
-    margin-left: 80px;
-    margin-right: 60px;
+  .text-list {
+    grid-template-columns: repeat(2, 1fr); /* Dois cards por linha */
+    gap: 1.5rem;
   }
-
-  .card-ita {
-    margin-left: 80px;
-    margin-right: 60px;
+  
+  .item {
+    margin: 0; /* Remove margens individuais */
   }
-
-  .card-vestibular {
-    margin-left: 80px;
-    margin-right: 60px;
+  
+  /* Remove as margens laterais específicas que estavam no seu código original */
+  .card-enem, .card-ita, .card-vestibular, .card-pm {
+    margin-left: 0;
+    margin-right: 0;
   }
 }

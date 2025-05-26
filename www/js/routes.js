@@ -374,7 +374,11 @@ var app = new Framework7({
       on: {
         pageInit: function (event, page) {
           // Carregue JS específico se necessário
-          // Exemplo: $.getScript('js/correcaoia.js');
+          $.getScript('js/correcaoia.js')
+            .done(() => {
+              console.log('js/correcaoia.js carregado via router!');
+            })
+            .fail(() => console.error('Erro ao carregar js/correcaoia.js'));
         }
       }
     },

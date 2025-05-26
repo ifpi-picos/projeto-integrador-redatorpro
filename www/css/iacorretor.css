@@ -1,4 +1,3 @@
-
 .page[data-name="iacorretor"] {
     /* Remova o flexbox para não interferir no layout do Framework7 */
     min-height: 100vh;
@@ -9,7 +8,7 @@
 }
 
 .page[data-name="iacorretor"] .container {
-    max-width: 740px; /* aumente para dar mais espaço à folha */
+    max-width: 980px; /* aumente para dar mais espaço à folha */
     margin: 48px auto 32px auto;
     background: #edf8fc; /* azul claro */
     border-radius: 8px;
@@ -90,6 +89,7 @@
     max-height: 720px;
     overflow: hidden;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
 }
 
@@ -108,8 +108,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    min-width: 20px;
-    max-width: 22px;
+    min-width: 32px;
+    max-width: 40px;
+    /* Garante que não sobreponha o textarea */
+    z-index: 1;
+    position: relative;
 }
 
 /* Ajuste o textarea para não ser tampado pela coluna dos números */
@@ -117,8 +120,9 @@
     border: none;
     outline: none;
     resize: none;
-    width: calc(100% - 22px); /* ocupa o restante da writing-area, descontando a coluna dos números */
+    width: 100%; /* ocupa toda a largura da writing-area */
     max-width: 100%;
+    min-width: 0;
     height: 100%;
     font-size: 1rem;
     padding: 0 12px 0 12px;
@@ -126,7 +130,7 @@
     font-family: monospace !important;
     border-radius: 0 6px 6px 0;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: auto;
     white-space: pre-wrap;
     word-break: break-word;
     line-height: 24px;
@@ -153,7 +157,6 @@
 /* Responsividade e comportamento mobile */
 @media (max-width: 700px) {
     .page[data-name="iacorretor"] .container {
-        padding: 12px 4px 16px 4px;
         max-width: 100vw;
         margin: 16px 0 24px 0; /* Espaço menor em mobile */
     }

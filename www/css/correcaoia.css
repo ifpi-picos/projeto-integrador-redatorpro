@@ -244,3 +244,10 @@ html, body, .page[data-name="correcaoia"] {
   height: 100%;
   box-sizing: border-box;
 }
+
+
+@media (max-width: 769px) {
+  #btnNovaRedacao {
+    padding: 20px 30px;
+  }
+}

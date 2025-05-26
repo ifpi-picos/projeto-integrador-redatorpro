@@ -54,7 +54,7 @@ header {
   margin-top: 0;
 }
 
-h1 {
+h1[data-name="correcaoia"]{
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -104,7 +104,7 @@ textarea {
   font-size: 1rem;
 }
 
-button {
+button[data-name="correcaoia"]{
   background-color: #007acc;
   color: white;
   border: none;

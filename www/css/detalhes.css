@@ -19,7 +19,7 @@
 
 #share-profile-btn:hover {
     transform: scale(1.1);
-    color: #2196f3;
+    color: var(--verde);
 }
 
 #share-profile-btn:active {

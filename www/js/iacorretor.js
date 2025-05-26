@@ -22,8 +22,7 @@ window.initIACorretor = function () {
     }
 
     if (areaNormal) {
-        // Remova a limitação de linhas/colunas
-        // limitarLinhasTextarea(areaNormal, 30, 72); // <-- Remova ou comente esta linha
+        limitarLinhasTextarea(areaNormal, 30, 72);
 
         if (isMobile()) {
             areaNormal.setAttribute('rows', '11');
@@ -37,8 +36,7 @@ window.initIACorretor = function () {
     }
 
     if (areaAmpliada) {
-        // Remova a limitação de linhas/colunas
-        // limitarLinhasTextarea(areaAmpliada, 30, 72); // <-- Remova ou comente esta linha
+        limitarLinhasTextarea(areaAmpliada, 30, 72);
         areaAmpliada.setAttribute('cols', '72');
         if (isMobile()) {
             areaAmpliada.setAttribute('rows', '11');
@@ -274,48 +272,98 @@ window.initIACorretor = function () {
             return false; // <-- Garante que nunca submeta tradicionalmente
         });
     }
+};
 
-    // Limitação de caracteres total (2400)
-    function atualizarLimiteCaracteres() {
-        const maxCaracteres = 2400;
-        let texto = areaNormal ? areaNormal.value : '';
-        let textoAmpliado = areaAmpliada ? areaAmpliada.value : '';
-        const submitBtns = form ? form.querySelectorAll('.submit-button[type="submit"], .submit-button:not([type])') : [];
-        let submitBtn = null;
-        if (submitBtns.length === 1) {
-            submitBtn = submitBtns[0];
-        } else {
-            submitBtns.forEach(btn => {
-                if (btn.offsetParent !== null) submitBtn = btn;
-            });
-        }
-        // Se qualquer textarea passar do limite, desabilita o botão
-        if ((texto && texto.length > maxCaracteres) || (textoAmpliado && textoAmpliado.length > maxCaracteres)) {
-            if (submitBtn) submitBtn.disabled = true;
-        } else {
-            if (submitBtn) submitBtn.disabled = false;
-        }
+function limitarLinhasTextarea(textarea, maxLinhas, maxColunas) {
+    function isMobile() {
+        return window.innerWidth <= 700;
     }
 
-    if (areaNormal) {
-        areaNormal.addEventListener('input', atualizarLimiteCaracteres);
-    }
-    if (areaAmpliada) {
-        areaAmpliada.addEventListener('input', atualizarLimiteCaracteres);
-    }
+    textarea.addEventListener('input', function () {
+        // Só limita linhas/colunas no desktop
+        if (!isMobile()) {
+            let linhas = textarea.value.split('\n');
+            let novasLinhas = [];
+            let cursor = textarea.selectionStart;
+            let pos = 0;
+            let novaPos = cursor;
 
-    // Função global para o select de tema livre
-    window.toggleTemaLivre = function () {
-        const select = document.getElementById('temaRedacao');
-        const campoTemaLivre = document.getElementById('temaLivre');
-        if (select.value === 'livre') {
-            campoTemaLivre.style.display = 'block';
-            campoTemaLivre.required = true;
-        } else {
-            campoTemaLivre.style.display = 'none';
-            campoTemaLivre.required = false;
+            for (let i = 0; i < linhas.length; i++) {
+                let linha = linhas[i];
+                // Se a linha for maior que o limite, quebra e move o cursor para a próxima linha se necessário
+                while (linha.length > maxColunas) {
+                    novasLinhas.push(linha.slice(0, maxColunas));
+                    linha = linha.slice(maxColunas);
+
+                    // Ajusta a posição do cursor se ele estava após o corte
+                    if (cursor > pos + maxColunas) {
+                        pos += maxColunas;
+                    } else if (cursor > pos) {
+                        // O cursor estava na parte cortada, move para o início da próxima linha
+                        novaPos += 1;
+                        pos += maxColunas;
+                    }
+                }
+                novasLinhas.push(linha);
+                pos += linha.length + 1; // +1 por causa do \n
+            }
+            if (novasLinhas.length > maxLinhas) {
+                novasLinhas = novasLinhas.slice(0, maxLinhas);
+            }
+            textarea.value = novasLinhas.join('\n');
+            // Atualiza o cursor para a posição correta se mudou de linha automaticamente
+            if (textarea.selectionStart !== novaPos) {
+                textarea.selectionStart = textarea.selectionEnd = novaPos;
+            }
         }
-    };
+        // No mobile, não faz nada (sem limite)
+    });
+
+    textarea.addEventListener('keydown', function (e) {
+        // Só limita linhas/colunas no desktop
+        if (!isMobile()) {
+            const linhas = textarea.value.split('\n');
+            const cursorPos = textarea.selectionStart;
+            const linhaAtual = textarea.value.substr(0, cursorPos).split('\n').length - 1;
+            const colunaAtual = cursorPos - (textarea.value.lastIndexOf('\n', cursorPos - 1) + 1);
+
+            if (e.key === 'Enter') {
+                if (linhas.length >= maxLinhas && textarea.selectionStart === textarea.selectionEnd) {
+                    e.preventDefault();
+                }
+            }
+            if (
+                e.key.length === 1 &&
+                colunaAtual >= maxColunas &&
+                !(e.ctrlKey || e.metaKey || e.altKey)
+            ) {
+                if (textarea.selectionStart === textarea.selectionEnd) {
+                    // Ao digitar no final da linha, insere uma quebra de linha automaticamente
+                    if (linhas.length < maxLinhas) {
+                        const before = textarea.value.substring(0, cursorPos);
+                        const after = textarea.value.substring(cursorPos);
+                        textarea.value = before + '\n' + e.key + after;
+                        textarea.selectionStart = textarea.selectionEnd = cursorPos + 2;
+                    }
+                    e.preventDefault();
+                }
+            }
+        }
+        // No mobile, não faz nada (sem limite)
+    });
+}
+
+// Função global para o select de tema livre
+window.toggleTemaLivre = function () {
+    const select = document.getElementById('temaRedacao');
+    const campoTemaLivre = document.getElementById('temaLivre');
+    if (select.value === 'livre') {
+        campoTemaLivre.style.display = 'block';
+        campoTemaLivre.required = true;
+    } else {
+        campoTemaLivre.style.display = 'none';
+        campoTemaLivre.required = false;
+    }
 };
 
 

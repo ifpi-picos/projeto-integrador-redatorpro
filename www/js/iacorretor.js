@@ -245,13 +245,15 @@ window.initIACorretor = function () {
                     const temaLivre = document.getElementById('temaLivre');
                     if (temaLivre) temaLivre.value = '';
                     // Redireciona para a página de correção
-                    if (window.app && app.views && app.views.main && app.views.main.router) {
-                        console.log('Navegando para /correcaoia/ via router');
-                        app.views.main.router.navigate('/correcaoia/');
-                    } else {
-                        console.log('Navegando para correcaoia.html via location.href');
-                        window.location.href = 'correcaoia.html';
-                    }
+                    setTimeout(() => {
+                        if (window.app && app.views && app.views.main && app.views.main.router) {
+                            console.log('Navegando para /correcaoia/ via router');
+                            app.views.main.router.navigate('/correcaoia/');
+                        } else {
+                            console.log('Navegando para correcaoia.html via location.href');
+                            window.location.href = 'correcaoia.html';
+                        }
+                    }, 200); // Pequeno delay para garantir que o localStorage foi atualizado
                 } else {
                     alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
                     if (submitBtn) {

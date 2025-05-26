@@ -131,7 +131,7 @@
     white-space: pre-wrap;
     word-break: break-word;
     line-height: 24px;
-    padding-left: 20px; /* espaço para o texto não colar na borda */
+    padding-left: 24px;/* espaço para o texto não colar na borda */
 }
 
 /* BOTÕES */

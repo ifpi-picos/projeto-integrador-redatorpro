@@ -120,22 +120,23 @@ button {
   width: 100%;
   padding: 0 2vw;
   box-sizing: border-box;
-  max-width: 90%;
+  max-width: 80%;
 }
 
 .message.user {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
   justify-content: flex-end;
-  gap: 0.2rem;
+  align-items: flex-end;
   padding-right: 2vw;
   padding-left: 0;
+  gap: 0;
 }
 
 .message.bot {
   justify-content: flex-start;
-  padding-left: 8vw;  
+  padding-left: 6vw;
 }
 
 .avatar {
@@ -159,19 +160,36 @@ button {
 .user-avatar {
   background-color: #00aaff;
   background-image: url('https://img.icons8.com/ios/50/user-female-circle.png');
-  margin: 0 0 0.2rem 0;
-  align-self: flex-end;
-  /* Centraliza o avatar acima da bolha */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  margin: 0;
+  align-self: flex-start;
+  z-index: 2;
+  /* Remove flex item behavior */
+  flex-shrink: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  box-shadow: 0 1px 4px #0002;
 }
 
 .message.user .bubble {
-  margin: 0;
+  margin-left: auto;
+  margin-right: 0;
   background-color: #00aaff;
   color: white;
   border-top-right-radius: 0;
   text-align: right;
   max-width: 520px;
   align-self: flex-end;
+  position: relative;
+  padding-top: 0.5rem;
+  padding-right: 3.2rem; /* espaço para o avatar */
+  min-height: 48px;
 }
 
 .message.bot .bubble {

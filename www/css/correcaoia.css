@@ -10,9 +10,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch; /* ocupa toda a largura */
   justify-content: flex-start;
-  /* Permite rolagem total da página */
   width: 100vw;
   box-sizing: border-box;
 }
@@ -20,16 +19,17 @@ body {
 .page[data-name="correcaoia"] > header,
 .page[data-name="correcaoia"] > footer {
   width: 100%;
-  max-width: 1000px; /* aumente para desktop */
-  margin: 0 auto;
+  max-width: none; /* sem limite de largura */
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .page[data-name="correcaoia"] > main#chat-container {
   flex: 1 1 auto;
   width: 100%;
-  max-width: 1000px; /* aumente para desktop */
-  margin: 0 auto;
-  padding: 2.5rem 3rem 2.5rem 3rem; /* mais espaço nas laterais */
+  max-width: none; /* sem limite de largura */
+  margin: 0;
+  padding: 2.5rem 4vw 2.5rem 4vw; /* padding lateral proporcional */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -58,12 +58,12 @@ h1 {
 
 footer {
   width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 4vw;
   background-color: #fff;
   border-top: 1px solid #ccc;
   position: sticky;
@@ -144,7 +144,7 @@ button {
 }
 
 .bubble {
-  max-width: 80%; /* aumente para desktop */
+  max-width: 900px; /* bolha pode crescer bastante em desktop */
   padding: 0.8rem;
   border-radius: 1rem;
   line-height: 1.4;

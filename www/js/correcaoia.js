@@ -53,7 +53,7 @@ function renderCorrecaoIA() {
           <strong>${userName}</strong><br>
           <p>${
             redacaoTexto
-              ? redacaoTexto
+              ? normalizarRedacao(redacaoTexto)
                   .replace(/\n\n/g, '</p><p>')
                   .replace(/\n/g, '<br>')
               : "Nenhuma redação enviada."
@@ -133,4 +133,18 @@ window.enviarMensagem = function () {
 
 function gerarRespostaSimulada(redacao) {
     return "Sua mensagem foi recebida!";
+}
+
+// Função para normalizar o texto da redação
+function normalizarRedacao(texto) {
+    if (!texto) return "";
+    // Substitui \r\n por \n para padronizar
+    texto = texto.replace(/\r\n/g, '\n');
+    // Substitui 2 ou mais quebras de linha por um marcador temporário
+    texto = texto.replace(/\n{2,}/g, '[[PARAGRAFO]]');
+    // Remove quebras de linha simples (quebra de linha no meio de frases)
+    texto = texto.replace(/\n/g, ' ');
+    // Restaura as quebras de parágrafo
+    texto = texto.replace(/\[\[PARAGRAFO\]\]/g, '\n\n');
+    return texto;
 }

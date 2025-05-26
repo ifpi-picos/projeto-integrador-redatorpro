@@ -12,28 +12,33 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  /* Permite rolagem total da página */
+  width: 100vw;
+  box-sizing: border-box;
 }
 
 .page[data-name="correcaoia"] > header,
 .page[data-name="correcaoia"] > footer {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
 .page[data-name="correcaoia"] > main#chat-container {
   flex: 1 1 auto;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem 2rem 2rem 2rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
   box-sizing: border-box;
   background: #f9fdfd;
   border-radius: 0 0 8px 8px;
+  /* Garante que o chat não fique colado à esquerda */
+  min-height: 300px;
 }
 
 header {
@@ -53,7 +58,7 @@ h1 {
 
 footer {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -103,10 +108,18 @@ button {
 .message {
   display: flex;
   align-items: flex-start;
+  width: 100%;
+  /* Garante que as mensagens não fiquem coladas nas bordas */
 }
 
 .message.user {
   justify-content: flex-end;
+  /* Mensagem do usuário à direita */
+}
+
+.message.bot {
+  justify-content: flex-start;
+  /* Mensagem do bot à esquerda */
 }
 
 .avatar {
@@ -115,7 +128,6 @@ button {
   border-radius: 50%;
   margin-right: 0.5rem;
 }
-
 
 .bot-avatar {
   background-color: #ccc;
@@ -136,20 +148,39 @@ button {
   padding: 0.8rem;
   border-radius: 1rem;
   line-height: 1.4;
+  word-break: break-word;
+  box-sizing: border-box;
+  font-size: 1.05rem;
 }
 
 .bot .bubble {
   background-color: #e0e0e0;
   color: #000;
+  border-top-left-radius: 0;
+  margin-left: 0;
 }
 
 .user .bubble {
   background-color: #00aaff;
   color: white;
   border-top-right-radius: 0;
+  margin-right: 0;
+  text-align: right;
 }
 
-/* Responsivo para mobile */
+@media (max-width: 900px) {
+  .page[data-name="correcaoia"] > header,
+  .page[data-name="correcaoia"] > main#chat-container,
+  .page[data-name="correcaoia"] > footer {
+    max-width: 98vw;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .bubble {
+    max-width: 90vw;
+  }
+}
+
 @media (max-width: 700px) {
   .page[data-name="correcaoia"] > header,
   .page[data-name="correcaoia"] > main#chat-container,
@@ -161,6 +192,12 @@ button {
     padding-right: 0.2rem;
   }
   .bubble {
-    max-width: 90vw;
+    max-width: 98vw;
   }
+}
+
+/* Garante que o chat-container ocupe o espaço correto e permita rolagem total */
+html, body, .page[data-name="correcaoia"] {
+  height: 100%;
+  box-sizing: border-box;
 }

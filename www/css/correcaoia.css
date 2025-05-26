@@ -128,7 +128,6 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  align-items: flex-end;
   padding-right: 2vw;
   padding-left: 0;
   gap: 0;

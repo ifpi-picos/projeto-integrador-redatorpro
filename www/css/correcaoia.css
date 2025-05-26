@@ -124,7 +124,9 @@ button {
 
 .message.user {
   justify-content: flex-end;
-  padding-right: 0; /* Remove padding extra à direita */
+  /* Mensagem do usuário à direita */
+  /* Alinha tudo mais para a direita */
+  padding-right: 2vw; /* menos padding para colar mais à direita */
 }
 
 .message.bot {
@@ -153,23 +155,21 @@ button {
 .user-avatar {
   background-color: #00aaff;
   background-image: url('https://img.icons8.com/ios/50/user-female-circle.png');
-  margin-left: 0.8rem;
+  margin-left: 0.5rem;
   margin-right: 0;
+  /* Garante que o avatar fique colado à borda direita */
   align-self: flex-end;
-  /* Encosta o avatar na borda direita */
 }
 
 .message.user .bubble {
-  margin-right: 0;
-  margin-left: auto; /* Encosta a bolha na direita */
+  margin-right: 0.5rem; /* menos espaço entre bolha e avatar */
+  margin-left: 0;
   background-color: #00aaff;
   color: white;
   border-top-right-radius: 0;
   text-align: right;
-  max-width: 520px;
+  max-width: 520px; /* limita a largura da bolha do usuário */
   align-self: flex-end;
-  /* Para garantir que a bolha não fique colada no avatar */
-  margin-bottom: 0;
 }
 
 .message.bot .bubble {

@@ -22,8 +22,7 @@ window.initIACorretor = function () {
     }
 
     if (areaNormal) {
-        limitarLinhasTextarea(areaNormal, 30, 80);
-
+        // NÃO CHAME limitarLinhasTextarea
         if (isMobile()) {
             areaNormal.setAttribute('rows', '11');
             areaNormal.style.overflowY = 'auto';
@@ -36,7 +35,7 @@ window.initIACorretor = function () {
     }
 
     if (areaAmpliada) {
-        limitarLinhasTextarea(areaAmpliada, 30, 80);
+        // NÃO CHAME limitarLinhasTextarea
         areaAmpliada.setAttribute('cols', '80');
         if (isMobile()) {
             areaAmpliada.setAttribute('rows', '11');
@@ -244,16 +243,15 @@ window.initIACorretor = function () {
                     if (areaAmpliada) areaAmpliada.value = '';
                     const temaLivre = document.getElementById('temaLivre');
                     if (temaLivre) temaLivre.value = '';
-                    // Redireciona para a página de correção
+                    // Redireciona para a página de correção via router SEM window.location.href
                     setTimeout(() => {
                         if (window.app && app.views && app.views.main && app.views.main.router) {
                             console.log('Navegando para /correcaoia/ via router');
                             app.views.main.router.navigate('/correcaoia/');
                         } else {
-                            console.log('Navegando para correcaoia.html via location.href');
-                            window.location.href = 'correcaoia.html';
+                            alert('Erro ao redirecionar para a correção. Recarregue a página.');
                         }
-                    }, 200); // Pequeno delay para garantir que o localStorage foi atualizado
+                    }, 200);
                 } else {
                     alert('Erro ao enviar: ' + (result.error || 'Erro desconhecido'));
                     if (submitBtn) {

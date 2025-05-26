@@ -248,6 +248,6 @@ html, body, .page[data-name="correcaoia"] {
 
 @media (max-width: 769px) {
   #btnNovaRedacao {
-    padding: 20px 30px;
+    padding-bottom: 80px;
   }
 }

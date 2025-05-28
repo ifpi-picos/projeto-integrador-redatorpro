@@ -114,6 +114,11 @@ body {
     width: 150px; 
 }
 
+header a {
+    text-decoration: none;
+    color: #E3E3E3;
+}
+
 footer {
     background: #00012b; 
     color: white; 

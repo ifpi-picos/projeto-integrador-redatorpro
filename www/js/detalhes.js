@@ -89,7 +89,7 @@ function compartilharPerfil() {
     const appUrl = "https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html";
     const mensagem = `🌟 Olha quem está no RedatorPro! 🌟\n\n` +
                      `😌 ${item.nome}\n` +
-                     ` ${item.especialidade}\n` +
+                     `🔸 ${item.especialidade}\n` +
                      `⭐ Avaliação: ${item.rating}/5 (${item.rewies} reviews)\n\n` +
                      `🔍 Conheça este e outros corretores no RedatorPro!\n` +
                      `${appUrl}`;
@@ -112,6 +112,7 @@ function compartilharPerfil() {
         abrirPopupCompartilhamento(mensagem);
     }
 }
+
 
 // NOVA FUNÇÃO PARA POPUP DE COMPARTILHAMENTO (OPCIONAL)
 function abrirPopupCompartilhamento(mensagem) {

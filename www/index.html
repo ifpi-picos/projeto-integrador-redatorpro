@@ -35,6 +35,47 @@
     <!--Ìcones Remix icon-->
     <link rel="stylesheet" href="css/remixicon/remixicon.css">
 
+    <!--Compartilhamento-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const baseUrl = "https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/";
+            
+            function updateMetaTags(item) {
+                if (!item) return;
+                
+                const appUrl = baseUrl + "index.html";
+                const imageUrl = item.imagem.startsWith('http') ? item.imagem : baseUrl + item.imagem;
+                
+                // Remove existing tags
+                document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]')
+                    .forEach(tag => tag.remove());
+                
+                // Add new tags
+                const tags = [
+                    { property: 'og:title', content: `Conheça ${item.nome} - RedatorPro` },
+                    { property: 'og:description', content: `${item.especialidade} | Rating: ${item.rating}/5` },
+                    { property: 'og:image', content: imageUrl },
+                    { property: 'og:url', content: appUrl },
+                    { name: 'twitter:card', content: 'summary_large_image' },
+                    { name: 'twitter:image', content: imageUrl }
+                ];
+                
+                tags.forEach(tag => {
+                    const meta = document.createElement('meta');
+                    if (tag.property) meta.setAttribute('property', tag.property);
+                    if (tag.name) meta.setAttribute('name', tag.name);
+                    meta.setAttribute('content', tag.content);
+                    document.head.appendChild(meta);
+                });
+            }
+            
+            // Update when profile is loaded
+            if (localStorage.getItem("detalheCorretor")) {
+                updateMetaTags(JSON.parse(localStorage.getItem("detalheCorretor")));
+            }
+        });
+    </script>
+
 </head>
 
 <body>

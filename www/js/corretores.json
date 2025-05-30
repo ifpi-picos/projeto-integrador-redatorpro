@@ -77,7 +77,7 @@
     },
     {
         "id": 8,
-        "imagem": "img/elto.png",
+        "imagem": "img/roberto.png",
         "nome": "Elto Borges",
         "rating": "3.7",
         "especialidade": "Enem",
@@ -176,18 +176,18 @@
         "rating": "4.0",
         "especialidade": "Vestibular",
         "rewies": "178",
-        "likes": "83%",
+        "likes": "88%",
         "descrição": "<p>No ínicio ela pode parecer fria, mas não se preocupe, logo da primeira vez perceberá que ela é super de boa e até faz crochê; bom, só não diga que seu cabelo é exótico.</p> <p>Pode confiar que a Istéfane irá tentar corrigir sua redação da melhor forma. Inclusive, ela também gosta de desenhar, então é normal que sua redação volte com alguns desenhos.</p>"
     },
     {
         "id": 18,
-        "imagem": "img/ellen.png",
+        "imagem": "img/ellen-fernanda-snoopy.png",
         "nome": "Fernanda Ellen",
-        "rating": "4.6",
+        "rating": "4.9",
         "especialidade": "Enem",
         "rewies": "272",
-        "likes": "96%",
-        "descrição": "<p>🌷</p><p>A Fernanda Ellen está mais interessada na área de programação, mas uma renda extra como corretora é algo muito bem-vindo pois ela precisa comprar skin em joguinho.</p> <p>MAS, mesmo que não esteja focada nessa área, ela ainda é uma boa corretora e definitivamente vai lhe judar a melhorar nas redações. Ela é uma fofa, então não estranhe se sua redação voltar com anotações em cor de rosa e desenhos de estrela.</p> <p>Inclusive, dizem que o cabelo dela é rosa, mas ela sempre tinge de castanho.</p>"
+        "likes": "97%",
+        "descrição": "<p>🌸</p><p>A Fernanda Ellen está mais interessada na área de programação, mas uma renda extra como corretora é algo muito bem-vindo pois ela precisa comprar skin em joguinho.</p> <p>MAS, mesmo que não esteja focada nessa área, ela ainda é uma boa corretora e definitivamente vai lhe judar a melhorar nas redações. Ela é uma fofa, então não estranhe se sua redação voltar com anotações em cor de rosa e desenhos de estrela.</p> <p>Inclusive, dizem que o cabelo dela é rosa, mas ela sempre tinge de castanho.</p>"
     },
     {
         "id": 19,

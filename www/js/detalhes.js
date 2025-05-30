@@ -86,33 +86,25 @@ function compartilharPerfil() {
         return;
     }
 
+    // Garanta que a imagem tem URL absoluta
+    const imageUrl = item.imagem.startsWith('http') ? 
+        item.imagem : 
+        `https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/${item.imagem}`;
+
     const appUrl = "https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html";
-    const mensagem = `🌟 Olha quem está no RedatorPro! 🌟\n\n` +
-                     `😌 ${item.nome}\n` +
+    const mensagem = `😃 Olha quem está no RedatorPro! 😁\n\n` +
+                     `Sim, ${item.nome} !\n` +
                      `🔸 ${item.especialidade}\n` +
                      `⭐ Avaliação: ${item.rating}/5 (${item.rewies} reviews)\n\n` +
                      `🔍 Conheça este e outros corretores no RedatorPro!\n` +
                      `${appUrl}`;
 
-    // Verifica se é mobile e tem API de compartilhamento
-    if (navigator.share) {
-        navigator.share({
-            title: `Conheça ${item.nome} - RedatorPro`,
-            text: mensagem,
-            url: appUrl
-        }).catch(err => {
-            console.log('Erro ao compartilhar:', err);
-            copiarParaAreaTransferencia(mensagem);
-        });
-    } else {
-        // CÓDIGO CORRIGIDO AQUI - SEMPRE COPIAR A MENSAGEM COMPLETA NO DESKTOP
-        copiarParaAreaTransferencia(mensagem);
-        
-        // Opcional: Abrir popup com opções de compartilhamento
-        abrirPopupCompartilhamento(mensagem);
-    }
+    // URL para compartilhamento no WhatsApp com imagem
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(mensagem + '\n' + imageUrl)}`;
+    
+    // Abrir em uma nova janela
+    window.open(whatsappUrl, '_blank', 'width=600,height=500');
 }
-
 
 // NOVA FUNÇÃO PARA POPUP DE COMPARTILHAMENTO (OPCIONAL)
 function abrirPopupCompartilhamento(mensagem) {

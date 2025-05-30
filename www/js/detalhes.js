@@ -100,7 +100,7 @@ function compartilharPerfil() {
                      `${appUrl}`;
 
     // URL para compartilhamento no WhatsApp com imagem
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(mensagem + '\n' + imageUrl)}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(imageUrl + '\n' +  mensagem)}`;
     
     // Abrir em uma nova janela
     window.open(whatsappUrl, '_blank', 'width=600,height=500');

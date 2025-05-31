@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>Meu Perfil</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!-- CSS PERSONALIZADO PARA PERFIL-->
+    <link rel="stylesheet" href="css/profile.css">
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7-icons@3.0/framework7-icons.css">
+</head>
+
+<body>
+    <!-- App root element -->
+    <div id="app">
+
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="profile" class="page">
+
+                <!-- Top Navbar -->
+                <div class="navbar">
+                    <div class="navbar-bg"></div>
+                    <div class="navbar-inner justify-content-center">
+                        <div class="title title-rounded">Meu Perfil</div>
+                    </div>
+                </div>
+
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <div class="profile-container">
+                        <!-- Área de cabeçalho com fundo gradiente -->
+                        <div class="profile-header">
+                            <!-- Botão de editar -->
+                            <a href="#" class="edit-profile-btn">
+                                <i class="ellipsis_circle_fill"></i>
+                            </a>
+                            
+                            <!-- Avatar do usuário -->
+                            <div class="profile-avatar">
+                                <img src="img/ellen.png"
+                                     alt="Foto do usuário">
+                            </div>
+                            
+                            <!-- Nome do usuário -->
+                            <h1 class="profile-name">Ryo Yamada</h1>
+                            
+                            <!-- Tipo de usuário -->
+                            <div class="profile-type">Aluno</div>
+                            
+                            <!-- Descrição/recado -->
+                            <div class="profile-status">
+                                <i class="f7-icons"></i>
+                                I am THE BATMAN 🦇
+                            </div>
+                        </div>
+                        
+                        <!-- Botões de ação -->
+                        <div class="profile-actions">
+                            <!-- Botão para rede social -->
+                            <a href="#" class="profile-action-btn social-btn">
+                                <i class="f7-icons"></i>
+                                Instagram
+                            </a>
+                            
+                            <!-- Botão para redações -->
+                            <a href="#" class="profile-action-btn essays-btn">
+                                <i class="f7-icons"></i>
+                                Minhas Redações
+                            </a>
+                        </div>
+                        
+                        <!-- Estatísticas do perfil -->
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">42</div>
+                                <div class="stat-label">Redações</div>
+                            </div>
+                            <!--<div class="stat-item">
+                                <div class="stat-value">36</div>
+                                <div class="stat-label">Alunos</div>
+                            </div>-->
+                            <div class="stat-item">
+                                <div class="stat-value">4.7</div>
+                                <div class="stat-label">Avaliação</div>
+                            </div>
+                        </div>
+
+                        <!-- Seção Sobre Mim -->
+                        <h2 class="profile-section-title">Sobre Mim</h2>
+                        <div class="profile-card">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam beatae, rem consequatur cumque enim voluptatem assumenda fugit fugiat asperiores necessitatibus, pariatur in quasi hic accusantium explicabo debitis.</p>
+                        </div>
+
+                        <!-- Seção Áreas de Interesse -->
+                        <h2 class="profile-section-title">Áreas de Interesse</h2>
+                        <div class="profile-card">
+                            <div class="interests">
+                                <span class="interest">Redação ENEM</span>
+                                <span class="interest">Gramática</span>
+                                <span class="interest">BTS</span>
+                                <span class="interest">Produção Textual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+</body>
+
+</html>

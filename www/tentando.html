@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <!-- Framework7 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7-icons@3.0/framework7-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@5.7.14/css/framework7.bundle.min.css">
+    <style>
+        :root {
+            --f7-theme-color: #3498db;
+            --f7-theme-color-rgb: 52, 152, 219;
+            --f7-navbar-bg-color: #f8f9fa;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            padding: 30px 20px 20px;
+            color: white;
+            text-align: center;
+            position: relative;
+            margin-bottom: 15px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.5);
+            margin: 0 auto 15px;
+            overflow: hidden;
+            background-color: #eee;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+        
+        .profile-type {
+            background-color: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .profile-status {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .profile-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0 15px;
+        }
+        
+        .profile-action-btn {
+            flex: 1;
+            max-width: 160px;
+            border-radius: 12px;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            color: #444;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-action-btn i {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .profile-action-btn:hover, .profile-action-btn:active {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+        
+        .social-btn {
+            background: linear-gradient(to right, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+        }
+        
+        .essays-btn {
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: white;
+        }
+        
+        .profile-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 25px 15px 15px;
+            color: #2c3e50;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .stat-item {
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .edit-profile-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 10;
+        }
+        
+        .profile-content {
+            padding: 0 15px;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .interest {
+            background-color: #e3f2fd;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #3498db;
+        }
+        
+        .recent-activity {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .activity-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #e3f2fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #3498db;
+            font-size: 18px;
+        }
+        
+        .activity-text {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="page" data-name="profile">
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="title">Meu Perfil</div>
+            </div>
+        </div>
+        
+        <div class="page-content">
+            <div class="profile-header">
+                <a href="#" class="edit-profile-btn">
+                    <i class="f7-icons">pencil</i>
+                </a>
+                
+                <div class="profile-avatar">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Foto do usuário">
+                </div>
+                
+                <h1 class="profile-name">Maria Silva</h1>
+                <div class="profile-type">Professora</div>
+                
+                <div class="profile-status">
+                    <i class="f7-icons">quote_bubble</i>
+                    "Apaixonada por educação e tecnologia. Disponível para tirar dúvidas das 14h às 18h."
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <a href="#" class="profile-action-btn social-btn">
+                    <i class="f7-icons">link</i>
+                    Rede Social
+                </a>
+                
+                <a href="#" class="profile-action-btn essays-btn">
+                    <i class="f7-icons">doc_text</i>
+                    Minhas Redações
+                </a>
+            </div>
+            
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Redações</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">36</div>
+                    <div class="stat-label">Alunos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4.8</div>
+                    <div class="stat-label">Avaliação</div>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <h2 class="profile-section-title">Sobre Mim</h2>
+                <div class="profile-card">
+                    <p>Professora de língua portuguesa com mais de 10 anos de experiência. Especialista em produção textual e correção de redações para vestibulares e ENEM.</p>
+                </div>
+                
+                <h2 class="profile-section-title">Áreas de Interesse</h2>
+                <div class="profile-card">
+                    <div class="interests">
+                        <span class="interest">Redação ENEM</span>
+                        <span class="interest">Gramática</span>
+                        <span class="interest">Literatura</span>
+                        <span class="interest">Produção Textual</span>
+                    </div>
+                </div>
+                
+                <h2 class="profile-section-title">Atividades Recentes</h2>
+                <div class="profile-card">
+                    <ul class="recent-activity">
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="f7-icons">doc_text_fill</i>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-title">Corrigiu uma redação</div>
+                                <div class="activity-time">Há 2 horas</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="f7-icons">message_fill</i>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-title">Comentou em uma redação</div>
+                                <div class="activity-time">Hoje às 10:30</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="f7-icons">star_fill</i>
+                            </div>
+                            <div class="activity-text">
+                                <div class="activity-title">Recebeu avaliação 5 estrelas</div>
+                                <div class="activity-time">Ontem</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Framework7 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/framework7@5.7.14/js/framework7.bundle.min.js"></script>
+    <script>
+        // Inicialização do Framework7
+        var app = new Framework7({
+            theme: 'auto',
+            // Outras configurações podem ser adicionadas aqui
+        });
+        
+        // Exemplo de funcionalidade JS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Botões de ação
+            document.querySelector('.social-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                app.dialog.alert('Redirecionando para a rede social do usuário!');
+            });
+            
+            document.querySelector('.essays-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                app.dialog.alert('Abrindo página com as redações do usuário!');
+            });
+            
+            // Botão de editar perfil
+            document.querySelector('.edit-profile-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                app.dialog.alert('Abrindo editor de perfil!');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -149,3 +149,9 @@
 .ri-heart-fill {
     color: var(--vermelho);
 }
+
+@media (min-width: 769px) {
+    .specialty-btn {
+        width: 10%;
+    }
+}

@@ -556,6 +556,30 @@ var app = new Framework7({
         },
       }
     },
+    {
+      path: '/profile/',
+      url: 'profile.html',
+      animate: false,
+      options: {
+        transition: 'f7-dive',
+      },
+      on: {
+        pageBeforeIn: function (event, page) {
+          // fazer algo antes da página ser exibida
+          $("#menuPrincipal").hide("fast");
+        },
+        pageAfterIn: function (event, page) {
+          // fazer algo depois da página ser exibida
+        },
+        pageInit: function (event, page) {
+          // fazer algo quando a página for inicializada
+          //$.getScript('js/detalhes.js');
+        },
+        pageBeforeRemove: function (event, page) {
+          // fazer algo antes da página ser removida do DOM
+        },
+      }
+    },
   ],
   // ... other parameters
 });

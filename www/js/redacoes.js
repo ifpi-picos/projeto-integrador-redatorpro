@@ -90,44 +90,30 @@ window.initRedacoes = async function () {
         const card = document.createElement('div');
         card.className = 'item redacao-card';
 
-        // Se for imagem, preview mostra "Redação enviada como imagem"
-        let previewHtml = '';
-        if (redacao.urlImage) {
-          previewHtml = `<span style="color:#1976d2;">Redação enviada como imagem</span>`;
-        } else {
-          previewHtml = `${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}`;
-        }
+        // Define a prévia do texto ou mensagem padrão
+        const preview = redacao.texto
+          ? redacao.texto.slice(0, 80) + (redacao.texto.length > 80 ? '...' : '')
+          : '<span style="color:#1976d2;">Redação enviada como imagem</span>';
 
         // Corpo do card
         card.innerHTML = `
           <div class="redacao-info">
             <div class="redacao-header">
               <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
-              <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
+              <span class="redacao-nota">Nota: <b>${redacao.nota || '-'}</b></span>
             </div>
-            <div class="redacao-preview">${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}</div>
-            <div class="redacao-preview">${previewHtml}</div>
+            <div class="redacao-preview">${preview}</div>
           </div>
           <div class="redacao-detalhes" style="display:none;">
-            <div class="redacao-texto">${redacao.text}</div>
-            <div class="redacao-texto">
-              ${
-                redacao.urlImage
-                  ? `<button class="btn-exibir-imagem" style="background:#246493;color:#fff;border:none;padding:8px 18px;border-radius:5px;cursor:pointer;margin-bottom:10px;">Exibir redação</button>
-                     <div class="container-redacao-img" style="display:none; margin-bottom:10px; text-align:center;">
-                       <img src="${redacao.urlImage}" alt="Redação enviada" style="max-width:98vw;max-height:420px;border-radius:8px;box-shadow:0 2px 8px #0002;display:block;margin:0 auto 12px auto;">
-                       <button class="btn-ocultar-imagem" style="background:#b00;color:#fff;border:none;padding:7px 18px;border-radius:5px;cursor:pointer;">Ocultar redação</button>
-                     </div>`
-                  : redacao.text
-              }
-            </div>
-            <div class="redacao-actions">
-              <button class="btn-exibir-correcao">Exibir correção</button>
-              <button class="btn-baixar-pdf">
-                <i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar PDF
-              </button>
-            </div>
-            <div class="correcao-ia" style="display:none;">${redacao.correcaoIa || 'Sem correção.'}</div>
+            <div class="redacao-texto">${redacao.texto || ''}</div>
+            <!-- Adicione lógica para exibir imagem, se aplicável -->
+            ${
+              redacao.imagem
+                ? `<div class="container-redacao-img">
+                     <img src="${redacao.imagem}" alt="Redação enviada como imagem" style="max-width:100%; border-radius:8px;">
+                   </div>`
+                : ''
+            }
           </div>
         `;
 

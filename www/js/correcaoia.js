@@ -35,34 +35,52 @@ function renderCorrecaoIA() {
     let userName = (user && user.name) ? user.name : "Usuário";
     let redacaoTexto = (resposta && resposta.texto) ? resposta.texto : null;
     let correcaoTexto = (resposta && resposta.correcao) ? resposta.correcao : null;
+    let urlImage = (resposta && resposta.urlImage) ? resposta.urlImage : null;
 
     console.log('[correcaoia.js] userName:', userName);
     console.log('[correcaoia.js] redacaoTexto:', redacaoTexto);
     console.log('[correcaoia.js] correcaoTexto:', correcaoTexto);
 
-    if (!redacaoTexto && !correcaoTexto) {
+    if (!redacaoTexto && !correcaoTexto && !urlImage) {
         chat.innerHTML = `<div style="color:#888;text-align:center;margin-top:2rem;">Nenhuma redação corrigida encontrada.<br>Envie uma redação para ver a correção aqui.</div>`;
         console.log('[correcaoia.js] Nenhuma redação/correção encontrada.');
         return;
     }
 
-    // Mensagem do usuário (avatar à direita)
-    chat.innerHTML += `
-      <div class="message user">
-        <div class="bubble">
-          <strong>${userName}</strong><br>
-          <p>${
-            redacaoTexto
-              ? normalizarRedacao(redacaoTexto)
-                  .replace(/\n\n/g, '</p><p>')
-                  .replace(/\n/g, '<br>')
-              : "Nenhuma redação enviada."
-          }</p>
-        </div>
-        <div class="avatar user-avatar"></div>
-      </div>
-    `;
-    console.log('[correcaoia.js] Mensagem do usuário adicionada.');
+    // Mensagem do usuário (texto ou imagem)
+    if (urlImage) {
+        // Redação enviada como imagem
+        chat.innerHTML += `
+          <div class="message user">
+            <div class="bubble">
+              <strong>${userName}</strong><br>
+              <button id="btnExibirRedacaoImg" style="margin:12px 0 8px 0; background:#246493;color:#fff;border:none;padding:8px 18px;border-radius:5px;cursor:pointer;">Exibir minha redação</button>
+              <div id="containerRedacaoImg" style="display:none; margin-top:10px; text-align:center;">
+                <img src="${urlImage}" alt="Redação enviada" style="max-width:98vw;max-height:420px;border-radius:8px;box-shadow:0 2px 8px #0002;display:block;margin:0 auto 12px auto;">
+                <button id="btnOcultarRedacaoImg" style="background:#b00;color:#fff;border:none;padding:7px 18px;border-radius:5px;cursor:pointer;">Ocultar redação</button>
+              </div>
+            </div>
+            <div class="avatar user-avatar"></div>
+          </div>
+        `;
+    } else {
+        // Redação enviada como texto
+        chat.innerHTML += `
+          <div class="message user">
+            <div class="bubble">
+              <strong>${userName}</strong><br>
+              <p>${
+                redacaoTexto
+                  ? normalizarRedacao(redacaoTexto)
+                      .replace(/\n\n/g, '</p><p>')
+                      .replace(/\n/g, '<br>')
+                  : "Nenhuma redação enviada."
+              }</p>
+            </div>
+            <div class="avatar user-avatar"></div>
+          </div>
+        `;
+    }
 
     // Mensagem do bot (avatar à esquerda)
     chat.innerHTML += `
@@ -75,6 +93,27 @@ function renderCorrecaoIA() {
       </div>
     `;
     console.log('[correcaoia.js] Mensagem do bot adicionada.');
+
+    // Lógica para exibir/ocultar imagem da redação
+    if (urlImage) {
+        setTimeout(() => {
+            const btnExibir = document.getElementById('btnExibirRedacaoImg');
+            const btnOcultar = document.getElementById('btnOcultarRedacaoImg');
+            const container = document.getElementById('containerRedacaoImg');
+            if (btnExibir && container) {
+                btnExibir.onclick = function () {
+                    container.style.display = 'block';
+                    btnExibir.style.display = 'none';
+                };
+            }
+            if (btnOcultar && btnExibir && container) {
+                btnOcultar.onclick = function () {
+                    container.style.display = 'none';
+                    btnExibir.style.display = 'inline-block';
+                };
+            }
+        }, 50);
+    }
 }
 
 // Sempre renderiza ao carregar o script

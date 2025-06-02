@@ -166,7 +166,7 @@ window.initIACorretor = function () {
             const tipoCorrecao = document.getElementById('tipoCorrecao').value;
             const temaRedacaoSelect = document.getElementById('temaRedacao');
             const temaLivre = document.getElementById('temaLivre').value;
-            const texto = areaNormal.value;
+            const texto = areaNormal.value || ""; // <-- sempre string
             const imagemFile = imagemInput && imagemInput.files && imagemInput.files[0] ? imagemInput.files[0] : null;
 
             // Agora só pode enviar texto OU imagem, nunca ambos
@@ -220,7 +220,7 @@ window.initIACorretor = function () {
             const formData = new FormData();
             formData.append('tipoCorrecao', tipoCorrecao);
             formData.append('tema', tema);
-            formData.append('texto', texto);
+            formData.append('texto', texto); // <-- sempre envia, mesmo que vazio
             if (imagemFile) {
                 formData.append('imagem', imagemFile);
             }
@@ -241,13 +241,11 @@ window.initIACorretor = function () {
                     const temaLivre = document.getElementById('temaLivre');
                     if (temaLivre) temaLivre.value = '';
                     if (imagemInput) imagemInput.value = '';
-                    // Redireciona para a página de correção via router SEM window.location.href
                     setTimeout(() => {
                         if (window.app && app.views && app.views.main && app.views.main.router) {
-                            console.log('Navegando para /correcaoia/ via router');
                             app.views.main.router.navigate('/correcaoia/');
                         } else {
-                            alert('Erro ao redirecionar para a correção. Recarregue a página.');
+                            window.location.href = 'correcaoia.html';
                         }
                     }, 200);
                 } else {

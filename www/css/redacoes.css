@@ -12,8 +12,8 @@
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-  /* Reduzido para 700px para desktop */
-  max-width: 700px;
+  /* Adiciona espaçamento lateral padrão para desktop */
+  max-width: 80vw;
 }
 .redacao-card:hover {
   box-shadow: 0 4px 16px #0002;

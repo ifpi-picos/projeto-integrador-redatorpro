@@ -221,6 +221,49 @@ button[data-name="correcaoia"]{
   margin-bottom: 0.5em;
 }
 
+.message.user .bubble,
+.message.bot .bubble {
+  max-width: 100%;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 600px) {
+  .message {
+    padding: 0 1vw;
+    max-width: 90%;
+  }
+
+  .bubble {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 0.6rem 1rem;
+  }
+
+  .message.user .bubble {
+    text-align: left; /* Alinha o texto para facilitar a leitura */
+  }
+
+  .message.bot .bubble {
+    text-align: left;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Ajuste adicional para evitar que mensagens longas fiquem espremidas */
+.bubble {
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  max-width: 95%; /* Garante que as bolhas não ocupem toda a largura */
+}
+
 @media (max-width: 900px) {
   .message {
     padding: 0 1vw;

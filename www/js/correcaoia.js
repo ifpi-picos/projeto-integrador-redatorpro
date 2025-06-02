@@ -65,17 +65,32 @@ function renderCorrecaoIA() {
         `;
     } else {
         // Redação enviada como texto
+        let redacaoHtml = "";
+        if (redacaoTexto) {
+            const textoNormalizado = normalizarRedacao(redacaoTexto);
+            if (textoNormalizado.length > 300) {
+                const textoCortado = textoNormalizado.slice(0, 300);
+                // Garante que não corte no meio de uma palavra
+                const ultimoEspaco = textoCortado.lastIndexOf(' ');
+                const preview = textoCortado.slice(0, ultimoEspaco > 0 ? ultimoEspaco : 300);
+                const restante = textoNormalizado.slice(preview.length);
+                redacaoHtml = `
+                  <span class="redacao-preview">${preview}</span>
+                  <span class="redacao-restante" style="display:none;">${restante.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</span>
+                  <span class="ler-mais" style="color:#007acc; text-decoration:underline; cursor:pointer;">ler mais</span>
+                  <span class="ler-menos" style="color:#007acc; text-decoration:underline; cursor:pointer; display:none;">ler menos</span>
+                `;
+            } else {
+                redacaoHtml = textoNormalizado.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+            }
+        } else {
+            redacaoHtml = "Nenhuma redação enviada.";
+        }
         chat.innerHTML += `
           <div class="message user">
             <div class="bubble">
               <strong>${userName}</strong><br>
-              <p>${
-                redacaoTexto
-                  ? normalizarRedacao(redacaoTexto)
-                      .replace(/\n\n/g, '</p><p>')
-                      .replace(/\n/g, '<br>')
-                  : "Nenhuma redação enviada."
-              }</p>
+              <p>${redacaoHtml}</p>
             </div>
             <div class="avatar user-avatar"></div>
           </div>
@@ -114,6 +129,36 @@ function renderCorrecaoIA() {
             }
         }, 50);
     }
+
+    // Lógica para "ler mais" e "ler menos" da redação longa
+    setTimeout(() => {
+        const lerMais = chat.querySelector('.ler-mais');
+        const lerMenos = chat.querySelector('.ler-menos');
+        const restante = chat.querySelector('.redacao-restante');
+        const preview = chat.querySelector('.redacao-preview');
+        if (lerMais && lerMenos && restante && preview) {
+            lerMais.onclick = function () {
+                restante.style.display = 'inline';
+                lerMais.style.display = 'none';
+                lerMenos.style.display = 'inline';
+            };
+            lerMenos.onclick = function () {
+                restante.style.display = 'none';
+                lerMais.style.display = 'inline';
+                lerMenos.style.display = 'none';
+                // Scroll para garantir que o início do texto fique visível
+                preview.scrollIntoView({behavior: "smooth", block: "nearest"});
+            };
+        }
+    }, 50);
+
+    // Ajusta o scroll para mensagens longas
+    setTimeout(() => {
+        const chat = document.getElementById('chat-container');
+        if (chat) {
+            chat.scrollTop = chat.scrollHeight;
+        }
+    }, 100);
 }
 
 // Sempre renderiza ao carregar o script
@@ -167,6 +212,14 @@ window.enviarMensagem = function () {
         `;
         chat.appendChild(botMessage);
         chat.scrollTop = chat.scrollHeight;
+    }, 1000);
+
+    // Ajusta o scroll após adicionar mensagens
+    setTimeout(() => {
+        const chat = document.getElementById("chat-container");
+        if (chat) {
+            chat.scrollTop = chat.scrollHeight;
+        }
     }, 1000);
 };
 

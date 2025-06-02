@@ -171,7 +171,7 @@ button[data-name="correcaoia"]{
   color: white;
   border-top-right-radius: 0;
   text-align: justify;
-  max-width: 520px;
+  max-width: 90%; /* Ajusta o tamanho máximo para caber na tela */
   align-self: flex-end;
   position: relative;
   padding-top: 0.5rem;
@@ -244,6 +244,7 @@ button[data-name="correcaoia"]{
 
   .message.user .bubble {
     text-align: left; /* Alinha o texto para facilitar a leitura */
+    max-width: 85%; /* Reduz ainda mais o tamanho máximo em telas pequenas */
   }
 
   .message.bot .bubble {
@@ -320,5 +321,5 @@ html, body, .page[data-name="correcaoia"] {
   font-family: Arial, Helvetica, sans-serif; /* Consistente com o iacorretor */
   font-size: inherit; /* Herda o tamanho da fonte */
   line-height: inherit; /* Herda o espaçamento entre linhas */
-  color: inherit; /* Herda a cor do texto */
+  color: white; /* Corrige a cor para branco */
 }

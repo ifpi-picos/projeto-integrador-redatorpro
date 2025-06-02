@@ -8,11 +8,16 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.profile-container {
+.navbar-bg {
+    background: rgba(255, 255, 255, 0.82); /* ajuste a opacidade conforme necessário */
+    backdrop-filter: blur(10px); /* ajuste o valor para mais ou menos blur */
+    -webkit-backdrop-filter: blur(10px); /* para compatibilidade com Safari */
+}
+.profile-container-mobile {
     padding: 0 15px;
 }
 
-.profile-header {
+.profile-header-mobile {
     background: linear-gradient(135deg, #3498db, #8e44ad);
     padding: 30px 20px 20px;
     color: white;

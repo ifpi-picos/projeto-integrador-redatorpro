@@ -24,6 +24,7 @@ function atualizarLista() {
   
   // Limpa a área onde os cards serão exibidos
   $("#text-list").empty();
+  $("#text-list-banco").empty();
   
   // Itera sobre cada redação para verificar se passa nos filtros
   redacoes.forEach(function(redacao) {
@@ -66,6 +67,7 @@ function atualizarLista() {
     
     // Adiciona o card à área de listagem
     $("#text-list").append(redacaoHTML);
+    $("#text-list-banco").append(redacaoHTML);
   });
 }
 

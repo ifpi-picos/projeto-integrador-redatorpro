@@ -116,7 +116,26 @@ window.initRedacoes = async function () {
                        <img src="${redacao.urlImage}" alt="Redação enviada" style="max-width:98vw;max-height:420px;border-radius:8px;box-shadow:0 2px 8px #0002;display:block;margin:0 auto 12px auto;">
                        <button class="btn-ocultar-imagem" style="background:#b00;color:#fff;border:none;padding:7px 18px;border-radius:5px;cursor:pointer;">Ocultar redação</button>
                      </div>`
-                  : redacao.text
+                  : (() => {
+                      const texto = redacao.text || '';
+                      const limite = 600;
+                      if (texto.length > limite) {
+                        const textoInicial = texto.slice(0, limite);
+                        const textoRestante = texto.slice(limite);
+                        // IDs únicos para cada card
+                        const idMais = `lerMais_${idx}`;
+                        const idMenos = `lerMenos_${idx}`;
+                        const idRestante = `textoRestante_${idx}`;
+                        return `
+                          <span>${textoInicial}</span>
+                          <span id="${idRestante}" style="display:none;">${textoRestante}</span>
+                          <span id="${idMais}" style="color:#1976d2; text-decoration:underline; cursor:pointer;"> ler mais</span>
+                          <span id="${idMenos}" style="color:#1976d2; text-decoration:underline; cursor:pointer; display:none;"> mostrar menos</span>
+                        `;
+                      } else {
+                        return texto;
+                      }
+                    })()
               }
             </div>
             <div class="redacao-actions">
@@ -172,6 +191,32 @@ window.initRedacoes = async function () {
               btnExibirImg.style.display = 'inline-block';
             });
           }
+        }
+
+        // Ler mais/mostrar menos para textos grandes
+        if (redacao.text && redacao.text.length > 600) {
+          const idMais = `lerMais_${idx}`;
+          const idMenos = `lerMenos_${idx}`;
+          const idRestante = `textoRestante_${idx}`;
+          setTimeout(() => {
+            const lerMais = card.querySelector(`#${idMais}`);
+            const lerMenos = card.querySelector(`#${idMenos}`);
+            const restante = card.querySelector(`#${idRestante}`);
+            if (lerMais && lerMenos && restante) {
+              lerMais.onclick = function (e) {
+                e.stopPropagation();
+                restante.style.display = 'inline';
+                lerMais.style.display = 'none';
+                lerMenos.style.display = 'inline';
+              };
+              lerMenos.onclick = function (e) {
+                e.stopPropagation();
+                restante.style.display = 'none';
+                lerMais.style.display = 'inline';
+                lerMenos.style.display = 'none';
+              };
+            }
+          }, 0);
         }
 
         // Botão para baixar PDF

@@ -87,17 +87,17 @@ window.initRedacoes = async function () {
 
     filtradas.forEach((redacao, idx) => {
       try {
-        // Usa <a> para garantir compatibilidade visual e funcional
-        const card = document.createElement('a');
-        card.href = "#";
+        const card = document.createElement('div');
         card.className = 'item redacao-card';
 
-        // Gera a prévia do texto
+        // Garante que a prévia do texto SEMPRE aparece para texto, nunca para imagem
         let previewHtml = '';
         if (redacao.urlImage) {
           previewHtml = '<span style="color:#1976d2;">Redação enviada como imagem</span>';
-        } else if (redacao.text && redacao.text.trim()) {
-          previewHtml = redacao.text.slice(0, 80) + (redacao.text.length > 80 ? '...' : '');
+        } else if (typeof redacao.text === 'string' && redacao.text.trim().length > 0) {
+          // Remove quebras de linha e espaços extras para a prévia
+          const previewText = redacao.text.replace(/\s+/g, ' ').trim();
+          previewHtml = previewText.slice(0, 80) + (previewText.length > 80 ? '...' : '');
         } else {
           previewHtml = '';
         }
@@ -115,7 +115,7 @@ window.initRedacoes = async function () {
             <div class="redacao-texto">${
               redacao.urlImage
                 ? ''
-                : (redacao.text && redacao.text.trim() ? redacao.text : '')
+                : (typeof redacao.text === 'string' && redacao.text.trim().length > 0 ? redacao.text : '')
             }</div>
             <div class="redacao-texto">
               ${

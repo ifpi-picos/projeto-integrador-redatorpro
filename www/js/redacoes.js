@@ -87,16 +87,17 @@ window.initRedacoes = async function () {
 
     filtradas.forEach((redacao, idx) => {
       try {
-        const card = document.createElement('div');
+        // Usa <a> para garantir compatibilidade visual e funcional
+        const card = document.createElement('a');
+        card.href = "#";
         card.className = 'item redacao-card';
 
-        // Se for imagem, preview mostra "Redação enviada como imagem"
+        // Gera a prévia do texto
         let previewHtml = '';
         if (redacao.urlImage) {
-          previewHtml = `<span style="color:#1976d2;">Redação enviada como imagem</span>`;
+          previewHtml = '<span style="color:#1976d2;">Redação enviada como imagem</span>';
         } else if (redacao.text && redacao.text.trim()) {
-          // Mostra prévia do texto
-          previewHtml = `${redacao.text.slice(0, 80)}${redacao.text.length > 80 ? '...' : ''}`;
+          previewHtml = redacao.text.slice(0, 80) + (redacao.text.length > 80 ? '...' : '');
         } else {
           previewHtml = '';
         }
@@ -108,13 +109,7 @@ window.initRedacoes = async function () {
               <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
               <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
             </div>
-            <div class="redacao-preview">${
-              redacao.urlImage
-                ? '<span style="color:#1976d2;">Redação enviada como imagem</span>'
-                : (redacao.text && redacao.text.trim()
-                    ? redacao.text.slice(0, 80) + (redacao.text.length > 80 ? '...' : '')
-                    : '')
-            }</div>
+            <div class="redacao-preview">${previewHtml}</div>
           </div>
           <div class="redacao-detalhes" style="display:none;">
             <div class="redacao-texto">${

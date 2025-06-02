@@ -171,7 +171,7 @@ button[data-name="correcaoia"]{
   color: white;
   border-top-right-radius: 0;
   text-align: justify;
-  max-width: 90%; /* Ajusta o tamanho máximo para caber na tela */
+  max-width: 60vw !important; /* Ajusta o tamanho máximo para caber na tela */
   align-self: flex-end;
   position: relative;
   padding-top: 0.5rem;

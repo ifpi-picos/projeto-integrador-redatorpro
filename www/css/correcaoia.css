@@ -305,31 +305,43 @@ html, body, .page[data-name="correcaoia"] {
 }
 
 .redacao-preview {
-  display: inline; /* Garante que o texto fique alinhado */
-  color: inherit; /* Herda a cor do texto da bolha */
-  font-size: inherit; /* Herda o tamanho da fonte */
-  line-height: inherit; /* Herda o espaçamento entre linhas */
+  display: inline;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 .redacao-restante {
-  display: none; /* Oculta a parte restante inicialmente */
+  display: none;
 }
 
 .ler-mais, .ler-menos {
   color: #007acc;
   text-decoration: underline;
   cursor: pointer;
-  font-size: inherit; /* Herda o tamanho da fonte */
+  font-size: inherit;
 }
 
+/* Torna o texto branco apenas na página de correção IA */
+.page[data-name="correcaoia"] .redacao-preview,
+.page[data-name="correcaoia"] .redacao-restante {
+  color: white !important;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Remove color do seletor global */
 .redacao-preview,
 .redacao-restante {
-  white-space: pre-wrap; /* Mantém quebras de linha */
-  word-break: break-word; /* Quebra palavras longas */
-  font-family: Arial, Helvetica, sans-serif; /* Consistente com o iacorretor */
-  font-size: inherit; /* Herda o tamanho da fonte */
-  line-height: inherit; /* Herda o espaçamento entre linhas */
-  color: white !important; /* Garante que o texto fique branco */
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: inherit;
+  line-height: inherit;
+  /* color: white !important; removido para evitar conflito */
 }
 
 /* Garante que imagens dentro da bolha nunca ultrapassem a bolha */

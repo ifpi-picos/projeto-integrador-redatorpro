@@ -244,7 +244,11 @@ button[data-name="correcaoia"]{
 
   .message.user .bubble {
     text-align: left; /* Alinha o texto para facilitar a leitura */
-    max-width: 85%; /* Reduz ainda mais o tamanho máximo em telas pequenas */
+    max-width: 98vw !important; /* quase toda a largura da tela */
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding-right: 1rem; /* reduz espaço lateral para avatar */
   }
 
   .message.bot .bubble {
@@ -322,4 +326,31 @@ html, body, .page[data-name="correcaoia"] {
   font-size: inherit; /* Herda o tamanho da fonte */
   line-height: inherit; /* Herda o espaçamento entre linhas */
   color: white !important; /* Garante que o texto fique branco */
+}
+
+/* Garante que imagens dentro da bolha nunca ultrapassem a bolha */
+.message.user .bubble img,
+.message.bot .bubble img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0002;
+}
+
+/* Ajuste para container da imagem da redação */
+#containerRedacaoImg {
+  max-width: 100%;
+  overflow-x: auto;
+  text-align: center;
+}
+
+#containerRedacaoImg img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0002;
 }

@@ -266,6 +266,23 @@ window.initIACorretor = function () {
             return false; // <-- Garante que nunca submeta tradicionalmente
         });
     }
+
+    if (imagemInput && areaNormal) {
+        imagemInput.addEventListener('change', function () {
+            if (imagemInput.files && imagemInput.files.length > 0) {
+                areaNormal.removeAttribute('required');
+            } else {
+                areaNormal.setAttribute('required', 'required');
+            }
+        });
+        // Garante o estado correto ao carregar a página
+        if (imagemInput.files && imagemInput.files.length > 0) {
+            areaNormal.removeAttribute('required');
+        } else {
+            areaNormal.setAttribute('required', 'required');
+        }
+    }
+
 };
 
 

@@ -75,8 +75,8 @@ function renderCorrecaoIA() {
                 const preview = textoCortado.slice(0, ultimoEspaco > 0 ? ultimoEspaco : 300);
                 const restante = textoNormalizado.slice(preview.length);
                 redacaoHtml = `
-                  <span class="redacao-preview" style="color:inherit;">${preview.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</span>
-                  <span class="redacao-restante" style="display:none;">${restante.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</span>
+                  <span class="redacao-preview" style="white-space: pre-wrap; word-break: break-word;">${preview}</span>
+                  <span class="redacao-restante" style="display:none; white-space: pre-wrap; word-break: break-word;">${restante}</span>
                   <span class="ler-mais" style="color:#007acc; text-decoration:underline; cursor:pointer;">ler mais</span>
                   <span class="ler-menos" style="color:#007acc; text-decoration:underline; cursor:pointer; display:none;">ler menos</span>
                 `;
@@ -90,7 +90,7 @@ function renderCorrecaoIA() {
           <div class="message user">
             <div class="bubble">
               <strong>${userName}</strong><br>
-              <p>${redacaoHtml}</p>
+              <p style="white-space: pre-wrap; word-break: break-word;">${redacaoHtml}</p>
             </div>
             <div class="avatar user-avatar"></div>
           </div>

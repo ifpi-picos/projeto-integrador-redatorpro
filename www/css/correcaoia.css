@@ -312,3 +312,13 @@ html, body, .page[data-name="correcaoia"] {
   cursor: pointer;
   font-size: inherit; /* Herda o tamanho da fonte */
 }
+
+.redacao-preview,
+.redacao-restante {
+  white-space: pre-wrap; /* Mantém quebras de linha */
+  word-break: break-word; /* Quebra palavras longas */
+  font-family: Arial, Helvetica, sans-serif; /* Consistente com o iacorretor */
+  font-size: inherit; /* Herda o tamanho da fonte */
+  line-height: inherit; /* Herda o espaçamento entre linhas */
+  color: inherit; /* Herda a cor do texto */
+}

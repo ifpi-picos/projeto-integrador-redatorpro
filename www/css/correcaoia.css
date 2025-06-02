@@ -180,7 +180,7 @@ button[data-name="correcaoia"]{
 }
 
 .message.bot .bubble {
-  margin-left: 0.8rem;
+  margin-left: 0;
   margin-right: 0;
   background-color: #e0e0e0;
   color: #000;
@@ -279,11 +279,15 @@ button[data-name="correcaoia"]{
 }
 
 @media (max-width: 700px) {
-  .message {
-    padding: 0 0.2vw;
-  }
   .bubble {
     max-width: 98vw;
+  }
+  .page[data-name="correcaoia"] > main#chat-container {
+    align-items: center !important;
+  }
+
+  .message.bot {
+    padding-left: 0 !important;
   }
 }
 

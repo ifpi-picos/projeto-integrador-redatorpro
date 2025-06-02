@@ -442,7 +442,7 @@ var app = new Framework7({
               setTimeout(() => {
 
                   //ESVAZIAR A ÁREA DA LISTA DE CORRETORES
-                  $("#text-list").empty();
+                  $("#text-list-banco").empty();
 
                   data.forEach(redacao => {
                       var redacaoHTML = `
@@ -461,7 +461,7 @@ var app = new Framework7({
                       </a>
                       `;
               
-                      $("#text-list").append(redacaoHTML)
+                      $("#text-list-banco").append(redacaoHTML)
               
                   });
 

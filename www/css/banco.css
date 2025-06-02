@@ -130,7 +130,7 @@
 }
 
 /* Container dos itens */
-.text-list {
+.text-list-banco {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -172,7 +172,7 @@
 
 /* Responsividade - Desktop */
 @media (min-width: 769px) {
-  .text-list {
+  .text-list-banco {
     grid-template-columns: repeat(2, 1fr); /* Dois cards por linha */
     gap: 1.5rem;
   }
@@ -208,7 +208,7 @@
 
 /* Versão para desktop */
 @media (min-width: 769px) {
-  .text-list {
+  .text-list-banco {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     padding: 1rem 5%; /* Adiciona um padding nas laterais para não colar nas bordas */

@@ -12,8 +12,7 @@
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-  /* Adiciona espaçamento lateral padrão para desktop */
-  max-width: 80vw;
+  max-width: 80vw !important; /* Corrige para desktop */
 }
 .redacao-card:hover {
   box-shadow: 0 4px 16px #0002;
@@ -117,7 +116,7 @@
     padding: 12px 6px;
     font-size: 0.97em;
     margin-bottom: 14px;
-    max-width: 96vw;
+    max-width: 96vw !important; /* Mantém responsivo no mobile */
     box-sizing: border-box;
     margin-left: 2vw;
     margin-right: 2vw;

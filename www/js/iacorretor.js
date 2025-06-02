@@ -10,6 +10,7 @@ window.initIACorretor = function () {
     const folhaAmpliadaOverlay = document.getElementById('folhaAmpliadaOverlay');
     const btnFecharFolha = document.getElementById('btnFecharFolha');
     const form = document.getElementById('formCorrecao');
+    const imagemInput = document.getElementById('imagemUpload');
 
     function isMobile() {
         return window.innerWidth <= 700;
@@ -72,7 +73,7 @@ window.initIACorretor = function () {
             writingArea.style.display = 'flex';
             writingArea.classList.add('ativo');
             mobileActions.style.display = 'none';
-            btnDigitar.style.display = 'none'; // Esconde o botão após clicar
+            btnDigitar.style.display = 'none';
             writingAreaMobileAberta = true;
             gerenciarEventoAreaNormal(true);
             if (isMobile() && areaNormal) {
@@ -121,31 +122,20 @@ window.initIACorretor = function () {
     }
 
     function ajustarWritingArea() {
-        if (isMobile()) {
-            if (writingArea) {
-                if (!writingAreaMobileAberta) {
-                    writingArea.classList.remove('ativo');
-                    writingArea.style.display = 'none';
-                    gerenciarEventoAreaNormal(false);
-                } else {
-                    writingArea.classList.add('ativo');
-                    writingArea.style.display = 'flex';
-                    gerenciarEventoAreaNormal(true);
-                }
-            }
-            if (mobileActions) {
-                mobileActions.style.display = writingAreaMobileAberta ? 'none' : 'block';
-            }
-        } else {
-            if (writingArea) {
+        // writingArea sempre começa escondida, só aparece ao clicar no botão
+        if (writingArea) {
+            if (!writingAreaMobileAberta) {
+                writingArea.classList.remove('ativo');
+                writingArea.style.display = 'none';
+                gerenciarEventoAreaNormal(false);
+            } else {
                 writingArea.classList.add('ativo');
                 writingArea.style.display = 'flex';
                 gerenciarEventoAreaNormal(true);
             }
-            if (mobileActions) {
-                mobileActions.style.display = 'none';
-            }
-            writingAreaMobileAberta = false;
+        }
+        if (mobileActions) {
+            mobileActions.style.display = writingAreaMobileAberta ? 'none' : 'block';
         }
 
         if (folhaAmpliadaOverlay) folhaAmpliadaOverlay.classList.remove('ativo');
@@ -162,9 +152,10 @@ window.initIACorretor = function () {
         if (areaAmpliada) areaAmpliada.value = '';
         const temaLivre = document.getElementById('temaLivre');
         if (temaLivre) temaLivre.value = '';
+        if (imagemInput) imagemInput.value = '';
     }
 
-    // --- Envio do formulário para o backend ---
+    // --- Envio do formulário para o backend (agora com FormData) ---
     if (form) {
         form.addEventListener('submit', async function (e) {
             console.log('Handler de submit chamado!');
@@ -176,9 +167,15 @@ window.initIACorretor = function () {
             const temaRedacaoSelect = document.getElementById('temaRedacao');
             const temaLivre = document.getElementById('temaLivre').value;
             const texto = areaNormal.value;
+            const imagemFile = imagemInput && imagemInput.files && imagemInput.files[0] ? imagemInput.files[0] : null;
 
-            if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || !texto.trim()) {
-                alert('Preencha todos os campos obrigatórios.');
+            // Agora só pode enviar texto OU imagem, nunca ambos
+            if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || (!texto.trim() && !imagemFile)) {
+                alert('Preencha todos os campos obrigatórios e envie o texto OU a imagem.');
+                return;
+            }
+            if (texto.trim() && imagemFile) {
+                alert('Envie apenas o texto digitado OU a imagem da redação, nunca ambos ao mesmo tempo.');
                 return;
             }
 
@@ -219,20 +216,20 @@ window.initIACorretor = function () {
                 return;
             }
 
-            // Monta o payload
-            const payload = {
-                tipoCorrecao,
-                tema,
-                texto
-            };
+            // Monta o FormData
+            const formData = new FormData();
+            formData.append('tipoCorrecao', tipoCorrecao);
+            formData.append('tema', tema);
+            formData.append('texto', texto);
+            if (imagemFile) {
+                formData.append('imagem', imagemFile);
+            }
 
             try {
-                console.log('Enviando para o backend:', payload);
                 const response = await fetch('https://express-e3hm.onrender.com/redchat', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
-                    body: JSON.stringify(payload)
+                    body: formData
                 });
                 const result = await response.json();
 
@@ -243,6 +240,7 @@ window.initIACorretor = function () {
                     if (areaAmpliada) areaAmpliada.value = '';
                     const temaLivre = document.getElementById('temaLivre');
                     if (temaLivre) temaLivre.value = '';
+                    if (imagemInput) imagemInput.value = '';
                     // Redireciona para a página de correção via router SEM window.location.href
                     setTimeout(() => {
                         if (window.app && app.views && app.views.main && app.views.main.router) {

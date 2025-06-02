@@ -90,16 +90,35 @@ window.initRedacoes = async function () {
         const card = document.createElement('div');
         card.className = 'item redacao-card';
 
+        // Se for imagem, preview mostra "Redação enviada como imagem"
+        let previewHtml = '';
+        if (redacao.urlImage) {
+          previewHtml = `<span style="color:#1976d2;">Redação enviada como imagem</span>`;
+        } else {
+          previewHtml = `${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}`;
+        }
+
+        // Corpo do card
         card.innerHTML = `
           <div class="redacao-info">
             <div class="redacao-header">
               <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
               <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
             </div>
-            <div class="redacao-preview">${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}</div>
+            <div class="redacao-preview">${previewHtml}</div>
           </div>
           <div class="redacao-detalhes" style="display:none;">
-            <div class="redacao-texto">${redacao.text}</div>
+            <div class="redacao-texto">
+              ${
+                redacao.urlImage
+                  ? `<button class="btn-exibir-imagem" style="background:#246493;color:#fff;border:none;padding:8px 18px;border-radius:5px;cursor:pointer;margin-bottom:10px;">Exibir redação</button>
+                     <div class="container-redacao-img" style="display:none; margin-bottom:10px; text-align:center;">
+                       <img src="${redacao.urlImage}" alt="Redação enviada" style="max-width:98vw;max-height:420px;border-radius:8px;box-shadow:0 2px 8px #0002;display:block;margin:0 auto 12px auto;">
+                       <button class="btn-ocultar-imagem" style="background:#b00;color:#fff;border:none;padding:7px 18px;border-radius:5px;cursor:pointer;">Ocultar redação</button>
+                     </div>`
+                  : redacao.text
+              }
+            </div>
             <div class="redacao-actions">
               <button class="btn-exibir-correcao">Exibir correção</button>
               <button class="btn-baixar-pdf">
@@ -112,7 +131,12 @@ window.initRedacoes = async function () {
 
         // Ao clicar no card, mostra/oculta detalhes
         card.addEventListener('click', function (e) {
-          if (e.target.classList.contains('btn-exibir-correcao') || e.target.classList.contains('btn-baixar-pdf')) return;
+          if (
+            e.target.classList.contains('btn-exibir-correcao') ||
+            e.target.classList.contains('btn-baixar-pdf') ||
+            e.target.classList.contains('btn-exibir-imagem') ||
+            e.target.classList.contains('btn-ocultar-imagem')
+          ) return;
           e.preventDefault?.();
           const detalhes = card.querySelector('.redacao-detalhes');
           detalhes.style.display = detalhes.style.display === 'none' ? 'block' : 'none';
@@ -129,38 +153,77 @@ window.initRedacoes = async function () {
           });
         }
 
+        // Botão para exibir/ocultar imagem da redação
+        if (redacao.urlImage) {
+          const btnExibirImg = card.querySelector('.btn-exibir-imagem');
+          const btnOcultarImg = card.querySelector('.btn-ocultar-imagem');
+          const containerImg = card.querySelector('.container-redacao-img');
+          if (btnExibirImg && containerImg) {
+            btnExibirImg.addEventListener('click', function (e) {
+              e.stopPropagation();
+              containerImg.style.display = 'block';
+              btnExibirImg.style.display = 'none';
+            });
+          }
+          if (btnOcultarImg && btnExibirImg && containerImg) {
+            btnOcultarImg.addEventListener('click', function (e) {
+              e.stopPropagation();
+              containerImg.style.display = 'none';
+              btnExibirImg.style.display = 'inline-block';
+            });
+          }
+        }
+
         // Botão para baixar PDF
         const btnPdf = card.querySelector('.btn-baixar-pdf');
         if (btnPdf) {
           btnPdf.addEventListener('click', async function (e) {
             e.stopPropagation();
             e.preventDefault?.();
-            if (!redacao.text || !redacao.text.trim()) {
-              alert('Não há texto para gerar o PDF.');
-              return;
-            }
             btnPdf.disabled = true;
             btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Gerando PDF...';
             try {
-              const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ texto: redacao.text }),
-              });
-              if (!response.ok) throw new Error("Erro ao gerar PDF: " + response.status);
-              const blob = await response.blob();
-              if (blob.size === 0) throw new Error("O PDF gerado está vazio!");
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.style.display = "none";
-              a.href = url;
-              a.download = "redacao.pdf";
-              document.body.appendChild(a);
-              setTimeout(() => {
-                a.dispatchEvent(new MouseEvent('click'));
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-              }, 100);
+              if (redacao.urlImage) {
+                // PDF da imagem
+                const response = await fetch(redacao.urlImage);
+                const blob = await response.blob();
+                // Cria PDF com a imagem
+                const pdfBytes = await gerarPdfComImagem(blob);
+                const url = window.URL.createObjectURL(new Blob([pdfBytes], { type: "application/pdf" }));
+                const a = document.createElement("a");
+                a.style.display = "none";
+                a.href = url;
+                a.download = "redacao-imagem.pdf";
+                document.body.appendChild(a);
+                setTimeout(() => {
+                  a.dispatchEvent(new MouseEvent('click'));
+                  document.body.removeChild(a);
+                  window.URL.revokeObjectURL(url);
+                }, 100);
+              } else if (redacao.text && redacao.text.trim()) {
+                // PDF do texto (fluxo antigo)
+                const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ texto: redacao.text }),
+                });
+                if (!response.ok) throw new Error("Erro ao gerar PDF: " + response.status);
+                const blob = await response.blob();
+                if (blob.size === 0) throw new Error("O PDF gerado está vazio!");
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.style.display = "none";
+                a.href = url;
+                a.download = "redacao.pdf";
+                document.body.appendChild(a);
+                setTimeout(() => {
+                  a.dispatchEvent(new MouseEvent('click'));
+                  document.body.removeChild(a);
+                  window.URL.revokeObjectURL(url);
+                }, 100);
+              } else {
+                alert('Não há texto ou imagem para gerar o PDF.');
+              }
             } catch (err) {
               alert('Erro ao gerar PDF. Tente novamente.');
             }
@@ -174,6 +237,73 @@ window.initRedacoes = async function () {
         // Silencia erros de renderização individuais
       }
     });
+  }
+
+  // Função utilitária para gerar PDF com imagem (usando pdf-lib via CDN)
+  async function gerarPdfComImagem(blob) {
+    // Carrega pdf-lib dinamicamente se necessário
+    if (!window.PDFLib) {
+      await new Promise(resolve => {
+        const script = document.createElement('script');
+        script.src = "https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js";
+        script.onload = resolve;
+        document.head.appendChild(script);
+      });
+    }
+    const { PDFDocument, rgb } = window.PDFLib;
+    const pdfDoc = await PDFDocument.create();
+    const page = pdfDoc.addPage([600, 900]);
+    // Fundo azul claro igual ao texto
+    page.drawRectangle({
+      x: 0, y: 0, width: 600, height: 900, color: rgb(0.82, 0.92, 0.98)
+    });
+    // Borda decorativa
+    page.drawRectangle({
+      x: 10, y: 10, width: 580, height: 880,
+      borderColor: rgb(0.13, 0.45, 0.82), borderWidth: 2, color: rgb(1, 1, 1, 0)
+    });
+    // Título
+    const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+    const titulo = "Folha de Redação";
+    const larguraTitulo = font.widthOfTextAtSize(titulo, 18);
+    page.drawText(titulo, {
+      x: (600 - larguraTitulo) / 2,
+      y: 900 - 35,
+      size: 18,
+      font: font,
+      color: rgb(0.13, 0.45, 0.82),
+    });
+    // Adiciona a imagem centralizada
+    const imgBytes = await blob.arrayBuffer();
+    let img;
+    let imgDims;
+    if (blob.type === "image/png") {
+      img = await pdfDoc.embedPng(imgBytes);
+      imgDims = img.scale(1);
+    } else {
+      img = await pdfDoc.embedJpg(imgBytes);
+      imgDims = img.scale(1);
+    }
+    // Calcula tamanho para caber na folha
+    let maxW = 540, maxH = 700;
+    let w = imgDims.width, h = imgDims.height;
+    let scale = Math.min(maxW / w, maxH / h, 1);
+    w = w * scale;
+    h = h * scale;
+    page.drawImage(img, {
+      x: (600 - w) / 2,
+      y: 120,
+      width: w,
+      height: h
+    });
+    // Rodapé decorativo
+    page.drawLine({
+      start: { x: 50, y: 15 },
+      end: { x: 600 - 50, y: 15 },
+      thickness: 1.5,
+      color: rgb(0.13, 0.45, 0.82),
+    });
+    return await pdfDoc.save();
   }
 
   // Inicializa a lista sem filtro

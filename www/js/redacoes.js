@@ -108,13 +108,19 @@ window.initRedacoes = async function () {
               <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
               <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
             </div>
-            <div class="redacao-preview">${previewHtml}</div>
+            <div class="redacao-preview">${
+              redacao.urlImage
+                ? '<span style="color:#1976d2;">Redação enviada como imagem</span>'
+                : (redacao.text && redacao.text.trim()
+                    ? redacao.text.slice(0, 80) + (redacao.text.length > 80 ? '...' : '')
+                    : '')
+            }</div>
           </div>
           <div class="redacao-detalhes" style="display:none;">
             <div class="redacao-texto">${
               redacao.urlImage
                 ? ''
-                : (redacao.text ? redacao.text : '')
+                : (redacao.text && redacao.text.trim() ? redacao.text : '')
             }</div>
             <div class="redacao-texto">
               ${

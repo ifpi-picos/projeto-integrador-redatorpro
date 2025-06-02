@@ -294,3 +294,21 @@ html, body, .page[data-name="correcaoia"] {
     margin-bottom: 80px;
   }
 }
+
+.redacao-preview {
+  display: inline; /* Garante que o texto fique alinhado */
+  color: inherit; /* Herda a cor do texto da bolha */
+  font-size: inherit; /* Herda o tamanho da fonte */
+  line-height: inherit; /* Herda o espaçamento entre linhas */
+}
+
+.redacao-restante {
+  display: none; /* Oculta a parte restante inicialmente */
+}
+
+.ler-mais, .ler-menos {
+  color: #007acc;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit; /* Herda o tamanho da fonte */
+}

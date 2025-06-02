@@ -75,7 +75,7 @@ function renderCorrecaoIA() {
                 const preview = textoCortado.slice(0, ultimoEspaco > 0 ? ultimoEspaco : 300);
                 const restante = textoNormalizado.slice(preview.length);
                 redacaoHtml = `
-                  <span class="redacao-preview">${preview}</span>
+                  <span class="redacao-preview" style="color:inherit;">${preview.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</span>
                   <span class="redacao-restante" style="display:none;">${restante.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</span>
                   <span class="ler-mais" style="color:#007acc; text-decoration:underline; cursor:pointer;">ler mais</span>
                   <span class="ler-menos" style="color:#007acc; text-decoration:underline; cursor:pointer; display:none;">ler menos</span>

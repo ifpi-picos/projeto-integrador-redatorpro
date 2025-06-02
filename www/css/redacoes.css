@@ -94,3 +94,67 @@
   font-size: 0.98em;
   white-space: pre-line;
 }
+
+/* Responsividade para cards de redação */
+@media (max-width: 700px) {
+  .redacao-card {
+    padding: 12px 6px;
+    font-size: 0.97em;
+    margin-bottom: 14px;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  .redacao-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+  .redacao-tema, .redacao-nota {
+    font-size: 1em;
+    margin-bottom: 2px;
+    word-break: break-word;
+    max-width: 98vw;
+    display: block;
+  }
+  .redacao-preview {
+    font-size: 0.98em;
+    max-width: 98vw;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+  .redacao-detalhes {
+    padding-top: 6px;
+    margin-top: 6px;
+    font-size: 0.97em;
+  }
+  .redacao-texto {
+    font-size: 0.97em;
+    word-break: break-word;
+    max-width: 98vw;
+  }
+  .redacao-actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .btn-exibir-correcao,
+  .btn-baixar-pdf {
+    font-size: 0.98em;
+    padding: 10px 0;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .container-redacao-img img {
+    max-width: 96vw !important;
+    height: auto !important;
+  }
+}
+
+/* Garante que não haja rolagem lateral no mobile */
+body, html, .page-content, .text-list {
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}

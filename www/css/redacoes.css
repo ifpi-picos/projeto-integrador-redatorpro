@@ -30,7 +30,7 @@
   color: #1976d2;
 }
 .redacao-preview {
-  color: #444;
+  color: #444 !important;
   font-size: 1em;
   margin-bottom: 6px;
   max-height: 2.5em;

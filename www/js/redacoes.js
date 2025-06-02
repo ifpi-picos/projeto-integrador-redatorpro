@@ -94,8 +94,11 @@ window.initRedacoes = async function () {
         let previewHtml = '';
         if (redacao.urlImage) {
           previewHtml = `<span style="color:#1976d2;">Redação enviada como imagem</span>`;
+        } else if (redacao.text && redacao.text.trim()) {
+          // Mostra prévia do texto
+          previewHtml = `${redacao.text.slice(0, 80)}${redacao.text.length > 80 ? '...' : ''}`;
         } else {
-          previewHtml = `${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}`;
+          previewHtml = '';
         }
 
         // Corpo do card
@@ -105,11 +108,14 @@ window.initRedacoes = async function () {
               <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
               <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
             </div>
-            <div class="redacao-preview">${(redacao.text || '').slice(0, 80)}${redacao.text && redacao.text.length > 80 ? '...' : ''}</div>
             <div class="redacao-preview">${previewHtml}</div>
           </div>
           <div class="redacao-detalhes" style="display:none;">
-            <div class="redacao-texto">${redacao.text}</div>
+            <div class="redacao-texto">${
+              redacao.urlImage
+                ? ''
+                : (redacao.text ? redacao.text : '')
+            }</div>
             <div class="redacao-texto">
               ${
                 redacao.urlImage
@@ -118,7 +124,7 @@ window.initRedacoes = async function () {
                        <img src="${redacao.urlImage}" alt="Redação enviada" style="max-width:98vw;max-height:420px;border-radius:8px;box-shadow:0 2px 8px #0002;display:block;margin:0 auto 12px auto;">
                        <button class="btn-ocultar-imagem" style="background:#b00;color:#fff;border:none;padding:7px 18px;border-radius:5px;cursor:pointer;">Ocultar redação</button>
                      </div>`
-                  : redacao.text
+                  : ''
               }
             </div>
             <div class="redacao-actions">

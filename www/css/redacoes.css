@@ -175,10 +175,3 @@ body, html, .page-content, .text-list {
   overflow-x: hidden;
   box-sizing: border-box;
 }
-.ler-mais-link {
-  color: #1976d2;
-  text-decoration: underline;
-  cursor: pointer;
-  font-weight: 500;
-  margin-left: 2px;
-}

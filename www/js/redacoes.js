@@ -184,49 +184,31 @@ window.initRedacoes = async function () {
           }
         }
 
-        // Botão para baixar PDF
+        // Botão para baixar PDF ou imagem
         const btnPdf = card.querySelector('.btn-baixar-pdf');
         if (btnPdf) {
           btnPdf.addEventListener('click', async function (e) {
             e.stopPropagation();
             e.preventDefault?.();
-            if (!redacao.text || !redacao.text.trim()) {
-              alert('Não há texto para gerar o PDF.');
-              return;
-            }
             btnPdf.disabled = true;
-            btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Gerando PDF...';
+            btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Baixando...';
             try {
-              const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ texto: redacao.text }),
-              });
-              if (!response.ok) throw new Error("Erro ao gerar PDF: " + response.status);
-              const blob = await response.blob();
-              if (blob.size === 0) throw new Error("O PDF gerado está vazio!");
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.style.display = "none";
-              a.href = url;
-              a.download = "redacao.pdf";
-              document.body.appendChild(a);
-              setTimeout(() => {
-                a.dispatchEvent(new MouseEvent('click'));
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-              }, 100);
               if (redacao.urlImage) {
-                // PDF da imagem
+                // Baixar a imagem original
                 const response = await fetch(redacao.urlImage);
+                if (!response.ok) throw new Error("Erro ao baixar imagem: " + response.status);
                 const blob = await response.blob();
-                // Cria PDF com a imagem
-                const pdfBytes = await gerarPdfComImagem(blob);
-                const url = window.URL.createObjectURL(new Blob([pdfBytes], { type: "application/pdf" }));
+                if (blob.size === 0) throw new Error("A imagem está vazia!");
+                const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.style.display = "none";
                 a.href = url;
-                a.download = "redacao-imagem.pdf";
+                // Tenta extrair extensão da imagem
+                let ext = "";
+                if (blob.type === "image/png") ext = ".png";
+                else if (blob.type === "image/jpeg") ext = ".jpg";
+                else ext = "";
+                a.download = "redacao-imagem" + ext;
                 document.body.appendChild(a);
                 setTimeout(() => {
                   a.dispatchEvent(new MouseEvent('click'));
@@ -234,7 +216,7 @@ window.initRedacoes = async function () {
                   window.URL.revokeObjectURL(url);
                 }, 100);
               } else if (redacao.text && redacao.text.trim()) {
-                // PDF do texto (fluxo antigo)
+                // PDF do texto
                 const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
@@ -255,10 +237,10 @@ window.initRedacoes = async function () {
                   window.URL.revokeObjectURL(url);
                 }, 100);
               } else {
-                alert('Não há texto ou imagem para gerar o PDF.');
+                alert('Não há texto ou imagem para baixar.');
               }
             } catch (err) {
-              alert('Erro ao gerar PDF. Tente novamente.');
+              alert('Erro ao baixar arquivo. Tente novamente.');
             }
             btnPdf.disabled = false;
             btnPdf.innerHTML = '<i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar PDF';

@@ -243,7 +243,7 @@ window.initRedacoes = async function () {
               alert('Erro ao baixar arquivo. Tente novamente.');
             }
             btnPdf.disabled = false;
-            btnPdf.innerHTML = '<i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar PDF';
+            btnPdf.innerHTML = '<i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar Redação';
           });
         }
 

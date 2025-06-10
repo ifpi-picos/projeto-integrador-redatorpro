@@ -55,6 +55,12 @@
       const resp = await fetch('https://express-e3hm.onrender.com/relatorio');
       const data = await resp.json();
 
+      // Protege contra resposta inesperada
+      if (!data.usuarios || !Array.isArray(data.usuarios)) {
+        alert(data.error || "Erro ao carregar relatório.");
+        return;
+      }
+
       // Preenche tabela de usuários
       const usuariosTbody = document.querySelector('#usuarios-table tbody');
       usuariosTbody.innerHTML = '';
@@ -74,11 +80,10 @@
       // Preenche tabela de cadastros por dia
       const cadastrosTbody = document.querySelector('#cadastros-table tbody');
       cadastrosTbody.innerHTML = '';
-      data.cadastrosPorDia
+      (data.cadastrosPorDia || [])
         .sort((a, b) => new Date(a.data) - new Date(b.data))
         .forEach(c => {
           const tr = document.createElement('tr');
-          // Ajuste para data no formato YYYY-MM-DD
           const dataFormatada = c.data.length === 10
             ? c.data.split('-').reverse().join('/')
             : new Date(c.data).toLocaleDateString();
@@ -91,12 +96,12 @@
 
       // Gráfico de cadastros por dia
       const ctx = document.getElementById('graficoCadastros').getContext('2d');
-      const labels = data.cadastrosPorDia
+      const labels = (data.cadastrosPorDia || [])
         .sort((a, b) => new Date(a.data) - new Date(b.data))
         .map(c => c.data.length === 10
           ? c.data.split('-').reverse().join('/')
           : new Date(c.data).toLocaleDateString());
-      const valores = data.cadastrosPorDia
+      const valores = (data.cadastrosPorDia || [])
         .sort((a, b) => new Date(a.data) - new Date(b.data))
         .map(c => c.total);
 

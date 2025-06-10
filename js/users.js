@@ -37,7 +37,8 @@ async function adicionarUsuario() {
       alert('Cadastro enviado para avaliação. Aguarde aprovação.');
       window.location.reload();
     } else {
-      alert('Erro ao realizar cadastro!');
+      const erro = await resposta.json();
+      alert(erro.error || 'Erro ao realizar cadastro!');
     }
     return;
   }
@@ -69,7 +70,8 @@ async function adicionarUsuario() {
     }));
     window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
   } else {
-    console.log('Erro ao realizar cadastro!!');
+    const erro = await resposta.json();
+    alert(erro.error || 'Erro ao realizar cadastro!');
   }
 }
 

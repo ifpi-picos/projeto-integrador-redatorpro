@@ -26,16 +26,10 @@ async function adicionarUsuario() {
     });
 
     if (resposta.ok) {
-      // Salva o token e usuário no localStorage
       const userData = await resposta.json();
-      localStorage.setItem('loggedUser', JSON.stringify({
-        name: userData.name,
-        email: userData.email,
-        tipo: userData.tipo,
-        token: userData.token
-      }));
-      alert('Cadastro enviado para avaliação. Aguarde aprovação.');
-      window.location.reload();
+      alert(userData.mensagem || 'Cadastro enviado para avaliação. Verifique seu e-mail para ativar a conta.');
+      // Não salva no localStorage e não faz login automático!
+      // window.location.reload();
     } else {
       const erro = await resposta.json();
       alert(erro.error || 'Erro ao realizar cadastro!');
@@ -60,15 +54,10 @@ async function adicionarUsuario() {
   });
 
   if (resposta.ok) {
-    console.log('Cadastro realizado com sucesso!!');
     const userData = await resposta.json();
-    localStorage.setItem('loggedUser', JSON.stringify({
-      name: userData.name,
-      email: userData.email,
-      tipo: userData.tipo,
-      token: userData.token
-    }));
-    window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
+    alert(userData.mensagem || 'Cadastro realizado. Verifique seu e-mail para ativar a conta.');
+    // Não salva no localStorage e não faz login automático!
+    // window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
   } else {
     const erro = await resposta.json();
     alert(erro.error || 'Erro ao realizar cadastro!');

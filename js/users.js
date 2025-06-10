@@ -56,8 +56,9 @@ async function adicionarUsuario() {
   if (resposta.ok) {
     const userData = await resposta.json();
     alert(userData.mensagem || 'Cadastro realizado. Verifique seu e-mail para ativar a conta.');
-    // Não salva no localStorage e não faz login automático!
-    // window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
+    // Após o cadastro bem-sucedido:
+    localStorage.setItem('lastSignUpEmail', campoEmail.value);
+    window.location.href = 'verificacao.html';
   } else {
     const erro = await resposta.json();
     alert(erro.error || 'Erro ao realizar cadastro!');

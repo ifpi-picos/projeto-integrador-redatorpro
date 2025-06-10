@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Verifique seu E-mail</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <main>
+      <div class="box">
+        <div class="inner-box">
+          <div class="forms-wrap" style="width:100%;display:flex;align-items:center;justify-content:center;">
+            <form class="sign-in-form" style="max-width:320px;width:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div class="logo" style="margin-bottom:1.5rem;">
+                <img src="imagens/logo nome.png" alt="RedatorPRO" />
+              </div>
+              <div class="heading" style="text-align:center;">
+                <h2 style="margin-bottom:1rem;">Verifique seu E-mail</h2>
+              </div>
+              <div class="actual-form" style="text-align:center;">
+                <p class="text" style="margin-bottom:1.5rem;">
+                  Enviamos um link de verificação para o seu e-mail.<br>
+                  Por favor, acesse sua caixa de entrada e clique no link para ativar sua conta.
+                </p>
+                <p class="text" style="color:#b4820d;">
+                  Não encontrou o e-mail? Verifique também a caixa de spam ou lixo eletrônico.
+                </p>
+                <button id="reenviarBtn" class="sign-btn" style="margin-top:1.5rem;" disabled>Reenviar código de verificação</button>
+                <a href="login.html" class="sign-btn" style="margin-top:1rem;background:#eee;color:#1a237e;">Voltar para o Login</a>
+              </div>
+            </form>
+          </div>
+          <div class="carousel" style="display:none;"></div>
+        </div>
+      </div>
+    </main>
+    <script>
+      // Ativa o botão de reenviar após 10 segundos
+      const btn = document.getElementById('reenviarBtn');
+      let email = localStorage.getItem('lastSignUpEmail');
+      let timer = 10;
+      btn.textContent = `Reenviar código de verificação (${timer}s)`;
+      const interval = setInterval(() => {
+        timer--;
+        btn.textContent = timer > 0 ? `Reenviar código de verificação (${timer}s)` : 'Reenviar código de verificação';
+        if (timer <= 0) {
+          btn.disabled = false;
+          clearInterval(interval);
+        }
+      }, 1000);
+
+      btn.addEventListener('click', async function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+        if (!email) {
+          alert('Não foi possível reenviar. Faça o cadastro novamente.');
+          return;
+        }
+        try {
+          const response = await fetch('https://express-e3hm.onrender.com/users/reenviar-verificacao', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+          const data = await response.json();
+          if (response.ok) {
+            alert('E-mail de verificação reenviado!');
+            timer = 10;
+            btn.textContent = `Reenviar código de verificação (${timer}s)`;
+            btn.disabled = true;
+            setTimeout(() => {
+              btn.disabled = false;
+              btn.textContent = 'Reenviar código de verificação';
+            }, 10000);
+          } else {
+            alert(data.error || 'Erro ao reenviar e-mail.');
+            btn.disabled = false;
+            btn.textContent = 'Reenviar código de verificação';
+          }
+        } catch (err) {
+          alert('Erro ao conectar ao servidor.');
+          btn.disabled = false;
+          btn.textContent = 'Reenviar código de verificação';
+        }
+      });
+    </script>
+  </body>
+</html>

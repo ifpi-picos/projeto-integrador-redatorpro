@@ -35,5 +35,34 @@
         </div>
       </div>
     </main>
+    <script>
+      // Script para processar o token da URL e chamar o backend
+      (async function() {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        if (!token) {
+          alert('Token de verificação não encontrado na URL.');
+          return;
+        }
+        try {
+          // Troque a URL abaixo para o endpoint correto do seu backend
+          const response = await fetch(`https://express-e3hm.onrender.com/users/verificar-email?token=${token}`);
+          if (response.redirected) {
+            // Se o backend redirecionar, siga o redirecionamento
+            window.location.href = response.url;
+            return;
+          }
+          const data = await response.json();
+          if (response.ok) {
+            // Sucesso: redirecione ou mostre mensagem
+            window.location.href = "verificacao-sucesso.html";
+          } else {
+            alert(data.error || "Erro ao verificar e-mail.");
+          }
+        } catch (err) {
+          alert("Erro ao conectar ao servidor de verificação.");
+        }
+      })();
+    </script>
   </body>
 </html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório de Uso - RedatorPRO</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 32px; background: #f9f9f9; }
+    h1 { color: #1a237e; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 32px; background: #fff; }
+    th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+    th { background: #e3e6f3; }
+    .grafico { margin: 32px 0; }
+  </style>
+</head>
+<body>
+  <h1>Relatório de Uso - RedatorPRO</h1>
+
+  <h2>Usuários e Redações</h2>
+  <table id="usuarios-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Tipo</th>
+        <th>Data Cadastro</th>
+        <th>Total de Redações</th>
+        <th>Redações nas Últimas 4 Semanas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dados preenchidos via JS -->
+    </tbody>
+  </table>
+
+  <h2>Cadastros por Dia (últimos 15 dias)</h2>
+  <table id="cadastros-table">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Cadastros</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dados preenchidos via JS -->
+    </tbody>
+  </table>
+
+  <div class="grafico">
+    <canvas id="graficoCadastros" width="600" height="250"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    async function carregarRelatorio() {
+      const resp = await fetch('https://redatorpro-backend.onrender.com/relatorio');
+      const data = await resp.json();
+
+      // Preenche tabela de usuários
+      const usuariosTbody = document.querySelector('#usuarios-table tbody');
+      usuariosTbody.innerHTML = '';
+      data.usuarios.forEach(u => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${u.name}</td>
+          <td>${u.email}</td>
+          <td>${u.tipo}</td>
+          <td>${new Date(u.dataCadastro).toLocaleDateString()}</td>
+          <td>${u.totalRedacoes}</td>
+          <td>${u.redacoesSemanais}</td>
+        `;
+        usuariosTbody.appendChild(tr);
+      });
+
+      // Preenche tabela de cadastros por dia
+      const cadastrosTbody = document.querySelector('#cadastros-table tbody');
+      cadastrosTbody.innerHTML = '';
+      data.cadastrosPorDia
+        .sort((a, b) => new Date(a.data) - new Date(b.data))
+        .forEach(c => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(c.data).toLocaleDateString()}</td>
+            <td>${c.total}</td>
+          `;
+          cadastrosTbody.appendChild(tr);
+        });
+
+      // Gráfico de cadastros por dia
+      const ctx = document.getElementById('graficoCadastros').getContext('2d');
+      const labels = data.cadastrosPorDia
+        .sort((a, b) => new Date(a.data) - new Date(b.data))
+        .map(c => new Date(c.data).toLocaleDateString());
+      const valores = data.cadastrosPorDia
+        .sort((a, b) => new Date(a.data) - new Date(b.data))
+        .map(c => c.total);
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Cadastros por dia',
+            data: valores,
+            backgroundColor: '#1a237e88'
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    carregarRelatorio();
+  </script>
+</body>
+</html>

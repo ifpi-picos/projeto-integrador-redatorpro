@@ -8,8 +8,7 @@ document.querySelector('.sign-in-form').addEventListener('submit', async functio
         const response = await fetch('https://express-e3hm.onrender.com/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-            credentials: 'include' // Para manter a sessão
+            body: JSON.stringify({ email, password })
         });
 
         if (!response.ok) {
@@ -19,8 +18,13 @@ document.querySelector('.sign-in-form').addEventListener('submit', async functio
         }
 
         const data = await response.json();
-        // Armazena os dados do usuário no localStorage
-        localStorage.setItem('loggedUser', JSON.stringify({ name: data.user.name, email: data.user.email }));
+        // Armazena os dados do usuário e token no localStorage
+        localStorage.setItem('loggedUser', JSON.stringify({
+            name: data.user.name,
+            email: data.user.email,
+            tipo: data.user.tipo,
+            token: data.token
+        }));
 
         // Redireciona para a página principal
         window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';

@@ -24,7 +24,8 @@
         <th>Tipo</th>
         <th>Data Cadastro</th>
         <th>Total de Redações</th>
-        <th>Redações nas Últimas 4 Semanas</th>
+        <th>Redações na Última Semana</th>
+        <th>Data da Última Redação</th>
       </tr>
     </thead>
     <tbody>
@@ -72,7 +73,8 @@
           <td>${u.tipo}</td>
           <td>${new Date(u.dataCadastro).toLocaleDateString()}</td>
           <td>${u.totalRedacoes}</td>
-          <td>${u.redacoesSemanais}</td>
+          <td>${u.redacoesUltimaSemana}</td>
+          <td>${u.dataUltimaRedacao ? new Date(u.dataUltimaRedacao).toLocaleDateString() : '-'}</td>
         `;
         usuariosTbody.appendChild(tr);
       });

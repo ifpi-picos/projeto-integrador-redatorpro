@@ -52,7 +52,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     async function carregarRelatorio() {
-      const resp = await fetch('https://redatorpro-backend.onrender.com/relatorio');
+      const resp = await fetch('https://express-e3hm.onrender.com/relatorio');
       const data = await resp.json();
 
       // Preenche tabela de usuários
@@ -78,8 +78,12 @@
         .sort((a, b) => new Date(a.data) - new Date(b.data))
         .forEach(c => {
           const tr = document.createElement('tr');
+          // Ajuste para data no formato YYYY-MM-DD
+          const dataFormatada = c.data.length === 10
+            ? c.data.split('-').reverse().join('/')
+            : new Date(c.data).toLocaleDateString();
           tr.innerHTML = `
-            <td>${new Date(c.data).toLocaleDateString()}</td>
+            <td>${dataFormatada}</td>
             <td>${c.total}</td>
           `;
           cadastrosTbody.appendChild(tr);
@@ -89,7 +93,9 @@
       const ctx = document.getElementById('graficoCadastros').getContext('2d');
       const labels = data.cadastrosPorDia
         .sort((a, b) => new Date(a.data) - new Date(b.data))
-        .map(c => new Date(c.data).toLocaleDateString());
+        .map(c => c.data.length === 10
+          ? c.data.split('-').reverse().join('/')
+          : new Date(c.data).toLocaleDateString());
       const valores = data.cadastrosPorDia
         .sort((a, b) => new Date(a.data) - new Date(b.data))
         .map(c => c.total);

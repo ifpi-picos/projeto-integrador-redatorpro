@@ -65,7 +65,13 @@
       // Preenche tabela de usuários
       const usuariosTbody = document.querySelector('#usuarios-table tbody');
       usuariosTbody.innerHTML = '';
-      data.usuarios.forEach(u => {
+      // Ordena por data da última redação (mais recente primeiro)
+      const usuariosOrdenados = [...data.usuarios].sort((a, b) => {
+        const dataA = a.dataUltimaRedacao ? new Date(a.dataUltimaRedacao) : new Date(0);
+        const dataB = b.dataUltimaRedacao ? new Date(b.dataUltimaRedacao) : new Date(0);
+        return dataB - dataA;
+      });
+      usuariosOrdenados.forEach(u => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${u.name}</td>

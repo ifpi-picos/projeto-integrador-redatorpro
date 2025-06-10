@@ -17,16 +17,14 @@
                 <img src="imagens/logo nome.png" alt="RedatorPRO" />
               </div>
               <div class="heading" style="text-align:center;">
-                <h2 style="margin-bottom:1rem;">Verifique seu E-mail</h2>
+                <h2 style="margin-bottom:1rem;">Verificação de E-mail</h2>
               </div>
               <div class="actual-form" style="text-align:center;">
-                <p class="text" style="margin-bottom:1.5rem;">
-                  Enviamos um link de verificação para o seu e-mail.<br>
-                  Por favor, acesse sua caixa de entrada e clique no link para ativar sua conta.
-                </p>
-                <p class="text" style="color:#b4820d;">
-                  Não encontrou o e-mail? Verifique também a caixa de spam ou lixo eletrônico.
-                </p>
+                <div id="statusMsg">
+                  <p class="text" style="margin-bottom:1.5rem;">
+                    Verificando seu e-mail, aguarde...
+                  </p>
+                </div>
                 <a href="login.html" class="sign-btn" style="margin-top:2rem;">Voltar para o Login</a>
               </div>
             </form>
@@ -35,5 +33,33 @@
         </div>
       </div>
     </main>
+    <script>
+      // Script para processar o token da URL e chamar o backend
+      (async function() {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        const statusMsg = document.getElementById('statusMsg');
+        if (!token) {
+          statusMsg.innerHTML = `<p class="text" style="color:red;">Token de verificação não encontrado na URL.</p>`;
+          return;
+        }
+        try {
+          const response = await fetch(`https://express-e3hm.onrender.com/users/verificar-email?token=${token}`);
+          if (response.redirected) {
+            // Se o backend redirecionar, considere como sucesso
+            statusMsg.innerHTML = `<p class="text" style="color:green;">Seu e-mail foi verificado com sucesso!<br>Agora você pode fazer login normalmente.</p>`;
+            return;
+          }
+          const data = await response.json();
+          if (response.ok) {
+            statusMsg.innerHTML = `<p class="text" style="color:green;">Seu e-mail foi verificado com sucesso!<br>Agora você pode fazer login normalmente.</p>`;
+          } else {
+            statusMsg.innerHTML = `<p class="text" style="color:red;">${data.error || "Erro ao verificar e-mail."}</p>`;
+          }
+        } catch (err) {
+          statusMsg.innerHTML = `<p class="text" style="color:red;">Erro ao conectar ao servidor de verificação.</p>`;
+        }
+      })();
+    </script>
   </body>
 </html>

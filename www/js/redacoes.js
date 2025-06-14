@@ -3,7 +3,12 @@ window.initRedacoes = async function () {
   if (!lista) {
     return;
   }
-  lista.innerHTML = '<p>Carregando...</p>';
+  lista.innerHTML = `
+    <div class="text-align-center padding texto-colorido">
+      <div class="preloader"></div>
+      <p>Carregando redações...</p>
+    </div>
+  `;
 
   // Verifica se o usuário está logado
   const user = JSON.parse(localStorage.getItem('loggedUser'));
@@ -17,23 +22,41 @@ window.initRedacoes = async function () {
     const resp = await fetch('https://express-e3hm.onrender.com/redacoes', {
       credentials: 'include'
     });
+    
     if (resp.status === 401) {
-      lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
+      lista.innerHTML = '';
+      app.toast.create({
+        text: 'Você precisa estar logado para ver suas redações.',
+        closeTimeout: 3000,
+        cssClass: 'color-red'
+      }).open();
       return;
     }
+    
     redacoes = await resp.json();
   } catch (e) {
-    lista.innerHTML = '<p>Erro ao carregar redações.</p>';
+    lista.innerHTML = '';
+    app.dialog.alert('Erro ao carregar redações.', 'Erro');
     return;
   }
 
   if (!Array.isArray(redacoes)) {
-    lista.innerHTML = '<p>Erro inesperado no formato das redações.</p>';
+    lista.innerHTML = `
+      <div class="block-title">Erro</div>
+      <div class="block block-strong text-color-red">
+        <p>Formato inválido das redações recebidas.</p>
+      </div>
+    `;
     return;
   }
 
   if (!redacoes.length) {
-    lista.innerHTML = '<p id="no-results">Não encontramos nada por aqui...</p>';
+    lista.innerHTML = `
+      <div class="block-title">Nenhuma redação</div>
+      <div class="block block-strong text-color-gray">
+        <p>Não encontramos nada por aqui...</p>
+      </div>
+    `;
     return;
   }
 

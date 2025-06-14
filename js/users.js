@@ -22,15 +22,17 @@ async function adicionarUsuario() {
 
     const resposta = await fetch('https://express-e3hm.onrender.com/users', {
       method: 'POST',
-      body: formData,
-      credentials: 'include'
+      body: formData
     });
 
     if (resposta.ok) {
-      alert('Cadastro enviado para avaliação. Aguarde aprovação.');
-      window.location.reload();
+      const userData = await resposta.json();
+      alert(userData.mensagem || 'Cadastro enviado para avaliação. Verifique seu e-mail para ativar a conta.');
+      // Não salva no localStorage e não faz login automático!
+      // window.location.reload();
     } else {
-      alert('Erro ao realizar cadastro!');
+      const erro = await resposta.json();
+      alert(erro.error || 'Erro ao realizar cadastro!');
     }
     return;
   }
@@ -48,18 +50,18 @@ async function adicionarUsuario() {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(usuario),
-    credentials: 'include'
+    body: JSON.stringify(usuario)
   });
 
   if (resposta.ok) {
-    console.log('Cadastro realizado com sucesso!!');
-    const user = await resposta.json();
-    localStorage.setItem('name', user.name);
-    localStorage.setItem('email', user.email);
-    window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
+    const userData = await resposta.json();
+    alert(userData.mensagem || 'Cadastro realizado. Verifique seu e-mail para ativar a conta.');
+    // Após o cadastro bem-sucedido:
+    localStorage.setItem('lastSignUpEmail', campoEmail.value);
+    window.location.href = 'verificacao.html';
   } else {
-    console.log('Erro ao realizar cadastro!!');
+    const erro = await resposta.json();
+    alert(erro.error || 'Erro ao realizar cadastro!');
   }
 }
 

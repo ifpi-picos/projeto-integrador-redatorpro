@@ -12,7 +12,7 @@ window.initRedacoes = async function () {
 
   // Verifica se o usuário está logado
   const user = JSON.parse(localStorage.getItem('loggedUser'));
-  if (!user) {
+  if (!user || !user.token) {
     lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
     return;
   }
@@ -20,7 +20,9 @@ window.initRedacoes = async function () {
   let redacoes = [];
   try {
     const resp = await fetch('https://express-e3hm.onrender.com/redacoes', {
-      credentials: 'include'
+      headers: {
+        'Authorization': 'Bearer ' + user.token
+      }
     });
     
     if (resp.status === 401) {

@@ -207,7 +207,7 @@ window.initIACorretor = function () {
 
             // Pega o usuário logado do localStorage
             const user = JSON.parse(localStorage.getItem('loggedUser'));
-            if (!user) {
+            if (!user || !user.token) {
                 alert('Você precisa estar logado para enviar a redação.');
                 if (submitBtn) {
                     submitBtn.disabled = false;
@@ -228,7 +228,9 @@ window.initIACorretor = function () {
             try {
                 const response = await fetch('https://express-e3hm.onrender.com/redchat', {
                     method: 'POST',
-                    credentials: 'include',
+                    headers: {
+                        'Authorization': 'Bearer ' + user.token
+                    },
                     body: formData
                 });
                 const result = await response.json();

@@ -1,160 +1,394 @@
+:root {
+    --branco: #ffff;
+    --gelo: #f1f1f1;
+    --azulclaro: #DFF1FF;
+    --azulgelo: #93B4D7;
+    /*--azul: #006494;*/
+    --azul: #2196f3;
+    --darkazul: #13293D;
+    --preto: #2a2a2a;
+    --cinza: #cbcbcb;
+    --vermelho: #ef4d4d;
+    --verde: #19c463;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    --color-azul-claro: #f0f8ff;
+    --color-azul-calro-medio: #add8e6;
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+}
+
 .page[data-name="iacorretor"] {
-    /* Remova o flexbox para não interferir no layout do Framework7 */
+    background: var(--color-bg-primary);
     min-height: 100vh;
-    background: #faf8fc;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
 }
 
-.page[data-name="iacorretor"] .container {
-    max-width: 800px;
-    margin: 48px auto 32px auto;
-    background: #edf8fc; /* azul claro */
-    border-radius: 8px;
-    box-shadow: 0 2px 8px #0001;
-    padding: 0 24px 0 24px; /* remove o padding top/bottom do container */
-    width: 98%;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Fundo azul claro também para a área de opções */
-.page[data-name="iacorretor"] .options {
-    background: #edf8fc;
-    border-radius: 8px 8px 0 0;
-    box-shadow: none;
-    padding: 0;
-    margin-bottom: 12px;
-}
-
-.page[data-name="iacorretor"] header {
-    width: 100%;
-    background-color: #add8e6;
+/* Header styles */
+.correction-header {
     text-align: center;
-    border-radius: 8px 8px 0 0;
+    padding: 20px 16px;
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    color: white;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.correction-header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+}
+
+.header-icon {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+.correction-header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.header-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 4px 0 0 0;
+}
+
+/* Back button */
+.back-button {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    color: white;
+    font-size: 1.5rem;
+    z-index: 10;
+    background: rgba(255,255,255,0.2);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Form container */
+.correction-container {
+    max-width: 800px;
+    margin: 0 auto 32px auto;
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-card {
+    background: var(--color-bg-sidebar);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     margin-bottom: 16px;
 }
 
-.page[data-name="iacorretor"] header h1 {
-    color: #246493;
-    font-size: 1.8rem;
-    margin: 0;
-    padding: 16px 0;
+.form-section {
+    margin-bottom: 20px;
 }
 
-.page[data-name="iacorretor"] .options label {
-    color: #246493;
-    font-size: 1.15rem;
-    font-weight: bold;
-    margin-top: 12px;
-    display: block;
+.form-section:last-child {
+    margin-bottom: 0;
 }
 
-.page[data-name="iacorretor"] .options select,
-.page[data-name="iacorretor"] .options input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 2px solid #246493;
-    border-radius: 4px;
-    font-size: 1rem;
+.form-label {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text-placeholder);
     margin-bottom: 8px;
-    box-sizing: border-box;
 }
 
-/* Adiciona fundo azul claro e padding ao form para cobrir o espaço interno */
-.page[data-name="iacorretor"] form#formCorrecao {
-    background: #edf8fc;
-    padding: 32px 0 24px 0; /* mesmo padding que estava no container, mas agora no form */
-    border-radius: 8px;
+.form-label i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+    color: #2196f3;
+}
+
+.form-select, .form-input {
     width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border-hr);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--color-bg-secondary);
+    transition: all 0.2s;
     box-sizing: border-box;
-    /* Remove margem padrão do form se houver */
-    margin: 0;
+    color: var(--color-text-primary);
 }
 
-/* FOLHA NORMAL */
+.form-select:focus, .form-input:focus {
+    border-color: #2196f3;
+    color: var(--color-text-placeholder);
+    background: var(--color-bg-secondary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(33,150,243,0.2);
+}
+
+/* File upload styles */
+.file-upload-wrapper {
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background: var(--color-bg-secondary);
+    border: 2.5px dashed var(--color-text-placeholder);
+    border-radius: 8px;
+    color: var(--color-text-placeholder);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.file-upload-label:hover {
+    background: #e3f2fd;
+    border-color: #64b5f6;
+}
+
+.file-upload-label i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.file-upload-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-hint {
+    font-size: 0.85rem;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-redacao {
+    color: var(--vermelho);
+}
+
+.upload-hint i {
+    margin-right: 6px;
+    font-size: 1rem;
+}
+
+/* Writing area */
 .page[data-name="iacorretor"] .writing-area {
     display: none;
-    /* flex-direction: row; */
-    margin-top: 18px;
-    margin-bottom: 18px;
-    background: #fff; /* folha branca por dentro */
-    border-radius: 6px;
-    border: 1px solid #bcd;
+    margin: 16px 0;
+    background: var(--color-bg-sidebar);
+    border-radius: 8px;
+    border: 1px solid var(--color-border-hr);
     height: 720px;
     min-height: 720px;
     max-height: 720px;
     overflow: hidden;
     width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-/* Coluna dos números ainda mais fina */
 .page[data-name="iacorretor"] .line-numbers {
-    background: #e9e9e9;
-    color: #888;
-    padding: 0 1px 0 1px; /* mínimo espaço lateral */
+    background: var(--color-bg-secondary);
+    color: var(--color-text-placeholder);
+    padding: 0 8px;
     text-align: right;
     user-select: none;
-    font-size: 1rem;
-    border-radius: 6px 0 0 6px;
+    font-size: 0.9rem;
+    border-radius: 8px 0 0 8px;
     height: 100%;
     line-height: 24px;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-width: 20px;
-    max-width: 25px;
-    padding-right: 4px; /* espaço para o número */
+    width: 30px;
+    overflow: hidden;
 }
 
-/* Ajuste o textarea para não ser tampado pela coluna dos números */
 .page[data-name="iacorretor"] .area {
     border: none;
     outline: none;
     resize: none;
-    width: 100%; /* ocupa toda a largura da writing-area */
-    max-width: 100%;
-    min-width: 0;
+    width: calc(100% - 30px);
     height: 100%;
-    font-size: 1.08rem; /* levemente maior para melhor leitura */
-    padding: 0 12px 0 12px;
+    font-size: 0.9rem;
+    padding-top: 0px;
+    padding-left: 50px;
     background: transparent;
-    font-family: Arial, Helvetica, sans-serif!important;
-    border-radius: 0 6px 6px 0;
-    box-sizing: border-box;
-    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 24px;
     white-space: pre-wrap;
     word-break: break-word;
-    line-height: 24px;
-    padding-left: 30px;
+    color: var(--color-text-primary);
 }
 
-/* BOTÕES */
-.page[data-name="iacorretor"] .submit-button {
-    background: #246493;
-    color: #fff;
-    border: none;
-    padding: 14px 0;
+.page[data-name="iacorretor"] .area::placeholder {
+    color: #bdbdbd !important;
+}
+
+/* Buttons */
+.mobile-actions {
+    display: none;
+    margin: 16px 0;
+}
+
+.action-button {
     width: 100%;
-    border-radius: 4px;
-    font-size: 1.1rem;
+    padding: 14px;
+    background: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    margin-top: 10px;
     transition: background 0.2s;
 }
 
-.page[data-name="iacorretor"] .submit-button:hover {
-    background: #17405e;
+.action-button i {
+    margin-right: 8px;
+    font-size: 1.1rem;
 }
 
-/* Responsividade e comportamento mobile */
+.action-button:hover {
+    background: #1976d2;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 8px rgba(33,150,243,0.2);
+    margin-top: 16px;
+}
+
+.submit-button i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(33,150,243,0.25);
+}
+
+/* Expanded writing area */
+.folha-ampliada-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.folha-ampliada-overlay.ativo {
+    display: flex;
+}
+
+.folha-ampliada {
+    background: var(--color-bg-sidebar);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    padding: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+.btn-fechar-folha {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: #2196f3;
+    cursor: pointer;
+    z-index: 2;
+    padding: 8px;
+    line-height: 1;
+}
+
+/*
+.writing-area-ampliada {
+    display: flex;
+    background: var(--color-bg-sidebar);
+    border-radius: 8px;
+    border: 1px solid var(--color-border-hr);
+    height: 100%;
+    min-height: 600px;
+    max-height: calc(90vh - 60px);
+    width: 100%;
+    margin-top: 16px;
+}
+*/
+
+.writing-area-ampliada {
+    display: flex;
+    flex-direction: row;
+    margin-top: 24px;
+    background: var(--color-bg-sidebar);
+    border-radius: 8px;
+    border: 1px solid var(--color-border-hr);
+    height: 720px;
+    min-height: 720px;
+    max-height: 720px;
+    width: 100%;
+    overflow: auto; /* Permite rolagem interna se necessário */
+}
+
+/* Responsive styles */
 @media (max-width: 700px) {
     .submit-button[data-name="iacorretor"]{
         margin-bottom: 70px;
@@ -213,7 +447,7 @@
         line-height: 24px !important;
         width: 100% !important;
         box-sizing: border-box !important;
-        background: #fff !important;
+        background: var(--color-bg-sidebar) !important;
         /* Remove altura fixa para crescer conforme digita */
         flex: 1 1 0 !important;
     }
@@ -271,7 +505,7 @@ body.folha-ampliada-aberta {
 }
 
 .folha-ampliada {
-    background: #fff;
+    background: var(--color-bg-sidebar);
     border-radius: 12px;
     max-width: 98vw;
     width: 98vw;
@@ -297,21 +531,7 @@ body.folha-ampliada-aberta {
     z-index: 2;
 }
 
-/* FOLHA AMPLIADA */
-.writing-area-ampliada {
-    display: flex;
-    flex-direction: row;
-    margin-top: 24px;
-    background: #f7f7f7;
-    border-radius: 6px;
-    border: 1px solid #bcd;
-    height: 720px;
-    min-height: 720px;
-    max-height: 720px;
-    width: 100%;
-    overflow: auto; /* Permite rolagem interna se necessário */
-}
-
+/*
 .writing-area-ampliada .line-numbers {
     background: #e9e9e9;
     color: #888;
@@ -327,13 +547,16 @@ body.folha-ampliada-aberta {
     flex-direction: column;
     justify-content: flex-start;
 }
+*/
 
+/*
 .writing-area-ampliada .line-numbers pre {
     margin: 0;
     font-family: inherit;
     line-height: 24px;
     box-sizing: border-box;
 }
+*/
 
 .writing-area-ampliada .area {
     border: none;

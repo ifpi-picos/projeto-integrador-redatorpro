@@ -1,3 +1,31 @@
+:root {
+    --branco: #ffff;
+    --gelo: #f1f1f1;
+    --azulclaro: #DFF1FF;
+    --azulgelo: #93B4D7;
+    /*--azul: #006494;*/
+    --azul: #2196f3;
+    --darkazul: #13293D;
+    --preto: #2a2a2a;
+    --cinza: #cbcbcb;
+    --vermelho: #ef4d4d;
+    --verde: #19c463;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    --color-azul-claro: #f0f8ff;
+    --color-azul-calro-medio: #add8e6;
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -39,12 +67,12 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   box-sizing: border-box;
-  background: #f9fdfd;
+  background: var(--color-bg-primary);
   border-radius: 0;
   min-height: 0;
 }
 
-header {
+header[data-name="correcaoia"] {
   background-color: #b0c9d4;
   color: rgb(0, 60, 90);
   padding: 1px;
@@ -54,12 +82,12 @@ header {
   margin-top: 0;
 }
 
-h1[data-name="correcaoia"]{
+.page[data-name="correcaoia"] h1{
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-footer {
+.page[data-name="correcaoia"] footer {
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -67,15 +95,15 @@ footer {
   justify-content: center;
   align-items: center;
   padding: 1rem 0;
-  background-color: #fff;
-  border-top: 1px solid #ccc;
+  background-color: var(--color-bg-sidebar);
+  border-top: 1px solid var(--color-border-hr);
   position: sticky;
   bottom: 0;
   z-index: 10;
   box-sizing: border-box;
 }
 
-footer button {
+.page[data-name="correcaoia"] footer button {
   background-color: #007acc;
   color: white;
   border: none;
@@ -93,7 +121,7 @@ footer button {
   box-sizing: border-box;
 }
 
-footer button:hover {
+.page[data-name="correcaoia"] footer button:hover {
   background-color: #005fa3;
 }
 
@@ -104,7 +132,7 @@ textarea {
   font-size: 1rem;
 }
 
-button[data-name="correcaoia"]{
+.page[data-name="correcaoia"] button{
   background-color: #007acc;
   color: white;
   border: none;
@@ -182,8 +210,8 @@ button[data-name="correcaoia"]{
 .message.bot .bubble {
   margin-left: 0;
   margin-right: 0;
-  background-color: #e0e0e0;
-  color: #000;
+  background-color: var(--color-bg-sidebar);
+  color: var(--color-text-primary);
   border-top-left-radius: 0;
   text-align: left;
 }
@@ -200,8 +228,8 @@ button[data-name="correcaoia"]{
 }
 
 .bot .bubble {
-  background-color: #e0e0e0;
-  color: #000;
+  background-color: var(--color-bg-sidebar);
+  color: var(--color-text-primary);
   border-top-left-radius: 0;
   margin-left: 0;
 }

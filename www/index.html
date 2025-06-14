@@ -10,6 +10,10 @@
     <!-- Color theme for statusbar (Android only) -->
     <meta name="theme-color" content="#2196f3">
 
+    <!-- Link Google Fonts para icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
     <!--Para quando compartilhar-->
     <meta property="og:title"       content="RedatorPro – Seu app de corretores de redação" />
     <meta property="og:description" content="Conheça os melhores corretores para suas redações!" />
@@ -36,6 +40,9 @@
     <link rel="stylesheet" href="css/iacorretor.css">
     <link rel="stylesheet" href="css/correcaoia.css">
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/page404.css">
+
+    <link rel="stylesheet" href="../html/siderbar/siderbar.css">
 
     <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
@@ -46,108 +53,85 @@
 
 <body>
 
-    <nav id="sidebar">
-        <div id="sidebar_content">
-            <div id="user">
-                <img src="../imagens/Ryo-Yamada.jpeg" id="user_avatar" alt="Avatar">
-    
-                <p id="user_infos">
-                    <span id="user.name" class="item-description">
-                        Ryo Yamada
-                    </span>
-                    <span id="user.email" class="item-description">
-                        @kisoku-band
-                    </span>
-                </p>
-            </div>
-    
-            <ul id="side_items">
-                <li class="side-item active">
-                    <a href="/index/">
-                        <i class="fa-solid fa-house-chimney"></i>
-                        <span class="description">Início</span>
-                        <span class="item-description">
-                            Início
-                        </span>
-                    </a>
-                </li>
-    
-                <li class="side-item">
-                    <a href="/link2/">
-                        <i class="fa-solid fa-users"></i>
-                        <span class="description">Corretores</span>
-                        <span class="item-description">
-                            Corretores
-                        </span>
-                    </a>
-                </li>
-    
-                <li class="side-item">
-                    <a href="/favoritos/">
-                        <i class="fa-solid fa-heart"></i>
-                        <span class="description">Favoritos</span>
-                        <span class="item-description">
-                            Favoritos
-                        </span>
+    <aside class="sidebar collapsed">
+        <!-- Siderbar Header -->
+        <header class="sidebar-header">
+            <img src="img/ellen.png" alt="imagem-logo" class="header-logo" >
+            <button class="sidebar-toggle">
+                <span class="material-symbols-outlined">
+                    chevron_left
+                </span>
+            </button>
+        </header>
+
+        <div class="sidebar-content">
+            <!-- Busca -->
+            <from action="#" class="search-form">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+                <input type="search" placeholder="Search..." required ></input>
+            </from>
+
+            <!-- Menu List-->
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="/index/" class="menu-link active">
+                        <span class="material-symbols-outlined">home_app_logo</span>
+                        <span class="menu-label">Início</span>
                     </a>
                 </li>
 
-                <li class="side-item">
-                    <a href="/iacorretor/">
-                        <i class="fa-solid fa-robot"></i>
-                        <span class="description">ChatBot</span>
-                        <span class="item-description">
-                            ChatBot
-                        </span>
-                    </a>
-                </li>
-    
-                <li class="side-item">
-                    <a href="/profile/">
-                        <i class="fa-solid fa-address-book"></i>
-                        <span class="description">Perfil</span>
-                        <span class="item-description">
-                            Meu perfil
-                        </span>
+                <li class="menu-item">
+                    <a href="/link2/" class="menu-link">
+                        <span class="material-symbols-outlined">group</span>
+                        <span class="menu-label">Corretores</span>
                     </a>
                 </li>
 
-                <li class="side-item">
-                    <a href="/redacoes/">
-                        <i class="ri-folder-3-fill"></i>
-                        <span class="description">Redações</span>
-                        <span class="item-description">
-                            Minhas redações
-                        </span>
+                <li class="menu-item">
+                    <a href="/iacorretor/" class="menu-link">
+                        <span class="material-symbols-outlined">automation</span>
+                        <span class="menu-label">IA Corretor</span>
                     </a>
                 </li>
-    
-                <li class="side-item">
-                    <a href="/functions/">
-                        <i class="fa-solid fa-gear"></i>
-                        <span class="description">Config</span>
-                        <span class="item-description">
-                            Configurações
-                        </span>
+
+                <li class="menu-item">
+                    <a href="/redacoes/" class="menu-link">
+                        <span class="material-symbols-outlined">home_storage</span>
+                        <span class="menu-label">Redações</span>
                     </a>
                 </li>
+
+                <li class="menu-item">
+                    <a href="/favoritos/" class="menu-link">
+                        <span class="material-symbols-outlined">digital_wellbeing</span>
+                        <span class="menu-label">Favoritos</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="/page404/" class="menu-link">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <span class="menu-label">Seu perfil</span>
+                    </a>
+                </li>
+
             </ul>
-    
-            <button id="open_btn">
-                <i id="open_btn_icon" class="fa-solid fa-chevron-right"></i>
-            </button>
         </div>
 
-        <!--
-        <div id="logout">
-            <button id="logout_btn">
-              <i class="fa-solid fa-right-from-bracket"></i>
-              <span class="item-description">Logout</span>
+        <div class="sidebar-footer">
+            <button class="theme-toggle">
+                <div class="theme-label">
+                    <span class="material-symbols-outlined theme-icon">dark_mode</span>
+                    <span class="theme-text">Dark Mode</span>
+                </div>
+                <div class="theme-toggle-track">
+                    <div class="theme-toggle-indicator"></div>
+                </div>
             </button>
         </div>
-        -->
-          
-    </nav>
+    </aside>
 
     <main class="principal">
         <div id="app">
@@ -183,14 +167,14 @@
     
                     <!-- NAV TOPO -->
                     <div class="top-nav">
-                        <h1 class="title-logo"><span>Redator</span>Pro</h1>
+                        <h1 class="title-logo"><span>Redator</span><span class="pro">Pro</span></h1>
                         <a href="#" class="btn-cart" data-count="0">
                             <i class="ri-notification-3-line"></i>
                         </a>
                     </div>
     
                     <form>
-                        <input placeholder="O que voçê procura?" type="text">
+                        <input placeholder="O que você procura?" type="text">
                         <i class="icone-busca ri-search-2-line"></i>
                     </form>
     
@@ -235,7 +219,7 @@
                                     <!-- Navbar do painel -->
                                     <div class="navbar">
                                     <div class="navbar-inner">
-                                        <div class="title">Menu Lateral</div>
+                                        <div class="title"><span class="texto-colorido">Funções</span></div>
                                         <div class="right">
                                         <!--<a href="#" class="panel-close">
                                             <i class="fa-solid fa-xmark"></i>
@@ -248,8 +232,8 @@
                                     <div class="list list-custom">
                                         <ul>
                                         <li>
-                                            <a href="/repertorios/" class="item-link item-content panel-close">
-                                            Repertórios
+                                            <a href="/page404/" class="item-link item-content panel-close">
+                                                Repertórios
                                             </a>
                                         </li>
                                         <li>
@@ -263,7 +247,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="/functions/" class="item-link item-content panel-close">
+                                            <a href="/page404/" class="item-link item-content panel-close">
                                             Configurações
                                             </a>
                                         </li>
@@ -348,7 +332,7 @@
                                         </div>
                                         <div class="nome-rating">
                                             <span style="width: 90px;"
-                                                class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                                class="skeleton-block color-shadow skeleton-effect-wave"></span>
                                         </div>
                                     </a>
                                 </div>
@@ -361,7 +345,7 @@
                                         </div>
                                         <div class="nome-rating">
                                             <span style="width: 90px;"
-                                                class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                                class="skeleton-block color-shadow skeleton-effect-wave"></span>
                                         </div>
                                     </a>
                                 </div>
@@ -375,11 +359,11 @@
                                         <div class="nome-rating">
     
                                             <span style="width: 90px; margin-right: auto;"
-                                                class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                                class="skeleton-block color-shadow skeleton-effect-wave"></span>
                                             <span style="width: 50px; margin-right: 5px;"
-                                                class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                                class="skeleton-block color-shadow skeleton-effect-wave"></span>
                                             <span style="width: 20px; margin-right: 15px;"
-                                                class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                                class="skeleton-block color-shadow skeleton-effect-wave"></span>
                                             
                                         </div>
                                     </a>
@@ -393,7 +377,7 @@
                                         </div>
                                         <div class="nome-rating">
                                             <span style="width: 90px;"
-                                                class="skeleton-block color-gelo skeleton-effect-wave"></span>
+                                                class="skeleton-block color-shadow skeleton-effect-wave"></span>
                                         </div>
                                     </a>
                                 </div>
@@ -453,6 +437,7 @@
     <script src="cordova.js"></script>
     <script src="../js/login-users.js"></script>
     <script src="../js/menu-lateral.js"></script>
+    <script src="../html/siderbar/siderbar.js"></script>
 
 </body>
 

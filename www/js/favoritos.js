@@ -54,8 +54,8 @@ function listaVazia(){
     //MOSTRAR SACOLINHA VAZIA
     $("#listaFavoritos").html(`
         <div class="text-align-center">
-            <img style="max-width: 100%; height: auto;" src="img/empty.gif">
-            <br><span class="color-gray">Ninguém por enquanto...</span>
+            <img style="max-width: 100%; height: auto;" src="img/nailan.png">
+            <br><span class="texto-colorido">Ninguém por enquanto...</span>
         </div>
     `);
 }

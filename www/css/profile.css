@@ -1,6 +1,20 @@
+:root {
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+
+}
+
+
 /* Estilo para o título arredondado na navbar */
 .navbar .title-rounded {
-    background-color: #ffffff;
+    background-color: var(--color-bg-primary);
     color: #3498db;
     padding: 5px 20px;
     border-radius: 20px;
@@ -9,7 +23,7 @@
 }
 
 .navbar-bg {
-    background: rgba(255, 255, 255, 0.82); /* ajuste a opacidade conforme necessário */
+    background: var(--color-bg-primary); /* ajuste a opacidade conforme necessário */
     backdrop-filter: blur(10px); /* ajuste o valor para mais ou menos blur */
     -webkit-backdrop-filter: blur(10px); /* para compatibilidade com Safari */
 }
@@ -158,16 +172,20 @@
     font-size: 18px;
     font-weight: 600;
     margin: 25px 0 15px;
-    color: #2c3e50;
+    color: var(--color-text-placeholder);
     padding-left: 10px;
 }
 
 .profile-card {
-    background: white;
+    background: var(--color-bg-sidebar);
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.profile-card p {
+    color: var(--color-text-placeholder);
 }
 
 /* Estilos para as áreas de interesse */
@@ -178,9 +196,9 @@
 }
 
 .interest {
-    background-color: #e3f2fd;
+    background-color: var(--color-bg-secondary);
     padding: 7px 15px;
     border-radius: 20px;
     font-size: 14px;
-    color: #3498db;
+    color: var(--color-text-placeholder);
 }

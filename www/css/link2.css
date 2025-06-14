@@ -7,13 +7,23 @@
     --azul: #2196f3;
     --darkazul: #13293D;
     --preto: #2a2a2a;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
 }
 
 /* Estilos da barra de pesquisa */
 form {
     padding-top: 10px;
     padding-bottom: 20px;
-    background: var(--branco);
+    background: var(--color-bg-primary);
     position: relative;
 }
   
@@ -23,11 +33,10 @@ input[type="text"] {
     border-radius: 10px;
     margin: auto;
     padding: 10px 20px;
-    background: var(--gelo);
 }
   
 ::placeholder {
-    color: #B3AFAF;
+    color: var(--color-text-placeholder);
 }
   
 .icone-busca {
@@ -42,11 +51,11 @@ input[type="text"] {
     display: flex;
     justify-content: center; /* Centraliza os botões */
     gap: 10px; /* Espaçamento entre os botões */
-    margin: 10px 0;
     padding-top: 15px;
+    /*border-radius: 0px 0px 10px 10px;*/
     padding-bottom: 25px !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    border-radius: 35px;
+    background: var(--color-bg-primary);
 }
 
 .filter-buttons button {
@@ -78,7 +87,7 @@ input[type="text"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f7f7f7;
+    background-color: var(--color-bg-sidebar);
     border-radius: 14px;
     padding: 1rem;
 }
@@ -87,7 +96,7 @@ input[type="text"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f7f7f7;
+    background-color: var(--color-bg-sidebar);
     border-radius: 8px;
     padding: 1rem;
 }
@@ -110,11 +119,15 @@ input[type="text"] {
     height: 80px;
     border-radius: 50%;
     margin-right: 1rem;
-    background: var(--gelo);
+    background: var(--color-bg-secondary);
 }
 
 .color-gelo {
     background: var(--gelo) !important;
+}
+
+.color-shadow {
+    background: var(--color-bg-secondary) !important;
 }
   
 .person-details {
@@ -145,6 +158,10 @@ input[type="text"] {
 
 .item:last-child {
     padding-bottom: 220px;
+}
+
+.rating-score, .person-name {
+    color: var(--color-text-primary);
 }
 
 /* Responsividade

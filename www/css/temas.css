@@ -1,23 +1,50 @@
+:root {
+    --branco: #ffff;
+    --gelo: #f1f1f1;
+    --azulclaro: #DFF1FF;
+    --azulgelo: #93B4D7;
+    /*--azul: #006494;*/
+    --azul: #2196f3;
+    --darkazul: #13293D;
+    --preto: #2a2a2a;
+    --cinza: #cbcbcb;
+    --vermelho: #ef4d4d;
+    --verde: #19c463;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+}
+
 .page[data-name="temas"] {
   font-family: Arial, sans-serif, sans-serif;
   margin: 0;
   display: flex;
   height: 100vh;
   overflow: auto; /* Permite rolagem */
+  background: var(--color-bg-primary);
 }
 
 
 .menu-lateral {
   width: 20%;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  background-color: #f4f4f4;
+  background-color: var(--color-bg-sidebar);
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .menu-lateral a {
   display: block;
-  color: #333;
+  color: var(--color-text-primary);
   text-decoration: none;
   margin-bottom: 10px;
   padding: 10px;
@@ -25,17 +52,17 @@
 }
 
 .menu-lateral a:hover {
-  background-color: #ddd;
+  background-color: var(--color-hover-secondary);
 }
 
 .conteudo {
   flex: 1;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: var(--color-bg-primary);
 }
 
 .card {
-  background-color: white;
+  background-color: var(--color-bg-sidebar);
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -51,11 +78,12 @@
 .card h2 {
   font-size: 18px;
   margin: 10px 0;
+  color: var(--color-text-primary);
 }
 
 .card p {
   font-size: 14px;
-  color: #555;
+  color: var(--color-text-primary);
 }
 
 .card button {
@@ -73,7 +101,7 @@
 
 .menu-direito {
   width: 20%;
-  background-color: rgba(238, 243, 243, 0.533);
+  background-color: var(--color-bg-sidebar);
   padding: 20px;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -81,7 +109,7 @@
 .menu-direito a {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   display: block;
-  color: #333;
+  color: var(--color-text-primary);
   text-decoration: none;
   margin-bottom: 10px;
   padding: 10px;
@@ -89,7 +117,7 @@
 }
 
 .menu-direito a:hover {
-  background-color: #f2f5f5;
+  background-color: var(--color-hover-secondary);
 }
 
 .dropdown {
@@ -104,5 +132,5 @@
 }
 
 .dropdown a:hover {
-  background-color: #f8fcfb;
+  background-color: var(--color-hover-secondary);
 }

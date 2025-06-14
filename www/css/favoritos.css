@@ -10,6 +10,32 @@
     --cinza: #cbcbcb;
     --vermelho: #ef4d4d;
     --verde: #19c463;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+
+    /* CORES PRINCIPAIS DO POPOVER (DARK THEME) */
+    --f7-popover-bg-color: #1f2937;          /* Cor de fundo */
+    --f7-popover-text-color: #e5e7eb;       /* Cor do texto */
+    --f7-popover-border-radius: 12px;       /* Borda arredondada */
+
+    /* CORES DOS BOTÕES */
+    /* --f7-popover-button-hover-bg-color: rgba(255, 255, 255, 0.05);  Efeito hover */
+    /* --f7-popover-button-pressed-bg-color: rgba(255, 255, 255, 0.1);  Efeito clique */
+
+    /* SETA DO POPOVER (ANGLE) */
+    /* --f7-popover-angle-bg-color: #1f2937;  Cor do triângulo */
+}
+
+.popover-menu .list-button {
+    color: #e5e7eb !important;
 }
 
 .nav-top.favority {
@@ -17,7 +43,7 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--branco);
+    background-color: var(--color-bg-primary);
     padding: 10px 0;
 }
 
@@ -27,9 +53,14 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    border: 1px solid var(--gelo);
+    border: 1px solid var(--color-bg-secondary);
+    background: var(--color-bg-secondary);
     border-radius: 50%;
-    color: var(--preto);
+    color: var(--color-text-primary);
+}
+
+.coracaozinho {
+    color: var(--vermelho);
 }
 
 .nav-top.favority a:first-child {
@@ -55,7 +86,7 @@
     padding: 10px 0px;
     /*background-color: blue;*/
     margin: auto;
-    border-bottom: 1px solid var(--gelo);
+    border-bottom: 1px solid var(--color-bg-secondary);
 }
 
 .area-img {
@@ -64,7 +95,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gelo);
+    background: var(--color-border-hr);
     border-radius: 20px;
     overflow: hidden; /* Evita overflow */
 }
@@ -100,11 +131,12 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--color-text-primary);
 }
 
 .delete {
     font-size: 18px;
-    color: #9e9e9e;
+    color: var(--color-text-primary);
     margin-right: 10px;
 }
 

@@ -1,0 +1,113 @@
+:root {
+    --branco: #ffff;
+    --gelo: #f1f1f1;
+    --azulclaro: #DFF1FF;
+    --azulgelo: #93B4D7;
+    /*--azul: #006494;*/
+    --azul: #2196f3;
+    --darkazul: #13293D;
+    --preto: #2a2a2a;
+    --cinza: #cbcbcb;
+    --vermelho: #ef4d4d;
+    --verde: #19c463;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    --color-azul-claro: #f0f8ff;
+    --color-azul-calro-medio: #add8e6;
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+}
+
+
+/* Estilos para página 404 */
+.page404-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    background: var(--color-bg-primary);
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.error-icon {
+    font-size: 4rem;
+    color: #2196f3;
+    margin-bottom: 20px;
+}
+
+.error-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    color: var(--color-text-placeholder);
+}
+
+.error-text {
+    font-size: 1rem;
+    color: #666;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.back-home {
+    padding: 0 25px;
+    height: 44px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px var(--color-shadow);
+    transition: all 0.3s ease;
+}
+
+.back-home .mdi {
+    font-size: 1.2rem;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .error-code {
+        font-size: 6rem;
+    }
+    
+    .error-icon {
+        font-size: 3rem;
+    }
+    
+    .error-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-code {
+        font-size: 4rem;
+    }
+    
+    .error-title {
+        font-size: 1.3rem;
+    }
+    
+    .error-text {
+        font-size: 0.9rem;
+    }
+}

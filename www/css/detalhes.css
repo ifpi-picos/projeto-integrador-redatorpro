@@ -1,4 +1,4 @@
-:root{
+:root {
     --branco: #ffff;
     --gelo: #f1f1f1;
     --azulclaro: #DFF1FF;
@@ -10,6 +10,20 @@
     --cinza: #cbcbcb;
     --vermelho: #ef4d4d;
     --verde: #19c463;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    --color-azul-claro: #f0f8ff;
+    --color-azul-calro-medio: #add8e6;
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
 }
 
 /* Efeito visual para o botão de compartilhar */
@@ -27,7 +41,7 @@
 }
 
 .corretor-detail {
-    background: var(--gelo);
+    background: var(--color-azul-claro);
     width: 100%;
     height: 450px;
     display: flex;
@@ -54,13 +68,13 @@
 .buttons-top a{
     width: 40px;
     height: 40px;
-    background-color: var(--branco);
+    background-color: var(--color-bg-secondary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--preto);
-    border: 1px solid var(--gelo);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-hr);
     font-size: 18px;
 }
 
@@ -76,7 +90,7 @@
 
 .corretor-content {
     margin-top: -50px;
-    background: var(--branco);
+    background: var(--color-bg-primary);
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     position: relative;

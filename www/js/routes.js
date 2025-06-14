@@ -20,9 +20,9 @@ var app = new Framework7({
     {
       path: '/index/',
       url: 'index.html',
-      options: {
-        transition: 'f7-dive',
-      },
+      //options: {
+        //transition: 'f7-dive',
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // fazer algo antes da página ser exibida
@@ -110,13 +110,13 @@ var app = new Framework7({
     {
       path: '/link2/',
       url: 'link2.html',
-      options: {
-        transition: 'f7-dive',
-      },
+      //options: {
+        //transition: 'f7-dive',
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // fazer algo antes da página ser exibida
-          $("#menuPrincipal").show("fast");
+          //$("#menuPrincipal").show("fast");
         },
         pageAfterIn: function (event, page) {
           // fazer algo depois da página ser exibida
@@ -190,9 +190,9 @@ var app = new Framework7({
       path: '/favoritos/',
       url: 'favoritos.html',
       animate: false,
-      options: {
-        transition: 'f7-dive',
-      },
+      //options: {
+        //transition: 'f7-dive',
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // fazer algo antes da página ser exibida
@@ -214,9 +214,9 @@ var app = new Framework7({
       path: '/redacoes/', // Caminho para a página de login
       url: 'redacoes.html',
       animate: false,
-      options: {
-        transition: 'f7-dive', // Transição da página
-      },
+      //options: {
+        //transition: 'f7-dive', // Transição da página
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // Fazer algo antes de a página de login ser exibida
@@ -269,9 +269,9 @@ var app = new Framework7({
       path: '/folha/', // Caminho para a página de login
       url: 'Folha.html',
       animate: false,
-      options: {
-        transition: 'f7-dive', // Transição da página
-      },
+      //options: {
+        //transition: 'f7-dive', // Transição da página
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // Fazer algo antes de a página de login ser exibida
@@ -297,9 +297,9 @@ var app = new Framework7({
       path: '/temas/', // Caminho para a página de login
       url: 'temas.html',
       animate: false,
-      options: {
-        transition: 'f7-dive', // Transição da página
-      },
+      //options: {
+        //transition: 'f7-dive', // Transição da página
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // Fazer algo antes de a página de login ser exibida
@@ -347,9 +347,9 @@ var app = new Framework7({
       path: '/iacorretor/',
       url: 'iacorretor.html',
       animate: false,
-      options: {
-        transition: 'f7-dive',
-      },
+      //options: {
+        //transition: 'f7-dive',
+      //},
       on: {
         pageInit: function (event, page) {
           $.getScript('js/iacorretor.js')
@@ -368,9 +368,9 @@ var app = new Framework7({
       path: '/correcaoia/',
       url: 'correcaoia.html',
       animate: false,
-      options: {
-        transition: 'f7-dive',
-      },
+      //options: {
+        //transition: 'f7-dive',
+      //},
       on: {
         // Troque pageInit por pageAfterIn
         pageAfterIn: function (event, page) {
@@ -411,9 +411,9 @@ var app = new Framework7({
       path: '/banco/', // Caminho para a página de login
       url: 'banco.html',
       animate: false,
-      options: {
-        transition: 'f7-dive', // Transição da página
-      },
+      //options: {
+        //transition: 'f7-dive', // Transição da página
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // Fazer algo antes de a página de login ser exibida
@@ -536,9 +536,9 @@ var app = new Framework7({
       path: '/detalhes/',
       url: 'detalhes.html',
       animate: false,
-      options: {
-        transition: 'f7-dive',
-      },
+      //options: {
+        //transition: 'f7-dive',
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // fazer algo antes da página ser exibida
@@ -560,13 +560,37 @@ var app = new Framework7({
       path: '/profile/',
       url: 'profile.html',
       animate: false,
-      options: {
-        transition: 'f7-dive',
-      },
+      //options: {
+        //transition: 'f7-dive',
+      //},
       on: {
         pageBeforeIn: function (event, page) {
           // fazer algo antes da página ser exibida
-          $("#menuPrincipal").hide("fast");
+          //$("#menuPrincipal").hide("fast");
+        },
+        pageAfterIn: function (event, page) {
+          // fazer algo depois da página ser exibida
+        },
+        pageInit: function (event, page) {
+          // fazer algo quando a página for inicializada
+          //$.getScript('js/detalhes.js');
+        },
+        pageBeforeRemove: function (event, page) {
+          // fazer algo antes da página ser removida do DOM
+        },
+      }
+    },
+    {
+      path: '/page404/',
+      url: 'page404.html',
+      animate: false,
+      //options: {
+        //transition: 'f7-dive',
+      //},
+      on: {
+        pageBeforeIn: function (event, page) {
+          // fazer algo antes da página ser exibida
+          //$("#menuPrincipal").hide("fast");
         },
         pageAfterIn: function (event, page) {
           // fazer algo depois da página ser exibida

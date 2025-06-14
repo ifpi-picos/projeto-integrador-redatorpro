@@ -10,13 +10,45 @@
     --cinza: #cbcbcb;
     --vermelho: #ef4d4d;
     --verde: #19c463;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+.texto-colorido {
+    color: var(--color-text-primary)
+}
+
+/*@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,500&display=swap');
 
 body{
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Poppins", sans-serif;
+    background: var(--azul);
 }
+
+.dialog {
+    background-color: var(--color-bg-sidebar) !important;
+    color: var(--color-text-placeholder) !important;
+}
+
+.dialog-title {
+    color: var(--color-text-primary);
+}
+
+.dialog-button {
+    color: var(--azul) !important; /* Cinza claro */
+}
+
 
 .page[data-name="index"]{
     overflow-y: hidden !important;
@@ -34,6 +66,20 @@ body{
     z-index: 1;
 }
 
+/* Para mensagens na lista */
+.text-color-red {
+  color: var(--f7-color-red);
+}
+
+.text-color-gray {
+  color: var(--f7-color-gray);
+}
+
+/* Toast customizado */
+.toast.color-red .toast-content {
+  background: var(--f7-color-red);
+}
+
 
 .toolbar{
     height: 80px;
@@ -46,8 +92,8 @@ body{
 }
 
 .toolbar-inner {
-    background: var(--branco);
-    border-top: 1px solid var(--gelo);
+    background: var(--color-bg-sidebar);
+    border-top: 1px solid var(--color-bg-secondary);
 }
 
 .toolbar-inner .link{    
@@ -59,7 +105,7 @@ body{
 }
 
 .toolbar-inner .link:not(.active){
-    color: var(--preto);
+    color: var(--color-text-placeholder);
 	font-weight:normal;
 }
 
@@ -70,7 +116,7 @@ body{
 .top-nav{
     width: 100%;
     height: 60px;
-    background: var(--branco);
+    background: var(--color-bg-primary);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -85,18 +131,22 @@ body{
     color: var(--azul);
 }
 
+.title-logo .pro {
+    color: var(--color-text-primary);
+}
+
 .btn-cart {
     width: 40px;
     height: 40px;
-    background: var(--branco);
+    background: var(--color-bg-secondary) !important;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 6.5%;
     border-radius: 50%;
-    border: 1px solid var(--gelo);
+    border: 1px solid var(--color-border-hr);
     font-size: 24px;
-    color: var(--preto);
+    color: var(--color-text-primary) !important;
 }
 
 .btn-cart::before{
@@ -133,7 +183,7 @@ a {
 form {
     padding-top: 10px;
     padding-bottom: 20px;
-    background: var(--branco);
+    background: var(--color-bg-primary) !important;
     position: relative;
 }
 
@@ -143,11 +193,12 @@ input[type="text"] {
     border-radius: 10px;
     margin: auto;
     padding: 10px 20px;
-    background: var(--gelo);
+    background: var(--color-bg-secondary) !important;
+    color: var(--color-text-placeholder);
 }
 
 ::placeholder {
-    color: #B3AFAF;
+    color: var(--color-text-placeholder) !important;
 }
 
 .icone-busca {
@@ -156,10 +207,11 @@ input[type="text"] {
     right: 5%;
     font-size: 27px;
     padding: 13px;
+    color: var(--color-text-placeholder);
 }
 
 .page-content {
-    background: var(--branco);
+    background: var(--color-bg-primary);
 }
 
 .swiper {
@@ -170,7 +222,7 @@ input[type="text"] {
 .swiper-slide {
     text-align: center;
     font-size: 18px;
-    background: #fff;
+    background: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -242,7 +294,7 @@ input[type="text"] {
     width: 100%;
     height: 180px;
     border-radius: 10px;
-    background: var(--azulclaro);
+    background: var(--color-bg-sidebar);
 }
 
 .img-skeleton {
@@ -252,13 +304,17 @@ input[type="text"] {
     width: 100%;
     height: 180px;
     border-radius: 10px;
-    background: var(--gelo);
+    background: var(--color-bg-secondary);
 }
 
 
 .img-container img {
     max-width: 150px;
     object-fit: cover;
+}
+
+.h2-left {
+    color: var(--color-text-primary);
 }
 
 .nome-rating {
@@ -293,6 +349,10 @@ input[type="text"] {
     margin-left: 10px;
 }
 
+.item-link {
+    color: var(--color-text-primary) !important;
+}
+
 @media (min-width: 992px) {
     .item-card {
         flex: 30%;
@@ -309,6 +369,11 @@ input[type="text"] {
     color: orange;
 }
 
+.ri-lock-star-fill {
+    padding-left: 5px;
+    color: var(--color-text-primary);
+}
+
 /* Estilos padrões (desktop) */
 #sidebar {
   display: block !important;
@@ -320,7 +385,9 @@ input[type="text"] {
 
 /* Para telas de celular (até 768px) */
 @media (max-width: 768px) {
-  #sidebar {
+
+
+  #sidebar, .sidebar {
     display: none !important;
   }
   .filter-button .geral{
@@ -363,10 +430,10 @@ input[type="text"] {
     }
 
     .top-nav {
-      margin-top: 20px;
+      padding: 40px 0px 40px 0px;
     }
 
-    from {
+    form {
       padding-right: 20px;
     }
 

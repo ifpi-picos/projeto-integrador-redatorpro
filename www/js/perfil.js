@@ -1,14 +1,28 @@
 // Função utilitária para obter token JWT salvo (ajuste conforme seu app)
 function getToken() {
-    return localStorage.getItem('token');
+    // Busca o token dentro do objeto loggedUser
+    let token = null;
+    try {
+        const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
+        token = loggedUser && loggedUser.token ? loggedUser.token : null;
+    } catch (e) {
+        token = null;
+    }
+    console.log('[getToken] Token recuperado:', token);
+    return token;
 }
 
 function carregarPerfil() {
     console.log('[carregarPerfil] Iniciando carregamento do perfil...');
+    const token = getToken();
+    if (!token) {
+        alert('Você não está logado. Faça login novamente.');
+        return;
+    }
     $.ajax({
         url: 'https://express-e3hm.onrender.com/perfil',
         method: 'GET',
-        headers: { Authorization: 'Bearer ' + getToken() },
+        headers: { Authorization: 'Bearer ' + token },
         success: function(data) {
             console.log('[carregarPerfil] Dados recebidos:', data);
             if (data && data.name) {

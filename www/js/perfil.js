@@ -73,9 +73,10 @@ $('#editProfileBtn').on('click', function(e) {
         $('#profileAvatar').css('cursor', 'pointer');
         $('#descricaoPerfil').hide();
         $('#descricaoInput').val($('#descricaoPerfil').text()).show().focus();
-        // Instagram editável
         $('#instagramSpan').hide();
         $('#instagramInput').show().focus();
+        // Mostra o ícone de câmera
+        $('#cameraIcon').show();
     } else {
         // Salvar edição
         editando = false;
@@ -85,13 +86,24 @@ $('#editProfileBtn').on('click', function(e) {
         $('#descricaoInput').hide();
         $('#instagramSpan').show();
         $('#instagramInput').hide();
+        // Esconde o ícone de câmera
+        $('#cameraIcon').hide();
         salvarPerfil();
     }
 });
 
-// Selecionar nova foto
-$('#profileAvatar').on('click', function() {
-    if (editando) $('#fotoPerfilInput').click();
+// Ícone de câmera abre o seletor de arquivo
+$('#cameraIcon').on('click', function(e) {
+    e.preventDefault();
+    $('#fotoPerfilInput').click();
+});
+
+// Selecionar nova foto (mantém funcionalidade anterior)
+$('#profileAvatar').on('click', function(e) {
+    if (editando && !$(e.target).is('#cameraIcon, #fotoPerfilInput')) {
+        // Só abre o seletor se clicar fora do ícone de câmera
+        $('#fotoPerfilInput').click();
+    }
 });
 $('#fotoPerfilInput').on('change', function(e) {
     const file = e.target.files[0];

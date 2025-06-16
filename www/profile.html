@@ -46,9 +46,13 @@
                                 <i class="ri-pencil-fill"></i>
                             </a>
                             <!-- Avatar do usuário -->
-                            <div class="profile-avatar" id="profileAvatar">
+                            <div class="profile-avatar" id="profileAvatar" style="position:relative;">
                                 <img src="img/ellen.png" alt="Foto do usuário" id="profileImg">
                                 <input type="file" id="fotoPerfilInput" style="display:none" accept="image/*">
+                                <!-- Ícone de câmera, inicialmente oculto -->
+                                <span id="cameraIcon" style="display:none; position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.6); border-radius:50%; padding:7px; cursor:pointer;">
+                                    <i class="f7-icons" style="color:white; font-size:20px;">camera_fill</i>
+                                </span>
                             </div>
                             <!-- Nome do usuário -->
                             <h1 class="profile-name" id="profileName">Carregando...</h1>

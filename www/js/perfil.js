@@ -27,30 +27,24 @@ function carregarPerfil() {
             console.log('[carregarPerfil] Dados recebidos:', data);
             if (data && data.name) {
                 $('#profileName').text(data.name);
-                // Atualiza o botão do Instagram para abrir o link do usuário
-                if (data.instagram) {
-                    $('.social-btn')
-                        .attr('href', 'https://instagram.com/' + data.instagram)
-                        .attr('target', '_blank')
-                        .show();
-                } else {
-                    $('.social-btn')
-                        .attr('href', '#')
-                        .removeAttr('target')
-                        .hide();
-                }
+                $('#profileTipo').text(data.tipo ? (data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1)) : '');
+                $('#totalRedacoes').text(data.totalRedacoes !== undefined ? data.totalRedacoes : '0');
+                $('#ultimaNota').text(data.ultimaNota !== null && data.ultimaNota !== undefined ? data.ultimaNota : '-');
+                if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
+                // Instagram
+                $('#instagramSpan').text(data.instagram ? '@' + data.instagram : 'Adicionar Instagram');
+                $('#instagramInput').val(data.instagram || '');
+                // Atualiza o botão do Instagram
+                $('.social-btn')
+                    .attr('href', data.instagram ? 'https://instagram.com/' + data.instagram : '#')
+                    .attr('target', data.instagram ? '_blank' : '')
+                    .toggleClass('disabled', !data.instagram);
+                $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
+                $('#descricaoInput').val(data.descricao || '');
             } else {
                 $('#profileName').text('Nome não encontrado');
                 $('.social-btn').hide();
             }
-            $('#profileTipo').text(data.tipo ? (data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1)) : '');
-            $('#totalRedacoes').text(data.totalRedacoes !== undefined ? data.totalRedacoes : '0');
-            $('#ultimaNota').text(data.ultimaNota !== null && data.ultimaNota !== undefined ? data.ultimaNota : '-');
-            if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
-            // Mostra o nome do usuário do app no lugar do Instagram
-            $('#instagramSpan').text(data.name || '');
-            $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
-            $('#descricaoInput').val(data.descricao || '');
         },
         error: function(xhr) {
             console.error('[carregarPerfil] Erro ao carregar perfil:', xhr);
@@ -59,7 +53,7 @@ function carregarPerfil() {
             $('#totalRedacoes').text('0');
             $('#ultimaNota').text('-');
             $('#descricaoPerfil').text('Clique no lápis para editar sua descrição.');
-            $('.social-btn').hide();
+            $('.social-btn').addClass('disabled').attr('href', '#');
             $('#instagramSpan').text('');
             if (xhr.status === 401) {
                 alert('Sua sessão expirou. Faça login novamente.');
@@ -79,7 +73,9 @@ $('#editProfileBtn').on('click', function(e) {
         $('#profileAvatar').css('cursor', 'pointer');
         $('#descricaoPerfil').hide();
         $('#descricaoInput').val($('#descricaoPerfil').text()).show().focus();
-        // Permitir edição do nome
+        // Instagram editável
+        $('#instagramSpan').hide();
+        $('#instagramInput').show().focus();
     } else {
         // Salvar edição
         editando = false;
@@ -87,6 +83,8 @@ $('#editProfileBtn').on('click', function(e) {
         $('#profileAvatar').css('cursor', 'default');
         $('#descricaoPerfil').show();
         $('#descricaoInput').hide();
+        $('#instagramSpan').show();
+        $('#instagramInput').hide();
         salvarPerfil();
     }
 });
@@ -109,15 +107,14 @@ $('#fotoPerfilInput').on('change', function(e) {
 function salvarPerfil() {
     const formData = new FormData();
     formData.append('name', $('#profileName').text());
-    // Instagram não é mais editável aqui, mas pode ser mantido se quiser permitir edição futura
-    // formData.append('instagram', $('#instagramInput').val());
+    formData.append('instagram', $('#instagramInput').val());
     formData.append('descricao', $('#descricaoInput').val());
     const file = $('#fotoPerfilInput')[0].files[0];
     if (file) formData.append('fotoPerfil', file);
 
     console.log('[salvarPerfil] Enviando dados:', {
         name: $('#profileName').text(),
-        // instagram: $('#instagramInput').val(),
+        instagram: $('#instagramInput').val(),
         descricao: $('#descricaoInput').val(),
         file: file ? file.name : null
     });
@@ -132,21 +129,15 @@ function salvarPerfil() {
         success: function(data) {
             console.log('[salvarPerfil] Perfil atualizado:', data);
             $('#profileName').text(data.name);
-            $('#instagramSpan').text(data.name || '');
+            $('#instagramSpan').text(data.instagram ? '@' + data.instagram : 'Adicionar Instagram');
+            $('#instagramInput').val(data.instagram || '');
             if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
             $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
             // Atualiza o botão do Instagram
-            if (data.instagram) {
-                $('.social-btn')
-                    .attr('href', 'https://instagram.com/' + data.instagram)
-                    .attr('target', '_blank')
-                    .show();
-            } else {
-                $('.social-btn')
-                    .attr('href', '#')
-                    .removeAttr('target')
-                    .hide();
-            }
+            $('.social-btn')
+                .attr('href', data.instagram ? 'https://instagram.com/' + data.instagram : '#')
+                .attr('target', data.instagram ? '_blank' : '')
+                .toggleClass('disabled', !data.instagram);
             alert('Perfil atualizado!');
         },
         error: function(xhr) {
@@ -158,4 +149,8 @@ function salvarPerfil() {
 
 $(document).ready(function() {
     carregarPerfil();
+    // Atualiza o texto do span ao sair do input
+    $('#instagramInput').on('blur', function() {
+        $('#instagramSpan').text($(this).val() ? '@' + $(this).val() : 'Adicionar Instagram');
+    });
 });

@@ -258,10 +258,10 @@ var app = new Framework7({
           // Fazer algo depois de a página de perfil ser exibida
         },
         pageInit: function (event, page) {
-          // Carregar o script do perfil ao inicializar a página de profile
+          // Carregar o script do perfil ao inicializar a página de perfil
           $.getScript('js/perfil.js')
             .done(() => {
-              console.log('js/perfil.js carregado para /profile/');
+              console.log('js/perfil.js carregado para /perfil/');
             })
             .fail(() => console.error('Erro ao carregar js/perfil.js'));
         },

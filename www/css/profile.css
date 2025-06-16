@@ -40,6 +40,7 @@
     margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 20px;
+    transition: box-shadow 0.3s, background 0.3s;
 }
 
 .profile-avatar {
@@ -72,6 +73,7 @@
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 15px;
+    color: #fff;
 }
 
 .profile-status {
@@ -82,6 +84,14 @@
     text-align: left;
     font-size: 14px;
     line-height: 1.4;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-status input[type="text"] {
+    flex: 1;
 }
 
 .profile-actions {
@@ -165,6 +175,11 @@
     color: white;
     z-index: 10;
     text-decoration: none;
+    background: #695CFE;
+}
+
+.edit-profile-btn:focus {
+    outline: 2px solid #fff;
 }
 
 /* Estilos para as seções de conteúdo */
@@ -182,6 +197,7 @@
     padding: 20px;
     margin-bottom: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s, background 0.3s;
 }
 
 .profile-card p {
@@ -196,9 +212,124 @@
 }
 
 .interest {
+    position: relative;
+    padding-right: 22px;
     background-color: var(--color-bg-secondary);
-    padding: 7px 15px;
+    padding: 7px 15px 7px 15px;
     border-radius: 20px;
     font-size: 14px;
-    color: var(--color-text-placeholder);
+    color: #333;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    transition: background 0.2s;
+}
+
+.interest[tabindex="0"]:focus {
+    outline: 2px solid #695CFE;
+}
+
+.remove-tag {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 16px;
+    position: absolute;
+    right: 4px;
+    top: 2px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+#novoInteresseInput {
+    border: 1px solid #bcb3ff;
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 14px;
+    margin-left: 5px;
+    min-width: 80px;
+    background: #fff;
+}
+
+#statusInput {
+    border: 2px solid #bcb3ff;
+    border-radius: 10px;
+    padding: 6px 10px;
+    font-size: 15px;
+    margin-top: 5px;
+    background: #fff;
+}
+
+.editando-campo {
+    border: 2px solid #695CFE !important;
+    background: #f3f0ff !important;
+    box-shadow: 0 0 0 2px #bcb3ff;
+    transition: border 0.3s, background 0.3s;
+    outline: none !important;
+}
+
+.editando-bg {
+    background: #f3f0ff !important;
+    box-shadow: 0 0 0 2px #bcb3ff;
+}
+
+.editando-titulo {
+    color: #695CFE !important;
+    transition: color 0.3s;
+}
+
+.skeleton {
+    display: inline-block;
+    background: linear-gradient(90deg, #ececec 25%, #f3f3f3 50%, #ececec 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.2s infinite linear;
+    border-radius: 4px;
+}
+
+.skeleton-text {
+    width: 80px;
+    height: 18px;
+    margin: 2px 0;
+}
+
+.skeleton-img {
+    background: #ececec !important;
+    animation: skeleton-loading 1.2s infinite linear;
+}
+
+.skeleton-tag {
+    width: 60px;
+    height: 22px;
+    margin: 2px 4px;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.loading-img {
+    opacity: 0.5;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+.loading-spinner:after {
+    content: '';
+    display: inline-block;
+    border: 2px solid #fff;
+    border-top: 2px solid #695CFE;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    animation: spin 0.8s linear infinite;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg);}
+    100% { transform: translate(-50%, -50%) rotate(360deg);}
 }

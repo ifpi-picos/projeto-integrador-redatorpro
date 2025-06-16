@@ -262,6 +262,7 @@ var app = new Framework7({
           $.getScript('js/perfil.js')
             .done(() => {
               console.log('js/perfil.js carregado para /perfil/');
+              if (window.carregarPerfil) window.carregarPerfil();
             })
             .fail(() => console.error('Erro ao carregar js/perfil.js'));
         },
@@ -581,6 +582,7 @@ var app = new Framework7({
           $.getScript('js/perfil.js')
             .done(() => {
               console.log('js/perfil.js carregado para /profile/');
+              if (window.carregarPerfil) window.carregarPerfil();
             })
             .fail(() => console.error('Erro ao carregar js/perfil.js'));
         },

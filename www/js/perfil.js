@@ -354,3 +354,6 @@ $(document).ready(function() {
     $('.profile-action-btn.essays-btn').attr('aria-label', 'Ver redações');
     $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
 });
+
+// No final do arquivo, adicione:
+window.carregarPerfil = carregarPerfil;

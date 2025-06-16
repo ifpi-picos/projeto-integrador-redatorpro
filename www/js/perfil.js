@@ -51,12 +51,10 @@ function validarCampos() {
     return erros;
 }
 
-function renderizarPerfil(data) {
+function renderizarEssencial(data) {
     if (data && data.name) {
         $('#profileName').text(data.name);
         $('#profileTipo').text(data.tipo ? (data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1)) : '');
-        $('#totalRedacoes').text(data.totalRedacoes !== undefined ? data.totalRedacoes : '0');
-        $('#ultimaNota').text(data.ultimaNota !== null && data.ultimaNota !== undefined ? data.ultimaNota : '-');
         if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
         $('#instagramSpan').text(data.instagram ? '@' + data.instagram : 'Adicionar Instagram');
         $('#instagramInput').val(data.instagram || '');
@@ -64,17 +62,27 @@ function renderizarPerfil(data) {
             .attr('href', data.instagram ? 'https://instagram.com/' + data.instagram : '#')
             .attr('target', data.instagram ? '_blank' : '')
             .toggleClass('disabled', !data.instagram);
-        $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
-        $('#descricaoInput').val(data.descricao || '');
         userEmail = data.email || '';
         $('#profileEmail').text(userEmail);
-        interesses = Array.isArray(data.interesses) ? data.interesses : [];
-        renderizarInteresses();
         setModoVisualizacao();
     } else {
         $('#profileName').text('Nome não encontrado');
         $('.social-btn').hide();
     }
+}
+
+function renderizarSecundario(data) {
+    $('#totalRedacoes').text(data.totalRedacoes !== undefined ? data.totalRedacoes : '0');
+    $('#ultimaNota').text(data.ultimaNota !== null && data.ultimaNota !== undefined ? data.ultimaNota : '-');
+    $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
+    $('#descricaoInput').val(data.descricao || '');
+    interesses = Array.isArray(data.interesses) ? data.interesses : [];
+    renderizarInteresses();
+}
+
+function renderizarPerfilOtimizadamente(data) {
+    renderizarEssencial(data);
+    renderizarSecundario(data);
 }
 
 function salvarPerfilNoCache(data) {
@@ -92,19 +100,19 @@ function carregarPerfilDoCache() {
         const cache = localStorage.getItem('profileCache');
         if (cache) {
             const data = JSON.parse(cache);
-            renderizarPerfil(data);
+            renderizarPerfilOtimizadamente(data);
             esconderSkeleton();
-            return true;
+            return data;
         }
     } catch (e) {}
-    return false;
+    return null;
 }
 
 function carregarPerfil() {
     mostrarSkeleton();
-    // 1. Tenta mostrar cache imediatamente
-    carregarPerfilDoCache();
-    // 2. Busca atualização do backend
+    // 1. Mostra cache imediatamente, se houver
+    const cacheData = carregarPerfilDoCache();
+    // 2. Busca dados essenciais do backend
     const token = getToken();
     if (!token) {
         alert('Você não está logado. Faça login novamente.');
@@ -115,9 +123,13 @@ function carregarPerfil() {
         method: 'GET',
         headers: { Authorization: 'Bearer ' + token },
         success: function(data) {
+            // Renderiza apenas dados essenciais primeiro
+            renderizarEssencial(data);
             esconderSkeleton();
-            renderizarPerfil(data);
+            // Atualiza o cache com todos os dados
             salvarPerfilNoCache(data);
+            // Carrega dados secundários de forma "lazy"
+            setTimeout(() => renderizarSecundario(data), 0);
         },
         error: function(xhr) {
             esconderSkeleton();
@@ -307,7 +319,7 @@ function salvarPerfil() {
         contentType: false,
         success: function(data) {
             esconderLoaderFoto();
-            renderizarPerfil(data);
+            renderizarPerfilOtimizadamente(data);
             salvarPerfilNoCache(data);
             alert('Perfil atualizado!');
             alterado = false;

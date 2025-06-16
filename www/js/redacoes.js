@@ -13,7 +13,7 @@ window.initRedacoes = async function () {
   // Verifica se o usuário está logado
   const user = JSON.parse(localStorage.getItem('loggedUser'));
   if (!user || !user.token) {
-    lista.innerHTML = '<p>Você precisa estar logado para ver suas redações.</p>';
+    lista.innerHTML = '<p class="texto-colorido" style="display: flex; justify-content: center; text-align: center;">Você precisa estar logado para ver suas redações.</p>';
     return;
   }
 

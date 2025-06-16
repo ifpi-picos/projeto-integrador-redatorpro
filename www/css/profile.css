@@ -209,6 +209,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    position: relative;
+    min-height: 40px;
 }
 
 .interest {
@@ -228,6 +230,75 @@
     outline: 2px solid #695CFE;
 }
 
+.interest.selected {
+    background: linear-gradient(90deg, #695CFE 60%, #a18fff 100%);
+    color: #fff !important;
+    border: none;
+    font-weight: 500;
+    box-shadow: 0 2px 8px #695cfe22;
+}
+
+.btn-sugestoes-interesse {
+    background: #fff;
+    border: 1.5px dashed #695CFE;
+    color: #695CFE;
+    border-radius: 18px;
+    padding: 6px 18px;
+    font-size: 14px;
+    margin: 2px 0 2px 0;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+    outline: none;
+}
+.btn-sugestoes-interesse:hover, .btn-sugestoes-interesse:focus {
+    background: #f3f0ff;
+    border-color: #a18fff;
+}
+
+.sugestoes-interesses-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    background: #fff;
+    border: 1.5px solid #bcb3ff;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 16px #695cfe22;
+    position: absolute;
+    z-index: 20;
+    left: 0;
+    right: 0;
+}
+
+.sugestao-interesse-btn {
+    background: #f3f0ff;
+    border: 1.5px solid #bcb3ff;
+    color: #695CFE;
+    border-radius: 18px;
+    padding: 6px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 4px;
+    transition: background 0.2s, border 0.2s;
+    outline: none;
+}
+.sugestao-interesse-btn:hover, .sugestao-interesse-btn:focus {
+    background: #695CFE;
+    color: #fff;
+    border-color: #695CFE;
+}
+
+#novoInteresseInput {
+    border: 1.5px solid #bcb3ff;
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 14px;
+    min-width: 80px;
+    background: #fff;
+    margin-top: 4px;
+}
+
 .remove-tag {
     background: none;
     border: none;
@@ -241,23 +312,8 @@
     line-height: 1;
 }
 
-#novoInteresseInput {
-    border: 1px solid #bcb3ff;
-    border-radius: 12px;
-    padding: 4px 10px;
-    font-size: 14px;
-    margin-left: 5px;
-    min-width: 80px;
-    background: #fff;
-}
-
-#statusInput {
-    border: 2px solid #bcb3ff;
-    border-radius: 10px;
-    padding: 6px 10px;
-    font-size: 15px;
-    margin-top: 5px;
-    background: #fff;
+.profile-header-mobile, .profile-card {
+    transition: box-shadow 0.3s, background 0.3s;
 }
 
 .editando-campo {
@@ -269,7 +325,7 @@
 }
 
 .editando-bg {
-    background: #f3f0ff !important;
+    background: #f7f6fd !important;
     box-shadow: 0 0 0 2px #bcb3ff;
 }
 

@@ -16,6 +16,10 @@ let editando = false;
 let alterado = false;
 let interesses = [];
 let skeletonTimeout = null;
+let userEmail = '';
+const sugestoesInteresses = [
+    "Redação ENEM", "Gramática", "BTS", "Produção Textual", "Atualidades", "Ciências Humanas", "Ciências da Natureza", "Tecnologia", "Educação", "Política", "Saúde", "Meio Ambiente"
+];
 
 // Skeleton loader
 function mostrarSkeleton() {
@@ -27,10 +31,11 @@ function mostrarSkeleton() {
     $('#profileStatus').html('<span class="skeleton skeleton-text"></span>');
     $('#profileImg').addClass('skeleton-img');
     $('#instagramSpan').html('<span class="skeleton skeleton-text"></span>');
+    $('#profileEmail').html('<span class="skeleton skeleton-text"></span>');
     $('.interests').html('<span class="skeleton skeleton-tag"></span> <span class="skeleton skeleton-tag"></span>');
 }
 function esconderSkeleton() {
-    $('#profileName, #profileTipo, #totalRedacoes, #ultimaNota, #descricaoPerfil, #profileStatus, #instagramSpan').find('.skeleton').remove();
+    $('#profileName, #profileTipo, #totalRedacoes, #ultimaNota, #descricaoPerfil, #profileStatus, #instagramSpan, #profileEmail').find('.skeleton').remove();
     $('#profileImg').removeClass('skeleton-img');
     $('.interests').find('.skeleton').remove();
 }
@@ -39,12 +44,10 @@ function validarCampos() {
     const nome = $('#profileName').text().trim();
     const instagram = $('#instagramInput').val().trim();
     const descricao = $('#descricaoInput').val().trim();
-    const status = $('#statusInput').val().trim();
     let erros = [];
     if (!nome) erros.push('O nome não pode ser vazio.');
     if (instagram && !/^[a-zA-Z0-9._]+$/.test(instagram)) erros.push('O Instagram só pode conter letras, números, ponto ou underline.');
     if (descricao.length > 200) erros.push('A descrição deve ter no máximo 200 caracteres.');
-    if (status.length > 60) erros.push('O status deve ter no máximo 60 caracteres.');
     return erros;
 }
 
@@ -75,10 +78,12 @@ function carregarPerfil() {
                     .toggleClass('disabled', !data.instagram);
                 $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
                 $('#descricaoInput').val(data.descricao || '');
-                $('#profileStatus').text(data.status || 'Bem-vindo!');
-                $('#statusInput').val(data.status || '');
+                userEmail = data.email || '';
+                $('#profileEmail').text(userEmail);
                 interesses = Array.isArray(data.interesses) ? data.interesses : [];
                 renderizarInteresses();
+                // Garante que tudo está no modo visualizacao ao carregar
+                setModoVisualizacao();
             } else {
                 esconderSkeleton();
                 $('#profileName').text('Nome não encontrado');
@@ -97,82 +102,62 @@ function carregarPerfil() {
             $('#descricaoPerfil').text('Clique no lápis para editar sua descrição.');
             $('.social-btn').addClass('disabled').attr('href', '#');
             $('#instagramSpan').text('');
+            $('#profileEmail').text('');
             alert(msg);
         }
     });
 }
 
-function renderizarInteresses() {
-    const $container = $('.interests');
-    $container.empty();
-    interesses.forEach((tag, idx) => {
-        $container.append(`<span class="interest" tabindex="0" aria-label="Área de interesse: ${tag}">${tag} <button class="remove-tag" data-idx="${idx}" aria-label="Remover ${tag}">&times;</button></span>`);
-    });
-    if (editando) {
-        $container.append('<input type="text" id="novoInteresseInput" maxlength="20" placeholder="Adicionar..." aria-label="Adicionar área de interesse" style="margin-left:5px; min-width:80px;">');
-    }
+function setModoEdicao() {
+    editando = true;
+    alterado = false;
+    // Só campos editáveis ficam destacados
+    $('#profileName').attr('contenteditable', true).addClass('editando-campo').focus();
+    $('#profileAvatar').addClass('editando-campo').css('cursor', 'pointer');
+    $('#descricaoPerfil').hide();
+    $('#descricaoInput').val($('#descricaoPerfil').text()).show().addClass('editando-campo');
+    $('#instagramSpan').hide();
+    $('#instagramInput').show().addClass('editando-campo');
+    $('#cameraIcon').show();
+    $('.profile-card, .profile-header-mobile').addClass('editando-bg');
+    $('.profile-section-title').addClass('editando-titulo');
+    $('.interests').addClass('editando-campo');
+    renderizarInteresses();
+    $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
 }
 
-function mostrarLoaderFoto() {
-    $('#profileImg').addClass('loading-img');
-    $('#cameraIcon').addClass('loading-spinner');
-}
-function esconderLoaderFoto() {
-    $('#profileImg').removeClass('loading-img');
-    $('#cameraIcon').removeClass('loading-spinner');
+function setModoVisualizacao() {
+    editando = false;
+    $('#profileName').attr('contenteditable', false).removeClass('editando-campo');
+    $('#profileAvatar').removeClass('editando-campo').css('cursor', 'default');
+    $('#descricaoPerfil').show();
+    $('#descricaoInput').hide().removeClass('editando-campo');
+    $('#instagramSpan').show();
+    $('#instagramInput').hide().removeClass('editando-campo');
+    $('#cameraIcon').hide();
+    $('.profile-card, .profile-header-mobile').removeClass('editando-bg');
+    $('.profile-section-title').removeClass('editando-titulo');
+    $('.interests').removeClass('editando-campo');
+    renderizarInteresses();
 }
 
-$('#editProfileBtn').on('click', function(e) {
+$('#editProfileBtn').off('click').on('click', function(e) {
     e.preventDefault();
     if (!editando) {
-        editando = true;
-        alterado = false;
-        // Feedback visual
-        $('#profileName').attr('contenteditable', true).addClass('editando-campo').focus();
-        $('#profileAvatar').css('cursor', 'pointer').addClass('editando-campo');
-        $('#descricaoPerfil').hide();
-        $('#descricaoInput').val($('#descricaoPerfil').text()).show().addClass('editando-campo').focus();
-        $('#instagramSpan').hide();
-        $('#instagramInput').show().addClass('editando-campo').focus();
-        $('#profileStatus').hide();
-        $('#statusInput').val($('#profileStatus').text()).show().addClass('editando-campo').focus();
-        $('#cameraIcon').show();
-        $('.profile-card, .profile-header-mobile').addClass('editando-bg');
-        $('.profile-section-title').addClass('editando-titulo');
-        renderizarInteresses();
-        $('.interests').addClass('editando-campo');
-        // Animação
-        $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
+        setModoEdicao();
     } else {
-        // Salvar edição
         const erros = validarCampos();
         if (erros.length) {
             alert(erros.join('\n'));
             return;
         }
-        editando = false;
-        $('#profileName').attr('contenteditable', false).removeClass('editando-campo');
-        $('#profileAvatar').css('cursor', 'default').removeClass('editando-campo');
-        $('#descricaoPerfil').show();
-        $('#descricaoInput').hide().removeClass('editando-campo');
-        $('#instagramSpan').show();
-        $('#instagramInput').hide().removeClass('editando-campo');
-        $('#profileStatus').show();
-        $('#statusInput').hide().removeClass('editando-campo');
-        $('#cameraIcon').hide();
-        $('.profile-card, .profile-header-mobile').removeClass('editando-bg');
-        $('.profile-section-title').removeClass('editando-titulo');
-        $('.interests').removeClass('editando-campo');
-        renderizarInteresses();
+        setModoVisualizacao();
         salvarPerfil();
     }
 });
 
-$('#profileName, #instagramInput, #descricaoInput, #statusInput').on('input', function() {
+$('#profileName, #instagramInput, #descricaoInput').on('input', function() {
     if (editando) alterado = true;
-});
-$('#novoInteresseInput').on('input', function() {
-    alterado = true;
 });
 
 $('#cameraIcon').on('click', function(e) {
@@ -194,32 +179,51 @@ $('#fotoPerfilInput').on('change', function(e) {
             esconderLoaderFoto();
         };
         reader.readAsDataURL(file);
-        if (!editando) {
-            editando = true;
-            $('#profileName').attr('contenteditable', true).addClass('editando-campo');
-            $('#profileAvatar').css('cursor', 'pointer').addClass('editando-campo');
-            $('#descricaoPerfil').hide();
-            $('#descricaoInput').val($('#descricaoPerfil').text()).show().addClass('editando-campo');
-            $('#instagramSpan').hide();
-            $('#instagramInput').show().addClass('editando-campo');
-            $('#profileStatus').hide();
-            $('#statusInput').val($('#profileStatus').text()).show().addClass('editando-campo');
-            $('#cameraIcon').show();
-            $('.profile-card, .profile-header-mobile').addClass('editando-bg');
-            $('.profile-section-title').addClass('editando-titulo');
-            renderizarInteresses();
-            $('.interests').addClass('editando-campo');
-        }
+        if (!editando) setModoEdicao();
         alterado = true;
     }
 });
 
-$(document).on('click', '.remove-tag', function(e) {
+// Áreas de interesse: sugestões e seleção
+function renderizarInteresses() {
+    const $container = $('.interests');
+    $container.empty();
+    interesses.forEach((tag, idx) => {
+        $container.append(`<span class="interest selected" tabindex="0" aria-label="Área de interesse: ${tag}">${tag} <button class="remove-tag" data-idx="${idx}" aria-label="Remover ${tag}">&times;</button></span>`);
+    });
+    if (editando) {
+        // Botão para abrir sugestões
+        $container.append('<button id="abrirSugestoesInteresse" class="btn-sugestoes-interesse" type="button">+ Adicionar</button>');
+        // Container para sugestões (dropdown)
+        $container.append('<div id="sugestoesInteressesBox" class="sugestoes-interesses-box" style="display:none;"></div>');
+    }
+}
+
+$(document).on('click', '#abrirSugestoesInteresse', function(e) {
     e.stopPropagation();
-    const idx = $(this).data('idx');
-    interesses.splice(idx, 1);
-    renderizarInteresses();
-    alterado = true;
+    const $box = $('#sugestoesInteressesBox');
+    if ($box.is(':visible')) {
+        $box.hide();
+        return;
+    }
+    // Mostra sugestões que ainda não foram selecionadas
+    let html = '';
+    sugestoesInteresses.forEach(sug => {
+        if (!interesses.includes(sug)) {
+            html += `<button type="button" class="sugestao-interesse-btn">${sug}</button>`;
+        }
+    });
+    html += `<input type="text" id="novoInteresseInput" maxlength="20" placeholder="Outro..." aria-label="Adicionar área de interesse" style="margin-left:5px; min-width:80px;">`;
+    $box.html(html).show();
+    $('#novoInteresseInput').focus();
+});
+$(document).on('click', '.sugestao-interesse-btn', function(e) {
+    const val = $(this).text();
+    if (val && interesses.length < 8 && !interesses.includes(val)) {
+        interesses.push(val);
+        renderizarInteresses();
+        alterado = true;
+    }
 });
 $(document).on('keydown', '#novoInteresseInput', function(e) {
     if (e.key === 'Enter') {
@@ -227,19 +231,39 @@ $(document).on('keydown', '#novoInteresseInput', function(e) {
         if (val && interesses.length < 8 && val.length <= 20 && !interesses.includes(val)) {
             interesses.push(val);
             renderizarInteresses();
-            $('#novoInteresseInput').focus();
             alterado = true;
         }
         $(this).val('');
     }
 });
+$(document).on('click', function(e) {
+    // Fecha sugestões se clicar fora
+    if (!$(e.target).closest('.sugestoes-interesses-box, #abrirSugestoesInteresse').length) {
+        $('#sugestoesInteressesBox').hide();
+    }
+});
+$(document).on('click', '.remove-tag', function(e) {
+    e.stopPropagation();
+    const idx = $(this).data('idx');
+    interesses.splice(idx, 1);
+    renderizarInteresses();
+    alterado = true;
+});
+
+function mostrarLoaderFoto() {
+    $('#profileImg').addClass('loading-img');
+    $('#cameraIcon').addClass('loading-spinner');
+}
+function esconderLoaderFoto() {
+    $('#profileImg').removeClass('loading-img');
+    $('#cameraIcon').removeClass('loading-spinner');
+}
 
 function salvarPerfil() {
     const formData = new FormData();
     formData.append('name', $('#profileName').text());
     formData.append('instagram', $('#instagramInput').val());
     formData.append('descricao', $('#descricaoInput').val());
-    formData.append('status', $('#statusInput').val());
     formData.append('interesses', JSON.stringify(interesses));
     const file = $('#fotoPerfilInput')[0].files[0];
     if (file) formData.append('fotoPerfil', file);
@@ -259,8 +283,8 @@ function salvarPerfil() {
             $('#instagramInput').val(data.instagram || '');
             if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
             $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
-            $('#profileStatus').text(data.status || 'Bem-vindo!');
-            $('#statusInput').val(data.status || '');
+            userEmail = data.email || userEmail;
+            $('#profileEmail').text(userEmail);
             interesses = Array.isArray(data.interesses) ? data.interesses : [];
             renderizarInteresses();
             $('.social-btn')
@@ -281,19 +305,13 @@ function salvarPerfil() {
 }
 
 $(document).ready(function() {
-    // Adiciona campo status editável e input de status
-    if (!$('#statusInput').length) {
-        $('#profileStatus').after('<input type="text" id="statusInput" maxlength="60" style="display:none;width:100%;" aria-label="Status do perfil">');
-    }
     carregarPerfil();
     $('#instagramInput').on('blur', function() {
         $('#instagramSpan').text($(this).val() ? '@' + $(this).val() : 'Adicionar Instagram');
     });
-    // Confirmação de saída sem salvar
     window.onbeforeunload = function() {
         if (editando && alterado) return 'Você tem alterações não salvas. Deseja sair sem salvar?';
     };
-    // Acessibilidade: aria-labels
     $('#profileName').attr('aria-label', 'Nome do usuário');
     $('#profileAvatar').attr('aria-label', 'Foto do perfil');
     $('#editProfileBtn').attr('aria-label', 'Editar perfil');
@@ -301,9 +319,8 @@ $(document).ready(function() {
     $('#instagramInput').attr('aria-label', 'Instagram');
     $('#descricaoInput').attr('aria-label', 'Descrição');
     $('#cameraIcon').attr('aria-label', 'Alterar foto do perfil');
-    $('#profileStatus').attr('aria-label', 'Status do perfil');
+    $('#profileEmail').attr('aria-label', 'E-mail do usuário');
     $('.profile-action-btn.social-btn').attr('aria-label', 'Abrir Instagram');
     $('.profile-action-btn.essays-btn').attr('aria-label', 'Ver redações');
-    // Animação suave ao alternar edição
     $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
 });

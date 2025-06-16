@@ -4,11 +4,13 @@ function getToken() {
 }
 
 function carregarPerfil() {
+    console.log('[carregarPerfil] Iniciando carregamento do perfil...');
     $.ajax({
         url: 'https://express-e3hm.onrender.com/perfil',
         method: 'GET',
         headers: { Authorization: 'Bearer ' + getToken() },
         success: function(data) {
+            console.log('[carregarPerfil] Dados recebidos:', data);
             if (data && data.name) {
                 $('#profileName').text(data.name);
             } else {
@@ -23,6 +25,7 @@ function carregarPerfil() {
             $('#descricaoInput').val(data.descricao || '');
         },
         error: function(xhr) {
+            console.error('[carregarPerfil] Erro ao carregar perfil:', xhr);
             $('#profileName').text('Erro ao carregar');
             $('#profileTipo').text('');
             $('#totalRedacoes').text('0');
@@ -84,6 +87,13 @@ function salvarPerfil() {
     const file = $('#fotoPerfilInput')[0].files[0];
     if (file) formData.append('fotoPerfil', file);
 
+    console.log('[salvarPerfil] Enviando dados:', {
+        name: $('#profileName').text(),
+        instagram: $('#instagramInput').val(),
+        descricao: $('#descricaoInput').val(),
+        file: file ? file.name : null
+    });
+
     $.ajax({
         url: 'https://express-e3hm.onrender.com/perfil', // ajuste aqui também!
         method: 'PUT',
@@ -92,13 +102,15 @@ function salvarPerfil() {
         processData: false,
         contentType: false,
         success: function(data) {
+            console.log('[salvarPerfil] Perfil atualizado:', data);
             $('#profileName').text(data.name);
             $('#instagramSpan').text(data.instagram ? '@' + data.instagram : 'Adicionar Instagram');
             if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
             $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
             alert('Perfil atualizado!');
         },
-        error: function() {
+        error: function(xhr) {
+            console.error('[salvarPerfil] Erro ao atualizar perfil:', xhr);
             alert('Erro ao atualizar perfil');
         }
     });

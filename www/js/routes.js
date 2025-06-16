@@ -244,21 +244,26 @@ var app = new Framework7({
       }
     },   
     {
-      path: '/perfil/', // Caminho para a página de login
-      url: 'perfil.html',
+      path: '/perfil/', // Caminho para a página de perfil
+      url: 'profile.html', // Corrigido para usar profile.html
       animate: false,
       options: {
         transition: 'f7-dive', // Transição da página
       },
       on: {
         pageBeforeIn: function (event, page) {
-          // Fazer algo antes de a página de login ser exibida
+          // Fazer algo antes de a página de perfil ser exibida
         },
         pageAfterIn: function (event, page) {
-          // Fazer algo depois de a página de login ser exibida
+          // Fazer algo depois de a página de perfil ser exibida
         },
         pageInit: function (event, page) {
-          // Fazer algo quando a página de login for inicializada
+          // Carregar o script do perfil ao inicializar a página de profile
+          $.getScript('js/perfil.js')
+            .done(() => {
+              console.log('js/perfil.js carregado para /profile/');
+            })
+            .fail(() => console.error('Erro ao carregar js/perfil.js'));
         },
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM
@@ -572,8 +577,12 @@ var app = new Framework7({
           // fazer algo depois da página ser exibida
         },
         pageInit: function (event, page) {
-          // fazer algo quando a página for inicializada
-          //$.getScript('js/detalhes.js');
+          // Carregar o script do perfil ao inicializar a página de profile
+          $.getScript('js/perfil.js')
+            .done(() => {
+              console.log('js/perfil.js carregado para /profile/');
+            })
+            .fail(() => console.error('Erro ao carregar js/perfil.js'));
         },
         pageBeforeRemove: function (event, page) {
           // fazer algo antes da página ser removida do DOM

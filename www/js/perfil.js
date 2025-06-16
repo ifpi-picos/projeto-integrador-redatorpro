@@ -5,18 +5,33 @@ function getToken() {
 
 function carregarPerfil() {
     $.ajax({
-        url: 'https://seu-backend-url/perfil',
+        url: 'https://express-e3hm.onrender.com/perfil',
         method: 'GET',
         headers: { Authorization: 'Bearer ' + getToken() },
         success: function(data) {
-            $('#profileName').text(data.name);
-            $('#profileTipo').text(data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1));
-            $('#totalRedacoes').text(data.totalRedacoes);
-            $('#ultimaNota').text(data.ultimaNota !== null ? data.ultimaNota : '-');
+            if (data && data.name) {
+                $('#profileName').text(data.name);
+            } else {
+                $('#profileName').text('Nome não encontrado');
+            }
+            $('#profileTipo').text(data.tipo ? (data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1)) : '');
+            $('#totalRedacoes').text(data.totalRedacoes !== undefined ? data.totalRedacoes : '0');
+            $('#ultimaNota').text(data.ultimaNota !== null && data.ultimaNota !== undefined ? data.ultimaNota : '-');
             if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
             $('#instagramSpan').text(data.instagram ? '@' + data.instagram : 'Adicionar Instagram');
             $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
             $('#descricaoInput').val(data.descricao || '');
+        },
+        error: function(xhr) {
+            $('#profileName').text('Erro ao carregar');
+            $('#profileTipo').text('');
+            $('#totalRedacoes').text('0');
+            $('#ultimaNota').text('-');
+            $('#descricaoPerfil').text('Clique no lápis para editar sua descrição.');
+            if (xhr.status === 401) {
+                alert('Sua sessão expirou. Faça login novamente.');
+                // Redirecionar para login se desejar
+            }
         }
     });
 }
@@ -70,7 +85,7 @@ function salvarPerfil() {
     if (file) formData.append('fotoPerfil', file);
 
     $.ajax({
-        url: 'https://seu-backend-url/perfil',
+        url: 'https://express-e3hm.onrender.com/perfil', // ajuste aqui também!
         method: 'PUT',
         headers: { Authorization: 'Bearer ' + getToken() },
         data: formData,

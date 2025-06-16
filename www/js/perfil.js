@@ -51,8 +51,60 @@ function validarCampos() {
     return erros;
 }
 
+function renderizarPerfil(data) {
+    if (data && data.name) {
+        $('#profileName').text(data.name);
+        $('#profileTipo').text(data.tipo ? (data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1)) : '');
+        $('#totalRedacoes').text(data.totalRedacoes !== undefined ? data.totalRedacoes : '0');
+        $('#ultimaNota').text(data.ultimaNota !== null && data.ultimaNota !== undefined ? data.ultimaNota : '-');
+        if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
+        $('#instagramSpan').text(data.instagram ? '@' + data.instagram : 'Adicionar Instagram');
+        $('#instagramInput').val(data.instagram || '');
+        $('.social-btn')
+            .attr('href', data.instagram ? 'https://instagram.com/' + data.instagram : '#')
+            .attr('target', data.instagram ? '_blank' : '')
+            .toggleClass('disabled', !data.instagram);
+        $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
+        $('#descricaoInput').val(data.descricao || '');
+        userEmail = data.email || '';
+        $('#profileEmail').text(userEmail);
+        interesses = Array.isArray(data.interesses) ? data.interesses : [];
+        renderizarInteresses();
+        setModoVisualizacao();
+    } else {
+        $('#profileName').text('Nome não encontrado');
+        $('.social-btn').hide();
+    }
+}
+
+function salvarPerfilNoCache(data) {
+    if (data) {
+        try {
+            localStorage.setItem('profileCache', JSON.stringify(data));
+        } catch (e) {
+            // Falha silenciosa
+        }
+    }
+}
+
+function carregarPerfilDoCache() {
+    try {
+        const cache = localStorage.getItem('profileCache');
+        if (cache) {
+            const data = JSON.parse(cache);
+            renderizarPerfil(data);
+            esconderSkeleton();
+            return true;
+        }
+    } catch (e) {}
+    return false;
+}
+
 function carregarPerfil() {
     mostrarSkeleton();
+    // 1. Tenta mostrar cache imediatamente
+    carregarPerfilDoCache();
+    // 2. Busca atualização do backend
     const token = getToken();
     if (!token) {
         alert('Você não está logado. Faça login novamente.');
@@ -64,31 +116,8 @@ function carregarPerfil() {
         headers: { Authorization: 'Bearer ' + token },
         success: function(data) {
             esconderSkeleton();
-            if (data && data.name) {
-                $('#profileName').text(data.name);
-                $('#profileTipo').text(data.tipo ? (data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1)) : '');
-                $('#totalRedacoes').text(data.totalRedacoes !== undefined ? data.totalRedacoes : '0');
-                $('#ultimaNota').text(data.ultimaNota !== null && data.ultimaNota !== undefined ? data.ultimaNota : '-');
-                if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
-                $('#instagramSpan').text(data.instagram ? '@' + data.instagram : 'Adicionar Instagram');
-                $('#instagramInput').val(data.instagram || '');
-                $('.social-btn')
-                    .attr('href', data.instagram ? 'https://instagram.com/' + data.instagram : '#')
-                    .attr('target', data.instagram ? '_blank' : '')
-                    .toggleClass('disabled', !data.instagram);
-                $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
-                $('#descricaoInput').val(data.descricao || '');
-                userEmail = data.email || '';
-                $('#profileEmail').text(userEmail);
-                interesses = Array.isArray(data.interesses) ? data.interesses : [];
-                renderizarInteresses();
-                // Garante que tudo está no modo visualizacao ao carregar
-                setModoVisualizacao();
-            } else {
-                esconderSkeleton();
-                $('#profileName').text('Nome não encontrado');
-                $('.social-btn').hide();
-            }
+            renderizarPerfil(data);
+            salvarPerfilNoCache(data);
         },
         error: function(xhr) {
             esconderSkeleton();
@@ -278,19 +307,8 @@ function salvarPerfil() {
         contentType: false,
         success: function(data) {
             esconderLoaderFoto();
-            $('#profileName').text(data.name);
-            $('#instagramSpan').text(data.instagram ? '@' + data.instagram : 'Adicionar Instagram');
-            $('#instagramInput').val(data.instagram || '');
-            if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
-            $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
-            userEmail = data.email || userEmail;
-            $('#profileEmail').text(userEmail);
-            interesses = Array.isArray(data.interesses) ? data.interesses : [];
-            renderizarInteresses();
-            $('.social-btn')
-                .attr('href', data.instagram ? 'https://instagram.com/' + data.instagram : '#')
-                .attr('target', data.instagram ? '_blank' : '')
-                .toggleClass('disabled', !data.instagram);
+            renderizarPerfil(data);
+            salvarPerfilNoCache(data);
             alert('Perfil atualizado!');
             alterado = false;
         },

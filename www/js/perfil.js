@@ -182,7 +182,7 @@ function setModoVisualizacao() {
     renderizarInteresses();
 }
 
-$('#editProfileBtn').off('click').on('click', function(e) {
+$(document).off('click', '#editProfileBtn').on('click', '#editProfileBtn', function(e) {
     e.preventDefault();
     if (!editando) {
         setModoEdicao();
@@ -197,9 +197,10 @@ $('#editProfileBtn').off('click').on('click', function(e) {
     }
 });
 
-$('#profileName, #instagramInput, #descricaoInput').on('input', function() {
-    if (editando) alterado = true;
-});
+$(document).off('input', '#profileName, #instagramInput, #descricaoInput')
+    .on('input', '#profileName, #instagramInput, #descricaoInput', function() {
+        if (editando) alterado = true;
+    });
 
 $('#cameraIcon').on('click', function(e) {
     e.preventDefault();

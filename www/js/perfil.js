@@ -101,6 +101,17 @@ $('#fotoPerfilInput').on('change', function(e) {
             $('#profileImg').attr('src', ev.target.result);
         };
         reader.readAsDataURL(file);
+
+        // Se não estiver em modo edição, ativa o modo edição automaticamente
+        if (!editando) {
+            editando = true;
+            $('#profileName').attr('contenteditable', true);
+            $('#profileAvatar').css('cursor', 'pointer');
+            $('#descricaoPerfil').hide();
+            $('#descricaoInput').val($('#descricaoPerfil').text()).show();
+            $('#instagramSpan').hide();
+            $('#instagramInput').show();
+        }
     }
 });
 

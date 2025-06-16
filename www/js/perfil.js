@@ -16,7 +16,6 @@ let editando = false;
 let alterado = false;
 let interesses = [];
 let skeletonTimeout = null;
-let userEmail = ''; // novo
 
 // Skeleton loader
 function mostrarSkeleton() {
@@ -28,24 +27,24 @@ function mostrarSkeleton() {
     $('#profileStatus').html('<span class="skeleton skeleton-text"></span>');
     $('#profileImg').addClass('skeleton-img');
     $('#instagramSpan').html('<span class="skeleton skeleton-text"></span>');
-    $('#profileEmail').html('<span class="skeleton skeleton-text"></span>');
     $('.interests').html('<span class="skeleton skeleton-tag"></span> <span class="skeleton skeleton-tag"></span>');
 }
 function esconderSkeleton() {
-    $('#profileName, #profileTipo, #totalRedacoes, #ultimaNota, #descricaoPerfil, #profileStatus, #instagramSpan, #profileEmail').find('.skeleton').remove();
+    $('#profileName, #profileTipo, #totalRedacoes, #ultimaNota, #descricaoPerfil, #profileStatus, #instagramSpan').find('.skeleton').remove();
     $('#profileImg').removeClass('skeleton-img');
     $('.interests').find('.skeleton').remove();
 }
 
-// Remover status do validarCampos
 function validarCampos() {
     const nome = $('#profileName').text().trim();
     const instagram = $('#instagramInput').val().trim();
     const descricao = $('#descricaoInput').val().trim();
+    const status = $('#statusInput').val().trim();
     let erros = [];
     if (!nome) erros.push('O nome não pode ser vazio.');
     if (instagram && !/^[a-zA-Z0-9._]+$/.test(instagram)) erros.push('O Instagram só pode conter letras, números, ponto ou underline.');
     if (descricao.length > 200) erros.push('A descrição deve ter no máximo 200 caracteres.');
+    if (status.length > 60) erros.push('O status deve ter no máximo 60 caracteres.');
     return erros;
 }
 
@@ -76,8 +75,8 @@ function carregarPerfil() {
                     .toggleClass('disabled', !data.instagram);
                 $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
                 $('#descricaoInput').val(data.descricao || '');
-                userEmail = data.email || '';
-                $('#profileEmail').text(userEmail);
+                $('#profileStatus').text(data.status || 'Bem-vindo!');
+                $('#statusInput').val(data.status || '');
                 interesses = Array.isArray(data.interesses) ? data.interesses : [];
                 renderizarInteresses();
             } else {
@@ -98,7 +97,6 @@ function carregarPerfil() {
             $('#descricaoPerfil').text('Clique no lápis para editar sua descrição.');
             $('.social-btn').addClass('disabled').attr('href', '#');
             $('#instagramSpan').text('');
-            $('#profileEmail').text('');
             alert(msg);
         }
     });
@@ -129,19 +127,24 @@ $('#editProfileBtn').on('click', function(e) {
     if (!editando) {
         editando = true;
         alterado = false;
+        // Feedback visual
         $('#profileName').attr('contenteditable', true).addClass('editando-campo').focus();
         $('#profileAvatar').css('cursor', 'pointer').addClass('editando-campo');
         $('#descricaoPerfil').hide();
         $('#descricaoInput').val($('#descricaoPerfil').text()).show().addClass('editando-campo').focus();
         $('#instagramSpan').hide();
         $('#instagramInput').show().addClass('editando-campo').focus();
+        $('#profileStatus').hide();
+        $('#statusInput').val($('#profileStatus').text()).show().addClass('editando-campo').focus();
         $('#cameraIcon').show();
         $('.profile-card, .profile-header-mobile').addClass('editando-bg');
         $('.profile-section-title').addClass('editando-titulo');
         renderizarInteresses();
         $('.interests').addClass('editando-campo');
+        // Animação
         $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
     } else {
+        // Salvar edição
         const erros = validarCampos();
         if (erros.length) {
             alert(erros.join('\n'));
@@ -154,6 +157,8 @@ $('#editProfileBtn').on('click', function(e) {
         $('#descricaoInput').hide().removeClass('editando-campo');
         $('#instagramSpan').show();
         $('#instagramInput').hide().removeClass('editando-campo');
+        $('#profileStatus').show();
+        $('#statusInput').hide().removeClass('editando-campo');
         $('#cameraIcon').hide();
         $('.profile-card, .profile-header-mobile').removeClass('editando-bg');
         $('.profile-section-title').removeClass('editando-titulo');
@@ -163,7 +168,7 @@ $('#editProfileBtn').on('click', function(e) {
     }
 });
 
-$('#profileName, #instagramInput, #descricaoInput').on('input', function() {
+$('#profileName, #instagramInput, #descricaoInput, #statusInput').on('input', function() {
     if (editando) alterado = true;
 });
 $('#novoInteresseInput').on('input', function() {
@@ -197,6 +202,8 @@ $('#fotoPerfilInput').on('change', function(e) {
             $('#descricaoInput').val($('#descricaoPerfil').text()).show().addClass('editando-campo');
             $('#instagramSpan').hide();
             $('#instagramInput').show().addClass('editando-campo');
+            $('#profileStatus').hide();
+            $('#statusInput').val($('#profileStatus').text()).show().addClass('editando-campo');
             $('#cameraIcon').show();
             $('.profile-card, .profile-header-mobile').addClass('editando-bg');
             $('.profile-section-title').addClass('editando-titulo');
@@ -232,6 +239,7 @@ function salvarPerfil() {
     formData.append('name', $('#profileName').text());
     formData.append('instagram', $('#instagramInput').val());
     formData.append('descricao', $('#descricaoInput').val());
+    formData.append('status', $('#statusInput').val());
     formData.append('interesses', JSON.stringify(interesses));
     const file = $('#fotoPerfilInput')[0].files[0];
     if (file) formData.append('fotoPerfil', file);
@@ -251,8 +259,8 @@ function salvarPerfil() {
             $('#instagramInput').val(data.instagram || '');
             if (data.fotoPerfil) $('#profileImg').attr('src', data.fotoPerfil);
             $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
-            userEmail = data.email || userEmail;
-            $('#profileEmail').text(userEmail);
+            $('#profileStatus').text(data.status || 'Bem-vindo!');
+            $('#statusInput').val(data.status || '');
             interesses = Array.isArray(data.interesses) ? data.interesses : [];
             renderizarInteresses();
             $('.social-btn')
@@ -273,13 +281,19 @@ function salvarPerfil() {
 }
 
 $(document).ready(function() {
+    // Adiciona campo status editável e input de status
+    if (!$('#statusInput').length) {
+        $('#profileStatus').after('<input type="text" id="statusInput" maxlength="60" style="display:none;width:100%;" aria-label="Status do perfil">');
+    }
     carregarPerfil();
     $('#instagramInput').on('blur', function() {
         $('#instagramSpan').text($(this).val() ? '@' + $(this).val() : 'Adicionar Instagram');
     });
+    // Confirmação de saída sem salvar
     window.onbeforeunload = function() {
         if (editando && alterado) return 'Você tem alterações não salvas. Deseja sair sem salvar?';
     };
+    // Acessibilidade: aria-labels
     $('#profileName').attr('aria-label', 'Nome do usuário');
     $('#profileAvatar').attr('aria-label', 'Foto do perfil');
     $('#editProfileBtn').attr('aria-label', 'Editar perfil');
@@ -287,8 +301,9 @@ $(document).ready(function() {
     $('#instagramInput').attr('aria-label', 'Instagram');
     $('#descricaoInput').attr('aria-label', 'Descrição');
     $('#cameraIcon').attr('aria-label', 'Alterar foto do perfil');
-    $('#profileEmail').attr('aria-label', 'E-mail do usuário');
+    $('#profileStatus').attr('aria-label', 'Status do perfil');
     $('.profile-action-btn.social-btn').attr('aria-label', 'Abrir Instagram');
     $('.profile-action-btn.essays-btn').attr('aria-label', 'Ver redações');
+    // Animação suave ao alternar edição
     $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
 });

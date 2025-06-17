@@ -8,7 +8,6 @@ function getToken() {
     } catch (e) {
         token = null;
     }
-    console.log('[getToken] Token recuperado:', token);
     return token;
 }
 

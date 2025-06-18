@@ -47,11 +47,13 @@
                             </a>
                             <!-- Avatar do usuário -->
                             <div class="profile-avatar" id="profileAvatar" style="position:relative;" aria-label="Foto do perfil">
-                                <img src="img/ellen.png" alt="Foto do usuário" id="profileImg">
+                                <img src="img/default.png" alt="Foto do usuário" id="profileImg">
                                 <input type="file" id="fotoPerfilInput" style="display:none" accept="image/*">
                                 <!-- Ícone de câmera, inicialmente oculto -->
                                 <span id="cameraIcon" style="display:none; position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.6); border-radius:50%; padding:7px; cursor:pointer;" aria-label="Alterar foto do perfil">
-                                    <i class="f7-icons" style="color:white; font-size:20px;">camera_fill</i>
+                                    <i style="color:white; font-size:20px;">
+                                        <span class="material-symbols-outlined">photo_camera</span>
+                                    </i>
                                 </span>
                             </div>
                             <!-- Nome do usuário -->
@@ -65,7 +67,7 @@
                             </div>
                             <!-- E-mail do usuário -->
                             <div class="profile-status" aria-label="E-mail do usuário">
-                                <i class="f7-icons">envelope_fill</i>
+                                <span class="material-symbols-outlined">email</span>
                                 <span id="profileEmail" aria-label="E-mail do usuário">carregando...</span>
                             </div>
                         </div>

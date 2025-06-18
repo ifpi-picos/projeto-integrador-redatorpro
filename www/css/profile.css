@@ -318,14 +318,15 @@
 
 .editando-campo {
     border: 2px solid #695CFE !important;
-    background: #f3f0ff !important;
+    background: var(--color-bg-secondary) !important;
     box-shadow: 0 0 0 2px #bcb3ff;
     transition: border 0.3s, background 0.3s;
     outline: none !important;
+    border-radius: 8px;
 }
 
 .editando-bg {
-    background: #f7f6fd !important;
+    background: var(--color-bg-sidebar) !important;
     box-shadow: 0 0 0 2px #bcb3ff;
 }
 

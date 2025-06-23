@@ -1,106 +1,78 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tela de Exemplo</title>
-  <link rel="stylesheet" href="css/temas.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temas de Redação</title>
+    <link rel="stylesheet" href="temas.css">
 </head>
 <body>
-  <div id="app">
-    <div class="view view-main">
-      <div data-name="temas" class="page">
 
-        <div class="button-top">
-          <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
+    <h1 class="titulo">Temas de Redação</h1>
+
+    <div class="container">
+
+        <!-- Tema 1 -->
+        <div class="card">
+            <img src="violencia.png" alt="Violência doméstica">
+            <div class="conteudo">
+                <h2>Os desafios no combate à violência doméstica e ao feminicídio</h2>
+                <button onclick="abrirTema('tema1')">Acessar Tema</button>
+            </div>
         </div>
 
-        <div class="menu-lateral">
-          <a href="#">Opção 1</a>
-          <a href="#">Opção 2</a>
-          <a href="#">Opção 3</a>
-        </div>
-      
-        <div class="conteudo">
-          <div class="card">
-            <h2>ENEM - Obstáculos da inclusão de pessoas com deficiência na acessibilidade digital no Brasil</h2>
-            <img src="img/acessibilidade.jpeg">
-            <p>
-              Lei Brasileira de Inclusão da Pessoa com Deficiência (LBI) foi considerada um grande avanço em relação aos direitos da pessoa com deficiência. 
-              Ela é destinada a "assegurar a promoção de condições de igualdade".
-            </p>
-            <button>Acessar tema</button>
-          </div>
-      
-          <div class="card">
-            <h2>ENEM - Enfrentamento aos desafios da manutenção e eficiência da Farmácia Popular no Brasil</h2>
-            <img src="img/farmacia.jpeg" alt="Imagem de farmacia">
-            <p>
-                O Governo Federal Brasileiro possui algumas iniciativas para auxiliar a população no acesso ao tratamento médico e uma delas é a Farmácia Popular.
-            </p>
-            <button>Acessar tema</button>
-          </div>
-      
-          <div class="card">
-            <h2>ENEM - Caminhos para garantir a regulamentação do Uber no Brasil</h2>
-            <img src="img/uber.jpeg" alt="uber">
-            <p>
-              O Projeto de Lei 1471/22 determina que a regulamentação dos serviços de aplicativo de transporte de passageiros, como Uber e 99, deverá prever um valor mínimo a ser repassado ao motorista, superior ao valor horário do salário mínimo vigente. O texto tramita na Câmara dos Deputados.
-      
-      
-            </p>
-            <button>Acessar tema</button>
-          </div>
-      
+         <!-- Tema 2 -->
         <div class="card">
-          <h2>ENEM - Desafios no combate aos impactos da vigorexia na sociedade brasileira</h2>
-          <img src="img/vigorexia.jpeg" alt="vigorexia">
-          <p>
-            Vigorexia: entenda transtorno que causa busca incessante por massa muscular. Especialistas explicam sobre problema que pode prejudicar saúde mental e física
-          </p>
-          <button>Acessar tema</button>
+            <img src="meioambiente.png" alt="Meio ambiente">
+            <div class="conteudo">
+                <h2>Os impactos da ação humana no meio ambiente</h2>
+                <button onclick="abrirTema('tema2')">Acessar Tema</button>
+            </div>
         </div>
-      
-        <div class="card">
-          <h2>ENEM - Caminhos para garantir o direito à greve na sociedade brasileira</h2>
-          <img src="img/greve.jpeg" alt="greve">
-          <p>
-            Art. 9º É assegurado o direito de greve, competindo aos trabalhadores decidir sobre a oportunidade de exercê-lo e sobre os interesses que devam por meio dele defender.
-      
-          </p>
-          <button>Acessar tema</button>
-        </div>
-        </div>
-      
-        <div class="menu-direito">
-          <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-aulas')">Aulas</a>
-          <div id="dropdown-aulas" class="dropdown">
-            <a href="#">ENEM</a>
-            <a href="#">VESTIBULARES</a>
-          </div>
-          <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-temas')">Temas</a>
-          <div id="dropdown-temas" class="dropdown">
-            <a href="#">Opção A</a>
-            <a href="#">Opção B</a>
-            <a href="#">Opção C</a>
-          </div>
-          <a href="javascript:void(0);" onclick="toggleDropdown('dropdown-vestibular')">Vestibular</a>
-          <div id="dropdown-vestibular" class="dropdown">
-            <a href="#">FUVEST</a>
-            <a href="#">URCA</a>
-            <a href="#">IFPI</a>
-          </div>
-        </div>
-      
-        <!-- Path to Framework7 Library Bundle JS-->
-        <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-        <!-- jQuery -->
-        <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
-        <!-- Roteamento do app-->
-        <script type="text/javascript" src="js/routes.js"></script>
-        <script src="cordova.js"></script>
-      </div>
+
     </div>
-  </div>
+
+    <!-- Box de Tema 1 -->
+    <div class="box-tema" id="tema1">
+        <h2>Os desafios no combate à violência doméstica e ao feminicídio</h2>
+        <h3>Textos Motivadores:</h3>
+        <p>📜 Segundo dados do Fórum Brasileiro de Segurança Pública, uma mulher é vítima de violência doméstica a cada 2 minutos no Brasil.</p>
+        <p>📜 A Lei Maria da Penha (Lei nº 11.340/2006) é um marco legal no enfrentamento à violência contra a mulher, mas ainda enfrenta desafios na efetivação de suas medidas.</p>
+        <p>📜 Campanhas sociais e a educação são fundamentais para desconstruir padrões culturais que naturalizam a violência de gênero.</p>
+
+        <h3>Instruções:</h3>
+        <p>✍ Desenvolva uma redação dissertativo-argumentativa, apresentando causas, consequências e possíveis soluções para o problema da violência doméstica e do feminicídio no Brasil.</p>
+
+        <button onclick="escreverRedacao()">Escrever Redação</button>
+        <button class="fechar" onclick="fecharTema('tema1')">Fechar</button>
+    </div>
+
+    <!-- Box de Tema 2 -->
+    <div class="box-tema" id="tema2">
+        <h2>Os impactos da ação humana no meio ambiente</h2>
+        <h3>Textos Motivadores:</h3>
+        <p>📜 Relatórios da ONU alertam para o aumento do aquecimento global devido às atividades humanas.</p>
+        <p>📜 Desmatamento, poluição e exploração de recursos naturais são grandes vilões ambientais.</p>
+        <p>📜 A sustentabilidade e o consumo consciente são caminhos para mitigar os impactos.</p>
+
+        <h3>Instruções:</h3>
+        <p>✍ Produza uma redação dissertativo-argumentativa sobre como a ação humana tem impactado o meio ambiente e quais medidas podem ser tomadas para reverter esse quadro.</p>
+
+        <button onclick="escreverRedacao()">Escrever Redação</button>
+        <button class="fechar" onclick="fecharTema('tema2')">Fechar</button>
+    </div>
+
+    <script>
+        function abrirTema(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        function fecharTema(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        function escreverRedacao() {
+            alert("Modo de escrita de redação será implementado aqui!");
+        }
+    </script>
+
 </body>
 </html>

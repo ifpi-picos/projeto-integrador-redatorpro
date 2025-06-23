@@ -1,0 +1,134 @@
+:root {
+    --branco: #ffff;
+    --gelo: #f1f1f1;
+    --azulclaro: #DFF1FF;
+    --azulgelo: #93B4D7;
+    /*--azul: #006494;*/
+    --azul: #2196f3;
+    --darkazul: #13293D;
+    --preto: #2a2a2a;
+    --cinza: #cbcbcb;
+    --vermelho: #ef4d4d;
+    --verde: #19c463;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f8ff; /* branco gelo */
+    color: #003366;
+}
+
+.titulo {
+    text-align: center;
+    margin: 30px 0;
+    color: #003366;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap: 20px;
+}
+
+.card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.card .conteudo {
+    flex: 1;
+}
+
+.card h2 {
+    margin-bottom: 10px;
+}
+
+.card button {
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background-color: #3399ff;
+}
+
+.box-tema {
+    display: none;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.box-tema h2 {
+    margin-bottom: 15px;
+}
+
+.box-tema h3 {
+    margin: 15px 0 10px;
+}
+
+.box-tema p {
+    margin-bottom: 10px;
+}
+
+.box-tema button {
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.box-tema button:hover {
+    background-color: #3399ff;
+}
+
+.fechar {
+    background-color: #ccc;
+    color: #003366;
+}
+
+.fechar:hover {
+    background-color: #bbb;
+}

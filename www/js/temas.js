@@ -67,9 +67,11 @@ if (!window.__temasScriptLoaded) {
                             </div>`;
                         } else {
                             // Mantém a formatação original do texto (quebra de linha)
-                            const textoFormatado = tm.valor.replace(/\n/g, '<br>');
+                            const textoFormatado = tm.valor
+                                ? tm.valor.replace(/\n/g, '<br>')
+                                : '';
                             textosHtml += `<div style="margin-bottom:15px;">
-                                <p>Texto ${idx + 1}: ${textoFormatado}</p>
+                                <p>Texto ${idx + 1}:<br>${textoFormatado}</p>
                                 ${fonte ? `<div class="fonte-motivador"><small><b>Fonte:</b> ${fonte}</small></div>` : ''}
                             </div>`;
                         }

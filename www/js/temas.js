@@ -58,7 +58,6 @@ if (!window.__temasScriptLoaded) {
                 let textosHtml = '';
                 if (Array.isArray(tema.textosMotivadores)) {
                     tema.textosMotivadores.forEach((tm, idx) => {
-                        // Fonte pode estar em tm.fonte ou tm.fonteMotivador
                         const fonte = tm.fonte || tm.fonteMotivador || '';
                         if (tm.tipo === 'imagem') {
                             textosHtml += `<div style="margin-bottom:15px;">
@@ -76,14 +75,20 @@ if (!window.__temasScriptLoaded) {
                         }
                     });
                 }
+
+                // Formatar instruções com quebra de linha preservada
+                let instrucoesFormatadas = tema.instrucoes
+                    ? tema.instrucoes.replace(/\n/g, '<br>')
+                    : '';
+
                 box.innerHTML = `
                     <h2>${tema.titulo}</h2>
                     <h3>Textos Motivadores:</h3>
                     ${textosHtml}
                     <h3>Instruções:</h3>
-                    <p>${tema.instrucoes}</p>
+                    <p>${instrucoesFormatadas}</p>
                     <h3>Proposta de Redação:</h3>
-                    <p>${tema.proposta}</p>
+                    <p>${tema.proposta ? tema.proposta.replace(/\n/g, '<br>') : ''}</p>
                     <button onclick="escreverRedacao()">Escrever Redação</button>
                     <button class="fechar" onclick="fecharTema('tema${tema.id}')">Fechar</button>
                 `;

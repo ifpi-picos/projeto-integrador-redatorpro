@@ -159,7 +159,26 @@ if (!window.__temasScriptLoaded) {
             console.error('[fecharTema] Erro:', err);
         }
     };
+
+    // Alteração: ao clicar em "escrever redação", salva o tema e navega para iacorretor
     window.escreverRedacao = function() {
-        alert("Modo de escrita de redação será implementado aqui!");
+        // Descobre o tema aberto pelo botão
+        const boxAberta = document.querySelector('.box-tema[style*="display: block"]');
+        let temaSelecionado = '';
+        if (boxAberta) {
+            const tituloEl = boxAberta.querySelector('h2');
+            if (tituloEl) temaSelecionado = tituloEl.textContent.trim();
+        }
+        if (temaSelecionado) {
+            localStorage.setItem('temaPreSelecionado', temaSelecionado);
+        }
+        // Fecha o box-tema antes de navegar
+        if (boxAberta) boxAberta.style.display = 'none';
+        // Navega para a tela iacorretor
+        if (window.app && app.views && app.views.main && app.views.main.router) {
+            app.views.main.router.navigate('/iacorretor/');
+        } else {
+            window.location.href = 'iacorretor.html';
+        }
     };
 }

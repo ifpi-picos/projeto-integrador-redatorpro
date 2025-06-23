@@ -321,8 +321,41 @@ window.initIACorretor = function () {
         }
     }
 
+    // NOVO: Pré-selecionar tema se vier de temas.js
+    function preSelecionarTema() {
+        const select = document.getElementById('temaRedacao');
+        const temaPreSelecionado = localStorage.getItem('temaPreSelecionado');
+        if (select && temaPreSelecionado) {
+            // Aguarda o carregamento dos temas dinâmicos
+            setTimeout(() => {
+                let encontrou = false;
+                for (let i = 0; i < select.options.length; i++) {
+                    if (select.options[i].text === temaPreSelecionado) {
+                        select.selectedIndex = i;
+                        encontrou = true;
+                        break;
+                    }
+                }
+                // Se não encontrou, deixa como está (usuário pode escolher)
+                // Limpa o localStorage para não pré-selecionar de novo
+                localStorage.removeItem('temaPreSelecionado');
+                // Atualiza campo tema livre se necessário
+                if (select.value === 'livre') {
+                    window.toggleTemaLivre();
+                } else {
+                    const campoTemaLivre = document.getElementById('temaLivre');
+                    if (campoTemaLivre) {
+                        campoTemaLivre.style.display = 'none';
+                        campoTemaLivre.required = false;
+                    }
+                }
+            }, 300); // Pequeno delay para garantir que os temas já foram carregados
+        }
+    }
+
     // Chama ao inicializar a página
     carregarTemasNoSelect();
+    preSelecionarTema();
 };
 
 

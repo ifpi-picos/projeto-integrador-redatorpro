@@ -17,11 +17,14 @@ if (!window.__temasScriptLoaded) {
     };
 
     function renderizarTemas(temas) {
-        const container = document.getElementById('temas-container');
+        // Encontre o container da página atual
+        const page = document.querySelector('.page[data-name="temas"]');
+        if (!page) return;
+        const container = page.querySelector('#temas-container');
         if (!container) return;
         container.innerHTML = '';
-        // Remove todas as box-tema antigas
-        document.querySelectorAll('.box-tema').forEach(el => el.remove());
+        // Remove todas as box-tema antigas dentro da página
+        page.querySelectorAll('.box-tema').forEach(el => el.remove());
         temas.forEach(tema => {
             // Card
             const card = document.createElement('div');
@@ -31,7 +34,7 @@ if (!window.__temasScriptLoaded) {
                 <img src="${tema.imagem}" alt="Capa do tema">
                 <div class="conteudo">
                     <h2>${tema.titulo}</h2>
-                    <button onclick="abrirTema('tema${tema.id}')">Acessar Tema</button>
+                    <button type="button" onclick="abrirTema('tema${tema.id}')">Acessar Tema</button>
                 </div>
             `;
             container.appendChild(card);
@@ -41,13 +44,15 @@ if (!window.__temasScriptLoaded) {
             box.className = 'box-tema';
             box.id = `tema${tema.id}`;
             let textosHtml = '';
-            tema.textosMotivadores.forEach((tm, idx) => {
-                if (tm.tipo === 'imagem') {
-                    textosHtml += `<p>Texto ${idx + 1}:<br><img src="${tm.valor}" style="max-width:200px;max-height:200px;"></p>`;
-                } else {
-                    textosHtml += `<p>Texto ${idx + 1}: ${tm.valor}</p>`;
-                }
-            });
+            if (Array.isArray(tema.textosMotivadores)) {
+                tema.textosMotivadores.forEach((tm, idx) => {
+                    if (tm.tipo === 'imagem') {
+                        textosHtml += `<p>Texto ${idx + 1}:<br><img src="${tm.valor}" style="max-width:200px;max-height:200px;"></p>`;
+                    } else {
+                        textosHtml += `<p>Texto ${idx + 1}: ${tm.valor}</p>`;
+                    }
+                });
+            }
             box.innerHTML = `
                 <h2>${tema.titulo}</h2>
                 <h3>Textos Motivadores:</h3>
@@ -59,7 +64,8 @@ if (!window.__temasScriptLoaded) {
                 <button onclick="escreverRedacao()">Escrever Redação</button>
                 <button class="fechar" onclick="fecharTema('tema${tema.id}')">Fechar</button>
             `;
-            document.body.appendChild(box);
+            // Adiciona a box-tema dentro da página, não no body
+            page.appendChild(box);
         });
     }
 
@@ -75,10 +81,17 @@ if (!window.__temasScriptLoaded) {
 
     // Funções globais para abrir/fechar box-tema
     window.abrirTema = function(id) {
-        document.getElementById(id).style.display = 'block';
+        // Procura dentro da página ativa
+        const page = document.querySelector('.page[data-name="temas"]');
+        if (!page) return;
+        const el = page.querySelector('#' + id);
+        if (el) el.style.display = 'block';
     };
     window.fecharTema = function(id) {
-        document.getElementById(id).style.display = 'none';
+        const page = document.querySelector('.page[data-name="temas"]');
+        if (!page) return;
+        const el = page.querySelector('#' + id);
+        if (el) el.style.display = 'none';
     };
     window.escreverRedacao = function() {
         alert("Modo de escrita de redação será implementado aqui!");

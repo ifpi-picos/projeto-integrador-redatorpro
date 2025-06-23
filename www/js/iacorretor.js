@@ -285,6 +285,44 @@ window.initIACorretor = function () {
         }
     }
 
+    // NOVO: Carregar temas dinâmicos do backend para o select
+    async function carregarTemasNoSelect() {
+        try {
+            const select = document.getElementById('temaRedacao');
+            if (!select) return;
+            // Salva a opção "Tema Livre" para recolocar depois
+            let temaLivreOption = null;
+            Array.from(select.options).forEach(opt => {
+                if (opt.value === 'livre') temaLivreOption = opt;
+            });
+            // Limpa todas as opções
+            select.innerHTML = '<option value="">Selecione um tema</option>';
+            // Busca temas do backend
+            const resp = await fetch('https://express-e3hm.onrender.com/temas');
+            const temas = await resp.json();
+            temas.forEach(tema => {
+                const opt = document.createElement('option');
+                opt.value = tema.titulo;
+                opt.textContent = tema.titulo;
+                select.appendChild(opt);
+            });
+            // Recoloca a opção Tema Livre
+            if (temaLivreOption) {
+                select.appendChild(temaLivreOption);
+            } else {
+                // Garante que Tema Livre exista
+                const opt = document.createElement('option');
+                opt.value = 'livre';
+                opt.textContent = 'Tema Livre';
+                select.appendChild(opt);
+            }
+        } catch (err) {
+            console.error('[iacorretor.js] Erro ao carregar temas do backend:', err);
+        }
+    }
+
+    // Chama ao inicializar a página
+    carregarTemasNoSelect();
 };
 
 

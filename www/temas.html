@@ -4,30 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temas de Redação</title>
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
     <link rel="stylesheet" href="css/temas.css">
 </head>
 <body>
+    <div id="app">
+        <div class="view view-main">
+            <div data-name="temas" class="page">
+                <div class="navbar">
+                    <div class="navbar-bg"></div>
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a href="/index/" class="back link">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </a>
+                        </div>
+                        <div class="title">Temas de Redação</div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    <!-- Filtro de temas -->
+                    <div class="filter-button" style="text-align:center; margin-bottom:20px;">
+                        <button onclick="filtrarTema('')" class="geral">Geral</button>
+                        <button onclick="filtrarTema('ENEM')">ENEM</button>
+                        <button onclick="filtrarTema('Vestibular')">VESTIBULAR</button>
+                        <button onclick="filtrarTema('Concursos')">CONCURSOS</button>
+                    </div>
 
-    <h1 class="titulo">Temas de Redação</h1>
-
-    <!-- Filtro de temas -->
-    <div class="filter-button" style="text-align:center; margin-bottom:20px;">
-        <button onclick="filtrarTema('')" class="geral">Geral</button>
-        <button onclick="filtrarTema('ENEM')">ENEM</button>
-        <button onclick="filtrarTema('Vestibular')">VESTIBULAR</button>
-        <button onclick="filtrarTema('Concursos')">CONCURSOS</button>
+                    <div class="container" id="temas-container">
+                        <!-- Os cards de temas serão inseridos dinamicamente aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="container" id="temas-container">
-        <!-- Os cards de temas serão inseridos dinamicamente aqui -->
-    </div>
-
-    <!-- As caixas de tema serão inseridas dinamicamente -->
     <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-    <!-- jQuery -->
-    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
-    <!-- Roteamento do app-->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
     <script type="text/javascript" src="js/routes.js"></script>
-    <script src="cordova.js"></script>
 </body>
 </html>

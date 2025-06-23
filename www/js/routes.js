@@ -305,15 +305,12 @@ var app = new Framework7({
       animate: false,
       on: {
         pageInit: function (event, page) {
-          // Chame a função de carregar temas diretamente
-          if (window.carregarTemas) {
-            window.carregarTemas();
-          } else {
-            // Carregue o script se ainda não foi carregado
-            $.getScript('js/temas.js').done(() => {
+          // Carregar o script temas.js ao inicializar a página de temas
+          $.getScript('js/temas.js')
+            .done(() => {
               if (window.carregarTemas) window.carregarTemas();
-            });
-          }
+            })
+            .fail(() => console.error('Erro ao carregar js/temas.js'));
         },
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM

@@ -79,15 +79,6 @@ window.escreverRedacao = function() {
     alert("Modo de escrita de redação será implementado aqui!");
 };
 
-// Framework7: carregue os temas apenas quando a página for inicializada
-if (window.app && window.app.views) {
-    // Se Framework7 já está carregado
-    window.app.on('pageInit', function(page) {
-        if (page.name === 'temas' || page.route && page.route.url && page.route.url.includes('temas.html')) {
-            carregarTemas();
-        }
-    });
-} else {
-    // fallback para carregamento tradicional
-    document.addEventListener('DOMContentLoaded', carregarTemas);
-}
+// Removido: carregamento automático por DOMContentLoaded ou pageInit
+// O carregamento será feito pelo router chamando window.carregarTemas()
+window.carregarTemas = carregarTemas;

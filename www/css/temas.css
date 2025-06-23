@@ -138,3 +138,24 @@ body {
 .fechar:hover {
     background-color: #bbb;
 }
+
+.filter-button {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.filter-button button {
+    background: #e3eaf7;
+    color: #003366;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 5px;
+    margin: 0 5px 5px 0;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+.filter-button button:hover,
+.filter-button button.geral:focus {
+    background: #2196f3;
+    color: #fff;
+}

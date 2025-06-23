@@ -300,24 +300,20 @@ var app = new Framework7({
       }
     },
     {
-      path: '/temas/', // Caminho para a página de login
+      path: '/temas/', // Caminho para a página de temas
       url: 'temas.html',
       animate: false,
-      //options: {
-        //transition: 'f7-dive', // Transição da página
-      //},
       on: {
-        pageBeforeIn: function (event, page) {
-          // Fazer algo antes de a página de login ser exibida
-        },
-        pageAfterIn: function (event, page) {
-          // Fazer algo depois de a página de login ser exibida
-        },
         pageInit: function (event, page) {
-          // Fazer algo quando a página de login for inicializada
-          $.getScript('js/temas.js')
-            //.done(() => window.initFolha?.())
-            //.fail(() => console.error("Erro ao carregar folha.js"));
+          // Chame a função de carregar temas diretamente
+          if (window.carregarTemas) {
+            window.carregarTemas();
+          } else {
+            // Carregue o script se ainda não foi carregado
+            $.getScript('js/temas.js').done(() => {
+              if (window.carregarTemas) window.carregarTemas();
+            });
+          }
         },
         pageBeforeRemove: function (event, page) {
           // Fazer algo antes de a página ser removida do DOM
@@ -655,4 +651,3 @@ function onDeviceReady() {
   }, false);
 
 }
-

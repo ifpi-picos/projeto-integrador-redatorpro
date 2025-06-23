@@ -32,7 +32,7 @@
 }
 
 body {
-    background-color: #f0f8ff; /* branco gelo */
+    background-color: #f0f8ff; 
     color: #003366;
 }
 
@@ -62,7 +62,7 @@ body {
 
 .card img {
     width: 150px;
-    height: 150px;
+    height: 220px;
     border-radius: 8px;
     object-fit: cover;
 }
@@ -72,13 +72,19 @@ body {
 }
 
 .card h2 {
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #000000;
     margin-bottom: 10px;
 }
 
 .card button {
-    background-color: #4da6ff;
-    color: white;
-    border: none;
+    background-color: #577ba0;
+    color: rgb(250, 250, 250);
+    border: #174b75;
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
@@ -111,7 +117,7 @@ body {
 }
 
 .box-tema button {
-    background-color: #4da6ff;
+    background-color: #577ba0;
     color: white;
     border: none;
     padding: 8px 16px;

@@ -58,10 +58,21 @@ if (!window.__temasScriptLoaded) {
                 let textosHtml = '';
                 if (Array.isArray(tema.textosMotivadores)) {
                     tema.textosMotivadores.forEach((tm, idx) => {
+                        // Fonte pode estar em tm.fonte ou tm.fonteMotivador
+                        const fonte = tm.fonte || tm.fonteMotivador || '';
                         if (tm.tipo === 'imagem') {
-                            textosHtml += `<p>Texto ${idx + 1}:<br><img src="${tm.valor}" style="max-width:200px;max-height:200px;"></p>`;
+                            textosHtml += `<div style="margin-bottom:15px;">
+                                <p>Texto ${idx + 1}:</p>
+                                <img src="${tm.valor}" style="max-width:200px;max-height:200px;display:block;">
+                                ${fonte ? `<div class="fonte-motivador"><small><b>Fonte:</b> ${fonte}</small></div>` : ''}
+                            </div>`;
                         } else {
-                            textosHtml += `<p>Texto ${idx + 1}: ${tm.valor}</p>`;
+                            // Mantém a formatação original do texto (quebra de linha)
+                            const textoFormatado = tm.valor.replace(/\n/g, '<br>');
+                            textosHtml += `<div style="margin-bottom:15px;">
+                                <p>Texto ${idx + 1}: ${textoFormatado}</p>
+                                ${fonte ? `<div class="fonte-motivador"><small><b>Fonte:</b> ${fonte}</small></div>` : ''}
+                            </div>`;
                         }
                     });
                 }

@@ -51,7 +51,7 @@ body {
 }
 
 .card {
-    background-color: #ffffff;
+    background-color: var(--color-bg-sidebar);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     display: flex;
@@ -72,12 +72,12 @@ body {
 }
 
 .card h2 {
-    color: #000000;
+    color: var(--color-text-primary);
     margin-bottom: 10px;
 }
 
 .card p {
-    color: #000000;
+    color: var(--color-text-primary);
     margin-bottom: 10px;
 }
 
@@ -96,7 +96,7 @@ body {
 
 .box-tema {
     display: none;
-    background-color: #ffffff;
+    background-color: var(--color-bg-sidebar);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     width: 90%;

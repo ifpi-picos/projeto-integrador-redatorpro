@@ -11,25 +11,33 @@
     <div id="app">
         <div class="view view-main">
             <div data-name="temas" class="page">
-                <div class="navbar">
-                    <div class="navbar-bg"></div>
-                    <div class="navbar-inner">
-                        <div class="left">
-                            <a href="/index/" class="back link">
-                                <i class="ri-arrow-left-s-line"></i>
-                            </a>
-                        </div>
-                        <div class="title">Temas de Redação</div>
-                    </div>
+                
+                <!-- Título topo -->
+                <div class="top-nav">
+                    <h1 class="title-logo"><span class="pro">Temas</span></h1>
+                </div>
+
+                <!--filtro e barra de pesquisa-->
+                <form onsubmit="return false;">
+                    <input id="inputBusca" onkeyup="filtrar()" placeholder="O que você procura?" type="text" class="search">
+                    <i class="icone-busca ri-search-2-line"></i>
+                </form>
+
+                <div class="filter-button">
+                    <button onclick="filtrarTema('')" class="geral">Geral</button>
+                    <button onclick="filtrarTema('Enem')">Enem</button>
+                    <button onclick="filtrarTema('Vestibular')">Vestibular</button>
+                    <button onclick="filtrarTema('Ita')">Concursos</button>
                 </div>
                 <div class="page-content">
-                    <!-- Filtro de temas -->
-                    <div class="filter-button" style="text-align:center; margin-bottom:20px;">
+                    <!-- Filtro de temas
+                    <div class="filter-button" style="text-align:center; margin-bottom:0px;">
                         <button onclick="filtrarTema('')" class="geral">Geral</button>
                         <button onclick="filtrarTema('ENEM')">ENEM</button>
                         <button onclick="filtrarTema('Vestibular')">VESTIBULAR</button>
                         <button onclick="filtrarTema('Concursos')">CONCURSOS</button>
                     </div>
+                    -->
 
                     <div class="container" id="temas-container">
                         <!-- Os cards de temas serão inseridos dinamicamente aqui -->

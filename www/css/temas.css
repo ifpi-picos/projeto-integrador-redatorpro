@@ -141,9 +141,11 @@ body {
 
 .filter-button {
     text-align: center;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
-.filter-button button {
+
+/*
+.page[data-name="iacorretor"] .filter-button button {
     background: #e3eaf7;
     color: #003366;
     border: none;
@@ -159,3 +161,4 @@ body {
     background: #2196f3;
     color: #fff;
 }
+*/

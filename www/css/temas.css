@@ -105,14 +105,17 @@ body {
 }
 
 .box-tema h2 {
+    color: var(--color-text-primary);
     margin-bottom: 15px;
 }
 
 .box-tema h3 {
+    color: var(--color-text-primary);
     margin: 15px 0 10px;
 }
 
 .box-tema p {
+    color: var(--color-text-primary);
     margin-bottom: 10px;
 }
 

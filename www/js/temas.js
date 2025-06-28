@@ -139,18 +139,6 @@ if (!window.__temasScriptLoaded) {
             box.className = 'box-tema';
             box.id = id;
 
-            // Botão X redondo para fechar
-            const btnFechar = document.createElement('button');
-            btnFechar.className = 'fechar-x';
-            btnFechar.type = 'button';
-            btnFechar.title = 'Fechar';
-            btnFechar.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">&times;</span>';
-            btnFechar.addEventListener('click', function(e) {
-                e.stopPropagation();
-                window.fecharTema(this.parentElement.id); // <-- Corrigido aqui
-            });
-            box.appendChild(btnFechar);
-
             let textosHtml = '';
             if (Array.isArray(tema.textosMotivadores)) {
                 tema.textosMotivadores.forEach((tm, idx) => {
@@ -175,7 +163,7 @@ if (!window.__temasScriptLoaded) {
             let instrucoesFormatadas = tema.instrucoes
                 ? tema.instrucoes.replace(/\n/g, '<br>')
                 : '';
-            box.innerHTML += `
+            box.innerHTML = `
                 <h2>${tema.titulo}</h2>
                 <h3>Textos Motivadores:</h3>
                 ${textosHtml}
@@ -185,6 +173,19 @@ if (!window.__temasScriptLoaded) {
                 <p>${tema.proposta ? tema.proposta.replace(/\n/g, '<br>') : ''}</p>
                 <button onclick="escreverRedacao('${tema.titulo}')">Escrever Redação</button>
             `;
+
+            // Botão X redondo para fechar
+            const btnFechar = document.createElement('button');
+            btnFechar.className = 'fechar-x';
+            btnFechar.type = 'button';
+            btnFechar.title = 'Fechar';
+            btnFechar.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">&times;</span>';
+            btnFechar.addEventListener('click', function(e) {
+                e.stopPropagation();
+                window.fecharTema(this.parentElement.id); // <-- Corrigido aqui
+            });
+            box.appendChild(btnFechar);
+
 
             // Cria overlay/modal
             const overlay = document.createElement('div');

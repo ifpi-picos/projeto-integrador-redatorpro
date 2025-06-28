@@ -21,13 +21,11 @@ if (!window.__temasScriptLoaded) {
 
     function renderizarTemas(temas) {
         try {
-            // Encontre o container da página atual
             const page = document.querySelector('.page[data-name="temas"]');
             if (!page) {
                 console.error('[renderizarTemas] Página .page[data-name="temas"] não encontrada');
                 return;
             }
-            // Use page-content se existir, senão use a própria page
             const pageContent = page.querySelector('.page-content') || page;
             const container = pageContent.querySelector('#temas-container');
             if (!container) {
@@ -37,21 +35,22 @@ if (!window.__temasScriptLoaded) {
             container.innerHTML = '';
             // Remove todas as box-tema antigas dentro da página
             pageContent.querySelectorAll('.box-tema').forEach(el => el.remove());
+
             temas.forEach(tema => {
                 // Card
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.setAttribute('data-tipo', tema.tipo); // Para facilitar o filtro
+                card.setAttribute('data-tipo', tema.tipo);
                 card.innerHTML = `
                     <img src="${tema.imagem}" alt="Capa do tema">
                     <div class="conteudo">
                         <h2>${tema.titulo}</h2>
-                        <button type="button" onclick="abrirTema('tema${tema.id}')">Acessar Tema</button>
+                        <button type="button" onclick="abrirTema('tema${tema.id}', this)">Acessar Tema</button>
                     </div>
                 `;
                 container.appendChild(card);
 
-                // Box-tema
+                // Box-tema (criada, mas não inserida ainda)
                 const box = document.createElement('div');
                 box.className = 'box-tema';
                 box.id = `tema${tema.id}`;
@@ -94,8 +93,8 @@ if (!window.__temasScriptLoaded) {
                     <button onclick="escreverRedacao()">Escrever Redação</button>
                     <button class="fechar" onclick="fecharTema('tema${tema.id}')">Fechar</button>
                 `;
-                // Adiciona a box-tema dentro da page-content
-                pageContent.appendChild(box);
+                // Salva referência para uso em abrirTema
+                card._boxTema = box;
             });
             console.log('[renderizarTemas] Temas renderizados:', temas.length);
         } catch (err) {
@@ -121,7 +120,7 @@ if (!window.__temasScriptLoaded) {
     };
 
     // Funções globais para abrir/fechar box-tema
-    window.abrirTema = function(id) {
+    window.abrirTema = function(id, btn) {
         try {
             const page = document.querySelector('.page[data-name="temas"]');
             if (!page) {
@@ -129,17 +128,85 @@ if (!window.__temasScriptLoaded) {
                 return;
             }
             const pageContent = page.querySelector('.page-content') || page;
-            const el = pageContent.querySelector('#' + id);
-            if (el) {
-                el.style.display = 'block';
-                console.log('[abrirTema] Exibindo:', id);
+            // Remove todas as box-tema abertas
+            pageContent.querySelectorAll('.box-tema').forEach(el => el.remove());
+
+            // Encontra o card correspondente ao botão clicado
+            let card = null;
+            if (btn && btn.closest('.card')) {
+                card = btn.closest('.card');
             } else {
-                console.error('[abrirTema] Elemento #' + id + ' não encontrado');
+                // fallback: procura pelo id
+                card = pageContent.querySelector('.card');
             }
+            if (!card) {
+                console.error('[abrirTema] Card não encontrado');
+                return;
+            }
+
+            // Recupera o tema pelo id
+            let temaId = id.replace('tema', '');
+            let tema = (window.todosTemas || []).find(t => String(t.id) === String(temaId));
+            if (!tema) {
+                console.error('[abrirTema] Tema não encontrado');
+                return;
+            }
+
+            // Cria a box-tema dinamicamente
+            const box = document.createElement('div');
+            box.className = 'box-tema';
+            box.id = id;
+            let textosHtml = '';
+            if (Array.isArray(tema.textosMotivadores)) {
+                tema.textosMotivadores.forEach((tm, idx) => {
+                    const fonte = tm.fonte || tm.fonteMotivador || '';
+                    if (tm.tipo === 'imagem') {
+                        textosHtml += `<div style="margin-bottom:15px;">
+                            <p>Texto ${idx + 1}:</p>
+                            <img src="${tm.valor}" style="max-width:200px;max-height:200px;display:block;">
+                            ${fonte ? `<div class="fonte-motivador"><small><b>Fonte:</b> ${fonte}</small></div>` : ''}
+                        </div>`;
+                    } else {
+                        // Mantém a formatação original do texto (quebra de linha)
+                        const textoFormatado = tm.valor
+                            ? tm.valor.replace(/\n/g, '<br>')
+                            : '';
+                        textosHtml += `<div style="margin-bottom:15px;">
+                            <p>Texto ${idx + 1}:<br>${textoFormatado}</p>
+                            ${fonte ? `<div class="fonte-motivador"><small><b>Fonte:</b> ${fonte}</small></div>` : ''}
+                        </div>`;
+                    }
+                });
+            }
+            let instrucoesFormatadas = tema.instrucoes
+                ? tema.instrucoes.replace(/\n/g, '<br>')
+                : '';
+            box.innerHTML = `
+                <h2>${tema.titulo}</h2>
+                <h3>Textos Motivadores:</h3>
+                ${textosHtml}
+                <h3>Instruções:</h3>
+                <p>${instrucoesFormatadas}</p>
+                <h3>Proposta de Redação:</h3>
+                <p>${tema.proposta ? tema.proposta.replace(/\n/g, '<br>') : ''}</p>
+                <button onclick="escreverRedacao()">Escrever Redação</button>
+                <button class="fechar" onclick="fecharTema('${id}')">Fechar</button>
+            `;
+            // Insere a box-tema logo após o card correspondente
+            card.parentNode.insertBefore(box, card.nextSibling);
+
+            // Scroll para garantir que a box-tema fique visível
+            setTimeout(() => {
+                box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+
+            box.style.display = 'block';
+            console.log('[abrirTema] Exibindo:', id);
         } catch (err) {
             console.error('[abrirTema] Erro:', err);
         }
     };
+
     window.fecharTema = function(id) {
         try {
             const page = document.querySelector('.page[data-name="temas"]');
@@ -150,7 +217,7 @@ if (!window.__temasScriptLoaded) {
             const pageContent = page.querySelector('.page-content') || page;
             const el = pageContent.querySelector('#' + id);
             if (el) {
-                el.style.display = 'none';
+                el.remove();
                 console.log('[fecharTema] Ocultando:', id);
             } else {
                 console.error('[fecharTema] Elemento #' + id + ' não encontrado');

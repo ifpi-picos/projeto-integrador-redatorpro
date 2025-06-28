@@ -139,12 +139,12 @@ if (!window.__temasScriptLoaded) {
             box.className = 'box-tema';
             box.id = id;
 
-            // Botão X para fechar
+            // Botão X redondo para fechar
             const btnFechar = document.createElement('button');
             btnFechar.className = 'fechar-x';
             btnFechar.type = 'button';
             btnFechar.title = 'Fechar';
-            btnFechar.innerHTML = '&times;';
+            btnFechar.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">&times;</span>';
             btnFechar.onclick = function() { window.fecharTema(id); };
             box.appendChild(btnFechar);
 

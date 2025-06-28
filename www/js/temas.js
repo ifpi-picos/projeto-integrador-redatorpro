@@ -147,7 +147,7 @@ if (!window.__temasScriptLoaded) {
             btnFechar.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">&times;</span>';
             btnFechar.addEventListener('click', function(e) {
                 e.stopPropagation();
-                window.fecharTema(id);
+                window.fecharTema(this.parentElement.id); // <-- Corrigido aqui
             });
             box.appendChild(btnFechar);
 

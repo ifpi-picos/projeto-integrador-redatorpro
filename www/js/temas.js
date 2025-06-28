@@ -183,7 +183,7 @@ if (!window.__temasScriptLoaded) {
                 <p>${instrucoesFormatadas}</p>
                 <h3>Proposta de Redação:</h3>
                 <p>${tema.proposta ? tema.proposta.replace(/\n/g, '<br>') : ''}</p>
-                <button onclick="escreverRedacao()">Escrever Redação</button>
+                <button onclick="escreverRedacao('${tema.titulo}')">Escrever Redação</button>
             `;
 
             // Cria overlay/modal
@@ -217,20 +217,15 @@ if (!window.__temasScriptLoaded) {
         }
     };
 
-    // Alteração: ao clicar em "escrever redação", salva o tema e navega para iacorretor
-    window.escreverRedacao = function() {
-        // Descobre o tema aberto pelo botão
-        const boxAberta = document.querySelector('.box-tema[style*="display: block"]');
-        let temaSelecionado = '';
-        if (boxAberta) {
-            const tituloEl = boxAberta.querySelector('h2');
-            if (tituloEl) temaSelecionado = tituloEl.textContent.trim();
-        }
+    // Alteração: ao clicar em "escrever redação", salva o tema, fecha o modal e navega para iacorretor
+    window.escreverRedacao = function(temaSelecionado) {
+        // Fecha o modal corretamente antes de navegar
+        document.body.classList.remove('tema-modal-open');
+        document.querySelectorAll('.tema-modal-overlay').forEach(el => el.remove());
+
         if (temaSelecionado) {
             localStorage.setItem('temaPreSelecionado', temaSelecionado);
         }
-        // Fecha o box-tema antes de navegar
-        if (boxAberta) boxAberta.style.display = 'none';
         // Navega para a tela iacorretor
         if (window.app && app.views && app.views.main && app.views.main.router) {
             app.views.main.router.navigate('/iacorretor/');

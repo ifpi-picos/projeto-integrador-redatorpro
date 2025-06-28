@@ -138,6 +138,16 @@ if (!window.__temasScriptLoaded) {
             const box = document.createElement('div');
             box.className = 'box-tema';
             box.id = id;
+
+            // Botão X para fechar
+            const btnFechar = document.createElement('button');
+            btnFechar.className = 'fechar-x';
+            btnFechar.type = 'button';
+            btnFechar.title = 'Fechar';
+            btnFechar.innerHTML = '&times;';
+            btnFechar.onclick = function() { window.fecharTema(id); };
+            box.appendChild(btnFechar);
+
             let textosHtml = '';
             if (Array.isArray(tema.textosMotivadores)) {
                 tema.textosMotivadores.forEach((tm, idx) => {
@@ -162,7 +172,7 @@ if (!window.__temasScriptLoaded) {
             let instrucoesFormatadas = tema.instrucoes
                 ? tema.instrucoes.replace(/\n/g, '<br>')
                 : '';
-            box.innerHTML = `
+            box.innerHTML += `
                 <h2>${tema.titulo}</h2>
                 <h3>Textos Motivadores:</h3>
                 ${textosHtml}
@@ -171,7 +181,6 @@ if (!window.__temasScriptLoaded) {
                 <h3>Proposta de Redação:</h3>
                 <p>${tema.proposta ? tema.proposta.replace(/\n/g, '<br>') : ''}</p>
                 <button onclick="escreverRedacao()">Escrever Redação</button>
-                <button class="fechar" onclick="fecharTema('${id}')">Fechar</button>
             `;
 
             // Cria overlay/modal

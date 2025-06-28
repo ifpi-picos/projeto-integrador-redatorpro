@@ -145,7 +145,10 @@ if (!window.__temasScriptLoaded) {
             btnFechar.type = 'button';
             btnFechar.title = 'Fechar';
             btnFechar.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">&times;</span>';
-            btnFechar.onclick = function() { window.fecharTema(id); };
+            btnFechar.onclick = function(e) {
+                e.stopPropagation();
+                window.fecharTema(id);
+            };
             box.appendChild(btnFechar);
 
             let textosHtml = '';

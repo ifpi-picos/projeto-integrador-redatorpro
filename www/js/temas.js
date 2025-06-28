@@ -146,7 +146,6 @@ if (!window.__temasScriptLoaded) {
             btnFechar.title = 'Fechar';
             btnFechar.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">&times;</span>';
             btnFechar.addEventListener('click', function(e) {
-                e.preventDefault();
                 e.stopPropagation();
                 window.fecharTema(id);
             });

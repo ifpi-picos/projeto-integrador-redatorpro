@@ -122,27 +122,9 @@ if (!window.__temasScriptLoaded) {
     // Funções globais para abrir/fechar box-tema
     window.abrirTema = function(id, btn) {
         try {
-            const page = document.querySelector('.page[data-name="temas"]');
-            if (!page) {
-                console.error('[abrirTema] Página .page[data-name="temas"] não encontrada');
-                return;
-            }
-            const pageContent = page.querySelector('.page-content') || page;
-            // Remove todas as box-tema abertas
-            pageContent.querySelectorAll('.box-tema').forEach(el => el.remove());
-
-            // Encontra o card correspondente ao botão clicado
-            let card = null;
-            if (btn && btn.closest('.card')) {
-                card = btn.closest('.card');
-            } else {
-                // fallback: procura pelo id
-                card = pageContent.querySelector('.card');
-            }
-            if (!card) {
-                console.error('[abrirTema] Card não encontrado');
-                return;
-            }
+            // Remove qualquer overlay/modal antigo
+            document.querySelectorAll('.tema-modal-overlay').forEach(el => el.remove());
+            document.body.classList.add('tema-modal-open');
 
             // Recupera o tema pelo id
             let temaId = id.replace('tema', '');
@@ -167,7 +149,6 @@ if (!window.__temasScriptLoaded) {
                             ${fonte ? `<div class="fonte-motivador"><small><b>Fonte:</b> ${fonte}</small></div>` : ''}
                         </div>`;
                     } else {
-                        // Mantém a formatação original do texto (quebra de linha)
                         const textoFormatado = tm.valor
                             ? tm.valor.replace(/\n/g, '<br>')
                             : '';
@@ -192,13 +173,20 @@ if (!window.__temasScriptLoaded) {
                 <button onclick="escreverRedacao()">Escrever Redação</button>
                 <button class="fechar" onclick="fecharTema('${id}')">Fechar</button>
             `;
-            // Insere a box-tema logo após o card correspondente
-            card.parentNode.insertBefore(box, card.nextSibling);
 
-            // Scroll para garantir que a box-tema fique visível
-            setTimeout(() => {
-                box.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+            // Cria overlay/modal
+            const overlay = document.createElement('div');
+            overlay.className = 'tema-modal-overlay';
+            overlay.appendChild(box);
+
+            // Fecha ao clicar fora da box-tema
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    window.fecharTema(id);
+                }
+            });
+
+            document.body.appendChild(overlay);
 
             box.style.display = 'block';
             console.log('[abrirTema] Exibindo:', id);
@@ -209,19 +197,9 @@ if (!window.__temasScriptLoaded) {
 
     window.fecharTema = function(id) {
         try {
-            const page = document.querySelector('.page[data-name="temas"]');
-            if (!page) {
-                console.error('[fecharTema] Página .page[data-name="temas"] não encontrada');
-                return;
-            }
-            const pageContent = page.querySelector('.page-content') || page;
-            const el = pageContent.querySelector('#' + id);
-            if (el) {
-                el.remove();
-                console.log('[fecharTema] Ocultando:', id);
-            } else {
-                console.error('[fecharTema] Elemento #' + id + ' não encontrado');
-            }
+            document.body.classList.remove('tema-modal-open');
+            document.querySelectorAll('.tema-modal-overlay').forEach(el => el.remove());
+            console.log('[fecharTema] Ocultando:', id);
         } catch (err) {
             console.error('[fecharTema] Erro:', err);
         }

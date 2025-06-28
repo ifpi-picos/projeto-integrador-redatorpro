@@ -220,20 +220,22 @@ if (!window.__temasScriptLoaded) {
 
     // Alteração: ao clicar em "escrever redação", salva o tema, fecha o modal e navega para iacorretor
     window.escreverRedacao = function(temaSelecionado) {
-        // Fecha o modal corretamente antes de navegar
-        document.body.classList.remove('tema-modal-open');
-        document.querySelectorAll('.tema-modal-overlay').forEach(el => el.remove());
+        try {
+            // Fecha o modal corretamente antes de navegar
+            document.body.classList.remove('tema-modal-open');
+            document.querySelectorAll('.tema-modal-overlay').forEach(el => el.remove());
 
-        if (temaSelecionado) {
-            localStorage.setItem('temaPreSelecionado', temaSelecionado);
-        }
-        // Navega para a tela iacorretor
-        if (window.app && app.views && app.views.main && app.views.main.router) {
-            setTimeout(() => {
+            if (temaSelecionado) {
+                localStorage.setItem('temaPreSelecionado', temaSelecionado);
+            }
+            // Navega para a tela iacorretor
+            if (window.app && app.views && app.views.main && app.views.main.router) {
                 app.views.main.router.navigate('/iacorretor/');
-            }, 50);
-        } else {
-            window.location.href = 'iacorretor.html';
+            } else {
+                window.location.href = 'iacorretor.html';
+            }
+        } catch (err) {
+            console.error('[escreverRedacao] Erro:', err);
         }
     };
 }

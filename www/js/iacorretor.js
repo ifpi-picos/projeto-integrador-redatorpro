@@ -367,9 +367,6 @@ window.toggleTemaLivre = function () {
         campoTemaLivre.required = false;
     }
 };
-        campoTemaLivre.style.display = 'none';
-        campoTemaLivre.required = false;
-    }
-};
+
 
 

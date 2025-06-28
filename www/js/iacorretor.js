@@ -316,6 +316,8 @@ window.initIACorretor = function () {
                 opt.textContent = 'Tema Livre';
                 select.appendChild(opt);
             }
+            // Após carregar os temas, tente pré-selecionar se necessário
+            preSelecionarTema();
         } catch (err) {
             console.error('[iacorretor.js] Erro ao carregar temas do backend:', err);
         }
@@ -326,36 +328,30 @@ window.initIACorretor = function () {
         const select = document.getElementById('temaRedacao');
         const temaPreSelecionado = localStorage.getItem('temaPreSelecionado');
         if (select && temaPreSelecionado) {
-            // Aguarda o carregamento dos temas dinâmicos
-            setTimeout(() => {
-                let encontrou = false;
-                for (let i = 0; i < select.options.length; i++) {
-                    if (select.options[i].text === temaPreSelecionado) {
-                        select.selectedIndex = i;
-                        encontrou = true;
-                        break;
-                    }
+            let encontrou = false;
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].text === temaPreSelecionado) {
+                    select.selectedIndex = i;
+                    encontrou = true;
+                    break;
                 }
-                // Se não encontrou, deixa como está (usuário pode escolher)
-                // Limpa o localStorage para não pré-selecionar de novo
-                localStorage.removeItem('temaPreSelecionado');
-                // Atualiza campo tema livre se necessário
-                if (select.value === 'livre') {
-                    window.toggleTemaLivre();
-                } else {
-                    const campoTemaLivre = document.getElementById('temaLivre');
-                    if (campoTemaLivre) {
-                        campoTemaLivre.style.display = 'none';
-                        campoTemaLivre.required = false;
-                    }
+            }
+            localStorage.removeItem('temaPreSelecionado');
+            // Atualiza campo tema livre se necessário
+            if (select.value === 'livre') {
+                window.toggleTemaLivre();
+            } else {
+                const campoTemaLivre = document.getElementById('temaLivre');
+                if (campoTemaLivre) {
+                    campoTemaLivre.style.display = 'none';
+                    campoTemaLivre.required = false;
                 }
-            }, 300); // Pequeno delay para garantir que os temas já foram carregados
+            }
         }
     }
 
     // Chama ao inicializar a página
     carregarTemasNoSelect();
-    preSelecionarTema();
 };
 
 
@@ -367,6 +363,10 @@ window.toggleTemaLivre = function () {
         campoTemaLivre.style.display = 'block';
         campoTemaLivre.required = true;
     } else {
+        campoTemaLivre.style.display = 'none';
+        campoTemaLivre.required = false;
+    }
+};
         campoTemaLivre.style.display = 'none';
         campoTemaLivre.required = false;
     }

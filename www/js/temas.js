@@ -145,10 +145,11 @@ if (!window.__temasScriptLoaded) {
             btnFechar.type = 'button';
             btnFechar.title = 'Fechar';
             btnFechar.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">&times;</span>';
-            btnFechar.onclick = function(e) {
+            btnFechar.addEventListener('click', function(e) {
+                e.preventDefault();
                 e.stopPropagation();
                 window.fecharTema(id);
-            };
+            });
             box.appendChild(btnFechar);
 
             let textosHtml = '';
@@ -228,7 +229,9 @@ if (!window.__temasScriptLoaded) {
         }
         // Navega para a tela iacorretor
         if (window.app && app.views && app.views.main && app.views.main.router) {
-            app.views.main.router.navigate('/iacorretor/');
+            setTimeout(() => {
+                app.views.main.router.navigate('/iacorretor/');
+            }, 50);
         } else {
             window.location.href = 'iacorretor.html';
         }

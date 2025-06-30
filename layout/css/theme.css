@@ -1,0 +1,134 @@
+:root {
+  /* Light Theme */
+  --primary: #4361ee;
+  --primary-dark: #3a0ca3;
+  --secondary: #4895ef;
+  --accent: #f72585;
+  --text: #2b2d42;
+  --text-light: #8d99ae;
+  --bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border: #e9ecef;
+  --success: #4cc9f0;
+  --warning: #f8961e;
+  --danger: #ef233c;
+  --rating: #ffd166;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --primary: #4895ef;
+  --primary-dark: #3f37c9;
+  --secondary: #4361ee;
+  --accent: #f72585;
+  --text: #edf2f4;
+  --text-light: #8d99ae;
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --border: #333333;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: all 0.3s ease;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Navbar Styles */
+.app-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--card-bg);
+  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-light);
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  flex: 1;
+  max-width: 100px;
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(67, 97, 238, 0.1);
+  border-radius: 50%;
+  margin-bottom: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-btn i {
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Active State */
+.nav-btn.active {
+  color: var(--accent);
+}
+
+.nav-btn.active .nav-icon {
+  background-color: rgba(247, 37, 133, 0.2);
+}
+
+.nav-btn.active i {
+  color: var(--accent);
+}
+
+/* Hover Effects */
+.nav-btn:hover {
+  transform: translateY(-3px);
+}
+
+.nav-btn:hover .nav-icon {
+  transform: scale(1.1);
+  background-color: rgba(67, 97, 238, 0.2);
+}
+
+/* Theme Toggle Animation */
+#themeToggleBtn:active .nav-icon {
+  transform: rotate(30deg) scale(1.1);
+}
+
+/* Container Principal */
+.main-container {
+  padding: 20px;
+  padding-bottom: 90px;
+  max-width: 600px;
+  margin: 0 auto;
+}

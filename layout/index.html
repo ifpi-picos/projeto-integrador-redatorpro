@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil | Corretor</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+    <!-- No cabeçalho da sua página -->
+    <div class="datetime-container">
+        <span id="current-date"></span>
+        <span id="current-time"></span>
+    </div>
+    <!-- Navbar será injetada via JS -->
+    <div id="navbar-container"></div>
+
+    <div class="main-container">
+        <div class="profile-card card">
+            <div class="profile-header">
+                <div class="profile-photo-container">
+                    <img src="https://ui-avatars.com/api/?name=Rômulo&background=4361ee&color=fff&size=150" alt="Foto do Corretor" class="profile-photo">
+                    <button class="edit-photo-btn">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <h1 class="profile-name">Rômulo</h1>
+                <p class="profile-title">Mestre em Letras</p>
+            </div>
+
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-value">8 anos</div>
+                    <div class="stat-label">Experiência</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2h</div>
+                    <div class="stat-label">Resposta</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value rating">5.0</div>
+                    <div class="stat-label">Avaliação</div>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-id-card"></i> Informações
+                    </h3>
+                    <div class="info-item">
+                        <span class="info-label">E-mail:</span>
+                        <span class="info-value">www.compostos@gmail.com</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Formação:</span>
+                        <span class="info-value">Mestre em Letras</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" id="editProfileBtn">
+                        <i class="fas fa-edit"></i> Editar Perfil
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-share-alt"></i> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edição 
+    <div class="modal" id="editProfileModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> -->
+                    <!-- Conteúdo do modal
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <nav class="app-navbar">
+        <div class="navbar-container">
+            <a href="area-trabalho.html" class="nav-btn" id="workspaceBtn">
+            <div class="nav-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <span class="nav-label">Trabalho</span>
+            </a>
+            
+            <!--
+            <button class="nav-btn" id="themeToggleBtn">
+            <div class="nav-icon">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </div>
+            <span class="nav-label">Tema</span>
+            </button>
+            -->
+            
+            <a href="index.html" class="nav-btn active" id="profileBtn">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-label">Perfil</span>
+            </a>
+        </div>
+    </nav>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/theme-switcher.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

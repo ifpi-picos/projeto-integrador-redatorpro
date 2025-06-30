@@ -26,8 +26,12 @@ document.querySelector('.sign-in-form').addEventListener('submit', async functio
             token: data.token
         }));
 
-        // Redireciona para a página principal
-        window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
+        // Redireciona para a página principal ou para o painel do corretor
+        if (data.user.tipo === 'corretor') {
+            window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/layout/index.html';
+        } else {
+            window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
+        }
     } catch (error) {
         console.error('Erro ao conectar ao backend:', error);
         alert('Ocorreu um erro ao tentar se conectar ao servidor. Tente novamente mais tarde.');

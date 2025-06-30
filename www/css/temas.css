@@ -44,12 +44,12 @@ body {
 
 .container {
     width: 100%;
-    max-width: 900px;
+    max-width: 90%;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 20px;
-    padding-bottom: 40px;
+    padding-bottom: 200px;
 }
 
 .card {

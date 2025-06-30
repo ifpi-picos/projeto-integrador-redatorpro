@@ -281,3 +281,7 @@ body.tema-modal-open {
     background: #2196f3;
     color: #fff;
 }
+
+.page[data-name="temas"]{
+    padding-bottom: 100px !important;
+}

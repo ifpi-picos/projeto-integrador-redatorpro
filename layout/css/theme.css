@@ -48,7 +48,7 @@ body {
   background-color: var(--card-bg);
   box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  padding: 12px 0;
+  padding: 5px 0;
   border-top: 1px solid var(--border);
 }
 
@@ -131,4 +131,37 @@ body {
   padding-bottom: 90px;
   max-width: 600px;
   margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .app-navbar {
+    top: 25%;
+    bottom: auto;
+    right: 20px;
+    left: auto;
+    width: 90px; /* Largura ajustável */
+    padding: 20px 0;
+    border-top: none;
+    border-left: 1px solid var(--border);
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    height: auto; /* Altura automática */
+  }
+
+  .navbar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Alinha os itens no centro verticalmente */
+    gap: 20px;
+  }
+
+  .nav-btn {
+    flex: none;
+    max-width: none;
+    width: 100%;
+  }
 }

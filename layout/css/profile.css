@@ -208,7 +208,7 @@ teste
     display: none; /* Escondido por padrão */
     position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px;
     font-family: 'Roboto', sans-serif;
     color: var(--text-color);
     background-color: rgba(255, 255, 255, 0.9);

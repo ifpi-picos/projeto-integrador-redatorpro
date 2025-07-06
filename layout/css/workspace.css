@@ -178,15 +178,121 @@
     }
 }
 
-@media (max-width: 968px) {
-    .sidebar {
-        display: none !important;
+/* Recent Activity - Versão Desktop */
+@media (min-width: 768px) {
+    .recent-activity {
+        position: fixed;
+        left: 20px;
+        top: 20px; /* Ajuste conforme sua navbar */
+        width: 280px;
+        padding: 15px;
+        border-radius: 12px;
+        background: var(--card-bg);
+        box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+
+    /* Se você tiver um container principal */
+    .main-container {
+        padding-left: 320px; /* Espaço para a atividade recente */
     }
 }
 
-@media (min-width: 968px) {
-    .recent-activity.mobile{
-        display: none !important;
+/* Mantenha sua versão mobile existente */
+@media (max-width: 767px) {
+    .recent-activity {
+        margin-bottom: 30px; /* Espaçamento normal no mobile */
     }
 }
 
+
+/* TESTE */
+
+/* Esconde itens além dos 4 primeiros */
+.activity-item:nth-child(n+5) {
+    display: none;
+}
+
+/* Overlay e Modal */
+.activity-overlay::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari e Opera */
+}
+
+.activity-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: none;
+}
+
+.activity-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    z-index: 1001;
+    display: none;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+}
+
+.activity-modal .activity-list {
+    display: block !important;
+}
+
+.activity-modal .activity-item {
+    display: flex !important;
+    opacity: 1 !important;
+}
+
+.overlay-active {
+    display: block;
+}
+
+.modal-active {
+    display: block;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+/* Barra de Scroll */
+/* Personalização para navegadores WebKit */
+.activity-modal::-webkit-scrollbar {
+    width: 8px; /* Largura da barra */
+    height: 8px; /* Para scroll horizontal */
+}
+
+.activity-modal::-webkit-scrollbar-track {
+    /* background: var(--border); Cor do fundo */
+    border-radius: 10px;
+}
+
+.activity-modal::-webkit-scrollbar-thumb {
+    background: var(--primary); /* Cor da barra */
+    border-radius: 10px;
+    /* border: 2px solid var(--bg-color); Borda para contraste */
+}
+
+.activity-modal::-webkit-scrollbar-thumb:hover {
+    background: var(--accent); /* Cor no hover */
+}

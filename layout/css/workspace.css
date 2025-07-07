@@ -236,7 +236,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: 400px;
+    max-width: 600px;
     max-height: 80vh;
     overflow-y: auto;
     background: var(--card-bg);
@@ -273,6 +273,12 @@
     font-size: 1.5rem;
     cursor: pointer;
     color: #666;
+}
+
+@media (max-width: 767px) {
+    .activity-modal {
+        max-width: 360px;
+    }
 }
 
 /* Barra de Scroll */

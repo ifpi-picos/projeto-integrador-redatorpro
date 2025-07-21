@@ -326,6 +326,10 @@ h1 {
   .btn {
     width: 100%;
   }
+
+  .app-navbar {
+    display: none;
+  }
 }
 
 /* Efeito de loading */

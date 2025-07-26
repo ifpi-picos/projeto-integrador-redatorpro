@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
     <meta name="theme-color" content="#2196f3">
-    <!-- Path to Framework7 Library Bundle CSS -->
     <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <!--Ícones Material Design-->
     <link rel="stylesheet" href="css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="css/repertorios.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repertorios</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <script src="js/repertorios.js" defer></script> <!-- Inclui o arquivo JavaScript -->
+    <link rel="stylesheet" href="css/repertorios.css">
+    <script src="js/repertorios.js" defer></script>
+    <title>Repertórios</title>
 </head>
 
 <body class="body-repertorios">
@@ -25,7 +20,7 @@
             <div data-name="repertorios" class="page">
 
                 <div class="buttons-top">
-                    <a href="/index/"><i class="ri-arrow-left-s-line"></i></a>
+                    <a href="/index/"><i class="fas fa-arrow-left"></i></a>
                 </div>
 
                 <header>
@@ -35,25 +30,25 @@
                 <h2 class="h2-repertorios">Escolha um tipo de repertório:</h2>
 
                 <div class="repertorios-container">
-                    <div class="repertorio-box filmes-series" data-page="filmes.html">
+                    <div class="repertorio-box filmes-series" onclick="window.location.href='filmes.html'">
                         <div class="repertorio-content">
                             <img src="img/rep-filmes.png" alt="Filmes e Séries">
                             <h3>Filmes e Séries</h3>
                         </div>
                     </div>
-                    <div class="repertorio-box livros" data-page="livros.html">
+                    <div class="repertorio-box livros" onclick="window.location.href='livros.html'">
                         <div class="repertorio-content">
                             <img src="img/rep-livros.png" alt="Livros">
                             <h3>Livros</h3>
                         </div>
                     </div>
-                    <div class="repertorio-box fatos-historicos" data-page="historia.html">
+                    <div class="repertorio-box fatos-historicos" onclick="window.location.href='historia.html'">
                         <div class="repertorio-content">
                             <img src="img/rep-historia.png" alt="Fatos Históricos">
                             <h3>Fatos Históricos</h3>
                         </div>
                     </div>
-                    <div class="repertorio-box citacoes-outros" data-page="citacoes.html">
+                    <div class="repertorio-box citacoes-outros" onclick="window.location.href='citacoes.html'">
                         <div class="repertorio-content">
                             <img src="img/rep-citacoes.png" alt="Citações e Outros">
                             <h3>Citações e Outros</h3>
@@ -61,17 +56,12 @@
                     </div>
                 </div>
 
-                <!-- Path to Framework7 Library Bundle JS-->
-                <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
-                <!-- jQuery -->
-                <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
-                <!-- Roteamento do app-->
-                <script type="text/javascript" src="js/routes.js"></script>
+                <script src="lib/framework7-bundle.min.js"></script>
+                <script src="lib/jquery-3.7.0.min.js"></script>
+                <script src="js/routes.js"></script>
                 <script src="cordova.js"></script>
-
             </div>
         </div>
     </div>
-    
 </body>
 </html>

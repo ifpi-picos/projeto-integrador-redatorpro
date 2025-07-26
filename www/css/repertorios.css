@@ -1,78 +1,72 @@
 :root {
-    --branco: #ffff;
-    --gelo: #f1f1f1;
-    --azulclaro: #DFF1FF;
-    --azulgelo: #93B4D7;
-    /*--azul: #006494;*/
+    --branco: #ffffff;
+    --gelo: #f5f9ff;
     --azul: #2196f3;
-    --darkazul: #13293D;
-    --preto: #2a2a2a;
-    --cinza: #cbcbcb;
-    --vermelho: #ef4d4d;
-    --verde: #19c463;
-
-    --color-text-primary: #1F2936;
-    --color-text-placeholder: #798EAE;
-    --color-bg-primary: #f9fafb;
-    --color-bg-secondary: #ECECFD;
-    --color-bg-sidebar: #FFFFFF;
-    --color-border-hr: #E2E8F0;
-    --color-hover-primary: #695CFE;
-    --color-hover-secondary: #e2e2fb;
-    --color-shadow: rgba(0, 0, 0, 0.05);
-    --color-azul-claro: #f0f8ff;
-    --color-azul-calro-medio: #add8e6;
+    --azul-claro: #e0f0ff;
+    --azul-gelo: #cce7ff;
+    --azul-hover: #1976d2;
+    --cinza: #d9e1ec;
+    --preto: #1a1a1a;
+    --sombra: rgba(0, 0, 0, 0.1);
 
     --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--f7-font-family);
+    background-color: var(--gelo);
 }
 
 .page[data-name="repertorios"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
-    overflow: auto; /* Permite rolagem */
-    background: var(--color-bg-primary);
+    background: var(--gelo);
+    overflow-x: hidden;
 }
 
-.button-top a {
-    width: 40px;
-    height: 40px;
+.buttons-top a {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 42px;
+    height: 42px;
     background-color: var(--branco);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--preto);
-    box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
-    border: 1px solid var(--gelo);
-    font-size: 18px;
-    position: fixed;
-    top: 30px;
-    right: 30px;
+    color: var(--azul);
+    box-shadow: 0 5px 15px var(--sombra);
     z-index: 1001;
+    font-size: 20px;
 }
 
 .page header {
     width: 100%;
-    background-color: #add8e6; /* Cor azul claro */
+    background: var(--azul-claro);
+    padding: 20px 0;
     text-align: center;
-    padding: 10px 0;
-    box-sizing: border-box;
+    box-shadow: 0 2px 4px var(--sombra);
     position: sticky;
     top: 0;
-    z-index: 1000; /* Garante que o cabeçalho fique acima do conteúdo */
+    z-index: 1000;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--azul-hover);
 }
 
 .h2-repertorios {
-    font-size: 28px; /* Aumenta o tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: var(--preto);
     text-align: center;
-    margin-top: 90px; /* Adiciona espaço entre o cabeçalho e a frase */
-    margin-bottom: 40px; /* Adiciona espaço entre a frase e as caixas */
-    color: var(--color-text-primary); /* Cor do texto */
-    font-family: 'Arial', sans-serif; /* Fonte do texto */
-    animation: fadeIn 1s ease-in-out; /* Adiciona animação de fade-in */
+    animation: fadeIn 1s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -89,20 +83,23 @@
 }
 
 .repertorio-box {
-    width: 300px;
-    height: 200px;
+    width: 280px;
+    height: 180px;
+    background-color: var(--branco);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    font-size: 18px;
-    transition: box-shadow 0.3s, background-color 0.3s;
+    cursor: pointer;
+    box-shadow: 0 6px 18px var(--sombra);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    animation: fadeInBox 0.6s forwards;
     opacity: 0;
-    animation: fadeInBox 1s forwards;
+}
+
+.repertorio-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--sombra);
 }
 
 @keyframes fadeInBox {
@@ -110,87 +107,46 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-.repertorio-box:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-/* Transição exclusiva para o conteúdo interno */
 .repertorio-content {
-    transition: transform 0.3s;
-}
-
-.repertorio-box:nth-child(1) {
-    animation-delay: 0.2s; /* Atraso para a primeira caixinha */
-}
-
-.repertorio-box:nth-child(2) {
-    animation-delay: 0.4s; /* Atraso para a segunda caixinha */
-}
-
-.repertorio-box:nth-child(3) {
-    animation-delay: 0.6s; /* Atraso para a terceira caixinha */
-}
-
-.repertorio-box:nth-child(4) {
-    animation-delay: 0.8s; /* Atraso para a quarta caixinha */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .repertorio-box img {
-    width: 120px; /* Aumenta a largura das imagens */
-    height: 120px; /* Aumenta a altura das imagens */
-    margin-bottom: 0px;
-    margin-top: 5px;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
 }
 
 .repertorio-box h3 {
-    font-size: 24px; /* Aumenta o tamanho da fonte dos títulos nas caixinhas */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao texto */
+    font-size: 20px;
+    color: var(--azul-hover);
 }
 
-.filmes-series {
-    background: linear-gradient(135deg, #ff6f61, #f9a395); /* Gradiente para Filmes e Séries */
-}
+.repertorio-box:nth-child(1) { animation-delay: 0.2s; }
+.repertorio-box:nth-child(2) { animation-delay: 0.4s; }
+.repertorio-box:nth-child(3) { animation-delay: 0.6s; }
+.repertorio-box:nth-child(4) { animation-delay: 0.8s; }
 
-.livros {
-    background: linear-gradient(135deg, #6b5b95, #c1ade6); /* Gradiente para Livros */
-}
-
-.fatos-historicos {
-    background: linear-gradient(135deg, #88b04b, #c1e698); /* Gradiente para Fatos Históricos */
-}
-
-.citacoes-outros {
-    background: linear-gradient(135deg, #f8d3d3, #f8bbd0); /* Gradiente para Citações e Outros */
-}
-
-/* Media query para telas de até 600px */
-/* Media query para telas de até 600px */
+/* Responsivo */
 @media screen and (max-width: 600px) {
-    .h2-repertorios {
-        margin-top: 60px; /* Diminui a margem superior */
-        font-size: 22px; /* Reduz o tamanho da fonte do h2 */
-        margin-bottom: 20px;
-    }
-
-    .repertorios-container {
-        gap: 20px; /* Aumenta o espaço entre as caixinhas */
-        padding: 10px;
-    }
-
     .repertorio-box {
-        width: 220px; /* Caixinhas menores */
-        height: 150px;
-        padding: 15px;
-        font-size: 16px; /* Reduz o tamanho da fonte interna */
+        width: 85%;
+        height: 160px;
     }
 
     .repertorio-box img {
-        width: 80px; /* Imagens menores */
-        height: 80px;
-        margin-top: 3px;
+        width: 70px;
+        height: 70px;
     }
 
     .repertorio-box h3 {
-        font-size: 18px; /* Tamanho reduzido para o título */
+        font-size: 18px;
+    }
+
+    .h2-repertorios {
+        font-size: 20px;
     }
 }

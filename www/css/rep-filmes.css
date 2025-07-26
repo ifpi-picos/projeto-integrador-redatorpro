@@ -6,12 +6,13 @@
     --cinza: #d9e1ec;
     --sombra: rgba(0, 0, 0, 0.1);
     --preto: #1a1a1a;
-    --fonte: 'Poppins', sans-serif;
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
 }
 
 body {
     margin: 0;
-    font-family: var(--fonte);
+    font-family: var(--f7-font-family);
     background-color: var(--gelo);
     color: var(--preto);
 }

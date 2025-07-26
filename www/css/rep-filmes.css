@@ -1,49 +1,46 @@
-.page[data-name="repertorios"] {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    overflow: auto; /* Permite rolagem */
+:root {
+    --branco: #ffffff;
+    --gelo: #f5f9ff;
+    --azul: #2196f3;
+    --azul-hover: #1976d2;
+    --cinza: #d9e1ec;
+    --sombra: rgba(0, 0, 0, 0.1);
+    --preto: #1a1a1a;
+    --fonte: 'Poppins', sans-serif;
 }
 
-.button-top a {
-    width: 40px;
-    height: 40px;
+body {
+    margin: 0;
+    font-family: var(--fonte);
+    background-color: var(--gelo);
+    color: var(--preto);
+}
+
+.buttons-top a {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 42px;
+    height: 42px;
     background-color: var(--branco);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--preto);
-    box-shadow: 0 5px 15px rgba(04, 03, 05, .2);
-    border: 1px solid var(--gelo);
-    font-size: 18px;
-    position: fixed;
-    top: 30px;
-    right: 30px;
+    color: var(--azul);
+    box-shadow: 0 5px 15px var(--sombra);
     z-index: 1001;
+    font-size: 20px;
+    text-decoration: none;
 }
 
-.page header {
+header {
     width: 100%;
-    background-color: #add8e6; /* Cor azul claro */
+    background: #b1d5f3;
+    color: white;
     text-align: center;
-    padding: 10px 0;
-    box-sizing: border-box;
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Garante que o cabeçalho fique acima do conteúdo */
-}
-
-.h2-repertorios {
-    font-size: 28px; /* Aumenta o tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
-    text-align: center;
-    margin-top: 90px; /* Adiciona espaço entre o cabeçalho e a frase */
-    margin-bottom: 40px; /* Adiciona espaço entre a frase e as caixas */
-    color: #333; /* Cor do texto */
-    font-family: 'Arial', sans-serif; /* Fonte do texto */
-    animation: fadeIn 1s ease-in-out; /* Adiciona animação de fade-in */
+    padding: 20px 0;
+    box-shadow: 0 2px 4px var(--sombra);
 }
 
 .subtitulo {

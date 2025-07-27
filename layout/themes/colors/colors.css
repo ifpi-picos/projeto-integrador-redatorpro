@@ -1,0 +1,109 @@
+:root {
+    /* Light Theme (Default) */
+    --primary: #4361ee;
+    --primary-dark: #3a0ca3;
+    --secondary: #4895ef;
+    --accent: #f72585;
+    --text: #2b2d42;
+    --text-light: #8d99ae;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --border: #e9ecef;
+    --success: #4cc9f0;
+    --warning: #f8961e;
+    --danger: #ef233c;
+    --rating: #ffd166;
+}
+
+[data-theme="dark"] {
+    --primary: #4895ef;
+    --primary-dark: #3f37c9;
+    --secondary: #4361ee;
+    --accent: #f72585;
+    --text: #edf2f4;
+    --text-light: #8d99ae;
+    --bg: #121212;
+    --card-bg: #1e1e1e;
+    --border: #333333;
+}
+
+[data-theme="ocean"] {
+    --primary: #1b9aaa;
+    --primary-dark: #05668d;
+    --secondary: #00a8e8;
+    --accent: #ff9f1c;
+    --text: #0a1128;
+    --text-light: #7f8c8d;
+    --bg: #f0f8ff;
+    --card-bg: #ffffff;
+    --border: #d1e8ff;
+}
+
+[data-theme="forest"] {
+    --primary: #2a9d8f;
+    --primary-dark: #1d7874;
+    --secondary: #83c5be;
+    --accent: #e76f51;
+    --text: #264653;
+    --text-light: #7a8c8d;
+    --bg: #f1faee;
+    --card-bg: #ffffff;
+    --border: #d8e2dc;
+}
+
+[data-theme="sunset"] {
+    --primary: #ff7b00;
+    --primary-dark: #ff4800;
+    --secondary: #ff9e00;
+    --accent: #8338ec;
+    --text: #3a0ca3;
+    --text-light: #8a8a8a;
+    --bg: #fff5f5;
+    --card-bg: #ffffff;
+    --border: #ffddd2;
+}
+
+[data-theme="pink"] {
+    --primary: #ff70a6;
+    --primary-dark: #ff477e;
+    --secondary: #ff85a1;
+    --accent: #a4508b;
+    --text: #4a051c;
+    --text-light: #9d8189;
+    --bg: #fff0f3;
+    --card-bg: #ffffff;
+    --border: #ffccd5;
+    --success: #a7c4bc;
+    --warning: #ff9b54;
+    --danger: #ff3c38;
+}
+
+[data-theme="emerald"] {
+    --primary: #10b981;
+    --primary-dark: #047857;
+    --secondary: #34d399;
+    --accent: #f59e0b;
+    --text: #064e3b;
+    --text-light: #6b7280;
+    --bg: #f0fdf4;
+    --card-bg: #ffffff;
+    --border: #d1fae5;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+}
+
+[data-theme="coffee"] {
+    --primary: #d97706;
+    --primary-dark: #92400e;
+    --secondary: #f59e0b;
+    --accent: #7c2d12;
+    --text: #431407;
+    --text-light: #78716c;
+    --bg: #ededec;
+    --card-bg: #fffde5;
+    --border: #fcd34d;
+    --success: #65a30d;
+    --warning: #d97706;
+    --danger: #7f1d1d;
+}

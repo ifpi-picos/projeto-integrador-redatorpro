@@ -1,0 +1,77 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-selector-container {
+    max-width: 800px;
+    width: 100%;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.theme-selector-container h1 {
+    margin-bottom: 30px;
+    color: var(--primary);
+}
+
+.themes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+}
+
+.theme-option {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.theme-option:hover {
+    transform: translateY(-5px);
+}
+
+.theme-preview {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 2px solid var(--border);
+    transition: all 0.3s;
+}
+
+.theme-option:hover .theme-preview {
+    border-color: var(--accent);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme { background: linear-gradient(135deg, #f8f9fa 0%, #4361ee 50%, #f72585 100%); }
+.dark-theme { background: linear-gradient(135deg, #121212 0%, #4895ef 50%, #f72585 100%); }
+.ocean-theme { background: linear-gradient(135deg, #f0f8ff 0%, #1b9aaa 50%, #ff9f1c 100%); }
+.forest-theme { background: linear-gradient(135deg, #f1faee 0%, #2a9d8f 50%, #e76f51 100%); }
+.sunset-theme { background: linear-gradient(135deg, #fff5f5 0%, #ff7b00 50%, #8338ec 100%); }
+.pink-theme { background: linear-gradient(135deg, #fff0f3 0%, #ff70a6 50%, #a4508b 100%); }
+.emerald-theme { background: linear-gradient(135deg, #f0fdf4 0%, #10b981 50%, #f59e0b 100%); }
+.coffee-theme { background: linear-gradient(135deg, #fef3c7 0%, #d97706 50%, #7c2d12 100%);}
+
+@media (min-width: 768px) {
+    .themes-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .themes-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

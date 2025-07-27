@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seletor de Temas</title>
+    <link rel="stylesheet" href="themes.css">
+    <link rel="stylesheet" href="colors/colors.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="theme-selector-container">
+        <h1>Escolha seu Tema</h1>
+        <div class="themes-grid">
+            <div class="theme-option" data-theme="light">
+                <div class="theme-preview light-theme"></div>
+                <span>Padrão</span>
+            </div>
+            
+            <div class="theme-option" data-theme="dark">
+                <div class="theme-preview dark-theme"></div>
+                <span>Escuro</span>
+            </div>
+            
+            <div class="theme-option" data-theme="ocean">
+                <div class="theme-preview ocean-theme"></div>
+                <span>Oceano</span>
+            </div>
+            
+            <div class="theme-option" data-theme="forest">
+                <div class="theme-preview forest-theme"></div>
+                <span>Floresta</span>
+            </div>
+            
+            <div class="theme-option" data-theme="sunset">
+                <div class="theme-preview sunset-theme"></div>
+                <span>Sunset</span>
+            </div>
+
+            <div class="theme-option" data-theme="pink">
+                <div class="theme-preview pink-theme"></div>
+                <span>Rosio</span>
+            </div>
+
+            <div class="theme-option" data-theme="emerald">
+                <div class="theme-preview emerald-theme"></div>
+                <span>Esmeralda</span>
+            </div>
+
+            <div class="theme-option" data-theme="coffee">
+                <div class="theme-preview coffee-theme"></div>
+                <span>Café</span>
+            </div>
+        </div>
+    </div>
+
+    <nav class="app-navbar">
+        <div class="navbar-container">
+            
+            <a href="../area-trabalho.html" class="nav-btn" id="workspaceBtn">
+            <div class="nav-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <span class="nav-label">Trabalho</span>
+            </a>
+            
+            <a href="#" class="nav-btn active" id="themeToggleBtn">
+                <div class="nav-icon">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </div>
+                <span class="nav-label">Tema</span>
+            </a>
+            
+            <a href="../index.html" class="nav-btn" id="profileBtn">
+            <div class="nav-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-label">Perfil</span>
+            </a>
+        </div>
+    </nav>
+    <script src="themes.js"></script>
+</body>
+</html>

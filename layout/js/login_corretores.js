@@ -6,6 +6,18 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
+    // Exibe dados locais imediatamente
+    document.getElementById('profile-name').textContent = userData.name || '';
+    document.getElementById('profile-email').textContent = userData.email || '';
+    document.getElementById('profile-photo').src = userData.fotoPerfil || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(userData.name || 'Corretor') + '&background=4361ee&color=fff&size=150';
+
+    // Adiciona efeito de carregamento nos campos que dependem do backend
+    document.getElementById('profile-title').classList.add('skeleton');
+    document.getElementById('profile-escolaridade').classList.add('skeleton');
+    document.querySelectorAll('#profile-experiencia').forEach(el => el.classList.add('skeleton'));
+    document.getElementById('profile-rating').classList.add('skeleton');
+    document.getElementById('profile-resposta').classList.add('skeleton');
+
     fetch('https://express-e3hm.onrender.com/perfil', {
         headers: {
             'Authorization': 'Bearer ' + userData.token
@@ -16,17 +28,22 @@ document.addEventListener('DOMContentLoaded', function() {
         return res.json();
     })
     .then(data => {
-        // Preenche os campos do perfil
+        // Preenche os campos do perfil com dados do backend
         document.getElementById('profile-name').textContent = data.name || '';
         document.getElementById('profile-email').textContent = data.email || '';
         document.getElementById('profile-title').textContent = data.escolaridade || '';
         document.getElementById('profile-escolaridade').textContent = data.escolaridade || '';
-        // Corrigido: experiência do backend
         document.querySelectorAll('#profile-experiencia').forEach(el => el.textContent = data.experiencia || '');
         document.getElementById('profile-photo').src = data.fotoPerfil || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.name || 'Corretor') + '&background=4361ee&color=fff&size=150';
-        // Campos extras (rating, resposta) podem ser preenchidos se vierem do backend
         if (data.rating) document.getElementById('profile-rating').textContent = data.rating;
         if (data.resposta) document.getElementById('profile-resposta').textContent = data.resposta;
+
+        // Remove efeito de carregamento
+        document.getElementById('profile-title').classList.remove('skeleton');
+        document.getElementById('profile-escolaridade').classList.remove('skeleton');
+        document.querySelectorAll('#profile-experiencia').forEach(el => el.classList.remove('skeleton'));
+        document.getElementById('profile-rating').classList.remove('skeleton');
+        document.getElementById('profile-resposta').classList.remove('skeleton');
     })
     .catch(() => {
         alert('Sessão expirada ou acesso não autorizado.');

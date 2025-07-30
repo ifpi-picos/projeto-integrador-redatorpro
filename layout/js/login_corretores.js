@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('profile-name').textContent = userData.name || '';
     document.getElementById('profile-email').textContent = userData.email || '';
     document.getElementById('profile-photo').src = userData.fotoPerfil || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(userData.name || 'Corretor') + '&background=4361ee&color=fff&size=150';
+    document.getElementById('profile-title').textContent = userData.escolaridade || '';
+    document.getElementById('profile-escolaridade').textContent = userData.escolaridade || '';
+    document.querySelectorAll('#profile-experiencia').forEach(el => el.textContent = userData.experiencia || '');
 
     // Adiciona efeito de carregamento nos campos que dependem do backend
     document.getElementById('profile-title').classList.add('skeleton');
@@ -44,6 +47,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('#profile-experiencia').forEach(el => el.classList.remove('skeleton'));
         document.getElementById('profile-rating').classList.remove('skeleton');
         document.getElementById('profile-resposta').classList.remove('skeleton');
+
+        // Salva dados atualizados no localStorage
+        localStorage.setItem('loggedUser', JSON.stringify({
+            ...userData,
+            name: data.name,
+            email: data.email,
+            fotoPerfil: data.fotoPerfil,
+            escolaridade: data.escolaridade,
+            experiencia: data.experiencia
+        }));
     })
     .catch(() => {
         alert('Sessão expirada ou acesso não autorizado.');

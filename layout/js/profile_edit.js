@@ -59,6 +59,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleEl.classList.remove('editing');
                 editBtn.style.display = 'inline-block';
                 saveBtn.style.display = 'none';
+
+                // Salva dados atualizados no localStorage
+                localStorage.setItem('loggedUser', JSON.stringify({
+                    ...userData,
+                    name: data.name,
+                    email: data.email,
+                    fotoPerfil: data.fotoPerfil,
+                    escolaridade: data.escolaridade,
+                    experiencia: data.experiencia
+                }));
             });
         });
     }
@@ -90,6 +100,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         img.src = data.fotoPerfil;
                         img.classList.remove('loading-img');
                     });
+                    // Salva foto no localStorage
+                    localStorage.setItem('loggedUser', JSON.stringify({
+                        ...userData,
+                        fotoPerfil: data.fotoPerfil
+                    }));
                 } else {
                     photoEl.classList.remove('loading-img');
                 }

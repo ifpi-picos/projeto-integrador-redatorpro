@@ -71,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         photoInput.addEventListener('change', function() {
             if (!photoInput.files[0]) return;
+            // Feedback visual: imagem opaca durante upload
+            photoEl.classList.add('loading-img');
             const formData = new FormData();
             formData.append('fotoPerfil', photoInput.files[0]);
             fetch('https://express-e3hm.onrender.com/perfil', {
@@ -83,8 +85,18 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(res => res.json())
             .then(data => {
                 if (data.fotoPerfil) {
-                    photoEl.src = data.fotoPerfil;
+                    // Atualiza todas as imagens de perfil na página
+                    document.querySelectorAll('#profile-photo').forEach(img => {
+                        img.src = data.fotoPerfil;
+                        img.classList.remove('loading-img');
+                    });
+                } else {
+                    photoEl.classList.remove('loading-img');
                 }
+            })
+            .catch(() => {
+                photoEl.classList.remove('loading-img');
+                alert('Erro ao atualizar foto de perfil.');
             });
         });
     }

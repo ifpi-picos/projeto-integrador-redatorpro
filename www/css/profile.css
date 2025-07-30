@@ -390,3 +390,57 @@
     0% { transform: translate(-50%, -50%) rotate(0deg);}
     100% { transform: translate(-50%, -50%) rotate(360deg);}
 }
+
+/* Destaca campos editáveis durante edição */
+.editing {
+    outline: 2px solid #4361ee;
+    background: #f0f4ff;
+    transition: outline 0.2s, background 0.2s;
+    box-shadow: 0 0 8px #4361ee33;
+}
+
+/* Efeito ao passar mouse sobre campos editáveis */
+[contenteditable="true"]:hover {
+    background: #eaf1ff;
+    cursor: text;
+}
+
+/* Ícone de lápis flutuante durante edição */
+.editing::after {
+    content: "\f303";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #4361ee;
+    font-size: 16px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Botão de salvar mais chamativo */
+#saveProfileBtn {
+    background: linear-gradient(90deg, #4361ee 60%, #5f8fff 100%);
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px #4361ee33;
+    font-weight: 600;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    outline: none;
+}
+#saveProfileBtn:hover, #saveProfileBtn:focus {
+    background: linear-gradient(90deg, #5f8fff 60%, #4361ee 100%);
+    box-shadow: 0 4px 16px #4361ee44;
+    transform: translateY(-2px) scale(1.04);
+}
+
+/* Animação de foco para campos editáveis */
+@keyframes editing-focus {
+    0% { box-shadow: 0 0 0 0 #4361ee44; }
+    50% { box-shadow: 0 0 0 6px #4361ee22; }
+    100% { box-shadow: 0 0 0 0 #4361ee44; }
+}
+.editing:focus {
+    animation: editing-focus 1s;
+}

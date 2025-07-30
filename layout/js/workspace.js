@@ -1,3 +1,11 @@
+// Proteção de acesso para corretores
+(function() {
+    const userData = JSON.parse(localStorage.getItem('loggedUser') || '{}');
+    if (!userData.token || userData.tipo !== 'corretor') {
+        window.location.href = '../login.html';
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     const viewAllLink = document.querySelector('.view-all-link');
     const overlay = document.createElement('div');

@@ -26,26 +26,26 @@
         <div class="profile-card card">
             <div class="profile-header">
                 <div class="profile-photo-container">
-                    <img src="https://ui-avatars.com/api/?name=Rômulo&background=4361ee&color=fff&size=150" alt="Foto do Corretor" class="profile-photo">
+                    <img id="profile-photo" src="https://ui-avatars.com/api/?name=Rômulo&background=4361ee&color=fff&size=150" alt="Foto do Corretor" class="profile-photo">
                     <button class="edit-photo-btn">
                         <i class="fas fa-camera"></i>
                     </button>
                 </div>
-                <h1 class="profile-name">Rômulo</h1>
-                <p class="profile-title">Mestre em Letras</p>
+                <h1 class="profile-name" id="profile-name">Rômulo</h1>
+                <p class="profile-title" id="profile-title">Mestre em Letras</p>
             </div>
 
             <div class="profile-stats">
                 <div class="stat-item">
-                    <div class="stat-value">8 anos</div>
+                    <div class="stat-value" id="profile-experiencia">8 anos</div>
                     <div class="stat-label">Experiência</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">2h</div>
+                    <div class="stat-value" id="profile-resposta">2h</div>
                     <div class="stat-label">Resposta</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value rating">5.0</div>
+                    <div class="stat-value rating" id="profile-rating">5.0</div>
                     <div class="stat-label">Avaliação</div>
                 </div>
             </div>
@@ -57,11 +57,11 @@
                     </h3>
                     <div class="info-item">
                         <span class="info-label">E-mail:</span>
-                        <span class="info-value">www.compostos@gmail.com</span>
+                        <span class="info-value" id="profile-email">www.compostos@gmail.com</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Formação:</span>
-                        <span class="info-value">Mestre em Letras</span>
+                        <span class="info-value" id="profile-escolaridade">Mestre em Letras</span>
                     </div>
                 </div>
 
@@ -124,5 +124,6 @@
     <!-- Custom JS -->
     <script src="themes/themes.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/login_corretores.js"></script>
 </body>
 </html>

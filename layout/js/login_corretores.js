@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('profile-email').textContent = data.email || '';
         document.getElementById('profile-title').textContent = data.escolaridade || '';
         document.getElementById('profile-escolaridade').textContent = data.escolaridade || '';
-        document.getElementById('profile-experiencia').textContent = data.experiencia || '';
+        // Corrigido: experiência do backend
+        document.querySelectorAll('#profile-experiencia').forEach(el => el.textContent = data.experiencia || '');
         document.getElementById('profile-photo').src = data.fotoPerfil || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.name || 'Corretor') + '&background=4361ee&color=fff&size=150';
         // Campos extras (rating, resposta) podem ser preenchidos se vierem do backend
         if (data.rating) document.getElementById('profile-rating').textContent = data.rating;

@@ -32,13 +32,13 @@
                     </button>
                     <input type="file" id="photoInput" accept="image/*" style="display:none">
                 </div>
-                <h1 class="profile-name" id="profile-name">Rômulo</h1>
-                <p class="profile-title" id="profile-title">Mestre em Letras</p>
+                <h1 class="profile-name" id="profile-name" contenteditable="false">Rômulo</h1>
+                <p class="profile-title" id="profile-title" contenteditable="false">Mestre em Letras</p>
             </div>
 
             <div class="profile-stats">
                 <div class="stat-item">
-                    <div class="stat-value" id="profile-experiencia">8 anos</div>
+                    <div class="stat-value" id="profile-experiencia" contenteditable="false">8 anos</div>
                     <div class="stat-label">Experiência</div>
                 </div>
                 <div class="stat-item">
@@ -62,11 +62,11 @@
                     </div>
                     <div class="info-item">
                         <span class="info-label">Formação:</span>
-                        <span class="info-value" id="profile-escolaridade">Mestre em Letras</span>
+                        <span class="info-value" id="profile-escolaridade" contenteditable="false">Mestre em Letras</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Experiência:</span>
-                        <span class="info-value" id="profile-experiencia">8 anos</span>
+                        <span class="info-value" id="profile-experiencia" contenteditable="false">8 anos</span>
                     </div>
                 </div>
 
@@ -74,40 +74,12 @@
                     <button class="btn-primary" id="editProfileBtn" type="button">
                         <i class="fas fa-edit"></i> Editar Perfil
                     </button>
+                    <button class="btn-primary" id="saveProfileBtn" type="button" style="display:none;">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
                     <button class="btn-secondary">
                         <i class="fas fa-share-alt"></i> Compartilhar
                     </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Edição -->
-    <div class="modal" id="editProfileModal" style="display:none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Editar Perfil</h5>
-                    <button type="button" class="btn-close" id="closeModalBtn"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editProfileForm">
-                        <label>Nome:</label>
-                        <input type="text" id="editName" name="name" required>
-                        <label>Formação:</label>
-                        <input type="text" id="editEscolaridade" name="escolaridade">
-                        <label>Experiência:</label>
-                        <input type="text" id="editExperiencia" name="experiencia">
-                        <label>Instagram:</label>
-                        <input type="text" id="editInstagram" name="instagram">
-                        <label>Descrição:</label>
-                        <textarea id="editDescricao" name="descricao" maxlength="200"></textarea>
-                        <label>Áreas de Interesse (separadas por vírgula):</label>
-                        <input type="text" id="editInteresses" name="interesses">
-                        <label>Foto de Perfil:</label>
-                        <input type="file" id="editFotoPerfil" name="fotoPerfil" accept="image/*">
-                        <button type="submit" class="btn-primary">Salvar</button>
-                    </form>
                 </div>
             </div>
         </div>

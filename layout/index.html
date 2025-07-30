@@ -27,9 +27,10 @@
             <div class="profile-header">
                 <div class="profile-photo-container">
                     <img id="profile-photo" src="https://ui-avatars.com/api/?name=Rômulo&background=4361ee&color=fff&size=150" alt="Foto do Corretor" class="profile-photo">
-                    <button class="edit-photo-btn">
+                    <button class="edit-photo-btn" id="editPhotoBtn" type="button">
                         <i class="fas fa-camera"></i>
                     </button>
+                    <input type="file" id="photoInput" accept="image/*" style="display:none">
                 </div>
                 <h1 class="profile-name" id="profile-name">Rômulo</h1>
                 <p class="profile-title" id="profile-title">Mestre em Letras</p>
@@ -63,10 +64,14 @@
                         <span class="info-label">Formação:</span>
                         <span class="info-value" id="profile-escolaridade">Mestre em Letras</span>
                     </div>
+                    <div class="info-item">
+                        <span class="info-label">Experiência:</span>
+                        <span class="info-value" id="profile-experiencia">8 anos</span>
+                    </div>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn-primary" id="editProfileBtn">
+                    <button class="btn-primary" id="editProfileBtn" type="button">
                         <i class="fas fa-edit"></i> Editar Perfil
                     </button>
                     <button class="btn-secondary">
@@ -77,20 +82,36 @@
         </div>
     </div>
 
-    <!-- Modal de Edição 
-    <div class="modal" id="editProfileModal" tabindex="-1">
+    <!-- Modal de Edição -->
+    <div class="modal" id="editProfileModal" style="display:none;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Editar Perfil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" id="closeModalBtn"></button>
                 </div>
-                <div class="modal-body"> -->
-                    <!-- Conteúdo do modal
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <label>Nome:</label>
+                        <input type="text" id="editName" name="name" required>
+                        <label>Formação:</label>
+                        <input type="text" id="editEscolaridade" name="escolaridade">
+                        <label>Experiência:</label>
+                        <input type="text" id="editExperiencia" name="experiencia">
+                        <label>Instagram:</label>
+                        <input type="text" id="editInstagram" name="instagram">
+                        <label>Descrição:</label>
+                        <textarea id="editDescricao" name="descricao" maxlength="200"></textarea>
+                        <label>Áreas de Interesse (separadas por vírgula):</label>
+                        <input type="text" id="editInteresses" name="interesses">
+                        <label>Foto de Perfil:</label>
+                        <input type="file" id="editFotoPerfil" name="fotoPerfil" accept="image/*">
+                        <button type="submit" class="btn-primary">Salvar</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
 
     <nav class="app-navbar">
         <div class="navbar-container">
@@ -125,5 +146,6 @@
     <script src="themes/themes.js"></script>
     <script src="js/main.js"></script>
     <script src="js/login_corretores.js"></script>
+    <script src="js/profile_edit.js"></script>
 </body>
 </html>

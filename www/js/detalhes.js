@@ -1,7 +1,7 @@
 // RECUPERAR O ID DETALHE DO LOCALSTORAGE
 var id = parseInt(localStorage.getItem("detalhe"));
 
-// PEGAR OS DADOS DOS CORRETORES DO LOCALSTORAGE
+// PEGAR OS DADOS DOS CORRETORES DO LOCALSTORAGE (agora vindos do backend)
 var corretores = JSON.parse(localStorage.getItem("corretores"));
 
 // ENCONTRAR O CORRETOR CORRESPONDENTE AO ID
@@ -11,13 +11,13 @@ if (item) {
     console.log("Corretor encontrado: ", item);
 
     // ALIMENTAR A PÁGINA DETALHES
-    $("#imagem-detalhe").attr("src", item.imagem);
-    $("#nome-detalhe").html(item.nome);
-    $("#especialidade-detalhe").html(item.especialidade);
-    $("#rating-detalhe").html(item.rating);
-    $("#like-detalhe").html(item.likes);
-    $("#rewies-detalhe").html(item.rewies + " reviews");
-    $("#descrição-detalhe").html(item.descrição);
+    $("#imagem-detalhe").attr("src", item.fotoPerfil || "img/default.png");
+    $("#nome-detalhe").html(item.name);
+    $("#especialidade-detalhe").html(item.escolaridade || "Especialidade");
+    $("#rating-detalhe").html(item.rating || "5.0");
+    $("#like-detalhe").html(""); // Se quiser adicionar likes, ajuste o backend
+    $("#rewies-detalhe").html(""); // Se quiser adicionar reviews, ajuste o backend
+    $("#descrição-detalhe").html(item.descricao || "");
     
     // GUARDAR ITEM COMPLETO NO LOCALSTORAGE PARA COMPARTILHAMENTO
     localStorage.setItem("detalheCorretor", JSON.stringify(item));

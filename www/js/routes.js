@@ -126,46 +126,39 @@ var app = new Framework7({
 
           $.getScript('js/filtro.js');
 
-          //ALIMENTAR DE FORMA DINÂMICA A TELA LINK2 ( CORRETORES )
-          fetch('js/corretores.json')
+          // Buscar corretores aprovados do backend
+          fetch('https://express-e3hm.onrender.com/users/corretores-aprovados')
           .then(response => response.json())
           .then(data => {
               // Ordenar dados por nome com localeCompare para considerar acentuação
-              data.sort((a, b) => a.nome.localeCompare(b.nome));
+              data.sort((a, b) => a.name.localeCompare(b.name));
 
-
-
-              //SALVAR DADOS DO BACK-END LOCALMENTE
+              // Salvar dados do backend localmente
               localStorage.setItem('corretores', JSON.stringify(data));
-              console.log('Dados dos corretores salvos no localStorage');
-              
-              //SImULAR CARREGAMNETO ONLINE
-              setTimeout(() => {
+              console.log('Corretores aprovados salvos no localStorage');
 
-                  //ESVAZIAR A ÁREA DA LISTA DE CORRETORES
+              setTimeout(() => {
                   $("#person-list").empty();
 
                   data.forEach(corretor => {
                       var corretorHTML = `
                       <a data-id="${corretor.id}" href="#" class="item">
-                          <div class="person-card" data-name="${corretor.nome}" data-specialty="${corretor.especialidade}">
+                          <div class="person-card" data-name="${corretor.name}" data-specialty="${corretor.escolaridade || ''}">
                               <div class="person-info">
-                                  <img src="${corretor.imagem}" alt="${corretor.nome}" class="person-photo">
+                                  <img src="${corretor.fotoPerfil || 'img/default.png'}" alt="${corretor.name}" class="person-photo">
                                   <div class="person-details">
-                                      <h3 class="person-name">${corretor.nome}</h3>
-                                      <p class="person-specialty">${corretor.especialidade}</p>
+                                      <h3 class="person-name">${corretor.name}</h3>
+                                      <p class="person-specialty">${corretor.escolaridade || ''}</p>
                                   </div>
                               </div>
                               <div class="person-rating">
                                   <i class="mdi mdi-star" style="color: orange;"></i>
-                                  <span class="rating-score">${corretor.rating}</span>
+                                  <span class="rating-score">${corretor.rating || '5.0'}</span>
                               </div>
                           </div>
                       </a>
                       `;
-              
                       $("#person-list").append(corretorHTML)
-              
                   });
 
                   $(".item").on('click', function () {
@@ -176,10 +169,8 @@ var app = new Framework7({
 
               }, 1200);
 
-
           })
-          .catch(error => console.error('Error ao fazer fetch dos dados: '+error));
-
+          .catch(error => console.error('Erro ao buscar corretores aprovados: '+error));
         },
         pageBeforeRemove: function (event, page) {
           // fazer algo antes da página ser removida do DOM

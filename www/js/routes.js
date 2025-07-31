@@ -126,14 +126,29 @@ var app = new Framework7({
 
           $.getScript('js/filtro.js');
 
-          // Buscar corretores aprovados do backend
           fetch('https://express-e3hm.onrender.com/users/corretores-aprovados')
           .then(response => response.json())
           .then(data => {
-              // Ordenar dados por nome com localeCompare para considerar acentuação
-              data.sort((a, b) => a.name.localeCompare(b.name));
+              // Garante que data é um array
+              if (!Array.isArray(data)) {
+                if (Array.isArray(data.corretores)) {
+                  data = data.corretores;
+                } else {
+                  data = [];
+                }
+              }
 
-              // Salvar dados do backend localmente
+              if (data.length === 0) {
+                $("#person-list").empty();
+                $("#no-results").show();
+                return;
+              } else {
+                $("#no-results").hide();
+              }
+
+              // Ordenar dados por nome
+              data.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
               localStorage.setItem('corretores', JSON.stringify(data));
               console.log('Corretores aprovados salvos no localStorage');
 
@@ -170,7 +185,11 @@ var app = new Framework7({
               }, 1200);
 
           })
-          .catch(error => console.error('Erro ao buscar corretores aprovados: '+error));
+          .catch(error => {
+            console.error('Erro ao buscar corretores aprovados: '+error);
+            $("#person-list").empty();
+            $("#no-results").show();
+          });
         },
         pageBeforeRemove: function (event, page) {
           // fazer algo antes da página ser removida do DOM

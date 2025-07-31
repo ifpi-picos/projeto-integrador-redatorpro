@@ -168,7 +168,7 @@ var app = new Framework7({
                               </div>
                               <div class="person-rating">
                                   <i class="mdi mdi-star" style="color: orange;"></i>
-                                  <span class="rating-score">${corretor.rating || '5.0'}</span>
+                                  <span class="rating-score">${(typeof corretor.rating === 'number' ? corretor.rating.toFixed(1) : '0.0')}</span>
                               </div>
                           </div>
                       </a>

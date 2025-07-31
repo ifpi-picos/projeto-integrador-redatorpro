@@ -14,10 +14,10 @@ if (item) {
     $("#imagem-detalhe").attr("src", item.fotoPerfil || "img/default.png");
     $("#nome-detalhe").html(item.name);
     $("#especialidade-detalhe").html(item.escolaridade || "Especialidade");
-    $("#rating-detalhe").html(item.rating || "5.0");
+    $("#rating-detalhe").html((typeof item.rating === 'number' ? item.rating.toFixed(1) : "0.0"));
     $("#like-detalhe").html(""); // Se quiser adicionar likes, ajuste o backend
     $("#rewies-detalhe").html(""); // Se quiser adicionar reviews, ajuste o backend
-    $("#descrição-detalhe").html(item.descricao || "");
+    $("#descrição-detalhe").html(item.descricao || "sem descrição");
     
     // GUARDAR ITEM COMPLETO NO LOCALSTORAGE PARA COMPARTILHAMENTO
     localStorage.setItem("detalheCorretor", JSON.stringify(item));

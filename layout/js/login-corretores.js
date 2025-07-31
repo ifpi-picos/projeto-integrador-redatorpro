@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('profile-title').textContent = userData.escolaridade || '';
     document.getElementById('profile-escolaridade').textContent = userData.escolaridade || '';
     document.querySelectorAll('#profile-experiencia').forEach(el => el.textContent = userData.experiencia || '');
+    document.getElementById('profile-descricao').textContent = userData.descricao || 'sem descrição';
+    document.getElementById('profile-rating').textContent = (typeof userData.rating === 'number' ? userData.rating.toFixed(1) : '0.0');
+    document.getElementById('profile-resposta').classList.add('skeleton');
 
     // Adiciona efeito de carregamento nos campos que dependem do backend
     document.getElementById('profile-title').classList.add('skeleton');
@@ -38,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('profile-escolaridade').textContent = data.escolaridade || '';
         document.querySelectorAll('#profile-experiencia').forEach(el => el.textContent = data.experiencia || '');
         document.getElementById('profile-photo').src = data.fotoPerfil || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.name || 'Corretor') + '&background=4361ee&color=fff&size=150';
-        if (data.rating) document.getElementById('profile-rating').textContent = data.rating;
+        document.getElementById('profile-descricao').textContent = data.descricao || 'sem descrição';
+        document.getElementById('profile-rating').textContent = (typeof data.rating === 'number' ? data.rating.toFixed(1) : '0.0');
         if (data.resposta) document.getElementById('profile-resposta').textContent = data.resposta;
 
         // Remove efeito de carregamento
@@ -55,7 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
             email: data.email,
             fotoPerfil: data.fotoPerfil,
             escolaridade: data.escolaridade,
-            experiencia: data.experiencia
+            experiencia: data.experiencia,
+            descricao: data.descricao,
+            rating: data.rating
         }));
     })
     .catch(() => {

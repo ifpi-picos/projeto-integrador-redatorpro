@@ -5,13 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const escolaridadeEl = document.getElementById('profile-escolaridade');
     const experienciaEls = document.querySelectorAll('#profile-experiencia');
     const titleEl = document.getElementById('profile-title');
+    const descricaoEl = document.getElementById('profile-descricao');
     const photoBtn = document.getElementById('editPhotoBtn');
     const photoInput = document.getElementById('photoInput');
     const photoEl = document.getElementById('profile-photo');
     const userData = JSON.parse(localStorage.getItem('loggedUser') || '{}');
 
     // Verifica se todos os elementos existem antes de adicionar eventos
-    if (editBtn && saveBtn && nameEl && escolaridadeEl && experienciaEls.length && titleEl) {
+    if (editBtn && saveBtn && nameEl && escolaridadeEl && experienciaEls.length && titleEl && descricaoEl) {
         editBtn.addEventListener('click', () => {
             nameEl.contentEditable = true;
             escolaridadeEl.contentEditable = true;
@@ -20,9 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 el.classList.add('editing');
             });
             titleEl.contentEditable = true;
+            descricaoEl.contentEditable = true;
             nameEl.classList.add('editing');
             escolaridadeEl.classList.add('editing');
             titleEl.classList.add('editing');
+            descricaoEl.classList.add('editing');
             editBtn.style.display = 'none';
             saveBtn.style.display = 'inline-block';
             nameEl.focus();
@@ -34,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('escolaridade', escolaridadeEl.textContent.trim());
             // Pega o valor do primeiro elemento de experiência
             formData.append('experiencia', experienciaEls[0].textContent.trim());
+            formData.append('descricao', descricaoEl.textContent.trim());
             fetch('https://express-e3hm.onrender.com/perfil', {
                 method: 'PUT',
                 headers: {
@@ -47,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 escolaridadeEl.textContent = data.escolaridade || '';
                 experienciaEls.forEach(el => el.textContent = data.experiencia || '');
                 titleEl.textContent = data.escolaridade || '';
+                descricaoEl.textContent = data.descricao || 'sem descrição';
                 nameEl.contentEditable = false;
                 escolaridadeEl.contentEditable = false;
                 experienciaEls.forEach(el => {
@@ -54,9 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     el.classList.remove('editing');
                 });
                 titleEl.contentEditable = false;
+                descricaoEl.contentEditable = false;
                 nameEl.classList.remove('editing');
                 escolaridadeEl.classList.remove('editing');
                 titleEl.classList.remove('editing');
+                descricaoEl.classList.remove('editing');
                 editBtn.style.display = 'inline-block';
                 saveBtn.style.display = 'none';
 
@@ -67,7 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     email: data.email,
                     fotoPerfil: data.fotoPerfil,
                     escolaridade: data.escolaridade,
-                    experiencia: data.experiencia
+                    experiencia: data.experiencia,
+                    descricao: data.descricao
                 }));
             });
         });

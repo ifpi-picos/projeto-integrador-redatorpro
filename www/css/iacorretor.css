@@ -478,9 +478,10 @@
     }
 }
 
-/* Esconde botão e ações extras em desktop */
+/* Sempre exibe o botão Digitar Redação, inclusive em desktop */
 .page[data-name="iacorretor"] .mobile-actions {
-    display: none;
+    display: block;
+    margin: 16px 0;
 }
 
 /* FOLHA AMPLIADA (MODAL) */

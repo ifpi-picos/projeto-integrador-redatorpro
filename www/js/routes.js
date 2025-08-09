@@ -600,23 +600,21 @@ var app = new Framework7({
       animate: false,
       on: {
         pageBeforeIn: function (event, page) {
-          // fazer algo antes da página ser exibida
-          //$("#menuPrincipal").hide("fast");
+          // Fazer algo antes da página ser exibida
         },
         pageAfterIn: function (event, page) {
-          // fazer algo depois da página ser exibida
+          // Fazer algo depois da página ser exibida
         },
         pageInit: function (event, page) {
-          // Carregar o script do perfil ao inicializar a página de profile
+          // Carregar o script pendentes.js ao inicializar a página
           $.getScript('js/pendentes.js')
             .done(() => {
               console.log('js/pendentes.js carregado para /pendentes/');
-              // Não chame window.carregarPendentes, pois o script já executa ao carregar
             })
             .fail(() => console.error('Erro ao carregar js/pendentes.js'));
         },
         pageBeforeRemove: function (event, page) {
-          // fazer algo antes da página ser removida do DOM
+          // Fazer algo antes de a página ser removida do DOM
         },
       }
     },

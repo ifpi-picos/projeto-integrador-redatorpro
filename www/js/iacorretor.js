@@ -259,29 +259,9 @@ window.initIACorretor = function () {
             });
             const data = await resp.json();
             if (resp.ok) {
-                // Não usar alert, mostrar mensagem na tela e redirecionar imediatamente
                 console.log('[RedatorPro] Redação enviada para o corretor! Redirecionando para pendentes...');
-                // Exibe mensagem temporária na tela
-                const msg = document.createElement('div');
-                msg.textContent = 'Redação enviada para o corretor! Aguarde a correção.';
-                msg.style.position = 'fixed';
-                msg.style.top = '20px';
-                msg.style.left = '50%';
-                msg.style.transform = 'translateX(-50%)';
-                msg.style.background = '#2196f3';
-                msg.style.color = '#fff';
-                msg.style.padding = '12px 24px';
-                msg.style.borderRadius = '8px';
-                msg.style.zIndex = '9999';
-                msg.style.fontSize = '16px';
-                document.body.appendChild(msg);
-                setTimeout(() => {
-                    msg.remove();
-                }, 2000);
-                // Redireciona usando mainView.router se disponível
-                if (window.mainView && mainView.router && typeof mainView.router.navigate === 'function') {
-                    mainView.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
-                } else if (window.app && app.views && app.views.main && app.views.main.router && typeof app.views.main.router.navigate === 'function') {
+                // Redireciona para pendentes.html
+                if (window.app && app.views && app.views.main && app.views.main.router) {
                     app.views.main.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
                 } else {
                     window.location.href = 'pendentes.html';
@@ -595,6 +575,23 @@ window.initIACorretor = function () {
     // Chama ao inicializar a página
     carregarTemasNoSelect();
 };
+
+
+// Função global para o select de tema livre
+window.toggleTemaLivre = function () {
+    const select = document.getElementById('temaRedacao');
+    const campoTemaLivre = document.getElementById('temaLivre');
+    if (select.value === 'livre') {
+        campoTemaLivre.style.display = 'block';
+        campoTemaLivre.required = true;
+    } else {
+        campoTemaLivre.style.display = 'none';
+        campoTemaLivre.required = false;
+    }
+};
+
+    // Chama ao inicializar a página
+    carregarTemasNoSelect();
 
 
 // Função global para o select de tema livre

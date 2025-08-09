@@ -25,17 +25,35 @@ window.initIACorretor = function () {
     const imagemInput = document.getElementById('imagemUpload');
 
 
-    // Substitui o submit padrão pelo modal de escolha
+    // Substitui o submit padrão pelo modal de escolha, mas faz validação antes
     if (btnAbrirModalCorrecao && form) {
         btnAbrirModalCorrecao.addEventListener('click', function (e) {
             e.preventDefault();
+            // Validação dos campos obrigatórios ANTES de abrir o modal
+            const tipoCorrecao = document.getElementById('tipoCorrecao').value;
+            const temaRedacaoSelect = document.getElementById('temaRedacao');
+            const temaLivre = document.getElementById('temaLivre').value;
+            const texto = areaNormal.value || "";
+            const imagemFile = imagemInput && imagemInput.files && imagemInput.files[0] ? imagemInput.files[0] : null;
+            if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || (!texto.trim() && !imagemFile)) {
+                alert('Preencha todos os campos obrigatórios e envie o texto OU a imagem.');
+                return;
+            }
+            if (texto.trim() && imagemFile) {
+                alert('Envie apenas o texto digitado OU a imagem da redação, nunca ambos ao mesmo tempo.');
+                return;
+            }
             if (modalEscolha) modalEscolha.style.display = 'flex';
             if (divCorretores) divCorretores.style.display = 'none';
         });
     }
 
+    // Ao fechar o modal pelo X, sempre volta para o modo principal
     if (closeModalEscolha) {
         closeModalEscolha.addEventListener('click', function () {
+            if (tituloEscolhaCorrecao) tituloEscolhaCorrecao.style.display = '';
+            if (opcoesCorrecao) opcoesCorrecao.style.display = '';
+            if (divCorretores) divCorretores.style.display = 'none';
             modalEscolha.style.display = 'none';
         });
     }
@@ -215,10 +233,15 @@ window.initIACorretor = function () {
             tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;
         }
 
+
         const user = JSON.parse(localStorage.getItem('loggedUser'));
         if (!user || !user.token) {
             alert('Você precisa estar logado para enviar uma redação.');
             return;
+        }
+        // Salva o userId no localStorage para a tela de pendentes
+        if (user.id) {
+            localStorage.setItem('userId', user.id);
         }
 
         const formData = new FormData();

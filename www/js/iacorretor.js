@@ -261,14 +261,21 @@ window.initIACorretor = function () {
             if (resp.ok) {
                 alert('Redação enviada para o corretor! Aguarde a correção.');
                 setTimeout(() => {
-                    // Sempre prioriza navegação SPA se Framework7 estiver disponível
-                    if (window.app && app.views && app.views.main && app.views.main.router && typeof app.views.main.router.navigate === 'function') {
-                        app.views.main.router.navigate('/pendentes/', { reloadCurrent: true });
-                    } else if (window.mainView && mainView.router && typeof mainView.router.navigate === 'function') {
-                        mainView.router.navigate('/pendentes/', { reloadCurrent: true });
-                    } else {
-                        window.location.href = 'pendentes.html';
-                    }
+                    // Sempre tenta Framework7 SPA, depois mainView, depois fallback
+                    try {
+                        if (window.app && app.views && app.views.main && app.views.main.router && typeof app.views.main.router.navigate === 'function') {
+                            app.views.main.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
+                            return;
+                        }
+                    } catch (e) {}
+                    try {
+                        if (window.mainView && mainView.router && typeof mainView.router.navigate === 'function') {
+                            mainView.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
+                            return;
+                        }
+                    } catch (e) {}
+                    // Fallback absoluto
+                    window.location.href = 'pendentes.html';
                 }, 200);
             } else {
                 alert(data.error || 'Erro ao enviar para o corretor.');

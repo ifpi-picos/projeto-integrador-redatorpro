@@ -258,8 +258,12 @@ window.initIACorretor = function () {
                 body: formData
             });
             const data = await resp.json();
+            // ...dentro de submitParaCorretor...
             if (resp.ok) {
                 console.log('[RedatorPro] Redação enviada para o corretor! Redirecionando para pendentes...');
+                // Fecha o modal, se ainda estiver aberto
+                if (modalEscolha) modalEscolha.style.display = 'none';
+                // Pequeno delay para garantir que tudo foi processado
                 setTimeout(() => {
                     if (window.app && app.views && app.views.main && app.views.main.router) {
                         console.log('[RedatorPro] Usando Framework7 para redirecionar para /pendentes/');
@@ -268,7 +272,8 @@ window.initIACorretor = function () {
                         console.log('[RedatorPro] Framework7 não disponível, usando fallback para pendentes.html');
                         window.location.href = 'pendentes.html';
                     }
-                }, 10000); // Garantir tempo suficiente para o redirecionamento
+                }, 500);
+// ...restante do código...// Garantir tempo suficiente para o redirecionamento
             } else {
                 console.error('[RedatorPro] Erro ao enviar para o corretor:', data.error || 'Erro desconhecido');
                 alert(data.error || 'Erro ao enviar para o corretor.');

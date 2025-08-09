@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#2196f3">
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="css/pendentes.css">
-    <title>Redações Pendentes</title>
-</head>
-<body>
-<div id="app">
+<div data-name="pendentes" class="page">
+    <div class="top-nav">
+        <a href="/index/" class="back-button"><i class="ri-arrow-left-s-line"></i></a>
+        <h1 class="title-logo"><span class="pro">Pendentes</span></h1>
+    </div>
+    <div class="page-content">
+        <div class="block-title">Redações aguardando correção</div>
+        <div id="pendentes-loading" style="text-align:center; color:#888; margin:32px 0 0 0; display:none;">Carregando...</div>
+        <div id="pendentes-empty" style="text-align:center; color:#888; margin:32px 0 0 0; display:none;">Nenhuma redação pendente.</div>
+        <div id="pendentes-list" class="pendentes-list">
+            <!-- Cards de redações pendentes serão inseridos aqui via JS -->
+        </div>
+    </div>
+</div>
     <div class="view view-main">
         <div data-name="pendentes" class="page">
             <div class="top-nav">

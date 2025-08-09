@@ -1,4 +1,3 @@
-
 //INICIALIZAÇÃO DO F7 QUANDO DISPOSITIVO ESTÁ PRONTO
 document.addEventListener('deviceready', onDeviceReady, false);
 var app = new Framework7({
@@ -612,7 +611,7 @@ var app = new Framework7({
           $.getScript('js/pendentes.js')
             .done(() => {
               console.log('js/pendentes.js carregado para /pendentes/');
-              if (window.carregarPendentes) window.carregarPendentes();
+              // Não chame window.carregarPendentes, pois o script já executa ao carregar
             })
             .fail(() => console.error('Erro ao carregar js/pendentes.js'));
         },
@@ -684,4 +683,5 @@ function onDeviceReady() {
     }
   }, false);
 
+}
 }

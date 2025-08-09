@@ -262,12 +262,15 @@ window.initIACorretor = function () {
                 console.log('[RedatorPro] Redação enviada para o corretor! Redirecionando para pendentes...');
                 setTimeout(() => {
                     if (window.app && app.views && app.views.main && app.views.main.router) {
+                        console.log('[RedatorPro] Usando Framework7 para redirecionar para /pendentes/');
                         app.views.main.router.navigate('/pendentes/');
                     } else {
+                        console.log('[RedatorPro] Usando fallback para redirecionar para pendentes.html');
                         window.location.href = 'pendentes.html';
                     }
                 }, 200);
             } else {
+                console.error('[RedatorPro] Erro ao enviar para o corretor:', data.error || 'Erro desconhecido');
                 alert(data.error || 'Erro ao enviar para o corretor.');
             }
         } catch (err) {

@@ -12,23 +12,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function carregarPendentes() {
+        console.log('[Pendentes] Iniciando carregamento de redações pendentes...');
         loading.style.display = 'block';
         empty.style.display = 'none';
         lista.innerHTML = '';
         const userId = getUserId();
+        console.log('[Pendentes] userId:', userId);
         if (!userId) {
             loading.style.display = 'none';
             empty.style.display = 'block';
             empty.textContent = 'Usuário não autenticado.';
+            console.warn('[Pendentes] Usuário não autenticado.');
             return;
         }
         try {
             const resp = await fetch(`/red-corretores/pendentes?userId=${encodeURIComponent(userId)}`);
+            console.log('[Pendentes] Resposta do servidor:', resp);
             if (!resp.ok) throw new Error('Erro ao buscar pendentes');
             const pendentes = await resp.json();
+            console.log('[Pendentes] Dados recebidos:', pendentes);
             if (!pendentes.length) {
                 empty.style.display = 'block';
                 loading.style.display = 'none';
+                console.warn('[Pendentes] Nenhuma redação pendente encontrada.');
                 return;
             }
             pendentes.forEach(p => {
@@ -45,7 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 lista.appendChild(card);
             });
             loading.style.display = 'none';
+            console.log('[Pendentes] Redações pendentes carregadas com sucesso.');
         } catch (e) {
+            console.error('[Pendentes] Erro ao carregar pendentes:', e);
             loading.style.display = 'none';
             empty.style.display = 'block';
             empty.textContent = 'Erro ao carregar pendentes.';

@@ -1,6 +1,14 @@
 console.log('iacorretor.js carregado!');
 
 window.initIACorretor = function () {
+    // Elementos do modal de escolha
+    const btnAbrirModalCorrecao = document.getElementById('btnAbrirModalCorrecao');
+    const modalEscolha = document.getElementById('modalEscolhaCorrecao');
+    const closeModalEscolha = document.getElementById('closeModalEscolha');
+    const btnEscolherIA = document.getElementById('escolherIA');
+    const btnEscolherCorretor = document.getElementById('escolherCorretor');
+    const divCorretores = document.getElementById('corretoresDisponiveis');
+    const listaCorretores = document.getElementById('listaCorretores');
     console.log('initIACorretor chamado!');
     const areaNormal = document.getElementById('textoRedacao');
     const areaAmpliada = document.getElementById('textoRedacaoAmpliada');
@@ -12,60 +20,193 @@ window.initIACorretor = function () {
     const form = document.getElementById('formCorrecao');
     const imagemInput = document.getElementById('imagemUpload');
 
-    function isMobile() {
-        return window.innerWidth <= 700;
+
+    // Substitui o submit padrão pelo modal de escolha
+    if (btnAbrirModalCorrecao && form) {
+        btnAbrirModalCorrecao.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (modalEscolha) modalEscolha.style.display = 'flex';
+            if (divCorretores) divCorretores.style.display = 'none';
+        });
     }
 
-    // Autoexpande o textarea no mobile (normal e ampliada)
-    function autoExpandTextarea(el) {
-        el.style.height = 'auto';
-        el.style.height = (el.scrollHeight) + 'px';
+    if (closeModalEscolha) {
+        closeModalEscolha.addEventListener('click', function () {
+            modalEscolha.style.display = 'none';
+        });
     }
 
-    if (areaNormal) {
-        // NÃO CHAME limitarLinhasTextarea
-        if (isMobile()) {
-            areaNormal.setAttribute('rows', '11');
-            areaNormal.style.overflowY = 'auto';
-            areaNormal.style.resize = 'none';
-            autoExpandTextarea(areaNormal);
-            areaNormal.addEventListener('input', function () {
-                autoExpandTextarea(areaNormal);
-            });
-        }
+    // Ao escolher IA, segue fluxo normal
+    if (btnEscolherIA) {
+        btnEscolherIA.addEventListener('click', function () {
+            modalEscolha.style.display = 'none';
+            // Dispara o submit do form para IA
+            submitParaIA();
+        });
     }
 
-    if (areaAmpliada) {
-        // NÃO CHAME limitarLinhasTextarea
-        areaAmpliada.setAttribute('cols', '80');
-        if (isMobile()) {
-            areaAmpliada.setAttribute('rows', '11');
-            areaAmpliada.style.overflowY = 'auto';
-            areaAmpliada.style.resize = 'none';
-            autoExpandTextarea(areaAmpliada);
-            areaAmpliada.addEventListener('input', function () {
-                autoExpandTextarea(areaAmpliada);
-            });
-        }
-    }
-
-    function gerenciarEventoAreaNormal(ativo) {
-        if (!areaNormal) return;
-        if (ativo) {
-            if (!areaNormal._eventoClickAdicionado) {
-                setTimeout(() => {
-                    areaNormal.addEventListener('click', abrirFolhaAmpliada);
-                    areaNormal._eventoClickAdicionado = true;
-                }, 100);
+    // Ao escolher Corretor, busca lista e exibe
+    if (btnEscolherCorretor) {
+        btnEscolherCorretor.addEventListener('click', async function () {
+            if (divCorretores) divCorretores.style.display = 'block';
+            if (listaCorretores) listaCorretores.innerHTML = '<div>Carregando corretores...</div>';
+            // Buscar corretores disponíveis do backend
+            try {
+                const user = JSON.parse(localStorage.getItem('loggedUser'));
+                const resp = await fetch('https://express-e3hm.onrender.com/corretores', {
+                    headers: { 'Authorization': user && user.token ? `Bearer ${user.token}` : '' }
+                });
+                const corretores = await resp.json();
+                if (Array.isArray(corretores) && corretores.length > 0) {
+                    listaCorretores.innerHTML = '';
+                    corretores.forEach(corretor => {
+                        const card = document.createElement('div');
+                        card.className = 'corretor-card';
+                        card.innerHTML = `
+                            <img src="${corretor.fotoPerfil || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(corretor.name)}" alt="Foto do corretor">
+                            <div class="corretor-info">
+                                <div class="corretor-nome">${corretor.name}</div>
+                                <div class="corretor-desc">${corretor.escolaridade || ''}</div>
+                            </div>
+                            <button class="corretor-enviar" data-id="${corretor.id}">Enviar para este corretor</button>
+                        `;
+                        listaCorretores.appendChild(card);
+                    });
+                } else {
+                    listaCorretores.innerHTML = '<div>Nenhum corretor disponível no momento.</div>';
+                }
+            } catch (err) {
+                listaCorretores.innerHTML = '<div>Erro ao buscar corretores.</div>';
             }
+        });
+    }
+
+    // Delegação para botão "Enviar para este corretor"
+    if (listaCorretores) {
+        listaCorretores.addEventListener('click', function (e) {
+            if (e.target && e.target.classList.contains('corretor-enviar')) {
+                const corretorId = e.target.getAttribute('data-id');
+                modalEscolha.style.display = 'none';
+                submitParaCorretor(corretorId);
+            }
+        });
+    }
+
+    // Função para enviar para IA (fluxo atual)
+    async function submitParaIA() {
+        // Replicando o antigo handler de submit
+        // ...existing code...
+        // (copiado do antigo form.addEventListener('submit', ...), mas sem o preventDefault)
+        //
+        // Validação dos campos obrigatórios
+        const tipoCorrecao = document.getElementById('tipoCorrecao').value;
+        const temaRedacaoSelect = document.getElementById('temaRedacao');
+        const temaLivre = document.getElementById('temaLivre').value;
+        const texto = areaNormal.value || "";
+        const imagemFile = imagemInput && imagemInput.files && imagemInput.files[0] ? imagemInput.files[0] : null;
+
+        if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || (!texto.trim() && !imagemFile)) {
+            alert('Preencha todos os campos obrigatórios e envie texto ou imagem.');
+            return;
+        }
+        if (texto.trim() && imagemFile) {
+            alert('Envie apenas o texto digitado OU apenas a imagem da redação.');
+            return;
+        }
+
+        writingAreaMobileAberta = false;
+
+        let tema = '';
+        if (temaRedacaoSelect.value === 'livre') {
+            tema = temaLivre;
         } else {
-            if (areaNormal._eventoClickAdicionado) {
-                areaNormal.removeEventListener('click', abrirFolhaAmpliada);
-                areaNormal._eventoClickAdicionado = false;
+            tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;
+        }
+
+        const user = JSON.parse(localStorage.getItem('loggedUser'));
+        if (!user || !user.token) {
+            alert('Você precisa estar logado para enviar uma redação.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('tipoCorrecao', tipoCorrecao);
+        formData.append('tema', tema);
+        formData.append('texto', texto);
+        if (imagemFile) formData.append('imagem', imagemFile);
+
+        try {
+            const resp = await fetch('https://express-e3hm.onrender.com/redchat', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${user.token}` },
+                body: formData
+            });
+            const data = await resp.json();
+            if (resp.ok) {
+                window.location.href = '/correcaoia/';
+            } else {
+                alert(data.error || 'Erro ao enviar para correção por IA.');
             }
+        } catch (err) {
+            alert('Erro ao enviar para correção por IA.');
         }
     }
 
+    // Função para enviar para corretor
+    async function submitParaCorretor(corretorId) {
+        // Validação dos campos obrigatórios
+        const tipoCorrecao = document.getElementById('tipoCorrecao').value;
+        const temaRedacaoSelect = document.getElementById('temaRedacao');
+        const temaLivre = document.getElementById('temaLivre').value;
+        const texto = areaNormal.value || "";
+        const imagemFile = imagemInput && imagemInput.files && imagemInput.files[0] ? imagemInput.files[0] : null;
+
+        if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || (!texto.trim() && !imagemFile)) {
+            alert('Preencha todos os campos obrigatórios e envie texto ou imagem.');
+            return;
+        }
+        if (texto.trim() && imagemFile) {
+            alert('Envie apenas o texto digitado OU apenas a imagem da redação.');
+            return;
+        }
+
+        let tema = '';
+        if (temaRedacaoSelect.value === 'livre') {
+            tema = temaLivre;
+        } else {
+            tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;
+        }
+
+        const user = JSON.parse(localStorage.getItem('loggedUser'));
+        if (!user || !user.token) {
+            alert('Você precisa estar logado para enviar uma redação.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('tipoCorrecao', tipoCorrecao);
+        formData.append('tema', tema);
+        formData.append('texto', texto);
+        formData.append('corretorId', corretorId);
+        if (imagemFile) formData.append('imagem', imagemFile);
+
+        try {
+            const resp = await fetch('https://express-e3hm.onrender.com/redcorretores', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${user.token}` },
+                body: formData
+            });
+            const data = await resp.json();
+            if (resp.ok) {
+                alert('Redação enviada para o corretor! Aguarde a correção.');
+                window.location.href = '/';
+            } else {
+                alert(data.error || 'Erro ao enviar para o corretor.');
+            }
+        } catch (err) {
+            alert('Erro ao enviar para o corretor.');
+        }
+    }
     let writingAreaMobileAberta = false;
 
     if (btnDigitar && writingArea && mobileActions) {

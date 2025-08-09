@@ -7,7 +7,7 @@
         <div class="header-icon">
             <i class="ri-ai-generate"></i>
         </div>
-        <h1>Correção por IA</h1>
+        <h1>Correção</h1>
         <p class="header-subtitle">Receba feedback detalhado da sua redação</p>
     </div>
 
@@ -98,9 +98,56 @@
                 <textarea class="area" id="textoRedacao" name="textoRedacao" rows="30" cols="85" placeholder="Escreva sua redação aqui..."></textarea>
             </div>
 
-            <button type="submit" class="submit-button">
+            <button type="button" class="submit-button" id="btnAbrirModalCorrecao">
                 <i class="ri-send-plane-line"></i> Enviar para correção
             </button>
+    <!-- Modal de escolha IA ou Corretor -->
+    <div id="modalEscolhaCorrecao" class="modal-escolha-correcao" style="display:none;">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModalEscolha">&times;</span>
+            <h2>Como deseja corrigir sua redação?</h2>
+            <div class="escolha-opcoes">
+                <button type="button" id="escolherIA" class="opcao-correcao ia">
+                    <i class="ri-robot-2-line"></i> Correção por IA
+                </button>
+                <button type="button" id="escolherCorretor" class="opcao-correcao corretor">
+                    <i class="ri-user-star-line"></i> Correção por Corretor
+                </button>
+            </div>
+            <div id="corretoresDisponiveis" style="display:none;">
+                <h3>Selecione um corretor:</h3>
+                <div id="listaCorretores"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Estilos básicos para o modal (pode melhorar no CSS principal) -->
+<style>
+.modal-escolha-correcao {
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+}
+.modal-content {
+    background: #fff; padding: 2rem; border-radius: 10px; min-width: 320px; max-width: 95vw; position: relative;
+}
+.close-modal {
+    position: absolute; right: 1rem; top: 1rem; font-size: 2rem; cursor: pointer;
+}
+.escolha-opcoes { display: flex; gap: 1.5rem; justify-content: center; margin: 1.5rem 0; }
+.opcao-correcao { padding: 1rem 2rem; border-radius: 8px; border: none; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; }
+.opcao-correcao.ia { background: #e0f7fa; color: #00796b; }
+.opcao-correcao.corretor { background: #fff3e0; color: #e65100; }
+#corretoresDisponiveis { margin-top: 1.5rem; }
+#listaCorretores { display: flex; flex-direction: column; gap: 1rem; }
+.corretor-card { border: 1px solid #eee; border-radius: 8px; padding: 1rem; display: flex; align-items: center; gap: 1rem; background: #fafafa; }
+.corretor-card img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.corretor-info { flex: 1; }
+.corretor-nome { font-weight: bold; }
+.corretor-enviar { background: #00796b; color: #fff; border: none; border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; }
+</style>
         </form>
     </div>
 

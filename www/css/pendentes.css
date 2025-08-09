@@ -1,0 +1,114 @@
+:root {
+    --azul: #2196f3;
+    --azul-escuro: #1976d2;
+    --cinza: #f1f1f1;
+    --branco: #fff;
+    --preto: #222;
+    --borda: #e0e0e0;
+}
+
+.page[data-name="pendentes"] {
+    background: var(--cinza);
+    min-height: 100vh;
+}
+
+.top-nav {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul-escuro) 100%);
+    color: #fff;
+    padding: 16px 16px 8px 16px;
+    position: relative;
+}
+
+.top-nav .back-button {
+    color: #fff;
+    font-size: 1.7rem;
+    margin-right: 12px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.title-logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.block-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 24px 0 12px 0;
+    color: var(--azul-escuro);
+    text-align: center;
+}
+
+.pendentes-list {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+.pendente-card {
+    background: var(--branco);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #0001;
+    border: 1px solid var(--borda);
+    margin-bottom: 18px;
+    padding: 18px 16px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pendente-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pendente-tema {
+    font-weight: 600;
+    color: var(--azul-escuro);
+    font-size: 1.05rem;
+}
+
+.pendente-status {
+    font-size: 0.95rem;
+    color: #888;
+    margin-left: auto;
+    background: #e3f2fd;
+    border-radius: 6px;
+    padding: 2px 10px;
+}
+
+.pendente-texto {
+    color: #333;
+    font-size: 0.98rem;
+    margin-top: 4px;
+    white-space: pre-line;
+}
+
+.pendente-img {
+    max-width: 100%;
+    max-height: 180px;
+    border-radius: 8px;
+    margin: 8px 0 0 0;
+    box-shadow: 0 2px 8px #0002;
+}
+
+@media (max-width: 700px) {
+    .pendentes-list {
+        padding: 0 2px;
+    }
+    .pendente-card {
+        padding: 12px 6px 10px 8px;
+    }
+}

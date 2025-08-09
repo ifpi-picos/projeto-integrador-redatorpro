@@ -9,6 +9,10 @@ window.initIACorretor = function () {
     const btnEscolherCorretor = document.getElementById('escolherCorretor');
     const divCorretores = document.getElementById('corretoresDisponiveis');
     const listaCorretores = document.getElementById('listaCorretores');
+    const pesquisaCorretor = document.getElementById('pesquisaCorretor');
+    const tituloEscolhaCorrecao = document.getElementById('tituloEscolhaCorrecao');
+    const opcoesCorrecao = document.getElementById('opcoesCorrecao');
+    let listaCorretoresCache = [];
     console.log('initIACorretor chamado!');
     const areaNormal = document.getElementById('textoRedacao');
     const areaAmpliada = document.getElementById('textoRedacaoAmpliada');
@@ -40,6 +44,8 @@ window.initIACorretor = function () {
     if (btnEscolherIA) {
         btnEscolherIA.addEventListener('click', function () {
             modalEscolha.style.display = 'none';
+            if (tituloEscolhaCorrecao) tituloEscolhaCorrecao.style.display = '';
+            if (opcoesCorrecao) opcoesCorrecao.style.display = '';
             // Dispara o submit do form para IA
             submitParaIA();
         });
@@ -48,8 +54,11 @@ window.initIACorretor = function () {
     // Ao escolher Corretor, busca lista e exibe
     if (btnEscolherCorretor) {
         btnEscolherCorretor.addEventListener('click', async function () {
+            if (tituloEscolhaCorrecao) tituloEscolhaCorrecao.style.display = 'none';
+            if (opcoesCorrecao) opcoesCorrecao.style.display = 'none';
             if (divCorretores) divCorretores.style.display = 'block';
             if (listaCorretores) listaCorretores.innerHTML = '<div>Carregando corretores...</div>';
+            if (pesquisaCorretor) pesquisaCorretor.value = '';
             // Buscar corretores disponíveis do backend
             try {
                 const user = JSON.parse(localStorage.getItem('loggedUser'));
@@ -57,27 +66,49 @@ window.initIACorretor = function () {
                     headers: { 'Authorization': user && user.token ? `Bearer ${user.token}` : '' }
                 });
                 const corretores = await resp.json();
-                if (Array.isArray(corretores) && corretores.length > 0) {
-                    listaCorretores.innerHTML = '';
-                    corretores.forEach(corretor => {
-                        const card = document.createElement('div');
-                        card.className = 'corretor-card';
-                        card.innerHTML = `
-                            <img src="${corretor.fotoPerfil || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(corretor.name)}" alt="Foto do corretor">
-                            <div class="corretor-info">
-                                <div class="corretor-nome">${corretor.name}</div>
-                                <div class="corretor-desc">${corretor.escolaridade || ''}</div>
-                            </div>
-                            <button class="corretor-enviar" data-id="${corretor.id}">Enviar para este corretor</button>
-                        `;
-                        listaCorretores.appendChild(card);
-                    });
-                } else {
-                    listaCorretores.innerHTML = '<div>Nenhum corretor disponível no momento.</div>';
-                }
+                listaCorretoresCache = Array.isArray(corretores) ? corretores : [];
+                renderizarListaCorretores(listaCorretoresCache);
             } catch (err) {
                 listaCorretores.innerHTML = '<div>Erro ao buscar corretores.</div>';
             }
+        });
+    }
+
+    // Função para renderizar lista de corretores (com filtro)
+    function renderizarListaCorretores(lista) {
+        if (!listaCorretores) return;
+        if (!lista || lista.length === 0) {
+            listaCorretores.innerHTML = '<div>Nenhum corretor disponível no momento.</div>';
+            return;
+        }
+        listaCorretores.innerHTML = '';
+        lista.forEach(corretor => {
+            const card = document.createElement('div');
+            card.className = 'corretor-card';
+            card.innerHTML = `
+                <img src="${corretor.fotoPerfil || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(corretor.name)}" alt="Foto do corretor">
+                <div class="corretor-info">
+                    <div class="corretor-nome">${corretor.name}</div>
+                    <div class="corretor-desc">${corretor.escolaridade || ''}</div>
+                </div>
+                <button class="corretor-enviar" data-id="${corretor.id}">Enviar</button>
+            `;
+            listaCorretores.appendChild(card);
+        });
+    }
+
+    // Evento de pesquisa de corretores
+    if (pesquisaCorretor) {
+        pesquisaCorretor.addEventListener('input', function () {
+            const termo = pesquisaCorretor.value.trim().toLowerCase();
+            if (!termo) {
+                renderizarListaCorretores(listaCorretoresCache);
+                return;
+            }
+            const filtrados = listaCorretoresCache.filter(corretor =>
+                corretor.name && corretor.name.toLowerCase().includes(termo)
+            );
+            renderizarListaCorretores(filtrados);
         });
     }
 
@@ -206,7 +237,13 @@ window.initIACorretor = function () {
             const data = await resp.json();
             if (resp.ok) {
                 alert('Redação enviada para o corretor! Aguarde a correção.');
-                window.location.href = '/';
+                setTimeout(() => {
+                    if (window.app && app.views && app.views.main && app.views.main.router) {
+                        app.views.main.router.navigate('/pendentes/');
+                    } else {
+                        window.location.href = 'pendentes.html';
+                    }
+                }, 200);
             } else {
                 alert(data.error || 'Erro ao enviar para o corretor.');
             }

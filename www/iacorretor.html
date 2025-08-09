@@ -105,8 +105,8 @@
     <div id="modalEscolhaCorrecao" class="modal-escolha-correcao" style="display:none;">
         <div class="modal-content">
             <span class="close-modal" id="closeModalEscolha">&times;</span>
-            <h2>Como deseja corrigir sua redação?</h2>
-            <div class="escolha-opcoes">
+            <h2 id="tituloEscolhaCorrecao">Como deseja corrigir sua redação?</h2>
+            <div class="escolha-opcoes" id="opcoesCorrecao">
                 <button type="button" id="escolherIA" class="opcao-correcao ia">
                     <i class="ri-robot-2-line"></i> Correção por IA
                 </button>
@@ -116,6 +116,7 @@
             </div>
             <div id="corretoresDisponiveis" style="display:none;">
                 <h3>Selecione um corretor:</h3>
+                <input type="text" id="pesquisaCorretor" class="form-input" placeholder="Pesquisar corretor pelo nome..." style="margin-bottom: 1rem;">
                 <div id="listaCorretores"></div>
             </div>
         </div>

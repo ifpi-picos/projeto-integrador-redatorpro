@@ -265,10 +265,10 @@ window.initIACorretor = function () {
                         console.log('[RedatorPro] Usando Framework7 para redirecionar para /pendentes/');
                         app.views.main.router.navigate('/pendentes/', { reloadCurrent: true, ignoreCache: true });
                     } else {
-                        console.log('[RedatorPro] Usando fallback para redirecionar para pendentes.html');
+                        console.log('[RedatorPro] Framework7 não disponível, usando fallback para pendentes.html');
                         window.location.href = 'pendentes.html';
                     }
-                }, 1000); // Aumentado para 500ms
+                }, 10000); // Garantir tempo suficiente para o redirecionamento
             } else {
                 console.error('[RedatorPro] Erro ao enviar para o corretor:', data.error || 'Erro desconhecido');
                 alert(data.error || 'Erro ao enviar para o corretor.');

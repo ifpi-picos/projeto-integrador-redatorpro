@@ -268,7 +268,7 @@ window.initIACorretor = function () {
                         console.log('[RedatorPro] Usando fallback para redirecionar para pendentes.html');
                         window.location.href = 'pendentes.html';
                     }
-                }, 500); // Aumentado para 500ms
+                }, 1000); // Aumentado para 500ms
             } else {
                 console.error('[RedatorPro] Erro ao enviar para o corretor:', data.error || 'Erro desconhecido');
                 alert(data.error || 'Erro ao enviar para o corretor.');

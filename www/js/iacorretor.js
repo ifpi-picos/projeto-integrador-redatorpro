@@ -143,7 +143,14 @@ window.initIACorretor = function () {
             });
             const data = await resp.json();
             if (resp.ok) {
-                window.location.href = 'www/correcaoia/';
+                localStorage.setItem('correcaoIA', JSON.stringify(data));
+                setTimeout(() => {
+                    if (window.app && app.views && app.views.main && app.views.main.router) {
+                        app.views.main.router.navigate('/correcaoia/');
+                    } else {
+                        window.location.href = 'correcaoia.html';
+                    }
+                }, 200);
             } else {
                 alert(data.error || 'Erro ao enviar para correção por IA.');
             }

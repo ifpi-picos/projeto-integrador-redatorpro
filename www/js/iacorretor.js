@@ -260,9 +260,9 @@ window.initIACorretor = function () {
             const data = await resp.json();
             if (resp.ok) {
                 console.log('[RedatorPro] Redação enviada para o corretor! Redirecionando para pendentes...');
-                // Redireciona para pendentes.html
+                // Redireciona para pendentes.html usando Framework7 corretamente
                 if (window.app && app.views && app.views.main && app.views.main.router) {
-                    app.views.main.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
+                    app.views.main.router.navigate('/pendentes/', { reloadCurrent: true });
                 } else {
                     window.location.href = 'pendentes.html';
                 }

@@ -597,16 +597,15 @@ var app = new Framework7({
     {
       path: '/pendentes/',
       url: 'pendentes.html',
-      animate: false,
+      animate: true,
       on: {
         pageBeforeIn: function (event, page) {
-          // Fazer algo antes da página ser exibida
+          console.log('Entrando na página pendentes...');
         },
         pageAfterIn: function (event, page) {
-          // Fazer algo depois da página ser exibida
+          console.log('Página pendentes carregada.');
         },
         pageInit: function (event, page) {
-          // Carregar o script pendentes.js ao inicializar a página
           $.getScript('js/pendentes.js')
             .done(() => {
               console.log('js/pendentes.js carregado para /pendentes/');
@@ -614,7 +613,7 @@ var app = new Framework7({
             .fail(() => console.error('Erro ao carregar js/pendentes.js'));
         },
         pageBeforeRemove: function (event, page) {
-          // Fazer algo antes de a página ser removida do DOM
+          console.log('Saindo da página pendentes...');
         },
       }
     },

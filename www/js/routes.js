@@ -1,3 +1,4 @@
+
 //INICIALIZAÇÃO DO F7 QUANDO DISPOSITIVO ESTÁ PRONTO
 document.addEventListener('deviceready', onDeviceReady, false);
 var app = new Framework7({
@@ -592,6 +593,17 @@ var app = new Framework7({
         pageBeforeRemove: function (event, page) {
           // fazer algo antes da página ser removida do DOM
         },
+      }
+    },
+    {
+      path: '/pendentes/',
+      url: 'pendentes.html',
+      animate: false,
+      on: {
+        pageInit: function (event, page) {
+          // Carregar script de pendentes se necessário
+          if (window.initPendentes) window.initPendentes();
+        }
       }
     },
     {

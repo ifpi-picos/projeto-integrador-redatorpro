@@ -599,22 +599,14 @@ var app = new Framework7({
       url: 'pendentes.html',
       animate: true,
       on: {
-        pageBeforeIn: function (event, page) {
-          console.log('Entrando na página pendentes...');
-        },
+        // Troque pageInit por pageAfterIn
         pageAfterIn: function (event, page) {
-          console.log('Página pendentes carregada.');
-        },
-        pageInit: function (event, page) {
-          $.getScript('js/pendentes.js')
+          $.getScript('js/correcaoia.js')
             .done(() => {
-              console.log('js/pendentes.js carregado para /pendentes/');
+              console.log('js/correcaoia.js carregado via router!');
             })
-            .fail(() => console.error('Erro ao carregar js/pendentes.js'));
-        },
-        pageBeforeRemove: function (event, page) {
-          console.log('Saindo da página pendentes...');
-        },
+            .fail(() => console.error('Erro ao carregar js/correcaoia.js'));
+        }
       }
     },
     {

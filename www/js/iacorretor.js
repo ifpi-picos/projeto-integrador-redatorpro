@@ -263,7 +263,7 @@ window.initIACorretor = function () {
                 setTimeout(() => {
                     if (window.app && app.views && app.views.main && app.views.main.router) {
                         console.log('[RedatorPro] Usando Framework7 para redirecionar para /pendentes/');
-                        app.views.main.router.navigate('/pendentes/');
+                        app.views.main.router.navigate('/pendentes/', { reloadCurrent: true, ignoreCache: true });
                     } else {
                         console.log('[RedatorPro] Usando fallback para redirecionar para pendentes.html');
                         window.location.href = 'pendentes.html';

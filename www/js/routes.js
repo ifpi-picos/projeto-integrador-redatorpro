@@ -598,6 +598,8 @@ var app = new Framework7({
       path: '/pendentes/',
       url: 'pendentes.html',
       animate: true,
+      reloadCurrent: true,
+      ignoreCache: true,
       on: {
         pageBeforeIn: function (event, page) {
           console.log('[Routes] Entrando na página pendentes...');

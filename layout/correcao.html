@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR"  data-theme="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correção de Redação - ENEM</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/correcao.css">
+    <link rel="stylesheet" href="themes/colors/colors.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Correção de Redação - ENEM</h1>
+            <div class="redacao-info">
+                <span><strong>Aluno:</strong> João da Silva</span>
+                <span><strong>Tema:</strong> Desafios para a valorização de comunidades tradicionais no Brasil</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <div class="steps">
+                    <div class="step active" data-step="1"></div>
+                    <div class="step" data-step="2"></div>
+                    <div class="step" data-step="3"></div>
+                    <div class="step" data-step="4"></div>
+                    <div class="step" data-step="5"></div>
+                    <div class="step" data-step="6"></div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="redacao-original">
+                <h2>Redação do Aluno</h2>
+                <div class="redacao-content">
+                    <textarea class="texto-redacao" placeholder="Texto da redação apareceria aqui..." readonly></textarea>
+                </div>
+            </section>
+
+            <section class="correcao-form">
+                <form id="form-correcao">
+                    <!-- Passo 1 - Competência 1 -->
+                    <div class="step-content active" data-step="1">
+                        <h3>Competência 1: Domínio da escrita formal</h3>
+                        <p class="competencia-desc">Avalie o domínio da norma padrão da língua escrita, incluindo grafia, acentuação, morfologia, sintaxe e pontuação.</p>
+                        
+                        <div class="nota-container">
+                            <label>Nota: <span id="nota-1">0</span> pontos</label>
+                            <input type="range" min="0" max="200" step="40" value="0" class="nota-slider" data-competencia="1">
+                            <div class="nota-ticks">
+                                <span>0</span>
+                                <span>40</span>
+                                <span>80</span>
+                                <span>120</span>
+                                <span>160</span>
+                                <span>200</span>
+                            </div>
+
+                            <!--<div class="nota-ticks">
+                                <span style="color: var(--danger)">0</span>
+                                <span style="color: var(--warning)">40</span>
+                                <span style="color: var(--rating)">80</span>
+                                <span style="color: var(--success)">120</span>
+                                <span style="color: var(--secondary)">160</span>
+                                <span style="color: var(--primary)">200</span>
+                            </div>-->
+                        </div>
+                        
+                        <textarea placeholder="Observações sobre desvios gramaticais, escolha de registro, etc." rows="5"></textarea>
+                    </div>
+
+                    <!-- Passo 2 - Competência 2 -->
+                    <div class="step-content" data-step="2">
+                        <h3>Competência 2: Compreensão da proposta</h3>
+                        <p class="competencia-desc">Avalie se o texto dissertativo-argumentativo atende à proposta, com repertório sociocultural produtivo.</p>
+                        
+                        <div class="nota-container">
+                            <label>Nota: <span id="nota-2">0</span> pontos</label>
+                            <input type="range" min="0" max="200" step="40" value="0" class="nota-slider" data-competencia="2">
+                            <div class="nota-ticks">
+                                <span>0</span>
+                                <span>40</span>
+                                <span>80</span>
+                                <span>120</span>
+                                <span>160</span>
+                                <span>200</span>
+                            </div>
+                        </div>
+                        
+                        <textarea placeholder="Observações sobre desenvolvimento do tema, fuga ao tema, etc." rows="5"></textarea>
+                    </div>
+
+                    <!-- Passo 3 - Competência 3 -->
+                    <div class="step-content" data-step="3">
+                        <h3>Competência 3: Argumentação</h3>
+                        <p class="competencia-desc">Avalie a seleção, organização e interpretação de informações, fatos, opiniões e argumentos.</p>
+                        
+                        <div class="nota-container">
+                            <label>Nota: <span id="nota-3">0</span> pontos</label>
+                            <input type="range" min="0" max="200" step="40" value="0" class="nota-slider" data-competencia="3">
+                            <div class="nota-ticks">
+                                <span>0</span>
+                                <span>40</span>
+                                <span>80</span>
+                                <span>120</span>
+                                <span>160</span>
+                                <span>200</span>
+                            </div>
+                        </div>
+                        
+                        <textarea placeholder="Observações sobre coerência, seleção de argumentos, etc." rows="5"></textarea>
+                    </div>
+
+                    <!-- Passo 4 - Competência 4 -->
+                    <div class="step-content" data-step="4">
+                        <h3>Competência 4: Coesão</h3>
+                        <p class="competencia-desc">Avalie a organização textual com uso adequado de mecanismos linguísticos de coesão.</p>
+                        
+                        <div class="nota-container">
+                            <label>Nota: <span id="nota-4">0</span> pontos</label>
+                            <input type="range" min="0" max="200" step="40" value="0" class="nota-slider" data-competencia="4">
+                            <div class="nota-ticks">
+                                <span>0</span>
+                                <span>40</span>
+                                <span>80</span>
+                                <span>120</span>
+                                <span>160</span>
+                                <span>200</span>
+                            </div>
+                        </div>
+                        
+                        <textarea placeholder="Observações sobre organização textual, uso de conectivos, etc." rows="5"></textarea>
+                    </div>
+
+                    <!-- Passo 5 - Competência 5 -->
+                    <div class="step-content" data-step="5">
+                        <h3>Competência 5: Proposta de intervenção</h3>
+                        <p class="competencia-desc">Avalie a proposta de intervenção social respeitando os direitos humanos.</p>
+                        
+                        <div class="nota-container">
+                            <label>Nota: <span id="nota-5">0</span> pontos</label>
+                            <input type="range" min="0" max="200" step="40" value="0" class="nota-slider" data-competencia="5">
+                            <div class="nota-ticks">
+                                <span>0</span>
+                                <span>40</span>
+                                <span>80</span>
+                                <span>120</span>
+                                <span>160</span>
+                                <span>200</span>
+                            </div>
+                        </div>
+                        
+                        <textarea placeholder="Observações sobre proposta de solução, detalhamento, etc." rows="5"></textarea>
+                    </div>
+
+                    <!-- Passo 6 - Comentários Gerais -->
+                    <div class="step-content" data-step="6">
+                        <h3>Comentários Gerais</h3>
+                        <p class="competencia-desc">Adicione comentários finais sobre a redação como um todo.</p>
+                        <textarea placeholder="Coloque aqui comentários gerais sobre a redação..." rows="8"></textarea>
+                        
+                        <div class="total-nota">
+                            <h4>Nota Total: <span id="total-nota">0</span> pontos</h4>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="btn btn-anterior" id="btn-anterior" disabled>
+                            <i class="fas fa-arrow-left"></i> Anterior
+                        </button>
+                        <button type="button" class="btn btn-proximo" id="btn-proximo">
+                            Próximo <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button type="submit" class="btn btn-enviar" id="btn-enviar" style="display: none;">
+                            <i class="fas fa-paper-plane"></i> Enviar Correção
+                        </button>
+                        <button type="button" class="btn btn-salvar">
+                            <i class="fas fa-save"></i> Salvar Rascunho
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/correcao.js"></script>
+    <script src="themes/themes.js"></script>
+</body>
+</html>

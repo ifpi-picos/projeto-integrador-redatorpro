@@ -53,7 +53,7 @@ window.initIACorretor = function () {
             // Buscar corretores disponíveis do backend
             try {
                 const user = JSON.parse(localStorage.getItem('loggedUser'));
-                const resp = await fetch('https://express-e3hm.onrender.com/corretores', {
+                const resp = await fetch('https://express-e3hm.onrender.com/red-corretores', {
                     headers: { 'Authorization': user && user.token ? `Bearer ${user.token}` : '' }
                 });
                 const corretores = await resp.json();
@@ -198,7 +198,7 @@ window.initIACorretor = function () {
         if (imagemFile) formData.append('imagem', imagemFile);
 
         try {
-            const resp = await fetch('https://express-e3hm.onrender.com/redcorretores', {
+            const resp = await fetch('https://express-e3hm.onrender.com/red-corretores', {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${user.token}` },
                 body: formData

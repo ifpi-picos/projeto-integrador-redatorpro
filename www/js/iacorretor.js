@@ -225,6 +225,17 @@ window.initIACorretor = function () {
         });
     }
 
+    // Função para garantir que o botão "Digitar Redação" volte a aparecer
+    function mostrarBtnDigitar() {
+        if (btnDigitar) btnDigitar.style.display = '';
+        if (mobileActions) mobileActions.style.display = '';
+        if (writingArea) {
+            writingArea.style.display = 'none';
+            writingArea.classList.remove('ativo');
+        }
+        writingAreaMobileAberta = false;
+    }
+
     function abrirFolhaAmpliada(event) {
         if (isMobile() && areaNormal && areaAmpliada && folhaAmpliadaOverlay) {
             let writingAreaEl = areaNormal.closest('.writing-area');
@@ -253,6 +264,7 @@ window.initIACorretor = function () {
             }
             if (folhaAmpliadaOverlay) folhaAmpliadaOverlay.classList.remove('ativo');
             document.body.classList.remove('folha-ampliada-aberta');
+            mostrarBtnDigitar(); // Garante que o botão volte ao fechar a folha
         });
     }
 
@@ -269,10 +281,12 @@ window.initIACorretor = function () {
                 writingArea.classList.remove('ativo');
                 writingArea.style.display = 'none';
                 gerenciarEventoAreaNormal(false);
+                mostrarBtnDigitar(); // Garante que o botão aparece ao redimensionar
             } else {
                 writingArea.classList.add('ativo');
                 writingArea.style.display = 'flex';
                 gerenciarEventoAreaNormal(true);
+                if (btnDigitar) btnDigitar.style.display = 'none';
             }
         }
         if (mobileActions) {
@@ -294,6 +308,7 @@ window.initIACorretor = function () {
         const temaLivre = document.getElementById('temaLivre');
         if (temaLivre) temaLivre.value = '';
         if (imagemInput) imagemInput.value = '';
+        mostrarBtnDigitar(); // Garante que o botão aparece ao resetar
     }
 
     // --- Envio do formulário para o backend (agora com FormData) ---

@@ -684,4 +684,3 @@ function onDeviceReady() {
   }, false);
 
 }
-}

@@ -278,15 +278,12 @@ window.initIACorretor = function () {
                 setTimeout(() => {
                     msg.remove();
                 }, 2000);
-                // Redireciona imediatamente
+                // Redireciona imediatamente usando Framework7 router se disponível
                 if (window.app && app.views && app.views.main && app.views.main.router && typeof app.views.main.router.navigate === 'function') {
-                    console.log('[RedatorPro] SPA: app.views.main.router.navigate("/pendentes/")');
                     app.views.main.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
                 } else if (window.mainView && mainView.router && typeof mainView.router.navigate === 'function') {
-                    console.log('[RedatorPro] SPA: mainView.router.navigate("/pendentes/")');
                     mainView.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
                 } else {
-                    console.log('[RedatorPro] Fallback: window.location.href = pendentes.html');
                     window.location.href = 'pendentes.html';
                 }
             } else {

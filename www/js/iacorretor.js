@@ -261,8 +261,11 @@ window.initIACorretor = function () {
             if (resp.ok) {
                 alert('Redação enviada para o corretor! Aguarde a correção.');
                 setTimeout(() => {
-                    if (window.app && app.views && app.views.main && app.views.main.router) {
-                        app.views.main.router.navigate('/pendentes/');
+                    // Sempre prioriza navegação SPA se Framework7 estiver disponível
+                    if (window.app && app.views && app.views.main && app.views.main.router && typeof app.views.main.router.navigate === 'function') {
+                        app.views.main.router.navigate('/pendentes/', { reloadCurrent: true });
+                    } else if (window.mainView && mainView.router && typeof mainView.router.navigate === 'function') {
+                        mainView.router.navigate('/pendentes/', { reloadCurrent: true });
                     } else {
                         window.location.href = 'pendentes.html';
                     }

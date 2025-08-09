@@ -259,34 +259,36 @@ window.initIACorretor = function () {
             });
             const data = await resp.json();
             if (resp.ok) {
-                alert('Redação enviada para o corretor! Aguarde a correção.');
+                // Não usar alert, mostrar mensagem na tela e redirecionar imediatamente
+                console.log('[RedatorPro] Redação enviada para o corretor! Redirecionando para pendentes...');
+                // Exibe mensagem temporária na tela
+                const msg = document.createElement('div');
+                msg.textContent = 'Redação enviada para o corretor! Aguarde a correção.';
+                msg.style.position = 'fixed';
+                msg.style.top = '20px';
+                msg.style.left = '50%';
+                msg.style.transform = 'translateX(-50%)';
+                msg.style.background = '#2196f3';
+                msg.style.color = '#fff';
+                msg.style.padding = '12px 24px';
+                msg.style.borderRadius = '8px';
+                msg.style.zIndex = '9999';
+                msg.style.fontSize = '16px';
+                document.body.appendChild(msg);
                 setTimeout(() => {
-                    console.log('[RedatorPro] Tentando redirecionar para pendentes...');
-                    try {
-                        if (window.app && app.views && app.views.main && app.views.main.router && typeof app.views.main.router.navigate === 'function') {
-                            console.log('[RedatorPro] SPA: app.views.main.router.navigate("/pendentes/")');
-                            app.views.main.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
-                            return;
-                        } else {
-                            console.log('[RedatorPro] app.views.main.router.navigate não disponível');
-                        }
-                    } catch (e) {
-                        console.error('[RedatorPro] Erro SPA app.views.main.router:', e);
-                    }
-                    try {
-                        if (window.mainView && mainView.router && typeof mainView.router.navigate === 'function') {
-                            console.log('[RedatorPro] SPA: mainView.router.navigate("/pendentes/")');
-                            mainView.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
-                            return;
-                        } else {
-                            console.log('[RedatorPro] mainView.router.navigate não disponível');
-                        }
-                    } catch (e) {
-                        console.error('[RedatorPro] Erro SPA mainView.router:', e);
-                    }
+                    msg.remove();
+                }, 2000);
+                // Redireciona imediatamente
+                if (window.app && app.views && app.views.main && app.views.main.router && typeof app.views.main.router.navigate === 'function') {
+                    console.log('[RedatorPro] SPA: app.views.main.router.navigate("/pendentes/")');
+                    app.views.main.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
+                } else if (window.mainView && mainView.router && typeof mainView.router.navigate === 'function') {
+                    console.log('[RedatorPro] SPA: mainView.router.navigate("/pendentes/")');
+                    mainView.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
+                } else {
                     console.log('[RedatorPro] Fallback: window.location.href = pendentes.html');
                     window.location.href = 'pendentes.html';
-                }, 200);
+                }
             } else {
                 alert(data.error || 'Erro ao enviar para o corretor.');
             }

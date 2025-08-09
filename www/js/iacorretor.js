@@ -261,20 +261,30 @@ window.initIACorretor = function () {
             if (resp.ok) {
                 alert('Redação enviada para o corretor! Aguarde a correção.');
                 setTimeout(() => {
-                    // Sempre tenta Framework7 SPA, depois mainView, depois fallback
+                    console.log('[RedatorPro] Tentando redirecionar para pendentes...');
                     try {
                         if (window.app && app.views && app.views.main && app.views.main.router && typeof app.views.main.router.navigate === 'function') {
+                            console.log('[RedatorPro] SPA: app.views.main.router.navigate("/pendentes/")');
                             app.views.main.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
                             return;
+                        } else {
+                            console.log('[RedatorPro] app.views.main.router.navigate não disponível');
                         }
-                    } catch (e) {}
+                    } catch (e) {
+                        console.error('[RedatorPro] Erro SPA app.views.main.router:', e);
+                    }
                     try {
                         if (window.mainView && mainView.router && typeof mainView.router.navigate === 'function') {
+                            console.log('[RedatorPro] SPA: mainView.router.navigate("/pendentes/")');
                             mainView.router.navigate('/pendentes/', { reloadAll: true, ignoreCache: true });
                             return;
+                        } else {
+                            console.log('[RedatorPro] mainView.router.navigate não disponível');
                         }
-                    } catch (e) {}
-                    // Fallback absoluto
+                    } catch (e) {
+                        console.error('[RedatorPro] Erro SPA mainView.router:', e);
+                    }
+                    console.log('[RedatorPro] Fallback: window.location.href = pendentes.html');
                     window.location.href = 'pendentes.html';
                 }, 200);
             } else {

@@ -31,22 +31,26 @@ document.addEventListener('DOMContentLoaded', function() {
             nameEl.focus();
         });
 
-        saveBtn.addEventListener('click', () => {
+        saveBtn.addEventListener('click', async () => {
             const formData = new FormData();
             formData.append('name', nameEl.textContent.trim());
             formData.append('escolaridade', escolaridadeEl.textContent.trim());
-            // Pega o valor do primeiro elemento de experiência
             formData.append('experiencia', experienciaEls[0].textContent.trim());
             formData.append('descricao', descricaoEl.textContent.trim());
-            fetch('https://express-e3hm.onrender.com/perfil', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + userData.token
-                },
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
+            try {
+                const res = await fetch('https://express-e3hm.onrender.com/perfil', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + userData.token
+                        // NÃO defina 'Content-Type' aqui!
+                    },
+                    body: formData
+                });
+                if (!res.ok) {
+                    alert('Erro ao atualizar perfil. Tente novamente.');
+                    return;
+                }
+                const data = await res.json();
                 nameEl.textContent = data.name || '';
                 escolaridadeEl.textContent = data.escolaridade || '';
                 experienciaEls.forEach(el => el.textContent = data.experiencia || '');
@@ -77,7 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     experiencia: data.experiencia,
                     descricao: data.descricao
                 }));
-            });
+            } catch (err) {
+                alert('Erro ao atualizar perfil. Verifique sua conexão.');
+            }
         });
     }
 

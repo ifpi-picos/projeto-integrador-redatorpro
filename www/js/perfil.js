@@ -1,3 +1,6 @@
+if (window.perfilScriptLoaded) return;
+window.perfilScriptLoaded = true;
+
 // Função utilitária para obter token JWT salvo (ajuste conforme seu app)
 function getToken() {
     // Busca o token dentro do objeto loggedUser

@@ -2,6 +2,20 @@
 <html>
 
 <head>
+    <!-- Guard de autenticação inicial -->
+    <script>
+    (function authGate(){
+        try {
+            const u = JSON.parse(localStorage.getItem('loggedUser')||'null');
+            if(!u || !u.token){
+                window.location.replace('https://ifpi-picos.github.io/projeto-integrador-redatorpro/login');
+            }
+        } catch(e){
+            window.location.replace('https://ifpi-picos.github.io/projeto-integrador-redatorpro/login');
+        }
+    })();
+    </script>
+
     <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport"
@@ -144,20 +158,6 @@
                 <div id="menuPrincipal" class="toolbar toolbar-bottom">
                     <div class="toolbar-inner display-flex">
                         <a href="/index/" class="tab-link link active">
-                            <span class="material-symbols-outlined">home_app_logo</span>
-                            <span>Home</span>
-                        </a>
-                        <a href="/link2/" class="tab-link link">
-                            <span class="material-symbols-outlined">group</span>
-                            <span>Pesquisar</span>
-                        </a>
-                        <a href="#" class="tab-link link dark-mode-toggle">
-                            <span class="material-symbols-outlined">dark_mode</span>
-                            <span>Tema</span>
-                        </a>
-                        <a href="/favoritos/" class="tab-link link">
-                            <span class="material-symbols-outlined">stars</span>
-                            <span>Favoritos</span>
                         </a>
                         <a href="/profile/" class="tab-link link">
                             <span class="material-symbols-outlined">person</span>

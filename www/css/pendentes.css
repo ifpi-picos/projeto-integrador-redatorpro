@@ -21,7 +21,7 @@
 }
 
 .correction-header{
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
 }
 
 /* Container agora herda base de .correction-container e apenas complementa */

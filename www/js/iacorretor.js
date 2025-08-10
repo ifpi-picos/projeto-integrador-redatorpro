@@ -24,6 +24,7 @@ window.initIACorretor = function () {
     const form = document.getElementById('formCorrecao');
     const imagemInput = document.getElementById('imagemUpload');
 
+    let writingAreaMobileAberta = false;
 
     // Substitui o submit padrão pelo modal de escolha, mas faz validação antes
     if (btnAbrirModalCorrecao && form) {
@@ -143,11 +144,7 @@ window.initIACorretor = function () {
 
     // Função para enviar para IA (fluxo atual)
     async function submitParaIA() {
-        // Replicando o antigo handler de submit
-        // ...existing code...
-        // (copiado do antigo form.addEventListener('submit', ...), mas sem o preventDefault)
-        //
-        // Validação dos campos obrigatórios
+        // ...código igual ao seu...
         const tipoCorrecao = document.getElementById('tipoCorrecao').value;
         const temaRedacaoSelect = document.getElementById('temaRedacao');
         const temaLivre = document.getElementById('temaLivre').value;
@@ -210,7 +207,6 @@ window.initIACorretor = function () {
 
     // Função para enviar para corretor
     async function submitParaCorretor(corretorId) {
-        // Validação dos campos obrigatórios
         const tipoCorrecao = document.getElementById('tipoCorrecao').value;
         const temaRedacaoSelect = document.getElementById('temaRedacao');
         const temaLivre = document.getElementById('temaLivre').value;
@@ -232,7 +228,6 @@ window.initIACorretor = function () {
         } else {
             tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;
         }
-
 
         const user = JSON.parse(localStorage.getItem('loggedUser'));
         if (!user || !user.token) {
@@ -258,12 +253,9 @@ window.initIACorretor = function () {
                 body: formData
             });
             const data = await resp.json();
-            // ...dentro de submitParaCorretor...
             if (resp.ok) {
                 console.log('[RedatorPro] Redação enviada para o corretor! Redirecionando para pendentes...');
-                // Fecha o modal, se ainda estiver aberto
                 if (modalEscolha) modalEscolha.style.display = 'none';
-                // Pequeno delay para garantir que tudo foi processado
                 setTimeout(() => {
                     if (window.app && app.views && app.views.main && app.views.main.router) {
                         console.log('[RedatorPro] Usando Framework7 para redirecionar para /pendentes/');
@@ -273,7 +265,6 @@ window.initIACorretor = function () {
                         window.location.href = 'pendentes.html';
                     }
                 }, 500);
-// ...restante do código...// Garantir tempo suficiente para o redirecionamento
             } else {
                 console.error('[RedatorPro] Erro ao enviar para o corretor:', data.error || 'Erro desconhecido');
                 alert(data.error || 'Erro ao enviar para o corretor.');
@@ -282,8 +273,8 @@ window.initIACorretor = function () {
             alert('Erro ao enviar para o corretor.');
         }
     }
-    let writingAreaMobileAberta = false;
 
+    // BOTÃO DIGITAR REDAÇÃO
     if (btnDigitar && writingArea && mobileActions) {
         btnDigitar.addEventListener('click', function () {
             writingArea.style.display = 'flex';
@@ -291,7 +282,6 @@ window.initIACorretor = function () {
             mobileActions.style.display = 'none';
             btnDigitar.style.display = 'none';
             writingAreaMobileAberta = true;
-            gerenciarEventoAreaNormal(true);
             if (isMobile() && areaNormal) {
                 setTimeout(() => {
                     areaNormal.focus();
@@ -300,17 +290,16 @@ window.initIACorretor = function () {
         });
     }
 
-    // Função para garantir que o botão "Digitar Redação" volte a aparecer
-    function mostrarBtnDigitar() {
-        if (btnDigitar) btnDigitar.style.display = '';
-        if (mobileActions) mobileActions.style.display = '';
-        if (writingArea) {
-            writingArea.style.display = 'none';
-            writingArea.classList.remove('ativo');
-        }
-        writingAreaMobileAberta = false;
+    // Ao clicar na área de texto, abre a folha ampliada (apenas mobile)
+    if (areaNormal && folhaAmpliadaOverlay && areaAmpliada) {
+        areaNormal.addEventListener('focus', function (event) {
+            if (isMobile()) {
+                abrirFolhaAmpliada(event);
+            }
+        });
     }
 
+    // Função para abrir folha ampliada
     function abrirFolhaAmpliada(event) {
         if (isMobile() && areaNormal && areaAmpliada && folhaAmpliadaOverlay) {
             let writingAreaEl = areaNormal.closest('.writing-area');
@@ -332,6 +321,7 @@ window.initIACorretor = function () {
         }
     }
 
+    // Botão fechar folha ampliada
     if (btnFecharFolha) {
         btnFecharFolha.addEventListener('click', function () {
             if (areaNormal && areaAmpliada) {
@@ -339,35 +329,44 @@ window.initIACorretor = function () {
             }
             if (folhaAmpliadaOverlay) folhaAmpliadaOverlay.classList.remove('ativo');
             document.body.classList.remove('folha-ampliada-aberta');
-            mostrarBtnDigitar(); // Garante que o botão volte ao fechar a folha
+            mostrarBtnDigitar();
         });
     }
 
+    // Sincroniza texto da folha ampliada com a área normal
     if (areaAmpliada && areaNormal) {
         areaAmpliada.addEventListener('input', function () {
             areaNormal.value = areaAmpliada.value;
         });
     }
 
+    // Função para garantir que o botão "Digitar Redação" volte a aparecer
+    function mostrarBtnDigitar() {
+        if (btnDigitar) btnDigitar.style.display = '';
+        if (mobileActions) mobileActions.style.display = '';
+        if (writingArea) {
+            writingArea.style.display = 'none';
+            writingArea.classList.remove('ativo');
+        }
+        writingAreaMobileAberta = false;
+    }
+
+    // Ajusta área de escrita ao redimensionar
     function ajustarWritingArea() {
-        // writingArea sempre começa escondida, só aparece ao clicar no botão
         if (writingArea) {
             if (!writingAreaMobileAberta) {
                 writingArea.classList.remove('ativo');
                 writingArea.style.display = 'none';
-                gerenciarEventoAreaNormal(false);
-                mostrarBtnDigitar(); // Garante que o botão aparece ao redimensionar
+                mostrarBtnDigitar();
             } else {
                 writingArea.classList.add('ativo');
                 writingArea.style.display = 'flex';
-                gerenciarEventoAreaNormal(true);
                 if (btnDigitar) btnDigitar.style.display = 'none';
             }
         }
         if (mobileActions) {
             mobileActions.style.display = writingAreaMobileAberta ? 'none' : 'block';
         }
-
         if (folhaAmpliadaOverlay) folhaAmpliadaOverlay.classList.remove('ativo');
         document.body.classList.remove('folha-ampliada-aberta');
     }
@@ -383,7 +382,7 @@ window.initIACorretor = function () {
         const temaLivre = document.getElementById('temaLivre');
         if (temaLivre) temaLivre.value = '';
         if (imagemInput) imagemInput.value = '';
-        mostrarBtnDigitar(); // Garante que o botão aparece ao resetar
+        mostrarBtnDigitar();
     }
 
     // --- Envio do formulário para o backend (agora com FormData) ---
@@ -397,10 +396,9 @@ window.initIACorretor = function () {
             const tipoCorrecao = document.getElementById('tipoCorrecao').value;
             const temaRedacaoSelect = document.getElementById('temaRedacao');
             const temaLivre = document.getElementById('temaLivre').value;
-            const texto = areaNormal.value || ""; // <-- sempre string
+            const texto = areaNormal.value || "";
             const imagemFile = imagemInput && imagemInput.files && imagemInput.files[0] ? imagemInput.files[0] : null;
 
-            // Agora só pode enviar texto OU imagem, nunca ambos
             if (!tipoCorrecao || !temaRedacaoSelect.value || (temaRedacaoSelect.value === 'livre' && !temaLivre) || (!texto.trim() && !imagemFile)) {
                 alert('Preencha todos os campos obrigatórios e envie o texto OU a imagem.');
                 return;
@@ -418,7 +416,6 @@ window.initIACorretor = function () {
             if (submitBtns.length === 1) {
                 submitBtn = submitBtns[0];
             } else {
-                // Se houver mais de um, pega o que está visível
                 submitBtns.forEach(btn => {
                     if (btn.offsetParent !== null) submitBtn = btn;
                 });
@@ -428,7 +425,6 @@ window.initIACorretor = function () {
                 submitBtn.innerText = 'Corrigindo...';
             }
 
-            // Corrige o envio do tema: envia o texto do option selecionado
             let tema = '';
             if (temaRedacaoSelect.value === 'livre') {
                 tema = temaLivre;
@@ -436,7 +432,6 @@ window.initIACorretor = function () {
                 tema = temaRedacaoSelect.options[temaRedacaoSelect.selectedIndex].text;
             }
 
-            // Pega o usuário logado do localStorage
             const user = JSON.parse(localStorage.getItem('loggedUser'));
             if (!user || !user.token) {
                 alert('Você precisa estar logado para enviar a redação.');
@@ -447,11 +442,10 @@ window.initIACorretor = function () {
                 return;
             }
 
-            // Monta o FormData
             const formData = new FormData();
             formData.append('tipoCorrecao', tipoCorrecao);
             formData.append('tema', tema);
-            formData.append('texto', texto); // <-- sempre envia, mesmo que vazio
+            formData.append('texto', texto);
             if (imagemFile) {
                 formData.append('imagem', imagemFile);
             }
@@ -496,7 +490,7 @@ window.initIACorretor = function () {
                 }
             }
             console.log('Handler de submit FINALIZADO');
-            return false; // <-- Garante que nunca submeta tradicionalmente
+            return false;
         });
     }
 
@@ -508,7 +502,6 @@ window.initIACorretor = function () {
                 areaNormal.setAttribute('required', 'required');
             }
         });
-        // Garante o estado correto ao carregar a página
         if (imagemInput.files && imagemInput.files.length > 0) {
             areaNormal.removeAttribute('required');
         } else {
@@ -521,14 +514,11 @@ window.initIACorretor = function () {
         try {
             const select = document.getElementById('temaRedacao');
             if (!select) return;
-            // Salva a opção "Tema Livre" para recolocar depois
             let temaLivreOption = null;
             Array.from(select.options).forEach(opt => {
                 if (opt.value === 'livre') temaLivreOption = opt;
             });
-            // Limpa todas as opções
             select.innerHTML = '<option value="">Selecione um tema</option>';
-            // Busca temas do backend
             const resp = await fetch('https://express-e3hm.onrender.com/temas');
             const temas = await resp.json();
             temas.forEach(tema => {
@@ -537,17 +527,14 @@ window.initIACorretor = function () {
                 opt.textContent = tema.titulo;
                 select.appendChild(opt);
             });
-            // Recoloca a opção Tema Livre
             if (temaLivreOption) {
                 select.appendChild(temaLivreOption);
             } else {
-                // Garante que Tema Livre exista
                 const opt = document.createElement('option');
                 opt.value = 'livre';
                 opt.textContent = 'Tema Livre';
                 select.appendChild(opt);
             }
-            // Após carregar os temas, tente pré-selecionar se necessário
             preSelecionarTema();
         } catch (err) {
             console.error('[iacorretor.js] Erro ao carregar temas do backend:', err);
@@ -568,7 +555,6 @@ window.initIACorretor = function () {
                 }
             }
             localStorage.removeItem('temaPreSelecionado');
-            // Atualiza campo tema livre se necessário
             if (select.value === 'livre') {
                 window.toggleTemaLivre();
             } else {
@@ -581,10 +567,8 @@ window.initIACorretor = function () {
         }
     }
 
-    // Chama ao inicializar a página
     carregarTemasNoSelect();
 };
-
 
 // Função global para o select de tema livre
 window.toggleTemaLivre = function () {
@@ -599,22 +583,9 @@ window.toggleTemaLivre = function () {
     }
 };
 
-    // Chama ao inicializar a página
-    carregarTemasNoSelect();
-
-
-// Função global para o select de tema livre
-window.toggleTemaLivre = function () {
-    const select = document.getElementById('temaRedacao');
-    const campoTemaLivre = document.getElementById('temaLivre');
-    if (select.value === 'livre') {
-        campoTemaLivre.style.display = 'block';
-        campoTemaLivre.required = true;
-    } else {
-        campoTemaLivre.style.display = 'none';
-        campoTemaLivre.required = false;
-    }
-};
-
+// Função para detectar mobile
+function isMobile() {
+    return window.innerWidth <= 700;
+}
 
 

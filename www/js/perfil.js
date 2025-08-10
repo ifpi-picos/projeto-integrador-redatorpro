@@ -117,6 +117,7 @@ function carregarPerfil() {
     const cacheData = carregarPerfilDoCache();
     // 2. Busca dados essenciais do backend
     const token = getToken();
+    console.log('[perfil.js] Token JWT:', token);
     if (!token) {
         alert('Você não está logado. Faça login novamente.');
         return;
@@ -127,23 +128,27 @@ function carregarPerfil() {
         const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
         tipo = loggedUser && loggedUser.tipo ? loggedUser.tipo : null;
     } catch (e) {}
+    console.log('[perfil.js] Tipo de usuário detectado:', tipo);
     let urlPerfil = 'https://express-e3hm.onrender.com/perfil';
     if (tipo === 'estudante') {
         urlPerfil = 'https://express-e3hm.onrender.com/perfil/estudante';
     } else if (tipo === 'corretor') {
         urlPerfil = 'https://express-e3hm.onrender.com/perfil/corretor';
     }
+    console.log('[perfil.js] URL da requisição de perfil:', urlPerfil);
     $.ajax({
         url: urlPerfil,
         method: 'GET',
         headers: { Authorization: 'Bearer ' + token },
         success: function(data) {
+            console.log('[perfil.js] Dados recebidos do backend:', data);
             renderizarEssencial(data);
             esconderSkeleton();
             salvarPerfilNoCache(data);
             setTimeout(() => renderizarSecundario(data), 0);
         },
         error: function(xhr) {
+            console.error('[perfil.js] Erro na requisição de perfil:', xhr);
             esconderSkeleton();
             let msg = 'Erro ao carregar perfil.';
             if (xhr.status === 401) msg = 'Sua sessão expirou. Faça login novamente.';

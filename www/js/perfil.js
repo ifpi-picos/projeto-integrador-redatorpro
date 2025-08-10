@@ -75,6 +75,7 @@ function renderizarSecundario(data) {
     $('#ultimaNota').text(data.ultimaNota !== null && data.ultimaNota !== undefined ? data.ultimaNota : '-');
     $('#descricaoPerfil').text(data.descricao || 'Clique no lápis para editar sua descrição.');
     $('#descricaoInput').val(data.descricao || '');
+    // Ajuste: pega interesses diretamente do objeto de resposta
     interesses = Array.isArray(data.interesses) ? data.interesses : [];
     renderizarInteresses();
 }

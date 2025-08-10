@@ -347,26 +347,41 @@ function salvarPerfil() {
     });
 }
 
-$(document).ready(function() {
+// Chame carregarPerfil sempre que a página for exibida (SPA ou não)
+function initPerfilPage() {
+    console.log('[perfil.js] initPerfilPage chamado');
     carregarPerfil();
-    $('#instagramInput').on('blur', function() {
-        $('#instagramSpan').text($(this).val() ? '@' + $(this).val() : 'Adicionar Instagram');
-    });
-    window.onbeforeunload = function() {
-        if (editando && alterado) return 'Você tem alterações não salvas. Deseja sair sem salvar?';
-    };
-    $('#profileName').attr('aria-label', 'Nome do usuário');
-    $('#profileAvatar').attr('aria-label', 'Foto do perfil');
-    $('#editProfileBtn').attr('aria-label', 'Editar perfil');
-    $('#descricaoPerfil').attr('aria-label', 'Descrição do perfil');
-    $('#instagramInput').attr('aria-label', 'Instagram');
-    $('#descricaoInput').attr('aria-label', 'Descrição');
-    $('#cameraIcon').attr('aria-label', 'Alterar foto do perfil');
-    $('#profileEmail').attr('aria-label', 'E-mail do usuário');
-    $('.profile-action-btn.social-btn').attr('aria-label', 'Abrir Instagram');
-    $('.profile-action-btn.essays-btn').attr('aria-label', 'Ver redações');
-    $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
-});
+}
 
-// No final do arquivo, adicione:
+if (typeof Framework7 !== "undefined" && window.app && app.views && app.views.main) {
+    // Se estiver usando Framework7, chame no evento correto
+    document.addEventListener('page:init', function (e) {
+        if (e && e.detail && e.detail.name === 'profile') {
+            initPerfilPage();
+        }
+    });
+} else {
+    // Fallback para páginas tradicionais
+    $(document).ready(function() {
+        initPerfilPage();
+        $('#instagramInput').on('blur', function() {
+            $('#instagramSpan').text($(this).val() ? '@' + $(this).val() : 'Adicionar Instagram');
+        });
+        window.onbeforeunload = function() {
+            if (editando && alterado) return 'Você tem alterações não salvas. Deseja sair sem salvar?';
+        };
+        $('#profileName').attr('aria-label', 'Nome do usuário');
+        $('#profileAvatar').attr('aria-label', 'Foto do perfil');
+        $('#editProfileBtn').attr('aria-label', 'Editar perfil');
+        $('#descricaoPerfil').attr('aria-label', 'Descrição do perfil');
+        $('#instagramInput').attr('aria-label', 'Instagram');
+        $('#descricaoInput').attr('aria-label', 'Descrição');
+        $('#cameraIcon').attr('aria-label', 'Alterar foto do perfil');
+        $('#profileEmail').attr('aria-label', 'E-mail do usuário');
+        $('.profile-action-btn.social-btn').attr('aria-label', 'Abrir Instagram');
+        $('.profile-action-btn.essays-btn').attr('aria-label', 'Ver redações');
+        $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
+    });
+}
+
 window.carregarPerfil = carregarPerfil;

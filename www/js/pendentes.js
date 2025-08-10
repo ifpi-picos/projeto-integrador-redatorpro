@@ -95,45 +95,37 @@ window.initPendentesPage = function () {
                 }
 
                 const card = document.createElement('div');
-                card.className = 'pendente-card';
+                card.className = 'pendente-card ' + (status === 'Corrigida' ? 'card-corrigida' : 'card-pendente');
                 card.innerHTML = `
                     <div class="pendente-header">
                         <span class="pendente-tema">${p.tema || 'Tema não informado'}</span>
                         <span class="pendente-status ${status === 'Corrigida' ? 'status-corrigida' : ''}">${status}</span>
                     </div>
                     <div class="pendente-info" style="font-size:0.97rem;color:#555;display:flex;gap:12px;align-items:center;margin-bottom:2px;">
-                        <span><b>Corretor:</b> ${corretorNome}</span>
+                        <span><b>Corretor:</b> ${corretorNome || '—'}</span>
                         ${dataFormatada ? `<span style='color:#888;font-size:0.95em;'><i class='ri-calendar-line'></i> ${dataFormatada}</span>` : ''}
                     </div>
                     <div class="pendente-texto">
                         ${p.imagemUrl ? '<i>Redação enviada como imagem</i>' : `
                             <span class="preview">${preview}</span>
-                            ${restante ? `<span class="restante" style="display:none;">${restante}</span>
-                            <span class="ler-mais" style="color:#1976d2;cursor:pointer;text-decoration:underline;">ler mais</span>
-                            <span class="ler-menos" style="color:#1976d2;cursor:pointer;text-decoration:underline;display:none;">ler menos</span>` : ''}
+                            ${restante ? `<span class="restante">${restante}</span>
+                            <span class="ler-mais">ver mais</span>
+                            <span class="ler-menos" style="display:none;">ver menos</span>` : ''}
                         `}
                     </div>
-                    ${p.imagemUrl ? `<img class='pendente-img' src='${p.imagemUrl}' alt='Redação enviada'>` : ''}
+                    ${p.imagemUrl ? `<img class='pendente-img' loading="lazy" src='${p.imagemUrl}' alt='Redação enviada'>` : ''}
                 `;
-
-                // Expansão/colapso do texto
+                // Expansão / colapso por clique geral no card (mantendo botões)
                 if (!p.imagemUrl && restante) {
+                    card.addEventListener('click', (ev) => {
+                        if (ev.target.classList.contains('ler-mais') || ev.target.classList.contains('ler-menos')) return;
+                        card.classList.toggle('expanded');
+                    });
                     const lerMais = card.querySelector('.ler-mais');
                     const lerMenos = card.querySelector('.ler-menos');
-                    const restanteSpan = card.querySelector('.restante');
-                    const previewSpan = card.querySelector('.preview');
-                    if (lerMais && lerMenos && restanteSpan && previewSpan) {
-                        lerMais.onclick = function () {
-                            restanteSpan.style.display = 'inline';
-                            lerMais.style.display = 'none';
-                            lerMenos.style.display = 'inline';
-                        };
-                        lerMenos.onclick = function () {
-                            restanteSpan.style.display = 'none';
-                            lerMais.style.display = 'inline';
-                            lerMenos.style.display = 'none';
-                            previewSpan.scrollIntoView({behavior: "smooth", block: "nearest"});
-                        };
+                    if (lerMais && lerMenos) {
+                        lerMais.onclick = (e) => { e.stopPropagation(); card.classList.add('expanded'); };
+                        lerMenos.onclick = (e) => { e.stopPropagation(); card.classList.remove('expanded'); };
                     }
                 }
 
@@ -152,6 +144,14 @@ window.initPendentesPage = function () {
     carregarPendentes();
 };
 
+// Fallback para acesso direto (não SPA)
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(() => window.initPendentesPage && window.initPendentesPage(), 50);
+} else {
+    document.addEventListener('DOMContentLoaded', function () {
+        window.initPendentesPage && window.initPendentesPage();
+    });
+}
 // Fallback para acesso direto (não SPA)
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     setTimeout(() => window.initPendentesPage && window.initPendentesPage(), 50);

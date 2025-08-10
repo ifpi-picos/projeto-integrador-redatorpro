@@ -2,21 +2,27 @@
     <div class="buttons-top">
         <a href="/index/" class="back-button"><i class="ri-arrow-left-s-line"></i></a>
     </div>
-    
-    <div class="pendentes-header">
+
+    <!-- Header agora usando o mesmo padrão de iacorretor -->
+    <div class="correction-header">
+        <div class="header-icon">
+            <i class="ri-file-list-line"></i>
+        </div>
         <h1>Redações Pendentes</h1>
         <p class="header-subtitle">Acompanhe suas redações aguardando correção</p>
     </div>
 
-    <div class="pendentes-container">
+    <!-- Container padronizado + classe específica para estilos dos cards -->
+    <div class="correction-container pendentes-container">
         <div id="pendentes-loading" style="text-align:center; color:#888; margin:32px 0 0 0; display:none;">Carregando...</div>
         <div id="pendentes-empty" style="text-align:center; color:#888; margin:32px 0 0 0; display:none;">Nenhuma redação pendente.</div>
         <div id="pendentes-list" class="pendentes-list">
-            <!-- Cards de redações serão inseridos aqui via JS -->
+            <!-- Cards via JS -->
         </div>
     </div>
 </div>
-    <script src="lib/framework7-bundle.min.js"></script>
-    <script src="lib/jquery-3.7.0.min.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="cordova.js"></script>
+<!-- Garantir inclusão dos assets específicos -->
+<script src="lib/framework7-bundle.min.js"></script>
+<script src="lib/jquery-3.7.0.min.js"></script>
+<script src="js/routes.js"></script>
+<script src="cordova.js"></script>

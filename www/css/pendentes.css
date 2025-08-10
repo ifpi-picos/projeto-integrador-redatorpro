@@ -20,6 +20,10 @@
     height: 100%;
 }
 
+.correction-header{
+    margin-bottom: 0px;
+}
+
 /* Container agora herda base de .correction-container e apenas complementa */
 .pendentes-container {
     /* Remover regras antigas e alinhar com padrão */

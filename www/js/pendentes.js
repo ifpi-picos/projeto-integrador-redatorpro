@@ -1,13 +1,12 @@
 // pendentes.js
 // Exibe as redações pendentes do usuário logado
 
-document.addEventListener('DOMContentLoaded', function () {
+window.initPendentesPage = function () {
     const lista = document.getElementById('pendentes-list');
     const loading = document.getElementById('pendentes-loading');
     const empty = document.getElementById('pendentes-empty');
 
     function getUserId() {
-        // Exemplo: buscar do localStorage, cookies ou Framework7
         return localStorage.getItem('userId') || null;
     }
 
@@ -26,31 +25,25 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         try {
-            // Busca todas as redações do usuário (pendentes e corrigidas)
             const resp = await fetch(`/red-corretores/pendentes?userId=${encodeURIComponent(userId)}`);
             if (!resp.ok) throw new Error('Erro ao buscar pendentes');
             const pendentes = await resp.json();
-            const redacoes = pendentes; // por enquanto só pendentes
+            const redacoes = pendentes;
             if (!redacoes.length) {
                 empty.style.display = 'block';
                 loading.style.display = 'none';
                 empty.textContent = 'Nenhuma redação enviada para correção.';
                 return;
             }
-            // Para cada redação, busca o nome do corretor (se backend retornar, use p.corretorNome)
             for (const p of redacoes) {
-                // Formata data
                 let dataFormatada = '';
                 if (p.createdAt) {
                     const d = new Date(p.createdAt);
                     dataFormatada = d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                 }
-                // Status
                 let status = 'Pendente';
                 if (p.notaTotal !== undefined && p.notaTotal !== null) status = 'Corrigida';
-                // Nome do corretor (se backend retornar)
                 let corretorNome = p.corretorNome || (p.corretor && p.corretor.name) || 'Corretor';
-                // Card
                 const card = document.createElement('div');
                 card.className = 'pendente-card';
                 card.innerHTML = `
@@ -78,4 +71,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     carregarPendentes();
-});
+};
+
+// Fallback para acesso direto (não SPA)
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(() => window.initPendentesPage && window.initPendentesPage(), 50);
+} else {
+    document.addEventListener('DOMContentLoaded', function () {
+        window.initPendentesPage && window.initPendentesPage();
+    });
+}

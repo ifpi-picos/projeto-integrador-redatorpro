@@ -50,10 +50,20 @@
     text-align: center;
 }
 
+.pendentes-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 12px 0 260px; /* espaço para sidebar desktop */
+    min-height: 80vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
 .pendentes-list {
     max-width: 700px;
     margin: 0 auto;
     padding: 0 12px;
+    overflow-y: auto;
 }
 
 .pendente-card {
@@ -123,5 +133,11 @@
     }
     .pendente-card {
         padding: 12px 6px 10px 8px;
+    }
+}
+
+@media (max-width: 900px) {
+    .pendentes-container {
+        padding-left: 0 !important;
     }
 }

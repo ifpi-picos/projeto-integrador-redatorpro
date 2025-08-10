@@ -136,7 +136,11 @@ window.initIACorretor = function () {
         listaCorretores.addEventListener('click', function (e) {
             if (e.target && e.target.classList.contains('corretor-enviar')) {
                 const corretorId = e.target.getAttribute('data-id');
-                modalEscolha.style.display = 'none';
+                if (modalEscolha) modalEscolha.style.display = 'none';
+                // Impede o submit do form após envio para corretor
+                if (form) {
+                    form.setAttribute('data-bloquear-submit', 'true');
+                }
                 submitParaCorretor(corretorId);
             }
         });
@@ -388,6 +392,14 @@ window.initIACorretor = function () {
     // --- Envio do formulário para o backend (agora com FormData) ---
     if (form) {
         form.addEventListener('submit', async function (e) {
+            // Se for envio para corretor, bloqueia o submit!
+            if (form.getAttribute('data-bloquear-submit') === 'true') {
+                e.preventDefault();
+                e.stopPropagation();
+                form.removeAttribute('data-bloquear-submit');
+                return false;
+            }
+            // ...restante do código do submit para IA...
             console.log('Handler de submit chamado!');
             e.preventDefault();
             e.stopPropagation();

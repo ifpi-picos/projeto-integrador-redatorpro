@@ -55,7 +55,10 @@ window.initPendentesPage = function () {
             return;
         }
         try {
-            const resp = await fetch(`/red-corretores/pendentes?userId=${encodeURIComponent(userId)}`);
+            // Troque esta linha:
+            // const resp = await fetch(`/red-corretores/pendentes?userId=${encodeURIComponent(userId)}`);
+            // Por esta:
+            const resp = await fetch(`https://express-e3hm.onrender.com/red-corretores/pendentes?userId=${encodeURIComponent(userId)}`);
             if (!resp.ok) throw new Error('Erro ao buscar pendentes');
             const pendentes = await resp.json();
             const redacoes = pendentes;

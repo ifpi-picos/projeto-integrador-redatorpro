@@ -12,6 +12,14 @@
     min-height: 100vh;
 }
 
+.page[data-name="pendentes"] .page-content {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0 40px 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
 /* Container agora herda base de .correction-container e apenas complementa */
 .pendentes-container {
     /* Remover regras antigas e alinhar com padrão */
@@ -21,12 +29,16 @@
     padding: 0 4px 64px 4px;
     box-sizing: border-box;
     overflow: visible;
+    margin-top: 0;
+    /* Evita que algo trave scroll interno */
+    overflow: visible !important;
 }
 
 /* Lista */
 .pendentes-list {
     margin-top: 8px;
     padding: 0;
+    max-width: 100%;
 }
 
 /* Cards */
@@ -196,4 +208,10 @@
     .pendente-card {
         padding: 12px 6px 10px 8px;
     }
+}
+
+.correction-header {
+    /* Se o sticky estiver causando travamento, pode trocar para relative */
+    position: relative; /* ajuste para evitar problemas de clipping */
+    margin-bottom: 8px;
 }

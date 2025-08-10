@@ -9,7 +9,7 @@
 
 .page[data-name="pendentes"] {
     background: var(--cinza);
-    min-height: 100vh;
+    min-height: 90vh;
 }
 
 .top-nav {

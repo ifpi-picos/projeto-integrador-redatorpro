@@ -616,7 +616,7 @@ var app = new Framework7({
             .fail(() => console.error('[Routes] Erro ao carregar js/pendentes.js'));
         },
         pageBeforeRemove: function (event, page) {
-          console.log('[Routes] Saindo da página pendentes...');
+          // Limpar handlers se necessário
         },
       }
     },

@@ -30,10 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const resp = await fetch(`/red-corretores/pendentes?userId=${encodeURIComponent(userId)}`);
             if (!resp.ok) throw new Error('Erro ao buscar pendentes');
             const pendentes = await resp.json();
-            // Busca as corrigidas (opcional: se backend permitir, pode ser outra rota)
-            // const respCorrigidas = await fetch(`/red-corretores/corrigidas?userId=${encodeURIComponent(userId)}`);
-            // const corrigidas = respCorrigidas.ok ? await respCorrigidas.json() : [];
-            // const redacoes = [...pendentes, ...corrigidas];
             const redacoes = pendentes; // por enquanto só pendentes
             if (!redacoes.length) {
                 empty.style.display = 'block';

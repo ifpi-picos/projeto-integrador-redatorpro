@@ -16,6 +16,27 @@ window.initPendentesPage = function () {
             localStorage.setItem('userId', user.id);
             return user.id;
         }
+        // Se não houver id, tenta decodificar o JWT
+        if (user && user.token) {
+            try {
+                const payload = JSON.parse(atob(user.token.split('.')[1]));
+                // Procura id, userId ou sub
+                if (payload && payload.id) {
+                    localStorage.setItem('userId', payload.id);
+                    return payload.id;
+                }
+                if (payload && payload.userId) {
+                    localStorage.setItem('userId', payload.userId);
+                    return payload.userId;
+                }
+                if (payload && payload.sub) {
+                    localStorage.setItem('userId', payload.sub);
+                    return payload.sub;
+                }
+            } catch (e) {
+                console.warn('[Pendentes] Não foi possível decodificar o JWT:', e);
+            }
+        }
         return null;
     }
 

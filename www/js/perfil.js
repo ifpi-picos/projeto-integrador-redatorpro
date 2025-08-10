@@ -353,8 +353,6 @@ function salvarPerfil() {
 }
 
 // Sempre chama carregarPerfil ao carregar o script, independente do contexto
-console.log('[perfil.js] Script carregado. Forçando chamada de carregarPerfil()');
-carregarPerfil();
 
 // Mantém o restante dos binds e acessibilidade normalmente
 $(document).ready(function() {
@@ -377,4 +375,11 @@ $(document).ready(function() {
     $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
 });
 
+// ...existing code...
+
+// Exponha a função antes de chamar
 window.carregarPerfil = carregarPerfil;
+console.log('[perfil.js] Script carregado. Forçando chamada de carregarPerfil()');
+carregarPerfil();
+
+// ...existing code...

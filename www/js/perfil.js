@@ -352,31 +352,12 @@ function salvarPerfil() {
     });
 }
 
-// Chame carregarPerfil sempre que a página for exibida (SPA ou não)
-function initPerfilPage() {
-    console.log('[perfil.js] initPerfilPage chamado');
-    carregarPerfil();
-}
+// Sempre chama carregarPerfil ao carregar o script, independente do contexto
+console.log('[perfil.js] Script carregado. Forçando chamada de carregarPerfil()');
+carregarPerfil();
 
-console.log('[perfil.js] Script carregado. Framework7:', typeof Framework7 !== "undefined", 'window.app:', !!window.app);
-if (typeof Framework7 !== "undefined" && window.app && app.views && app.views.main) {
-    // Se estiver usando Framework7, chame no evento correto
-    document.addEventListener('page:init', function (e) {
-        console.log('[perfil.js] Evento page:init disparado:', e && e.detail && e.detail.name);
-        if (e && e.detail && e.detail.name === 'profile') {
-            console.log('[perfil.js] page:init para profile, chamando initPerfilPage');
-            initPerfilPage();
-        }
-    });
-} 
-// Fallback para páginas tradicionais SEMPRE executa
+// Mantém o restante dos binds e acessibilidade normalmente
 $(document).ready(function() {
-    console.log('[perfil.js] $(document).ready executado');
-    // Só chama initPerfilPage se não estiver usando Framework7 OU se não estiver na SPA
-    if (!(typeof Framework7 !== "undefined" && window.app && app.views && app.views.main)) {
-        console.log('[perfil.js] Chamando initPerfilPage pelo fallback tradicional');
-        initPerfilPage();
-    }
     $('#instagramInput').on('blur', function() {
         $('#instagramSpan').text($(this).val() ? '@' + $(this).val() : 'Adicionar Instagram');
     });

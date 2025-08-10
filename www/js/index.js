@@ -49,6 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user) {
         document.querySelector('#user_infos .item-description:nth-child(1)').textContent = user.name;
         document.querySelector('#user_infos .item-description:nth-child(2)').textContent = user.email;
+        // Salva o userId no localStorage para uso global
+        if (user.id) {
+            localStorage.setItem('userId', user.id);
+        }
     } else {
         console.warn('Nenhum usuário encontrado no localStorage. Redirecionando para login.');
         window.location.href = '../login.html';

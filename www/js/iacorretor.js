@@ -238,7 +238,7 @@ window.initIACorretor = function () {
             alert('Você precisa estar logado para enviar uma redação.');
             return;
         }
-        // Salva o userId no localStorage para a tela de pendentes
+        // Salva o userId no localStorage para a tela de pendentes (fallback)
         if (user.id) {
             localStorage.setItem('userId', user.id);
         }

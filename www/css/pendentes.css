@@ -87,6 +87,19 @@
     background: #e3f2fd;
     border-radius: 6px;
     padding: 2px 10px;
+    font-weight: 500;
+}
+.pendente-status.status-corrigida {
+    color: #fff;
+    background: #43a047;
+}
+.pendente-info {
+    margin-bottom: 2px;
+    gap: 10px;
+    color: #555;
+    font-size: 0.97rem;
+    display: flex;
+    align-items: center;
 }
 
 .pendente-texto {

@@ -7,7 +7,16 @@ window.initPendentesPage = function () {
     const empty = document.getElementById('pendentes-empty');
 
     function getUserId() {
-        return localStorage.getItem('userId') || null;
+        // Primeiro tenta pegar do localStorage
+        let userId = localStorage.getItem('userId');
+        if (userId) return userId;
+        // Se não existir, tenta pegar do loggedUser
+        const user = JSON.parse(localStorage.getItem('loggedUser') || 'null');
+        if (user && user.id) {
+            localStorage.setItem('userId', user.id);
+            return user.id;
+        }
+        return null;
     }
 
     async function carregarPendentes() {

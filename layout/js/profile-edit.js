@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     method: 'PUT',
                     headers: {
                         'Authorization': 'Bearer ' + userData.token
-                        // NÃO defina 'Content-Type' aqui!
                     },
                     body: formData
                 });
@@ -85,6 +84,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Erro ao atualizar perfil. Verifique sua conexão.');
             }
         });
+
+        // Carregue o perfil do corretor ao abrir a página
+        async function carregarPerfilCorretor() {
+            try {
+                const res = await fetch('https://express-e3hm.onrender.com/perfil/corretor', {
+                    headers: {
+                        'Authorization': 'Bearer ' + userData.token
+                    }
+                });
+                if (!res.ok) return;
+                const data = await res.json();
+                // Atualize campos do perfil do corretor aqui, se necessário
+                // Exemplo:
+                // nameEl.textContent = data.name || '';
+                // escolaridadeEl.textContent = data.escolaridade || '';
+                // experienciaEls.forEach(el => el.textContent = data.experiencia || '');
+                // titleEl.textContent = data.escolaridade || '';
+                // descricaoEl.textContent = data.descricao || 'sem descrição';
+            } catch (err) {
+                // Trate erro se necessário
+            }
+        }
+
+        // Carregue o perfil do corretor ao abrir a página
+        carregarPerfilCorretor();
     }
 
     // Foto de perfil

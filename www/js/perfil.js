@@ -121,17 +121,26 @@ function carregarPerfil() {
         alert('Você não está logado. Faça login novamente.');
         return;
     }
+    // Descobre o tipo do usuário para chamar a rota correta
+    let tipo = null;
+    try {
+        const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
+        tipo = loggedUser && loggedUser.tipo ? loggedUser.tipo : null;
+    } catch (e) {}
+    let urlPerfil = 'https://express-e3hm.onrender.com/perfil';
+    if (tipo === 'estudante') {
+        urlPerfil = 'https://express-e3hm.onrender.com/perfil/estudante';
+    } else if (tipo === 'corretor') {
+        urlPerfil = 'https://express-e3hm.onrender.com/perfil/corretor';
+    }
     $.ajax({
-        url: 'https://express-e3hm.onrender.com/perfil',
+        url: urlPerfil,
         method: 'GET',
         headers: { Authorization: 'Bearer ' + token },
         success: function(data) {
-            // Renderiza apenas dados essenciais primeiro
             renderizarEssencial(data);
             esconderSkeleton();
-            // Atualiza o cache com todos os dados
             salvarPerfilNoCache(data);
-            // Carrega dados secundários de forma "lazy"
             setTimeout(() => renderizarSecundario(data), 0);
         },
         error: function(xhr) {

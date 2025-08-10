@@ -358,35 +358,42 @@ function initPerfilPage() {
     carregarPerfil();
 }
 
+console.log('[perfil.js] Script carregado. Framework7:', typeof Framework7 !== "undefined", 'window.app:', !!window.app);
 if (typeof Framework7 !== "undefined" && window.app && app.views && app.views.main) {
     // Se estiver usando Framework7, chame no evento correto
     document.addEventListener('page:init', function (e) {
+        console.log('[perfil.js] Evento page:init disparado:', e && e.detail && e.detail.name);
         if (e && e.detail && e.detail.name === 'profile') {
+            console.log('[perfil.js] page:init para profile, chamando initPerfilPage');
             initPerfilPage();
         }
     });
-} else {
-    // Fallback para páginas tradicionais
-    $(document).ready(function() {
+} 
+// Fallback para páginas tradicionais SEMPRE executa
+$(document).ready(function() {
+    console.log('[perfil.js] $(document).ready executado');
+    // Só chama initPerfilPage se não estiver usando Framework7 OU se não estiver na SPA
+    if (!(typeof Framework7 !== "undefined" && window.app && app.views && app.views.main)) {
+        console.log('[perfil.js] Chamando initPerfilPage pelo fallback tradicional');
         initPerfilPage();
-        $('#instagramInput').on('blur', function() {
-            $('#instagramSpan').text($(this).val() ? '@' + $(this).val() : 'Adicionar Instagram');
-        });
-        window.onbeforeunload = function() {
-            if (editando && alterado) return 'Você tem alterações não salvas. Deseja sair sem salvar?';
-        };
-        $('#profileName').attr('aria-label', 'Nome do usuário');
-        $('#profileAvatar').attr('aria-label', 'Foto do perfil');
-        $('#editProfileBtn').attr('aria-label', 'Editar perfil');
-        $('#descricaoPerfil').attr('aria-label', 'Descrição do perfil');
-        $('#instagramInput').attr('aria-label', 'Instagram');
-        $('#descricaoInput').attr('aria-label', 'Descrição');
-        $('#cameraIcon').attr('aria-label', 'Alterar foto do perfil');
-        $('#profileEmail').attr('aria-label', 'E-mail do usuário');
-        $('.profile-action-btn.social-btn').attr('aria-label', 'Abrir Instagram');
-        $('.profile-action-btn.essays-btn').attr('aria-label', 'Ver redações');
-        $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
+    }
+    $('#instagramInput').on('blur', function() {
+        $('#instagramSpan').text($(this).val() ? '@' + $(this).val() : 'Adicionar Instagram');
     });
-}
+    window.onbeforeunload = function() {
+        if (editando && alterado) return 'Você tem alterações não salvas. Deseja sair sem salvar?';
+    };
+    $('#profileName').attr('aria-label', 'Nome do usuário');
+    $('#profileAvatar').attr('aria-label', 'Foto do perfil');
+    $('#editProfileBtn').attr('aria-label', 'Editar perfil');
+    $('#descricaoPerfil').attr('aria-label', 'Descrição do perfil');
+    $('#instagramInput').attr('aria-label', 'Instagram');
+    $('#descricaoInput').attr('aria-label', 'Descrição');
+    $('#cameraIcon').attr('aria-label', 'Alterar foto do perfil');
+    $('#profileEmail').attr('aria-label', 'E-mail do usuário');
+    $('.profile-action-btn.social-btn').attr('aria-label', 'Abrir Instagram');
+    $('.profile-action-btn.essays-btn').attr('aria-label', 'Ver redações');
+    $('.profile-header-mobile, .profile-card').css('transition', 'box-shadow 0.3s, background 0.3s');
+});
 
 window.carregarPerfil = carregarPerfil;

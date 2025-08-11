@@ -101,7 +101,7 @@ header {
 }
 
 @media screen and (max-width: 700px) {
-    .filme-box {
+    .livros-box {
         flex-direction: column;
         align-items: center;
     }

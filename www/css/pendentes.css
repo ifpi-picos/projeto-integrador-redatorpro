@@ -1,0 +1,221 @@
+:root {
+    --azul: #2196f3;
+    --azul-escuro: #1976d2;
+    --cinza: #f1f1f1;
+    --branco: #fff;
+    --preto: #222;
+    --borda: #e0e0e0;
+}
+
+.page[data-name="pendentes"] {
+    background: var(--cinza);
+    min-height: 100vh;
+}
+
+.page[data-name="pendentes"] .page-content {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0 40px 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.correction-header{
+    margin-bottom: 0px !important;
+}
+
+/* Container agora herda base de .correction-container e apenas complementa */
+.pendentes-container {
+    /* Remover regras antigas e alinhar com padrão */
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto 48px auto;
+    padding: 0 4px 64px 4px;
+    box-sizing: border-box;
+    overflow: visible;
+    margin-top: 0;
+    /* Evita que algo trave scroll interno */
+    overflow: visible !important;
+}
+
+/* Lista */
+.pendentes-list {
+    margin-top: 8px;
+    padding: 0;
+    max-width: 100%;
+}
+
+/* Cards */
+.pendente-card {
+    background: var(--branco);
+    border-radius: 14px;
+    box-shadow: 0 2px 6px #00000012;
+    border: 1px solid var(--borda);
+    margin-bottom: 18px;
+    padding: 18px 16px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    border-left: 5px solid var(--azul);
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .25s ease;
+}
+.pendente-card.card-corrigida { border-left-color: #43a047; }
+.pendente-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px #0000001c;
+}
+
+.pendente-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.pendente-tema {
+    font-weight: 600;
+    color: var(--azul-escuro);
+    font-size: 1rem;
+}
+.pendente-status {
+    font-size: 0.8rem;
+    letter-spacing: .5px;
+    margin-left: auto;
+    background: #e3f2fd;
+    color: #1976d2;
+    border-radius: 20px;
+    padding: 4px 14px 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.pendente-status.status-corrigida {
+    background: #43a047;
+    color: #fff;
+}
+
+.pendente-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: .85rem;
+    color: #555;
+    align-items: center;
+}
+
+.pendente-texto {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: #333;
+}
+
+.pendente-img {
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 10px;
+    margin-top: 4px;
+    object-fit: cover;
+    box-shadow: 0 2px 10px #00000018;
+}
+
+/* Expansão */
+.pendente-card .restante { display: none; }
+.pendente-card.expanded .restante { display: inline; }
+.pendente-card.expanded .ler-mais { display: none; }
+.pendente-card.expanded .ler-menos { display: inline; }
+
+.pendente-card .ler-mais,
+.pendente-card .ler-menos {
+    background: #e3f2fd;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: .7rem;
+    margin-left: 6px;
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: 500;
+}
+
+/* Estados vazios / loading (opcional refino) */
+#pendentes-empty, #pendentes-loading {
+    font-size: .9rem;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .pendentes-container {
+        padding: 0 8px 56px;
+    }
+}
+@media (max-width: 620px) {
+    .pendente-card {
+        padding: 14px 12px 12px;
+        border-radius: 12px;
+    }
+    .pendente-tema { font-size: .95rem; }
+    .pendente-status { font-size: .65rem; padding: 4px 10px 3px; }
+    .pendente-texto { font-size: .85rem; }
+}
+.pendentes-header {
+    color: #fff;
+    text-align: center;
+    padding: 56px 16px 20px;
+    margin: 0 -16px 24px;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.pendentes-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.55rem;
+    letter-spacing: .5px;
+}
+.pendentes-header .header-subtitle {
+    margin: 0;
+    opacity: .9;
+    font-size: .95rem;
+}
+
+/* Estados de expansão */
+.pendente-card .restante { display: none; }
+.pendente-card.expanded .restante { display: inline !important; }
+.pendente-card.expanded .ler-mais { display: none !important; }
+.pendente-card.expanded .ler-menos { display: inline !important; }
+
+/* Botões ler mais/menos estilo chip */
+.pendente-card .ler-mais,
+.pendente-card .ler-menos {
+    background: #e3f2fd;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: .75rem;
+    margin-left: 6px;
+    text-decoration: none !important;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 900px) {
+    .pendentes-container {
+        padding: 0 12px 56px 12px !important;
+    }
+    .pendentes-header {
+        margin: 0 -12px 20px;
+        padding: 48px 12px 18px;
+    }
+}
+
+@media (max-width: 700px) {
+    .pendentes-list {
+        padding: 0 2px;
+    }
+    .pendente-card {
+        padding: 12px 6px 10px 8px;
+    }
+}
+
+.correction-header {
+    /* Se o sticky estiver causando travamento, pode trocar para relative */
+    position: relative; /* ajuste para evitar problemas de clipping */
+    margin-bottom: 8px;
+}

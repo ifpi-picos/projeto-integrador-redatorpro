@@ -13,6 +13,8 @@
     --warning: #f8961e;
     --danger: #ef233c;
     --rating: #ffd166;
+    --error: #ef233c;
+    --disabled: #adb5bd;
 }
 
 [data-theme="dark"] {

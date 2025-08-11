@@ -595,6 +595,32 @@ var app = new Framework7({
       }
     },
     {
+      path: '/pendentes/',
+      url: 'pendentes.html',
+      animate: true,
+      reloadCurrent: true,
+      ignoreCache: true,
+      on: {
+        pageBeforeIn: function (event, page) {
+          console.log('[Routes] Entrando na página pendentes...');
+        },
+        pageAfterIn: function (event, page) {
+          console.log('[Routes] Página pendentes carregada.');
+        },
+        pageInit: function (event, page) {
+          console.log('[Routes] Inicializando página pendentes...');
+          $.getScript('js/pendentes.js')
+            .done(() => {
+              console.log('[Routes] js/pendentes.js carregado para /pendentes/');
+            })
+            .fail(() => console.error('[Routes] Erro ao carregar js/pendentes.js'));
+        },
+        pageBeforeRemove: function (event, page) {
+          // Limpar handlers se necessário
+        },
+      }
+    },
+    {
       path: '/page404/',
       url: 'page404.html',
       animate: false,

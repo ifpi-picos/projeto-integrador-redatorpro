@@ -22,6 +22,7 @@ if (signInForm) {
             const data = await response.json();
             // Armazena os dados do usuário e token no localStorage
             localStorage.setItem('loggedUser', JSON.stringify({
+                id: data.user.id, // <-- adiciona o id aqui!
                 name: data.user.name,
                 email: data.user.email,
                 tipo: data.user.tipo,

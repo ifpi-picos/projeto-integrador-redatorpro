@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitações | Corretor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+  <link rel="stylesheet" href="css/solicitacoes.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="page-header">
+      <a href="area-trabalho.html" class="back-btn" aria-label="Voltar"><i class="ri-arrow-left-line"></i></a>
+      <div class="header-title">
+        <h1>Solicitações de Correção</h1>
+        <p class="subtitle">Acompanhe e gerencie as redações enviadas pelos alunos</p>
+      </div>
+    </header>
+
+    <main class="content">
+      <div id="sol-loading" class="state text-muted">Carregando...</div>
+      <div id="sol-empty" class="state text-muted" style="display:none;">Nenhuma solicitação no momento.</div>
+      <div id="sol-list" class="cards-grid"></div>
+    </main>
+  </div>
+
+  <script src="js/solicitacoes.js"></script>
+</body>
+</html>

@@ -4,6 +4,18 @@
   const $loading = document.getElementById('sol-loading');
   const $empty = document.getElementById('sol-empty');
 
+  const routeByType = (tipo, essayId) => {
+    const t = String(tipo || '').toLowerCase();
+    const map = {
+      enem: 'correcao.html',
+      concursos: 'correcao-fcc.html',
+      fcc: 'correcao-fcc.html',
+      fuvest: 'correcao-fuvest.html'
+    };
+    const page = map[t] || 'correcao.html';
+    window.location.href = `${page}?id=${encodeURIComponent(essayId)}`;
+  };
+
   function fmtData(d) {
     try {
       const date = new Date(d);
@@ -37,7 +49,6 @@
           <img class="aluno-avatar" src="${avatar(aluno)}" alt="${aluno.name || 'Aluno'}">
           <div class="aluno-info">
             <div class="aluno-nome">${aluno.name || 'Aluno'}</div>
-            <div class="aluno-email">${aluno.email || ''}</div>
           </div>
         </div>
         <div class="meta">
@@ -69,6 +80,12 @@
           }
         </div>
       </div>
+
+      <div class="sol-actions">
+        <button class="btn-corrigir" type="button" data-id="${item.id}" data-tipo="${item.tipoCorrecao || ''}">
+          <i class="ri-edit-2-line"></i> Corrigir
+        </button>
+      </div>
     `;
 
     if (!item.imagemUrl && temResto) {
@@ -87,6 +104,11 @@
         if (btnMore) btnMore.style.display = 'inline-block';
       });
     }
+
+    const btnCorrigir = card.querySelector('.btn-corrigir');
+    btnCorrigir?.addEventListener('click', () => {
+      routeByType(btnCorrigir.getAttribute('data-tipo'), btnCorrigir.getAttribute('data-id'));
+    });
 
     return card;
   }
@@ -111,8 +133,7 @@
       const data = await resp.json();
 
       const items = Array.isArray(data) ? data : [];
-      // Garantir ordenação do mais antigo para o mais recente
-      items.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      items.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // reforço
 
       if (!items.length) {
         $loading.style.display = 'none';

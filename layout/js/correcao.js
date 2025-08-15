@@ -139,7 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function setMarkModes(text, image) {
         isMarkTextMode = !!text;
         isMarkImageMode = !!image;
-        if (canvas) canvas.style.pointerEvents = isMarkImageMode ? 'auto' : 'none';
+        // Evita ReferenceError quando canvas ainda não existe
+        if (typeof canvas !== 'undefined' && canvas) {
+            canvas.style.pointerEvents = isMarkImageMode ? 'auto' : 'none';
+        }
         // Habilita/desabilita conforme conteúdo disponível
         btnMarkText && (btnMarkText.disabled = (textoOriginal.length === 0));
         btnMarkImage && (btnMarkImage.disabled = !imgEl);
@@ -276,7 +279,8 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.restore();
     }
     function drawAllRects() {
-        if (!ctx || !canvas) return;
+        // Evita ReferenceError se canvas não existir ainda
+        if (typeof canvas === 'undefined' || !ctx || !canvas) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         annotations
           .filter(a => a.tipo === 'imagem')

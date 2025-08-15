@@ -387,15 +387,42 @@ textarea.error {
     color: white;
 }
 
-/* Novos estilos para toolbar, highlights de texto, overlay de imagem e painel de observações */
+/* Toolbar de marcação (já existente) */
 .mark-toolbar {
     display: flex;
     gap: 10px;
     margin: 0 0 10px 0;
+    align-items: center;
 }
 
+/* NOVO: paleta de cores */
+.color-picker {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.color-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    outline: none;
+    padding: 0;
+    background: transparent;
+}
+.color-btn:focus { outline: none; }
+.color-btn.active {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    border-color: rgba(0,0,0,0.25);
+}
+
+/* Marcações de texto: o background é aplicado inline; mantemos classe para outline/estado */
 .highlight {
-    background: rgba(255, 234, 0, 0.55);
+    background: rgba(255, 234, 0, 0.55); /* fallback */
     border-radius: 3px;
     padding: 0 2px;
     cursor: pointer;
@@ -404,6 +431,18 @@ textarea.error {
     outline: 2px solid var(--secondary);
 }
 
+/* Indicador de cor no painel de observações */
+.obs-color-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.15);
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Novos estilos para toolbar, highlights de texto, overlay de imagem e painel de observações */
 #redacaoImagem {
     max-width: 100%;
     height: auto;

@@ -90,23 +90,52 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnMarkImage = document.getElementById('btnMarkImage');
     const obsList = document.getElementById('observacoes-list');
     const comentariosGeraisEl = document.getElementById('comentariosGerais');
+    const colorPickerEl = document.getElementById('colorPicker');
 
-    let textoOriginal = '';
-    let imgEl = null;
-    let canvas = null;
-    let ctx = null;
-    let isMarkTextMode = false;
-    let isMarkImageMode = false;
-    let drawing = false;
-    let startPt = null;
+    // NOVO: paleta de cores e cor atual
+    const COLORS = [
+        { name: 'Amarelo', hex: '#ffea00' },
+        { name: 'Vermelho', hex: '#ff5d5d' },
+        { name: 'Azul',    hex: '#4db5ff' },
+        { name: 'Verde',   hex: '#3ad29f' },
+        { name: 'Roxo',    hex: '#a56cff' }
+    ];
+    let currentColor = COLORS[0].hex;
 
-    const annotations = [];
-
-    function getToken() {
-        const user = JSON.parse(localStorage.getItem('loggedUser') || 'null');
-        return user?.token || '';
+    function hexToRgba(hex, alpha = 0.35) {
+        let c = hex.replace('#','');
+        if (c.length === 3) c = c.split('').map(ch => ch + ch).join('');
+        const r = parseInt(c.substring(0,2), 16);
+        const g = parseInt(c.substring(2,4), 16);
+        const b = parseInt(c.substring(4,6), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
+    function buildColorPicker() {
+        if (!colorPickerEl) return;
+        colorPickerEl.innerHTML = '';
+        COLORS.forEach((c, idx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'color-btn' + (idx === 0 ? ' active' : '');
+            btn.title = c.name;
+            btn.setAttribute('aria-label', c.name);
+            btn.style.backgroundColor = c.hex;
+            btn.dataset.color = c.hex;
+            btn.addEventListener('click', () => setActiveColor(c.hex));
+            colorPickerEl.appendChild(btn);
+        });
+    }
+
+    function setActiveColor(hex) {
+        currentColor = hex;
+        if (!colorPickerEl) return;
+        colorPickerEl.querySelectorAll('.color-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.color === hex);
+        });
+    }
+
+    // NOVO: funções de marcação com cor
     function setMarkModes(text, image) {
         isMarkTextMode = !!text;
         isMarkImageMode = !!image;
@@ -146,9 +175,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const annId = 'ann-' + (Date.now() + Math.random().toString(16).slice(2));
                 span.className = 'highlight';
                 span.dataset.annId = annId;
+                // NOVO: cor aplicada no highlight
+                span.style.backgroundColor = hexToRgba(currentColor, 0.5);
                 range.surroundContents(span);
 
-                const ann = { id: annId, tipo: 'texto', rangeStart: start, rangeEnd: end, snippet, rects: null, color: '#ffea00', comment: '' };
+                const ann = {
+                    id: annId, tipo: 'texto',
+                    rangeStart: start, rangeEnd: end, snippet,
+                    rects: null,
+                    color: currentColor, // NOVO
+                    comment: ''
+                };
                 annotations.push(ann);
                 addObsItem(ann);
                 sel.removeAllRanges();
@@ -203,7 +240,8 @@ document.addEventListener('DOMContentLoaded', function() {
             drawAllRects();
             const pt = getCanvasPoint(e);
             const rect = normRect(startPt.x, startPt.y, pt.x, pt.y);
-            drawRect(rect, 'rgba(255,234,0,0.35)', '#d1b800');
+            // NOVO: retângulo de pré-visualização com a cor ativa
+            drawRect(rect, currentColor);
         });
         canvas.addEventListener('mouseup', (e) => {
             if (!isMarkImageMode || !drawing) return;
@@ -211,7 +249,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const pt = getCanvasPoint(e);
             const rect = normRect(startPt.x, startPt.y, pt.x, pt.y);
             const annId = 'ann-' + (Date.now() + Math.random().toString(16).slice(2));
-            const ann = { id: annId, tipo: 'imagem', rects: [rect], rangeStart: null, rangeEnd: null, snippet: null, color: '#ffea00', comment: '' };
+            const ann = {
+                id: annId, tipo: 'imagem',
+                rects: [rect],
+                rangeStart: null, rangeEnd: null, snippet: null,
+                color: currentColor, // NOVO
+                comment: ''
+            };
             annotations.push(ann);
             addObsItem(ann);
             drawAllRects();
@@ -220,21 +264,12 @@ document.addEventListener('DOMContentLoaded', function() {
         setMarkModes(false, false);
     }
 
-    function getCanvasPoint(evt) {
-        const r = canvas.getBoundingClientRect();
-        return { x: evt.clientX - r.left, y: evt.clientY - r.top };
-    }
-    function normRect(x1, y1, x2, y2) {
-        const x = Math.min(x1, x2);
-        const y = Math.min(y1, y2);
-        const w = Math.abs(x2 - x1);
-        const h = Math.abs(y2 - y1);
-        return { x, y, w, h };
-    }
-    function drawRect(r, fill='rgba(255,234,0,0.35)', stroke='#d1b800') {
+    // Ajustar função de desenho para usar a cor da anotação
+    function drawRect(r, colorHex = '#ffea00') {
+        if (!ctx) return;
         ctx.save();
-        ctx.fillStyle = fill;
-        ctx.strokeStyle = stroke;
+        ctx.fillStyle = hexToRgba(colorHex, 0.35);
+        ctx.strokeStyle = colorHex;
         ctx.lineWidth = 2;
         ctx.fillRect(r.x, r.y, r.w, r.h);
         ctx.strokeRect(r.x, r.y, r.w, r.h);
@@ -243,19 +278,21 @@ document.addEventListener('DOMContentLoaded', function() {
     function drawAllRects() {
         if (!ctx || !canvas) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        annotations.filter(a => a.tipo === 'imagem').forEach(a => {
-            (a.rects || []).forEach(r => drawRect(r));
-        });
+        annotations
+          .filter(a => a.tipo === 'imagem')
+          .forEach(a => (a.rects || []).forEach(r => drawRect(r, a.color || '#ffea00')));
     }
 
     function addObsItem(ann) {
         const el = document.createElement('div');
         el.className = 'obs-item';
         el.dataset.annId = ann.id;
-        const label = ann.tipo === 'texto' ? (ann.snippet?.slice(0, 50) || 'Trecho') : 'Marcação na imagem';
+        const label = ann.tipo === 'texto'
+            ? (ann.snippet?.slice(0, 50) || 'Trecho')
+            : 'Marcação na imagem';
         el.innerHTML = `
             <div class="obs-head">
-                <span>${label}</span>
+                <span><span class="obs-color-dot" style="background:${ann.color || '#ffea00'}"></span>${label}</span>
                 <div class="obs-actions">
                     <button type="button" class="btn btn-anterior obs-goto"><i class="fas fa-location-arrow"></i></button>
                     <button type="button" class="btn btn-salvar obs-remove"><i class="fas fa-trash"></i></button>
@@ -323,14 +360,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const e = Math.min(textoOriginal.length, a.rangeEnd);
             if (s > pos) html += escapeHtml(textoOriginal.slice(pos, s));
             const snippet = textoOriginal.slice(s, e);
-            html += `<span class="highlight" data-ann-id="${a.id}">${escapeHtml(snippet)}</span>`;
+            // NOVO: aplicar cor salva como background
+            const bg = hexToRgba(a.color || '#ffea00', 0.5);
+            html += `<span class="highlight" data-ann-id="${a.id}" style="background-color:${bg}">${escapeHtml(snippet)}</span>`;
             pos = e;
         });
         if (pos < textoOriginal.length) html += escapeHtml(textoOriginal.slice(pos));
         const view = document.getElementById('textoRedacaoView');
         if (view) view.innerHTML = html;
     }
-    function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));}
 
     async function loadEssayAndCorrection() {
         if (!essayId) return;
@@ -478,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Inicializar (permanece desabilitado até carregar a redação)
+    buildColorPicker();
     updateSteps();
     setMarkModes(false, false);
     loadEssayAndCorrection();

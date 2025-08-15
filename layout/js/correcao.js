@@ -284,6 +284,26 @@ document.addEventListener('DOMContentLoaded', function() {
         setMarkModes(false, false);
     }
 
+    // Helpers de coordenadas do canvas (necessários para marcação em imagem)
+    function getCanvasPoint(evt) {
+        // Garante cálculo correto mesmo se o canvas tiver CSS scaling
+        const r = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / r.width;
+        const scaleY = canvas.height / r.height;
+        return {
+            x: (evt.clientX - r.left) * scaleX,
+            y: (evt.clientY - r.top) * scaleY
+        };
+    }
+
+    function normRect(x1, y1, x2, y2) {
+        const x = Math.min(x1, x2);
+        const y = Math.min(y1, y2);
+        const w = Math.abs(x2 - x1);
+        const h = Math.abs(y2 - y1);
+        return { x, y, w, h };
+    }
+
     // Ajustar função de desenho para usar a cor da anotação
     function drawRect(r, colorHex = '#ffea00') {
         if (!ctx) return;

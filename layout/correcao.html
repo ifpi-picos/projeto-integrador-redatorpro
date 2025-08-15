@@ -15,8 +15,8 @@
         <header>
             <h1>Correção de Redação - ENEM</h1>
             <div class="redacao-info">
-                <span><strong>Aluno:</strong> João da Silva</span>
-                <span><strong>Tema:</strong> Desafios para a valorização de comunidades tradicionais no Brasil</span>
+                <span><strong>Aluno:</strong> <span id="alunoNome">—</span></span>
+                <span><strong>Tema:</strong> <span id="temaInfo">—</span></span>
             </div>
             <div class="progress-container">
                 <div class="progress-bar" id="progress-bar"></div>
@@ -34,8 +34,14 @@
         <main>
             <section class="redacao-original">
                 <h2>Redação do Aluno</h2>
-                <div class="redacao-content">
-                    <textarea class="texto-redacao" placeholder="Texto da redação apareceria aqui..." readonly></textarea>
+                <div class="mark-toolbar">
+                    <button type="button" id="btnMarkText" class="btn btn-proximo"><i class="fas fa-highlighter"></i> Marcar texto</button>
+                    <button type="button" id="btnMarkImage" class="btn btn-proximo"><i class="fas fa-draw-polygon"></i> Marcar imagem</button>
+                </div>
+                <div class="redacao-content" id="redacaoContent">
+                    <!-- Preenchido dinamicamente com: 
+                         - Texto: <div id="textoRedacaoView" class="texto-redacao"></div>
+                         - Imagem: <img id="redacaoImagem"> + <canvas id="imgCanvas"> -->
                 </div>
             </section>
 
@@ -159,11 +165,16 @@
                     <div class="step-content" data-step="6">
                         <h3>Comentários Gerais</h3>
                         <p class="competencia-desc">Adicione comentários finais sobre a redação como um todo.</p>
-                        <textarea placeholder="Coloque aqui comentários gerais sobre a redação..." rows="8"></textarea>
+                        <textarea id="comentariosGerais" placeholder="Coloque aqui comentários gerais sobre a redação..." rows="8"></textarea>
                         
                         <div class="total-nota">
                             <h4>Nota Total: <span id="total-nota">0</span> pontos</h4>
                         </div>
+                    </div>
+
+                    <div class="observacoes-panel">
+                        <h4>Marcações e Observações</h4>
+                        <div id="observacoes-list"></div>
                     </div>
 
                     <div class="actions">

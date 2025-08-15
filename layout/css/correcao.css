@@ -87,6 +87,7 @@ h4 {
     border-radius: 8px;
     background-color: white;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 .texto-redacao {
@@ -98,6 +99,8 @@ h4 {
     line-height: 1.8;
     color: var(--text);
     background-color: transparent;
+    white-space: pre-wrap;
+    font-family: inherit;
 }
 
 /* Progresso e etapas */
@@ -382,6 +385,73 @@ textarea.error {
 .btn-salvar {
     background-color: var(--warning);
     color: white;
+}
+
+/* Novos estilos para toolbar, highlights de texto, overlay de imagem e painel de observações */
+.mark-toolbar {
+    display: flex;
+    gap: 10px;
+    margin: 0 0 10px 0;
+}
+
+.highlight {
+    background: rgba(255, 234, 0, 0.55);
+    border-radius: 3px;
+    padding: 0 2px;
+    cursor: pointer;
+}
+.highlight.active {
+    outline: 2px solid var(--secondary);
+}
+
+#redacaoImagem {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+#imgCanvas {
+    position: absolute;
+    left: 0; top: 0;
+    pointer-events: none; /* ativado somente em modo marcação */
+}
+
+.observacoes-panel {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+}
+#observacoes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.obs-item {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+}
+.obs-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+.obs-actions {
+    display: flex;
+    gap: 8px;
+}
+.obs-comment {
+    width: 100%;
+    min-height: 60px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+    resize: vertical;
 }
 
 /* Responsividade */

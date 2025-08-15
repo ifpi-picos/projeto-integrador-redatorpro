@@ -43,6 +43,7 @@
 
     const card = document.createElement('article');
     card.className = `sol-card ${item.status === 'Corrigida' ? 'is-corrigida' : 'is-pendente'}`;
+    card.tabIndex = 0; // acessibilidade: permite foco no card
     card.innerHTML = `
       <div class="sol-head">
         <div class="aluno">
@@ -56,7 +57,6 @@
           <span class="sol-status ${item.status === 'Corrigida' ? 'ok' : 'pend'}">${item.status}</span>
         </div>
       </div>
-
       <div class="sol-body">
         <div class="row">
           <span class="label">Tipo:</span>
@@ -80,7 +80,6 @@
           }
         </div>
       </div>
-
       <div class="sol-actions">
         <button class="btn-corrigir" type="button" data-id="${item.id}" data-tipo="${item.tipoCorrecao || ''}">
           <i class="ri-edit-2-line"></i> Corrigir

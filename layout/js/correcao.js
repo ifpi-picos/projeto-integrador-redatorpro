@@ -8,7 +8,77 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnEnviar = document.getElementById('btn-enviar');
     const notaSliders = document.querySelectorAll('.nota-slider');
     const totalNotaElement = document.getElementById('total-nota');
-    
+
+    // NOVO: estado e funções de etapas/notas
+    let currentStep = 1;
+    const totalSteps = steps.length;
+
+    // Atualiza display de notas e total ao mover sliders
+    notaSliders.forEach(slider => {
+        const competencia = slider.getAttribute('data-competencia');
+        const notaDisplay = document.getElementById(`nota-${competencia}`);
+        slider.addEventListener('input', function () {
+            if (notaDisplay) notaDisplay.textContent = this.value;
+            calcularNotaTotal();
+        });
+    });
+
+    function calcularNotaTotal() {
+        let total = 0;
+        notaSliders.forEach(slider => {
+            total += parseInt(slider.value) || 0;
+        });
+        if (totalNotaElement) totalNotaElement.textContent = total;
+    }
+
+    function updateSteps() {
+        // Atualiza conteúdo visível
+        steps.forEach(step => {
+            step.classList.remove('active');
+            if (parseInt(step.getAttribute('data-step')) === currentStep) {
+                step.classList.add('active');
+            }
+        });
+        // Indicadores
+        stepButtons.forEach(button => {
+            button.classList.remove('active');
+            if (parseInt(button.getAttribute('data-step')) <= currentStep) {
+                button.classList.add('active');
+            }
+        });
+        // Barra de progresso
+        if (progressBar) {
+            progressBar.style.width = `${(currentStep / totalSteps) * 100}%`;
+        }
+        // Botões
+        if (btnAnterior) btnAnterior.disabled = currentStep === 1;
+        if (btnProximo) btnProximo.style.display = currentStep === totalSteps ? 'none' : 'block';
+        if (btnEnviar) btnEnviar.style.display = currentStep === totalSteps ? 'block' : 'none';
+    }
+
+    // Navegação
+    btnAnterior?.addEventListener('click', function () {
+        if (currentStep > 1) {
+            currentStep--;
+            updateSteps();
+        }
+    });
+    btnProximo?.addEventListener('click', function () {
+        if (currentStep < totalSteps) {
+            currentStep++;
+            updateSteps();
+        }
+    });
+    stepButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const stepNumber = parseInt(this.getAttribute('data-step'));
+            if (stepNumber <= currentStep) {
+                currentStep = stepNumber;
+                updateSteps();
+            }
+        });
+    });
+
     const API = 'https://express-e3hm.onrender.com';
     const params = new URLSearchParams(window.location.search);
     const essayId = parseInt(params.get('id'), 10);
@@ -30,8 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let drawing = false;
     let startPt = null;
 
-    // fonte de verdade para envio:
-    const annotations = []; // {id, tipo, rangeStart, rangeEnd, snippet, rects, color, comment}
+    const annotations = [];
 
     function getToken() {
         const user = JSON.parse(localStorage.getItem('loggedUser') || 'null');
@@ -397,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Inicializar
+    // Inicializar (agora sem erro)
     updateSteps();
     setMarkModes(false, false);
     loadEssayAndCorrection();

@@ -92,6 +92,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const comentariosGeraisEl = document.getElementById('comentariosGerais');
     const colorPickerEl = document.getElementById('colorPicker');
 
+    // NOVO: estado de marcação e buffers (precisam existir antes de setMarkModes)
+    let textoOriginal = '';
+    let imgEl = null;
+    let canvas = null;
+    let ctx = null;
+    let isMarkTextMode = false;
+    let isMarkImageMode = false;
+    let drawing = false;
+    let startPt = null;
+    const annotations = [];
+
+    // NOVO: helper para token (usado em loadEssayAndCorrection)
+    function getToken() {
+        const user = JSON.parse(localStorage.getItem('loggedUser') || 'null');
+        return user?.token || '';
+    }
+
     // NOVO: paleta de cores e cor atual
     const COLORS = [
         { name: 'Amarelo', hex: '#ffea00' },
@@ -348,6 +365,13 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (imgEl && canvas) {
             redacaoContent.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+    }
+
+    // NOVO: escapeHtml usado na aplicação das marcações salvas
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, m => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[m]));
     }
 
     function applySavedTextAnnotations(list) {

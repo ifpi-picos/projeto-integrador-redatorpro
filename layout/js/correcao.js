@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isMarkTextMode = !!text;
         isMarkImageMode = !!image;
         if (canvas) canvas.style.pointerEvents = isMarkImageMode ? 'auto' : 'none';
+        // Habilita/desabilita conforme conteúdo disponível
         btnMarkText && (btnMarkText.disabled = (textoOriginal.length === 0));
         btnMarkImage && (btnMarkImage.disabled = !imgEl);
     }
@@ -156,6 +157,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.warn('Falha ao marcar seleção (range complexo).', e);
             }
         });
+        // Ao final da renderização do texto, reavalia estado dos botões
+        setMarkModes(false, false);
     }
 
     function renderImagem(url) {
@@ -180,7 +183,11 @@ document.addEventListener('DOMContentLoaded', function() {
             canvas.style.left = imgEl.offsetLeft + 'px';
             drawAllRects();
         }
-        imgEl.onload = resizeCanvas;
+        imgEl.onload = () => {
+            resizeCanvas();
+            // Reforço: reavalia estado quando a imagem terminar de carregar
+            setMarkModes(false, false);
+        };
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
@@ -209,6 +216,8 @@ document.addEventListener('DOMContentLoaded', function() {
             addObsItem(ann);
             drawAllRects();
         });
+        // Chamada imediata (caso a imagem já esteja em cache)
+        setMarkModes(false, false);
     }
 
     function getCanvasPoint(evt) {
@@ -342,6 +351,8 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             renderTexto(essay.texto || '');
         }
+        // Reforço: reavaliar após decidir o tipo
+        setMarkModes(false, false);
 
         // correção existente
         const cResp = await fetch(`${API}/correcao/${essayId}`, {
@@ -466,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Inicializar (agora sem erro)
+    // Inicializar (permanece desabilitado até carregar a redação)
     updateSteps();
     setMarkModes(false, false);
     loadEssayAndCorrection();

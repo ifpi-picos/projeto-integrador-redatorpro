@@ -51,11 +51,31 @@ window.initPendentesPage = function () {
         return null;
     }
 
-    function isViewed(essayId) {
+    function isViewedLocal(essayId) {
         return localStorage.getItem(`correcao_viewed_${essayId}`) === 'true';
     }
-    function setViewed(essayId) {
+    function setViewedLocal(essayId) {
         localStorage.setItem(`correcao_viewed_${essayId}`, 'true');
+    }
+    function wasViewed(item) {
+        // Preferir backend; fallback ao localStorage se não vier do servidor
+        return item.visualizada === true || isViewedLocal(item.id);
+    }
+
+    // NOVO: marcar como visualizada no backend
+    async function markViewedRemote(essayId) {
+        try {
+            const user = JSON.parse(localStorage.getItem('loggedUser') || 'null');
+            const token = user?.token;
+            if (!token) return false;
+            const resp = await fetch(`https://express-e3hm.onrender.com/red-corretores/${encodeURIComponent(essayId)}/visualizada`, {
+                method: 'PATCH',
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            return resp.ok;
+        } catch (_) {
+            return false;
+        }
     }
 
     // NOVO: renderização com busca/filtro/ordenação de prioridade
@@ -76,18 +96,17 @@ window.initPendentesPage = function () {
         }
 
         // Ordenação:
-        // 1) Corrigidas não visualizadas primeiro
+        // 1) Corrigidas não visualizadas (segundo backend/local) primeiro
         // 2) Demais por data (mais recentes primeiro)
         items.sort((a, b) => {
             const aCorr = a.notaTotal !== undefined && a.notaTotal !== null;
             const bCorr = b.notaTotal !== undefined && b.notaTotal !== null;
-            const aPri = aCorr && !isViewed(a.id) ? 1 : 0;
-            const bPri = bCorr && !isViewed(b.id) ? 1 : 0;
-            if (aPri !== bPri) return bPri - aPri; // b primeiro se prioridade 1
-
+            const aPri = aCorr && !wasViewed(a) ? 1 : 0;
+            const bPri = bCorr && !wasViewed(b) ? 1 : 0;
+            if (aPri !== bPri) return bPri - aPri;
             const ad = new Date(a.createdAt || 0).getTime();
             const bd = new Date(b.createdAt || 0).getTime();
-            return bd - ad; // mais recente primeiro
+            return bd - ad;
         });
 
         renderLista(items);
@@ -162,13 +181,23 @@ window.initPendentesPage = function () {
             // Ação do botão "Ver Correção"
             const btnVer = card.querySelector('.btn-ver-correcao');
             if (btnVer) {
-                btnVer.addEventListener('click', (e) => {
+                btnVer.addEventListener('click', async (e) => {
                     e.stopPropagation();
-                    const id = btnVer.getAttribute('data-id');
-                    setViewed(id);
-                    // TODO: navegar para a página de visualização da correção, quando existir.
-                    // Ex.: app.views.main.router.navigate(`/vercorrecao/?id=${id}`);
+                    const id = parseInt(btnVer.getAttribute('data-id'), 10);
+
+                    // Marca no backend (persistente) e local (fallback)
+                    const ok = await markViewedRemote(id);
+                    if (ok) {
+                        // Atualiza item em memória para refletir o backend
+                        const idx = allItems.findIndex(it => it.id === id);
+                        if (idx >= 0) allItems[idx].visualizada = true;
+                    }
+                    setViewedLocal(id);
+
                     applyFilters(); // reordena removendo prioridade, se aplicável
+
+                    // TODO: navegar para a página de visualização da correção quando existir
+                    // app.views.main.router.navigate(`/vercorrecao/?id=${id}`);
                 });
             }
 

@@ -232,4 +232,4 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     document.addEventListener('DOMContentLoaded', function () {
         window.initPendentesPage && window.initPendentesPage();
     });
-}
+

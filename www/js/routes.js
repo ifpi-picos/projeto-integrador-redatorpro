@@ -621,6 +621,18 @@ var app = new Framework7({
       }
     },
     {
+      path: '/corrigidas/',
+      url: 'corrigidas.html',
+      animate: true,
+      on: {
+        pageInit: function (event, page) {
+          $.getScript('js/corrigidas.js')
+            .done(() => console.log('[Routes] js/corrigidas.js carregado para /corrigidas/'))
+            .fail(() => console.error('[Routes] Erro ao carregar js/corrigidas.js'));
+        }
+      }
+    },
+    {
       path: '/page404/',
       url: 'page404.html',
       animate: false,

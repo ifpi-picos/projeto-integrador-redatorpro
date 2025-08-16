@@ -185,19 +185,21 @@ window.initPendentesPage = function () {
                     e.stopPropagation();
                     const id = parseInt(btnVer.getAttribute('data-id'), 10);
 
-                    // Marca no backend (persistente) e local (fallback)
                     const ok = await markViewedRemote(id);
                     if (ok) {
-                        // Atualiza item em memória para refletir o backend
                         const idx = allItems.findIndex(it => it.id === id);
                         if (idx >= 0) allItems[idx].visualizada = true;
                     }
                     setViewedLocal(id);
 
-                    applyFilters(); // reordena removendo prioridade, se aplicável
+                    applyFilters();
 
-                    // TODO: navegar para a página de visualização da correção quando existir
-                    // app.views.main.router.navigate(`/vercorrecao/?id=${id}`);
+                    // NOVO: navega para a tela de correção do aluno
+                    if (window.app && app.views && app.views.main && app.views.main.router) {
+                        app.views.main.router.navigate(`/corrigidas/?id=${id}`);
+                    } else {
+                        window.location.href = `corrigidas.html?id=${id}`;
+                    }
                 });
             }
 

@@ -20,8 +20,72 @@
     height: 100%;
 }
 
-.correction-header{
-    margin-bottom: 0px !important;
+/* Controles (busca + filtros) */
+.pendentes-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 6px 2px 8px 2px;
+    flex-wrap: wrap;
+}
+.pendentes-search {
+    flex: 1 1 220px;
+    height: 36px;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    padding: 0 10px;
+    background: #fff;
+    font-size: .95rem;
+    outline: none;
+}
+.pendentes-search:focus {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(33,150,243,.15);
+}
+.pendentes-filters {
+    display: inline-flex;
+    gap: 6px;
+}
+.filter-chip {
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    border: 1px solid var(--borda);
+    background: #fff;
+    color: var(--preto);
+    font-weight: 600;
+    font-size: .85rem;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
+}
+.filter-chip.active {
+    background: var(--azul);
+    border-color: var(--azul);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(33,150,243,.25);
+}
+
+/* Botão "Ver Correção" nas corrigidas */
+.btn-ver-correcao {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--borda);
+    background: #fff;
+    color: var(--azul-escuro);
+    font-weight: 600;
+    font-size: .85rem;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
+    margin-top: 4px;
+}
+.btn-ver-correcao:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px #00000018;
+    border-color: var(--azul);
 }
 
 /* Container agora herda base de .correction-container e apenas complementa */

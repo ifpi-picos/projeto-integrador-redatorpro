@@ -37,22 +37,23 @@
 }
 .search-wrap i {
     position: absolute;
-    left: 10px;
+    left: 12px;               /* espaço interno à esquerda */
     top: 50%;
     transform: translateY(-50%);
-    color: var(--azul-escuro);
-    font-size: 18px;
+    color: #9098a3;           /* cor mais sutil para ícone */
+    font-size: 18px;          /* tamanho do ícone */
     pointer-events: none;
 }
 .pendentes-search {
-    width: 100%;
-    height: 40px; /* um pouco mais alta */
-    border: 1px solid var(--borda);
-    border-radius: 8px;
-    padding: 0 10px 0 36px; /* espaço para o ícone */
+    width: 100% !important;
+    height: 40px !important;
+    line-height: 40px !important;        /* alinha o placeholder verticalmente */
+    border: 1px solid var(--borda) !important;
+    border-radius: 8px !important;
+    padding: 0 10px 0 44px !important;   /* MAIS espaço para não sobrepor o ícone */
     background: #fff;
     font-size: .95rem;
-    outline: none;
+    outline: none !important;
 }
 .pendentes-search:focus {
     border-color: var(--azul);

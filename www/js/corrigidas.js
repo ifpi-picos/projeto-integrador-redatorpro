@@ -85,15 +85,29 @@
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(nome || 'Corretor')}&background=4c6fff&color=fff`;
   }
 
-  function renderNotas(notasObj) {
+  function renderNotas(notasObj, obsObj) {
     if (!$competencias) return;
     $competencias.innerHTML = '';
-    const labels = ['Competência 1','Competência 2','Competência 3','Competência 4','Competência 5'];
+    const labels = [
+      'Competência 1',
+      'Competência 2',
+      'Competência 3',
+      'Competência 4',
+      'Competência 5'
+    ];
     for (let i = 1; i <= 5; i++) {
       const v = (notasObj && (notasObj[i] ?? notasObj[String(i)])) ?? 0;
       const l = document.createElement('div'); l.className='comp-label'; l.textContent = labels[i-1];
       const r = document.createElement('div'); r.className='comp-valor'; r.textContent = `${v} pts`;
       $competencias.appendChild(l); $competencias.appendChild(r);
+
+      // Observação por competência (se houver)
+      if (obsObj && obsObj[i]) {
+        const obs = document.createElement('div');
+        obs.className = 'comp-obs';
+        obs.textContent = obsObj[i];
+        $competencias.appendChild(obs);
+      }
     }
   }
 
@@ -174,7 +188,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
       const pack = extractRectsPack(a);
-      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color));
+      pack.list.forEach r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color));
     });
   }
 
@@ -192,6 +206,9 @@
 
   function fitCanvas(annotations) {
     if (!imgEl || !canvas) return;
+    // Use getBoundingClientRect para alinhar canvas à imagem exibida
+    const rect = imgEl.getBoundingClientRect();
+    const parentRect = imgEl.parentElement.getBoundingClientRect();
     const w = imgEl.clientWidth || imgEl.naturalWidth || 0;
     const h = imgEl.clientHeight || imgEl.naturalHeight || 0;
     if (!w || !h) return;
@@ -200,6 +217,8 @@
     canvas.height = h;
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
+    // Ajuste para alinhar canvas sobre a imagem
+    canvas.style.position = 'absolute';
     canvas.style.left = (imgEl.offsetLeft || 0) + 'px';
     canvas.style.top = (imgEl.offsetTop || 0) + 'px';
 
@@ -275,9 +294,12 @@
           $essayView.appendChild(img);
           $essayView.appendChild(cvs);
 
-          const fit = () => drawAllRects(corr?.annotations || []); // redesenha sempre usando extract/map
-          const fitSize = () => fitCanvas(corr?.annotations || []);
+          // canvas overlay fix
+          $essayView.style.position = 'relative';
+          img.style.position = 'relative';
+          cvs.style.position = 'absolute';
 
+          const fitSize = () => fitCanvas(corr?.annotations || []);
           if (img.complete) { fitSize(); } else { img.onload = fitSize; }
           window.addEventListener('resize', fitSize);
           setTimeout(fitSize, 80);
@@ -289,7 +311,18 @@
         }
       }
 
-      renderNotas(corr?.notas || null);
+      // Observações por competência (busca por tipo: 'comp' ou similar)
+      let obsPorComp = {};
+      if (corr?.annotations && Array.isArray(corr.annotations)) {
+        corr.annotations.forEach(a => {
+          if (a.tipo === 'comp' && a.rangeStart && a.comment) {
+            obsPorComp[a.rangeStart] = a.comment;
+          }
+        });
+      }
+
+      renderNotas(corr?.notas || null, obsPorComp);
+
       if ($comentarios) $comentarios.textContent = corr?.comentariosGerais || '—';
 
       // Observações

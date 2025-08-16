@@ -9,25 +9,32 @@
   --ok: #16a34a;
   --text: #1f2937;
 
-  width: 100vw;
+  max-width: 800px;
+  margin: 0 auto;
   min-height: 100vh;
   background: var(--bg);
-  padding: 0;
-  margin: 0;
+  padding: 0 8px 40px 8px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+}
+
+/* Centralizar e limitar largura igual ao pendentes */
+.corrigidas-modern-layout {
+  /* ...existing code... */
+  width: 100%;
 }
 
 .corr-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 32px 4vw 18px 4vw;
+  padding: 32px 0 18px 0;
   background: var(--card);
   border-bottom: 1px solid var(--border);
   gap: 24px;
   flex-wrap: wrap;
+  max-width: 100%;
 }
 .corr-header h2 {
   margin: 0 0 2px 0;
@@ -65,9 +72,10 @@
   display: flex;
   flex: 1 1 auto;
   min-height: 0;
-  padding: 0 4vw 32px 4vw;
+  padding: 0 0 32px 0;
   gap: 36px;
   background: var(--bg);
+  max-width: 100%;
 }
 @media (max-width: 900px) {
   .corr-main {
@@ -94,7 +102,8 @@
   max-width: 480px;
   gap: 22px;
   overflow-y: auto;
-  max-height: 80vh;
+  max-height: none;
+  overflow: visible;
 }
 @media (max-width: 900px) {
   .corr-main-left, .corr-main-right {
@@ -133,15 +142,15 @@
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 24px 18px;
+  padding: 18px 8px;
   min-height: 220px;
   position: relative;
   overflow-x: auto;
-  overflow-y: auto;
+  overflow-y: visible;
   box-shadow: 0 4px 24px rgba(0,0,0,0.04);
   font-size: 1.13rem;
   color: var(--text);
-  max-height: 60vh;
+  max-height: none;
 }
 @media (max-width: 900px) {
   .corr-essay-area {
@@ -168,7 +177,6 @@
   display: block;
   margin: 0 auto;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   background: #fff;
 }
 .corr-essay-area #essayCanvas {
@@ -219,6 +227,16 @@
   font-weight: 700;
   border-bottom: 1px dashed rgba(0,0,0,0.06);
 }
+.corr-competencias .comp-obs {
+  grid-column: 1 / span 2;
+  color: #4b5563;
+  font-size: .97rem;
+  margin-bottom: 8px;
+  background: #f6f8fa;
+  border-radius: 6px;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+}
 
 .corr-obs #obsList {
   display: flex;
@@ -226,6 +244,7 @@
   gap: 10px;
   max-height: 220px;
   overflow-y: auto;
+  min-height: 40px;
 }
 @media (max-width: 900px) {
   .corr-obs #obsList {

@@ -140,7 +140,7 @@
 
 .profile-stats {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin: 20px 0;
     text-align: center;
 }
@@ -483,7 +483,7 @@
 @media (min-width: 1024px) {
     .profile-container-mobile {
         max-width: 800px;
-        padding: 0 30px;
+        padding: 50px 30px;
     }
     
     .profile-header-mobile {
@@ -509,8 +509,10 @@
     }
     
     .profile-stats {
-        justify-content: flex-start;
-        gap: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+        margin: 25px 500px 15px 0px;
     }
     
     .profile-grid {

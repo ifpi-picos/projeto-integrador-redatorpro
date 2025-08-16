@@ -1,147 +1,138 @@
-<div data-name="iacorretor" class="page">
-    <div class="buttons-top">
-        <a href="/index/" class="back-button"><i class="ri-arrow-left-s-line"></i></a>
-    </div>
-    
-    <div class="correction-header">
-        <div class="header-icon">
-            <i class="ri-ai-generate"></i>
-        </div>
-        <h1>Correção por IA</h1>
-        <p class="header-subtitle">Receba feedback detalhado da sua redação</p>
-    </div>
+<!DOCTYPE html>
+<html>
 
-    <div class="correction-container">
-        <form id="formCorrecao" enctype="multipart/form-data">
-            <div class="form-card">
-                <div class="form-section">
-                    <label for="tipoCorrecao" class="form-label">
-                        <i class="ri-graduation-cap-line"></i> Tipo de Correção
-                    </label>
-                    <select id="tipoCorrecao" name="tipoCorrecao" class="form-select" required>
-                        <option value="">Selecione o modelo</option>
-                        <option value="enem">ENEM</option>
-                        <option value="concursos">FCC</option>
-                        <option value="fuvest">Fuvest</option>
-                    </select>
-                </div>
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>Meu Perfil</title>
+    <!-- Path to Framework7 Library Bundle CSS -->
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <!-- CSS PERSONALIZADO PARA PERFIL-->
+    <link rel="stylesheet" href="iacorretor.css">
+    <!--Ícones Material Design-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7-icons@3.0/framework7-icons.css">
+</head>
 
-                <div class="form-section">
-                    <label for="temaRedacao" class="form-label">
-                        <i class="ri-edit-2-line"></i> Tema da Redação
-                    </label>
-                    <select id="temaRedacao" name="temaRedacao" class="form-select" required onchange="toggleTemaLivre()">
-                        <option value="">Selecione um tema</option>
-                        <option value="tema1">A violência doméstica e o combate ao feminicídio</option>
-                        <option value="tema2">O papel da IA na transformação da educação: limites e possibilidades</option>
-                        <option value="livre">Tema Livre</option>
-                    </select>
-                    <input type="text" id="temaLivre" name="temaLivre" class="form-input" placeholder="Digite o tema aqui..." style="display:none;">
-                </div>
+<body>
+    <!-- App root element -->
+    <div id="app">
 
-                <div class="form-section">
-                    <label for="imagemUpload" class="form-label">
-                        <i class="ri-camera-line"></i> Envie sua redação
-                    </label>
-                    <div class="file-upload-wrapper">
-                        <label for="imagemUpload" class="file-upload-label">
-                            <i class="ri-upload-cloud-line"></i>
-                            <span>Selecione uma imagem</span>
-                        </label>
-                        <input type="file" id="imagemUpload" name="imagem" accept="image/*" class="file-upload-input">
-                    </div>
-                    <div class="upload-hint">
-                        <i class="ri-information-line"></i> Para melhor experiência, envie uma imagem com boa qualidade e letra legível!
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="profile" class="page">
+
+                <!-- Top Navbar -->
+                <div class="navbar">
+                    <div class="navbar-bg"></div>
+                    <div class="navbar-inner justify-content-center">
+                        <div class="title title-rounded">Meu Perfil</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="mobile-actions">
-                <button type="button" id="btnDigitarRedacao" class="action-button">
-                    <i class="ri-keyboard-line"></i> Digitar Redação
-                </button>
-            </div>
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <div class="profile-container-mobile"> 
+                        <!-- Área de cabeçalho com fundo gradiente -->
+                        <div class="profile-header-mobile" aria-label="Cabeçalho do perfil">
+                            <!-- Botão de editar -->
+                            <a href="#" class="edit-profile-btn" id="editProfileBtn" aria-label="Editar perfil">
+                                <i class="ri-pencil-fill"></i>
+                            </a>
+                            <!-- Avatar do usuário -->
+                            <div class="profile-avatar" id="profileAvatar" style="position:relative;" aria-label="Foto do perfil">
+                                <img src="img/default.png" alt="Foto do usuário" id="profileImg">
+                                <input type="file" id="fotoPerfilInput" style="display:none" accept="image/*">
+                                <!-- Ícone de câmera, inicialmente oculto -->
+                                <span id="cameraIcon" style="display:none; position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.6); border-radius:50%; padding:7px; cursor:pointer;" aria-label="Alterar foto do perfil">
+                                    <i style="color:white; font-size:20px;">
+                                        <span class="material-symbols-outlined">photo_camera</span>
+                                    </i>
+                                </span>
+                            </div>
+                            <!-- Conteúdo do header -->
+                            <div class="profile-header-content">
+                                <!-- Nome do usuário -->
+                                <h1 class="profile-name" id="profileName" aria-label="Nome do usuário">Carregando...</h1>
+                                <!-- Tipo de usuário -->
+                                <div class="profile-type" id="profileTipo" aria-label="Tipo de usuário"></div>
+                                <!-- Instagram editável -->
+                                <div style="margin:10px 0;">
+                                    <span id="instagramSpan" aria-label="Instagram"></span>
+                                    <input type="text" id="instagramInput" style="display:none" placeholder="Seu Instagram" aria-label="Instagram">
+                                </div>
+                                <!-- E-mail do usuário -->
+                                <div class="profile-status" aria-label="E-mail do usuário">
+                                    <span class="material-symbols-outlined">email</span>
+                                    <span id="profileEmail" aria-label="E-mail do usuário">carregando...</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Botões de ação -->
+                        <div class="profile-actions">
+                            <!-- Botão para rede social (Instagram) -->
+                            <a href="#" class="profile-action-btn social-btn disabled external">
+                                <i class="ri-instagram-line"></i>
+                            </a>
+                            
+                            <!-- Botão para redações -->
+                            <a href="/redacoes/" class="profile-action-btn essays-btn">
+                                <i class="ri-folder-user-fill"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Estatísticas do perfil -->
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalRedacoes">0</div>
+                                <div class="stat-label">Redações</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="ultimaNota">-</div>
+                                <div class="stat-label">Última Nota</div>
+                            </div>
+                        </div>
 
-            <div class="writing-area" style="display:none;">
-                <div class="line-numbers">
-                    <pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30</pre>
+                        <!-- Grid para as seções no desktop -->
+                        <div class="profile-grid">
+                            <!-- Seção Sobre Mim -->
+                            <div>
+                                <h2 class="profile-section-title">Sobre Mim</h2>
+                                <div class="profile-card">
+                                    <p id="descricaoPerfil" style="max-height:8px;" aria-label="Descrição do perfil">Clique no lápis para editar</p>
+                                    <textarea id="descricaoInput" style="display:none;width:100%;min-height:60px;" aria-label="Descrição"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Seção Áreas de Interesse -->
+                            <div>
+                                <h2 class="profile-section-title">Áreas de Interesse</h2>
+                                <div class="profile-card">
+                                    <div class="interests" aria-label="Áreas de interesse">
+                                        <!-- Tags dinâmicas serão inseridas via JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <textarea class="area" id="textoRedacao" name="textoRedacao" rows="30" cols="85" placeholder="Escreva sua redação aqui..."></textarea>
-            </div>
-
-            <button type="submit" class="submit-button">
-                <i class="ri-send-plane-line"></i> Enviar para correção
-            </button>
-        </form>
-    </div>
-
-    <div id="folhaAmpliadaOverlay" class="folha-ampliada-overlay">
-        <div class="folha-ampliada">
-            <button type="button" id="btnFecharFolha" class="btn-fechar-folha">&times;</button>
-            <div class="writing-area-ampliada">
-                <div class="line-numbers">
-                    <pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30</pre>
-                </div>
-                <textarea class="area" id="textoRedacaoAmpliada" rows="30" cols="85" placeholder="Escreva sua redação aqui..." required></textarea>
             </div>
         </div>
     </div>
-</div>
+    <!-- Path to Framework7 Library Bundle JS-->
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>	
+    <!-- Roteamento do app-->
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+</body>
+
+</html>

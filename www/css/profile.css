@@ -547,4 +547,11 @@
     .profile-type {
         font-size: 16px;
     }
+
+    .profile-stats {
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+        margin: 25px 700px 15px 0px;
+    }
 }

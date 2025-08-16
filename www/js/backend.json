@@ -2,7 +2,7 @@
     {
         "id": 1,
         "imagem": "img/funcao-folha-de-redação.png",
-        "nome": "Folha de Redação",
+        "nome": "Escrever Redação",
         "rating": "",
         "icone": "",
         "url": "/iacorretor/"
@@ -21,7 +21,7 @@
         "nome": "Exercícios",
         "rating": "premium",
         "icone": "ri-lock-star-fill",
-        "url": "/pendentes/"
+        "url": "/page404/"
     },
     {
         "id": 4,
@@ -37,7 +37,7 @@
         "nome": "Corretores",
         "rating": "premium",
         "icone": "ri-lock-star-fill",
-        "url": "/pendentes/"
+        "url": "/link2/"
     },
     {
         "id": 6,
@@ -45,7 +45,7 @@
         "nome": "Repertórios",
         "rating": "",
         "icone": "",
-        "url": "/pendentes/"
+        "url": "/page404/"
     },
     {
         "id": 7,
@@ -53,7 +53,7 @@
         "nome": "Progresso",
         "rating": "premium",
         "icone": "ri-lock-star-fill",
-        "url": "/pendentes/"
+        "url": "/page404/"
     },
     {
         "id": 8,
@@ -61,6 +61,6 @@
         "nome": "Comunidade",
         "rating": "",
         "icone": "",
-        "url": "/pendentes/"
+        "url": "/page404/"
     }
 ]

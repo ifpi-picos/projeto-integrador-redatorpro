@@ -4,8 +4,17 @@
   </div>
 
   <div class="page-content no-padding">
+    <!-- Header leve (consistente com pendentes) -->
+    <div class="correction-header">
+      <div class="header-icon"><i class="ri-verified-badge-line"></i></div>
+      <div>
+        <h1>Correção</h1>
+        <p class="header-subtitle">Veja o feedback detalhado da sua redação</p>
+      </div>
+    </div>
+
     <div class="correction-container corrigidas-container">
-      <!-- Header -->
+      <!-- Header card com nota e corretor -->
       <header class="corr-header">
         <div class="header-left">
           <div class="header-icon"><i class="ri-verified-badge-line"></i></div>
@@ -54,17 +63,10 @@
     </div>
   </div>
 </div>
-            <!-- Itens de observações -->
-          </div>
-        </aside>
-      </main>
 
-      <div id="loading" class="state">Carregando correção...</div>
-      <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
-      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>
-    </div>
-  </div>
-
-  <script src="js/corrigidas.js"></script>
-</body>
-</html>
+<!-- Assets (fallback para acesso direto, como em pendentes.html) -->
+<script src="lib/framework7-bundle.min.js"></script>
+<script src="lib/jquery-3.7.0.min.js"></script>
+<script src="js/routes.js"></script>
+<script src="cordova.js"></script>
+<script src="js/corrigidas.js"></script>

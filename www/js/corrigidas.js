@@ -116,7 +116,10 @@
       $tema.textContent = essay?.tema || 'Correção';
       const dt = essay?.createdAt ? new Date(essay.createdAt).toLocaleString('pt-BR') : '—';
       $info.textContent = `Enviada em ${dt} · Modelo: ${essay?.tipoCorrecao?.toUpperCase() || '—'}`;
-      $notaTotal.textContent = (corr?.notaTotal ?? essay?.notaTotal ?? 0).toString();
+
+      // Nota total: mostra "—" quando ausente
+      const total = (corr?.notaTotal ?? essay?.notaTotal);
+      $notaTotal.textContent = (typeof total === 'number' ? total : '—');
 
       const corrUser = corr?.corretor;
       $corrNome.textContent = corrUser?.name || 'Corretor';
@@ -125,7 +128,6 @@
       // Render redação
       $essayView.innerHTML = '';
       if (essay?.imagemUrl) {
-        // Imagem + canvas
         const img = document.createElement('img');
         img.id = 'essayImage';
         img.src = essay.imagemUrl;
@@ -137,14 +139,18 @@
         $essayView.appendChild(cvs);
 
         const fitCanvas = () => {
-          if (!imgEl) return;
-          const rect = imgEl.getBoundingClientRect();
-          canvas.width = rect.width;
-          canvas.height = rect.height;
-          canvas.style.width = rect.width + 'px';
-          canvas.style.height = rect.height + 'px';
-          canvas.style.left = imgEl.offsetLeft + 'px';
-          canvas.style.top = imgEl.offsetTop + 'px';
+          if (!imgEl || !canvas) return;
+          // Usa dimensões reais do elemento renderizado
+          const w = imgEl.clientWidth || imgEl.naturalWidth || 0;
+          const h = imgEl.clientHeight || imgEl.naturalHeight || 0;
+          if (!w || !h) return;
+          canvas.width = w;
+          canvas.height = h;
+          canvas.style.width = w + 'px';
+          canvas.style.height = h + 'px';
+          // Alinha no (0,0) do container (CSS já posiciona absolute)
+          canvas.style.left = '0px';
+          canvas.style.top = '0px';
           ctx = canvas.getContext('2d');
           drawAllRects(corr?.annotations || []);
         };
@@ -152,7 +158,6 @@
         window.addEventListener('resize', fitCanvas);
         setTimeout(fitCanvas, 50);
       } else {
-        // Texto com highlights
         const div = document.createElement('div');
         div.className = 'essay-text';
         $essayView.appendChild(div);
@@ -179,7 +184,7 @@
         $obsList.appendChild(item);
       });
 
-      // Marca como visualizada (persistente)
+      // Marca como visualizada
       markViewed(essayId);
 
       // Done

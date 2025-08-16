@@ -125,33 +125,53 @@
     ctx.restore();
   }
 
-  // NOVO: converte diferentes formatos de rects para coordenadas do canvas atual
-  function mapRectToCanvas(r, ann) {
-    if (!canvas) return r;
-    // 1) Normalizado (0..1)
-    if (r && r.w <= 1 && r.h <= 1) {
+  // NOVO: utilitário para obter lista de retângulos e base (tolerante a formatos antigos e string JSON)
+  function extractRectsPack(ann) {
+    let pack = ann?.rects ?? null;
+    if (typeof pack === 'string') {
+      try { pack = JSON.parse(pack); } catch (_) { pack = null; }
+    }
+    // 1) Se vier normalizado (rectsNormalized)
+    if (Array.isArray(ann?.rectsNormalized) && ann.rectsNormalized.length) {
+      return { list: ann.rectsNormalized, basisW: 1, basisH: 1, normalized: true };
+    }
+    // 2) Se rects for array simples (pixels)
+    if (Array.isArray(pack)) {
+      return { list: pack, basisW: null, basisH: null, normalized: false };
+    }
+    // 3) Se rects for objeto { basisW, basisH, items: [] }
+    if (pack && Array.isArray(pack.items)) {
+      return { list: pack.items, basisW: pack.basisW || null, basisH: pack.basisH || null, normalized: false };
+    }
+    // 4) Nada válido
+    return { list: [], basisW: null, basisH: null, normalized: false };
+  }
+
+  // NOVO: converte coordenadas do retângulo para o canvas atual
+  function mapRectToCanvas(r, basisW, basisH, normalized) {
+    if (!canvas || !r) return r;
+    if (normalized === true || (r.w <= 1 && r.h <= 1)) {
+      // 0..1
       return { x: r.x * canvas.width, y: r.y * canvas.height, w: r.w * canvas.width, h: r.h * canvas.height };
     }
-    // 2) Com base (basisW/H) no próprio objeto da anotação
-    const basisW = ann?.basisW || ann?.imageW || (Array.isArray(ann?.rects?.items) ? ann.rects.basisW : null) || null;
-    const basisH = ann?.basisH || ann?.imageH || (Array.isArray(ann?.rects?.items) ? ann.rects.basisH : null) || null;
     if (basisW && basisH) {
       const sx = canvas.width / basisW;
       const sy = canvas.height / basisH;
       return { x: r.x * sx, y: r.y * sy, w: r.w * sx, h: r.h * sy };
     }
-    // 3) Pixel bruto (melhor esforço): desenha como está
-    return r;
+    // Fallback: tentar escalar pela dimensão natural da imagem
+    const bw = (imgEl?.naturalWidth) || canvas.width;
+    const bh = (imgEl?.naturalHeight) || canvas.height;
+    const sx = canvas.width / bw, sy = canvas.height / bh;
+    return { x: r.x * sx, y: r.y * sy, w: r.w * sx, h: r.h * sy };
   }
 
   function drawAllRects(annotations) {
     if (!ctx || !canvas) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
-      // Suporta rects como array bruto, normalizado ou objeto {basisW,basisH,items:[]}
-      const pack = a.rects;
-      const list = Array.isArray(pack) ? pack : (Array.isArray(pack?.items) ? pack.items : []);
-      list.forEach(r => drawRect(mapRectToCanvas(r, (Array.isArray(pack) ? a : { ...a, basisW: pack?.basisW, basisH: pack?.basisH })), a.color));
+      const pack = extractRectsPack(a);
+      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color));
     });
   }
 
@@ -252,15 +272,12 @@
           $essayView.appendChild(img);
           $essayView.appendChild(cvs);
 
-          const fit = () => fitCanvas(corr?.annotations || []);
-          if (img.complete) {
-            // Imagem já em cache
-            fit();
-          } else {
-            img.onload = fit;
-          }
-          window.addEventListener('resize', fit);
-          setTimeout(fit, 80);
+          const fit = () => drawAllRects(corr?.annotations || []); // redesenha sempre usando extract/map
+          const fitSize = () => fitCanvas(corr?.annotations || []);
+
+          if (img.complete) { fitSize(); } else { img.onload = fitSize; }
+          window.addEventListener('resize', fitSize);
+          setTimeout(fitSize, 80);
         } else {
           const div = document.createElement('div');
           div.className = 'essay-text';

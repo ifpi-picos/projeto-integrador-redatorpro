@@ -6,67 +6,70 @@
   <div class="page-content">
     <div class="corrigidas-page">
       <main class="corr-layout">
+        <!-- Coluna Esquerda: Corretor + Redação Corrigida -->
         <section class="card essay-card">
           <div class="essay-meta">
             <h2 id="temaTxt">Correção</h2>
             <p id="infoTxt" class="muted">—</p>
           </div>
-          <div id="essayView" class="essay-view">
-            <!-- Texto ou Imagem+Canvas -->
-          </div>
-        </section>
 
-        <aside class="card side-card">
-          <div class="nota-e-corretor">
-            <div class="nota-total">
-              <span class="label">Nota Total</span>
-              <span class="valor" id="notaTotalTxt">—</span>
-            </div>
+          <!-- Bloco Corretor -->
+          <div class="block">
+            <h3 class="section-title">Corretor</h3>
             <div class="corretor-info" id="corretorInfo" title="Corretor">
               <img id="corretorAvatar" alt="Corretor">
               <span id="corretorNome">—</span>
             </div>
           </div>
 
-          <h3>Notas por competência</h3>
-          <div class="competencias" id="competenciasBox"></div>
+          <!-- Redação Corrigida -->
+          <div class="block">
+            <h3 class="section-title">Redação Corrigida</h3>
+            <div id="essayView" class="essay-view">
+              <!-- Texto ou Imagem+Canvas -->
+            </div>
+          </div>
+        </section>
 
-          <h3>Comentários gerais</h3>
-          <div class="comentarios" id="comentariosBox">—</div>
+        <!-- Coluna Central: Comentário Geral + Marcações -->
+        <aside class="card mid-card">
+          <div class="block">
+            <h3 class="section-title">Comentário Geral</h3>
+            <div class="comentarios" id="comentariosBox">—</div>
+          </div>
 
-          <h3>Marcações e observações</h3>
-          <div id="obsList" class="obs-list"></div>
+          <div class="block">
+            <h3 class="section-title">Marcações e Observações</h3>
+            <div id="obsList" class="obs-list"></div>
+          </div>
         </aside>
+
+        <!-- Coluna Direita: Nota Total + Competências -->
+        <aside class="card side-card">
+          <div class="block">
+            <h3 class="section-title">Nota Total</h3>
+            <div class="nota-total nota-total-large">
+              <span class="valor" id="notaTotalTxt">—</span>
+            </div>
+          </div>
+        </aside>
+          <div class="block">
+            <h3 class="section-title">Notas e Comentários</h3>
+            <div class="competencias" id="competenciasBox"></div>      <!-- Estados -->
+          </div>" class="state">Carregando correção...</div>
+        </aside> ainda não disponível.</div>
       </main>
 
       <!-- Estados -->
       <div id="loading" class="state">Carregando correção...</div>
       <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
-      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>
+      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div><!-- Assets (fallback para acesso direto, como em pendentes.html) -->
     </div>
   </div>
 </div>
 
-<!-- Assets (fallback para acesso direto, como em pendentes.html) -->
-<script src="lib/framework7-bundle.min.js"></script>
-<script src="lib/jquery-3.7.0.min.js"></script>
-<script src="js/routes.js"></script>
-<script src="cordova.js"></script>
-<script src="js/corrigidas.js"></script>
-        </aside>
-      </main>
-
-      <!-- Estados -->
-      <div id="loading" class="state">Carregando correção...</div>
-      <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
-      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>
-    </div>
-  </div>
-</div>
-
-<!-- Assets (fallback para acesso direto, como em pendentes.html) -->
-<script src="lib/framework7-bundle.min.js"></script>
-<script src="lib/jquery-3.7.0.min.js"></script>
+<!-- Assets (fallback para acesso direto) -->cript>
+<script src="lib/framework7-bundle.min.js"></script><script src="lib/jquery-3.7.0.min.js"></script>
 <script src="js/routes.js"></script>
 <script src="cordova.js"></script>
 <script src="js/corrigidas.js"></script>

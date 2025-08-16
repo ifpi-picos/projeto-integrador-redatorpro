@@ -21,12 +21,12 @@
 /* Grid principal ocupando toda a largura disponível */
 .corr-layout {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .8fr);
   gap: clamp(16px, 2.2vw, 24px); /* mais respiro entre os cards */
   align-items: start;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .corr-layout { grid-template-columns: 1fr; }
 }
 
@@ -159,12 +159,13 @@
   white-space:pre-wrap;
   font-size: 0.98rem;
   line-height: 1.7;
+  min-height: 120px;
 }
 
 /* Lista de observações com rolagem quando longa */
 .corrigidas-page .obs-list {
   display:flex; flex-direction:column; gap:10px; margin-top:8px;
-  max-height: 380px;
+  max-height: 420px;
   overflow: auto;
 }
 @media (max-width: 900px) {
@@ -191,4 +192,29 @@
   color:#6b7280;
   margin: 22px 0 6px;
   font-size: .95rem;
+}
+
+/* Utilitários de seção internos aos cards */
+.corrigidas-page .block { margin-top: 12px; }
+.corrigidas-page .section-title {
+  margin: 0 0 8px;
+  color: var(--primary);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Nota total grande (badge) */
+.corrigidas-page .nota-total-large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 12px;
+  border-radius: 14px;
+  background: #f4f7ff;
+  border: 1px dashed var(--border);
+}
+.corrigidas-page .nota-total-large .valor {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
 }

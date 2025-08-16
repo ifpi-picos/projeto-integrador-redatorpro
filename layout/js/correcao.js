@@ -244,6 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
             resizeCanvas();
             // Reforço: reavalia estado quando a imagem terminar de carregar
             setMarkModes(false, false);
+            // Reaplica qualquer anotação carregada (agora com escala)
+            drawAllRects();
         };
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
@@ -316,6 +318,32 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.strokeRect(r.x, r.y, r.w, r.h);
         ctx.restore();
     }
+
+    // NOVO: utilitários para desenhar marcações carregadas respeitando base/normalização
+    function extractRectsPack(ann) {
+        let pack = ann?.rects ?? null;
+        if (typeof pack === 'string') {
+            try { pack = JSON.parse(pack); } catch (_) { pack = null; }
+        }
+        if (Array.isArray(ann?.rectsNormalized) && ann.rectsNormalized.length) {
+            return { list: ann.rectsNormalized, basisW: 1, basisH: 1, normalized: true };
+        }
+        if (Array.isArray(pack)) return { list: pack, basisW: null, basisH: null, normalized: false };
+        if (pack && Array.isArray(pack.items)) return { list: pack.items, basisW: pack.basisW || null, basisH: pack.basisH || null, normalized: false };
+        return { list: [], basisW: null, basisH: null, normalized: false };
+    }
+    function mapRectToCanvas(r, basisW, basisH, normalized) {
+        if (!canvas || !r) return r;
+        if (normalized === true || (r.w <= 1 && r.h <= 1)) {
+            return { x: r.x * canvas.width, y: r.y * canvas.height, w: r.w * canvas.width, h: r.h * canvas.height };
+        }
+        if (basisW && basisH) {
+            const sx = canvas.width / basisW, sy = canvas.height / basisH;
+            return { x: r.x * sx, y: r.y * sy, w: r.w * sx, h: r.h * sy };
+        }
+        return r;
+    }
+
     function drawAllRects() {
         // Evita ReferenceError se canvas não existir ainda
         if (typeof canvas === 'undefined' || !ctx || !canvas) return;
@@ -323,9 +351,8 @@ document.addEventListener('DOMContentLoaded', function() {
         annotations
           .filter(a => a.tipo === 'imagem')
           .forEach(a => {
-              const pack = a.rects;
-              const list = Array.isArray(pack) ? pack : (Array.isArray(pack?.items) ? pack.items : []);
-              list.forEach(r => drawRect(r, a.color || '#ffea00'));
+              const pack = extractRectsPack(a);
+              pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color || '#ffea00'));
           });
     }
 
@@ -470,11 +497,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // marcações
                 (corr.annotations || []).forEach(a => {
-                    const ann = { 
+                    const ann = {
                         id: a.id ? `ann-${a.id}` : ('ann-' + (Date.now() + Math.random().toString(16).slice(2))),
                         tipo: a.tipo, rangeStart: a.rangeStart, rangeEnd: a.rangeEnd,
-                        snippet: a.snippet, rects: a.rects, color: a.color || '#ffea00',
-                        comment: a.comment || ''
+                        snippet: a.snippet, rects: a.rects, rectsNormalized: a.rectsNormalized,
+                        color: a.color || '#ffea00', comment: a.comment || ''
                     };
                     annotations.push(ann);
                     addObsItem(ann);

@@ -2,20 +2,33 @@
   const API = 'https://express-e3hm.onrender.com';
 
   function getIdFromUrl() {
-    // 1) Tenta querystring normal
-    let id = Number(new URLSearchParams(location.search).get('id'));
+    // NOVO: tenta via Framework7
+    const qId = window.app?.views?.main?.router?.currentRoute?.query?.id;
+    if (qId !== undefined && qId !== null) {
+      const n = Number(qId);
+      if (Number.isFinite(n) && n > 0) return n;
+    }
+
+    // 1) Querystring normal
+    let id = Number(new URLSearchParams(window.location.search).get('id'));
     if (Number.isFinite(id) && id > 0) return id;
 
-    // 2) Tenta via hash do Framework7 (#/corrigidas/?id=123)
-    const hash = location.hash || '';
-    const qi = hash.indexOf('?');
-    if (qi >= 0) {
-      const qs = new URLSearchParams(hash.slice(qi + 1));
-      id = Number(qs.get('id'));
+    // 2) Hash do Framework7 (#/corrigidas/?id=123)
+    const hash = window.location.hash || '';
+    const mHash = /[?&]id=(\d+)/.exec(hash);
+    if (mHash) {
+      id = Number(mHash[1]);
       if (Number.isFinite(id) && id > 0) return id;
     }
 
-    // 3) Fallback: último id usado
+    // 3) Href completo (qualquer forma)
+    const mHref = /[?&]id=(\d+)/.exec(window.location.href || '');
+    if (mHref) {
+      id = Number(mHref[1]);
+      if (Number.isFinite(id) && id > 0) return id;
+    }
+
+    // 4) Fallback: último id persistido
     id = Number(localStorage.getItem('lastEssayId') || '0');
     return Number.isFinite(id) && id > 0 ? id : null;
   }

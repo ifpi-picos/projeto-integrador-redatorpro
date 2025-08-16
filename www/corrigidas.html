@@ -3,55 +3,55 @@
     <a href="/pendentes/" class="back-button"><i class="ri-arrow-left-s-line"></i></a>
   </div>
 
-  <div class="page-content no-padding">
-    <!-- Header leve (consistente com pendentes) -->
-    <div class="correction-header">
-      <div class="header-icon"><i class="ri-verified-badge-line"></i></div>
-      <div>
-        <h1>Correção</h1>
-        <p class="header-subtitle">Veja o feedback detalhado da sua redação</p>
-      </div>
-    </div>
-
-    <div class="correction-container corrigidas-container">
-      <!-- Header card com nota e corretor -->
-      <header class="corr-header">
-        <div class="header-left">
-          <div class="header-icon"><i class="ri-verified-badge-line"></i></div>
-          <div>
-            <h1 id="temaTxt">Correção</h1>
-            <p class="subtitle" id="infoTxt">—</p>
+  <div class="page-content">
+    <div class="corrigidas-page">
+      <main class="corr-layout">
+        <section class="card essay-card">
+          <div class="essay-meta">
+            <h2 id="temaTxt">Correção</h2>
+            <p id="infoTxt" class="muted">—</p>
           </div>
-        </div>
-        <div class="header-right">
-          <div class="nota-total">
-            <span class="label">Nota Total</span>
-            <span class="valor" id="notaTotalTxt">—</span>
-          </div>
-          <div class="corretor-info" id="corretorInfo" title="Corretor">
-            <img id="corretorAvatar" alt="Corretor">
-            <span id="corretorNome">—</span>
-          </div>
-        </div>
-      </header>
-
-      <!-- Conteúdo -->
-      <main class="corr-grid">
-        <section class="essay-card">
-          <h2>Redação</h2>
           <div id="essayView" class="essay-view">
             <!-- Texto ou Imagem+Canvas -->
           </div>
         </section>
 
-        <aside class="side-card">
-          <h2>Notas por competência</h2>
+        <aside class="card side-card">
+          <div class="nota-e-corretor">
+            <div class="nota-total">
+              <span class="label">Nota Total</span>
+              <span class="valor" id="notaTotalTxt">—</span>
+            </div>
+            <div class="corretor-info" id="corretorInfo" title="Corretor">
+              <img id="corretorAvatar" alt="Corretor">
+              <span id="corretorNome">—</span>
+            </div>
+          </div>
+
+          <h3>Notas por competência</h3>
           <div class="competencias" id="competenciasBox"></div>
 
-          <h2 style="margin-top:18px;">Comentários gerais</h2>
+          <h3>Comentários gerais</h3>
           <div class="comentarios" id="comentariosBox">—</div>
 
-          <h2 style="margin-top:18px;">Marcações e observações</h2>
+          <h3>Marcações e observações</h3>
+          <div id="obsList" class="obs-list"></div>
+        </aside>
+      </main>
+
+      <div id="loading" class="state">Carregando correção...</div>
+      <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
+      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Fallbacks (não afetam outras telas) -->
+<script src="lib/framework7-bundle.min.js"></script>
+<script src="lib/jquery-3.7.0.min.js"></script>
+<script src="js/routes.js"></script>
+<script src="cordova.js"></script>
+<script src="js/corrigidas.js"></script>
           <div id="obsList" class="obs-list"></div>
         </aside>
       </main>

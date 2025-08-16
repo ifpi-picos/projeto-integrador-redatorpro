@@ -43,8 +43,8 @@
         "id": 6,
         "imagem": "img/default.png",
         "nome": "Repertórios",
-        "rating": "premium",
-        "icone": "ri-lock-star-fill",
+        "rating": "",
+        "icone": "",
         "url": "/pendentes/"
     },
     {
@@ -59,8 +59,8 @@
         "id": 8,
         "imagem": "img/default.png",
         "nome": "Comunidade",
-        "rating": "premium",
-        "icone": "ri-lock-star-fill",
+        "rating": "",
+        "icone": "",
         "url": "/pendentes/"
     }
 ]

@@ -8,7 +8,6 @@
     --color-hover-primary: #695CFE;
     --color-hover-secondary: #e2e2fb;
     --color-shadow: rgba(0, 0, 0, 0.05);
-
 }
 
 
@@ -27,6 +26,7 @@
     backdrop-filter: blur(10px); /* ajuste o valor para mais ou menos blur */
     -webkit-backdrop-filter: blur(10px); /* para compatibilidade com Safari */
 }
+
 .profile-container-mobile {
     padding: 0 15px;
 }
@@ -443,4 +443,106 @@
 }
 .editing:focus {
     animation: editing-focus 1s;
+}
+
+/* ============================================= */
+/* MEDIA QUERIES PARA RESPONSIVIDADE EM DESKTOP  */
+/* ============================================= */
+
+/* Tablet (768px ou mais) */
+@media (min-width: 768px) {
+    .profile-container-mobile {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .profile-header-mobile {
+        padding: 40px 30px 30px;
+    }
+    
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profile-name {
+        font-size: 26px;
+    }
+    
+    .profile-section-title {
+        font-size: 20px;
+    }
+    
+    .profile-card {
+        font-size: 16px;
+    }
+}
+
+/* Desktop (1024px ou mais) */
+@media (min-width: 1024px) {
+    .profile-container-mobile {
+        max-width: 800px;
+        padding: 0 30px;
+    }
+    
+    .profile-header-mobile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        padding: 30px;
+    }
+    
+    .profile-avatar {
+        margin: 0 30px 0 0;
+        flex-shrink: 0;
+    }
+    
+    .profile-header-content {
+        flex: 1;
+    }
+    
+    .profile-actions {
+        justify-content: flex-start;
+        gap: 20px;
+    }
+    
+    .profile-stats {
+        justify-content: flex-start;
+        gap: 40px;
+    }
+    
+    .profile-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .page-content {
+        padding: 20px 0 40px;
+    }
+    
+    .profile-section-title {
+        margin: 30px 0 20px;
+    }
+    
+    .profile-card {
+        padding: 25px;
+    }
+}
+
+/* Telas grandes (1200px ou mais) */
+@media (min-width: 1200px) {
+    .profile-container-mobile {
+        max-width: 1000px;
+    }
+    
+    .profile-name {
+        font-size: 28px;
+    }
+    
+    .profile-type {
+        font-size: 16px;
+    }
 }

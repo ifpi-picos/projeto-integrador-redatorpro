@@ -56,19 +56,22 @@
                                     </i>
                                 </span>
                             </div>
-                            <!-- Nome do usuário -->
-                            <h1 class="profile-name" id="profileName" aria-label="Nome do usuário">Carregando...</h1>
-                            <!-- Tipo de usuário -->
-                            <div class="profile-type" id="profileTipo" aria-label="Tipo de usuário"></div>
-                            <!-- Instagram editável -->
-                            <div style="margin:10px 0;">
-                                <span id="instagramSpan" aria-label="Instagram"></span>
-                                <input type="text" id="instagramInput" style="display:none" placeholder="Seu Instagram" aria-label="Instagram">
-                            </div>
-                            <!-- E-mail do usuário -->
-                            <div class="profile-status" aria-label="E-mail do usuário">
-                                <span class="material-symbols-outlined">email</span>
-                                <span id="profileEmail" aria-label="E-mail do usuário">carregando...</span>
+                            <!-- Conteúdo do header -->
+                            <div class="profile-header-content">
+                                <!-- Nome do usuário -->
+                                <h1 class="profile-name" id="profileName" aria-label="Nome do usuário">Carregando...</h1>
+                                <!-- Tipo de usuário -->
+                                <div class="profile-type" id="profileTipo" aria-label="Tipo de usuário"></div>
+                                <!-- Instagram editável -->
+                                <div style="margin:10px 0;">
+                                    <span id="instagramSpan" aria-label="Instagram"></span>
+                                    <input type="text" id="instagramInput" style="display:none" placeholder="Seu Instagram" aria-label="Instagram">
+                                </div>
+                                <!-- E-mail do usuário -->
+                                <div class="profile-status" aria-label="E-mail do usuário">
+                                    <span class="material-symbols-outlined">email</span>
+                                    <span id="profileEmail" aria-label="E-mail do usuário">carregando...</span>
+                                </div>
                             </div>
                         </div>
                         
@@ -97,18 +100,25 @@
                             </div>
                         </div>
 
-                        <!-- Seção Sobre Mim -->
-                        <h2 class="profile-section-title">Sobre Mim</h2>
-                        <div class="profile-card">
-                            <p id="descricaoPerfil" style="min-height:40px;" aria-label="Descrição do perfil">Clique no lápis para editar sua descrição.</p>
-                            <textarea id="descricaoInput" style="display:none;width:100%;min-height:60px;" aria-label="Descrição"></textarea>
-                        </div>
+                        <!-- Grid para as seções no desktop -->
+                        <div class="profile-grid">
+                            <!-- Seção Sobre Mim -->
+                            <div>
+                                <h2 class="profile-section-title">Sobre Mim</h2>
+                                <div class="profile-card">
+                                    <p id="descricaoPerfil" style="min-height:40px;" aria-label="Descrição do perfil">Clique no lápis para editar sua descrição.</p>
+                                    <textarea id="descricaoInput" style="display:none;width:100%;min-height:60px;" aria-label="Descrição"></textarea>
+                                </div>
+                            </div>
 
-                        <!-- Seção Áreas de Interesse -->
-                        <h2 class="profile-section-title">Áreas de Interesse</h2>
-                        <div class="profile-card">
-                            <div class="interests" aria-label="Áreas de interesse">
-                                <!-- Tags dinâmicas serão inseridas via JS -->
+                            <!-- Seção Áreas de Interesse -->
+                            <div>
+                                <h2 class="profile-section-title">Áreas de Interesse</h2>
+                                <div class="profile-card">
+                                    <div class="interests" aria-label="Áreas de interesse">
+                                        <!-- Tags dinâmicas serão inseridas via JS -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

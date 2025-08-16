@@ -2,54 +2,54 @@
   <div class="buttons-top">
     <a href="/pendentes/" class="back-button"><i class="ri-arrow-left-s-line"></i></a>
   </div>
-
   <div class="page-content">
-    <div class="corrigidas-page">
-      <main class="corr-layout">
-        <!-- Coluna Esquerda: Corretor + Redação Corrigida -->
-        <section class="card essay-card">
-          <div class="essay-meta">
-            <h2 id="temaTxt">Correção</h2>
-            <p id="infoTxt" class="muted">—</p>
+    <div class="corrigidas-modern-layout">
+      <header class="corr-header">
+        <div>
+          <h2 id="temaTxt">Correção</h2>
+          <p id="infoTxt" class="muted">—</p>
+        </div>
+        <div class="corr-nota-total">
+          <span class="label">Nota Total</span>
+          <span class="valor" id="notaTotalTxt">—</span>
+        </div>
+      </header>
+      <section class="corr-main">
+        <div class="corr-main-left">
+          <div class="corr-corretor">
+            <img id="corretorAvatar" alt="Corretor">
+            <span id="corretorNome">—</span>
           </div>
-
-          <!-- Bloco Corretor -->
-          <div class="block">
-            <h3 class="section-title">Corretor</h3>
-            <div class="corretor-info" id="corretorInfo" title="Corretor">
-              <img id="corretorAvatar" alt="Corretor">
-              <span id="corretorNome">—</span>
-            </div>
+          <div class="corr-essay-area" id="essayView">
+            <!-- Redação (texto ou imagem+canvas) -->
           </div>
-
-          <!-- Redação Corrigida -->
-          <div class="block">
-            <h3 class="section-title">Redação Corrigida</h3>
-            <div id="essayView" class="essay-view">
-              <!-- Texto ou Imagem+Canvas -->
-            </div>
+        </div>
+        <div class="corr-main-right">
+          <div class="corr-comentarios">
+            <h3>Comentário Geral</h3>
+            <div id="comentariosBox">—</div>
           </div>
-        </section>
-
-        <!-- Coluna Central: Comentário Geral + Marcações -->
-        <aside class="card mid-card">
-          <div class="block">
-            <h3 class="section-title">Comentário Geral</h3>
-            <div class="comentarios" id="comentariosBox">—</div>
+          <div class="corr-competencias">
+            <h3>Notas por Competência</h3>
+            <div id="competenciasBox"></div>
           </div>
-
-          <div class="block">
-            <h3 class="section-title">Marcações e Observações</h3>
-            <div id="obsList" class="obs-list"></div>
+          <div class="corr-obs">
+            <h3>Marcações e Observações</h3>
+            <div id="obsList"></div>
           </div>
-        </aside>
-
-        <!-- Coluna Direita: Nota Total + Competências -->
-        <aside class="card side-card">
-          <div class="block">
-            <h3 class="section-title">Nota Total</h3>
-            <div class="nota-total nota-total-large">
-              <span class="valor" id="notaTotalTxt">—</span>
+        </div>
+      </section>
+      <div id="loading" class="state">Carregando correção...</div>
+      <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
+      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>
+    </div>
+  </div>
+</div>
+<script src="lib/framework7-bundle.min.js"></script>
+<script src="lib/jquery-3.7.0.min.js"></script>
+<script src="js/routes.js"></script>
+<script src="cordova.js"></script>
+<script src="js/corrigidas.js"></script>
             </div>
           </div>
         </aside>

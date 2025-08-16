@@ -47,11 +47,14 @@
   const $corrNome = document.getElementById('corretorNome');
   const $corrAvatar = document.getElementById('corretorAvatar');
 
+  // Corrigido: área da redação
   const $essayView = document.getElementById('essayView');
+  // Corrigido: competências, comentários, observações
   const $competencias = document.getElementById('competenciasBox');
   const $comentarios = document.getElementById('comentariosBox');
   const $obsList = document.getElementById('obsList');
 
+  // Estados
   const $loading = document.getElementById('loading');
   const $empty = document.getElementById('empty');
   const $error = document.getElementById('error');

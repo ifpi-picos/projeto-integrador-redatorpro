@@ -1,220 +1,270 @@
-/* Escopo exclusivo desta página */
-.corrigidas-page {
-  /* Variáveis locais (não afetam o resto do site) */
-  --card:#fff;
-  --border:#e5e7eb;
-  --muted:#6b7280;
-  --text:#1f2937;
-  --primary:#4361ee;
-  --primary-dark:#2743b8;
-  --ok:#16a34a;
-  --bg:#f7f8fa;
+/* Layout moderno para página de correção */
+.corrigidas-modern-layout {
+  --primary: #4361ee;
+  --primary-dark: #2743b8;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --bg: #f7f8fa;
+  --card: #fff;
+  --ok: #16a34a;
+  --text: #1f2937;
 
-  width: 100%;
-  padding: clamp(8px, 2vw, 18px);
+  width: 100vw;
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
-
-  max-width: 1320px; /* ocupa mais da largura útil */
-  margin: 0 auto;    /* centraliza no viewport */
+  display: flex;
+  flex-direction: column;
 }
 
-/* Grid principal ocupando toda a largura disponível */
-.corr-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .8fr);
-  gap: clamp(16px, 2.2vw, 24px); /* mais respiro entre os cards */
-  align-items: start;
+.corr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 32px 4vw 18px 4vw;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.corr-header h2 {
+  margin: 0 0 2px 0;
+  color: var(--primary-dark);
+  font-size: 2rem;
+  font-weight: 800;
+}
+.corr-header .muted {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+.corr-nota-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: #f4f7ff;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 12px 24px;
+  min-width: 120px;
+}
+.corr-nota-total .label {
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 600;
+}
+.corr-nota-total .valor {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+  margin-top: 2px;
 }
 
-@media (max-width: 1100px) {
-  .corr-layout { grid-template-columns: 1fr; }
+.corr-main {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 4vw 32px 4vw;
+  gap: 36px;
+  background: var(--bg);
+}
+@media (max-width: 900px) {
+  .corr-main {
+    flex-direction: column;
+    gap: 18px;
+    padding: 0 2vw 24px 2vw;
+  }
 }
 
-/* Cards com maior conforto */
-.corrigidas-page .card {
+.corr-main-left, .corr-main-right {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.corr-main-left {
+  flex: 1.5 1 0;
+  min-width: 320px;
+  max-width: 900px;
+  gap: 18px;
+}
+.corr-main-right {
+  flex: 1 1 0;
+  min-width: 260px;
+  max-width: 480px;
+  gap: 22px;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+@media (max-width: 900px) {
+  .corr-main-left, .corr-main-right {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .corr-main-right {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.corr-corretor {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: clamp(14px, 2.2vw, 22px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.06);
-}
-
-/* Título e meta com melhor hierarquia */
-.corrigidas-page .essay-meta h2 {
-  margin: 0 0 2px;
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--primary-dark);
-  font-size: 1.35rem;
+  margin-bottom: 2px;
 }
-.corrigidas-page .essay-meta .muted {
-  margin: 0 0 10px;
-  color: var(--muted);
-  font-size: 1rem;
+.corr-corretor img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e0e7ff;
+  background: #fff;
 }
 
-/* Área da redação mais confortável */
-.corrigidas-page .essay-view {
-  position: relative;
+.corr-essay-area {
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  background: #fcfcfd;
-  padding: clamp(14px, 2.2vw, 22px);
-  overflow: hidden;
+  border-radius: 14px;
+  padding: 24px 18px;
+  min-height: 220px;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: auto;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  font-size: 1.13rem;
+  color: var(--text);
+  max-height: 60vh;
 }
-.corrigidas-page .essay-text {
+@media (max-width: 900px) {
+  .corr-essay-area {
+    max-height: 40vh;
+    padding: 16px 8px;
+  }
+}
+.corr-essay-area .essay-text {
   white-space: pre-wrap;
   line-height: 1.85;
   letter-spacing: 0.1px;
-  font-size: 1.075rem;
-  color: #1f2937;
+  font-size: 1.13rem;
+  color: var(--text);
 }
-.corrigidas-page .highlight {
+.corr-essay-area .highlight {
   border-radius: 3px;
   padding: 0 2px;
   box-shadow: inset 0 -2px 0 rgba(0,0,0,0.05);
 }
 
-/* Imagem com borda sutil para destacar marcações */
-.corrigidas-page #essayImage {
+.corr-essay-area #essayImage {
   max-width: 100%;
   height: auto;
-  display: inline-block; /* necessário p/ offsetLeft correto quando centralizado */
+  display: block;
   margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   background: #fff;
 }
-
-/* Canvas permanece absoluto */
-.corrigidas-page #essayCanvas {
+.corr-essay-area #essayCanvas {
   position: absolute;
   left: 0;
   top: 0;
   pointer-events: none;
+  z-index: 2;
 }
 
-/* Painel lateral mais legível e sticky em telas grandes */
-.corrigidas-page .side-card h3 {
-  margin: 16px 0 10px;
+.corr-comentarios, .corr-competencias, .corr-obs {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  min-width: 0;
+}
+.corr-comentarios h3,
+.corr-competencias h3,
+.corr-obs h3 {
+  margin: 0 0 10px 0;
   color: var(--primary);
   font-size: 1.08rem;
+  font-weight: 700;
 }
-@media (min-width: 901px) {
-  .corrigidas-page .side-card {
-    position: sticky;
-    top: clamp(8px, 2vw, 16px);
-    align-self: start;
-  }
-}
-
-/* Nota e corretor com melhor destaque */
-.corrigidas-page .nota-total {
-  background:#fff;
-  border:1px dashed var(--border);
-  border-radius:12px;
-  padding:8px 12px;
-}
-.corrigidas-page .nota-total .label {
-  display:block; color:var(--muted); font-size:.8rem;
-}
-.corrigidas-page .nota-total .valor {
-  display:block; font-weight:800; font-size:1.6rem; color:var(--primary-dark);
-}
-.corrigidas-page .corretor-info {
-  display:flex; align-items:center; gap:8px;
-  border:1px solid var(--border); border-radius:12px; padding:6px 10px; background:#fff;
-}
-.corrigidas-page .corretor-info img {
-  width:28px; height:28px; border-radius:50%; object-fit:cover; border:2px solid #e0e7ff;
-}
-.corrigidas-page .corretor-info span {
-  font-weight:600; color:#374151;
-  font-size: .95rem;
+.corr-comentarios #comentariosBox {
+  color: #374151;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  min-height: 60px;
 }
 
-/* Competências: separadores sutis entre linhas */
-.corrigidas-page .competencias {
-  display:grid;
+.corr-competencias #competenciasBox {
+  display: grid;
   grid-template-columns: 1fr 80px;
-  gap:8px;
+  gap: 8px;
   row-gap: 10px;
 }
-.corrigidas-page .comp-label {
+.corr-competencias .comp-label {
   color: var(--muted);
   padding: 2px 0;
   border-bottom: 1px dashed rgba(0,0,0,0.06);
 }
-.corrigidas-page .comp-valor {
-  justify-self:end;
-  font-weight:700;
+.corr-competencias .comp-valor {
+  justify-self: end;
+  font-weight: 700;
   border-bottom: 1px dashed rgba(0,0,0,0.06);
 }
 
-/* Comentários com tipografia maior */
-.corrigidas-page .comentarios {
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:10px;
-  background:#fafafa;
-  color:#374151;
-  white-space:pre-wrap;
-  font-size: 0.98rem;
-  line-height: 1.7;
-  min-height: 120px;
-}
-
-/* Lista de observações com rolagem quando longa */
-.corrigidas-page .obs-list {
-  display:flex; flex-direction:column; gap:10px; margin-top:8px;
-  max-height: 420px;
-  overflow: auto;
+.corr-obs #obsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 220px;
+  overflow-y: auto;
 }
 @media (max-width: 900px) {
-  .corrigidas-page .obs-list {
+  .corr-obs #obsList {
     max-height: none;
     overflow: visible;
   }
 }
-.corrigidas-page .obs-item {
-  border:1px solid var(--border); border-radius:12px; padding:10px; background:#fff;
+.corr-obs .obs-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fafafa;
   box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
-.corrigidas-page .obs-title {
-  font-weight:600; margin-bottom:4px; color:#374151; display:flex; align-items:center; gap:6px;
-}
-.corrigidas-page .obs-dot {
-  width:10px; height:10px; border-radius:50%; border:1px solid #e5e7eb; display:inline-block;
-}
-.corrigidas-page .obs-text { color:#4b5563; white-space:pre-wrap }
-
-/* Estados com mais respiro */
-.corrigidas-page .state {
-  text-align:center;
-  color:#6b7280;
-  margin: 22px 0 6px;
-  font-size: .95rem;
-}
-
-/* Utilitários de seção internos aos cards */
-.corrigidas-page .block { margin-top: 12px; }
-.corrigidas-page .section-title {
-  margin: 0 0 8px;
-  color: var(--primary);
-  font-size: 1.05rem;
+.corr-obs .obs-title {
   font-weight: 600;
-}
-
-/* Nota total grande (badge) */
-.corrigidas-page .nota-total-large {
+  margin-bottom: 4px;
+  color: #374151;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 18px 12px;
-  border-radius: 14px;
-  background: #f4f7ff;
-  border: 1px dashed var(--border);
+  gap: 6px;
 }
-.corrigidas-page .nota-total-large .valor {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--primary-dark);
+.corr-obs .obs-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  display: inline-block;
+}
+.corr-obs .obs-text {
+  color: #4b5563;
+  white-space: pre-wrap;
+  font-size: .98rem;
+}
+
+/* Estados */
+.state {
+  text-align: center;
+  color: #6b7280;
+  margin: 22px 0 6px;
+  font-size: .98rem;
 }

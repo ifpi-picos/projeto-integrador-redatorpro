@@ -1,4 +1,8 @@
 (function () {
+  // Impede múltiplas inicializações caso o script seja incluído mais de uma vez
+  if (window.__corrigidasInit) return;
+  window.__corrigidasInit = true;
+
   const API = 'https://express-e3hm.onrender.com';
 
   function getIdFromUrl() {
@@ -121,11 +125,33 @@
     ctx.restore();
   }
 
+  // NOVO: converte diferentes formatos de rects para coordenadas do canvas atual
+  function mapRectToCanvas(r, ann) {
+    if (!canvas) return r;
+    // 1) Normalizado (0..1)
+    if (r && r.w <= 1 && r.h <= 1) {
+      return { x: r.x * canvas.width, y: r.y * canvas.height, w: r.w * canvas.width, h: r.h * canvas.height };
+    }
+    // 2) Com base (basisW/H) no próprio objeto da anotação
+    const basisW = ann?.basisW || ann?.imageW || (Array.isArray(ann?.rects?.items) ? ann.rects.basisW : null) || null;
+    const basisH = ann?.basisH || ann?.imageH || (Array.isArray(ann?.rects?.items) ? ann.rects.basisH : null) || null;
+    if (basisW && basisH) {
+      const sx = canvas.width / basisW;
+      const sy = canvas.height / basisH;
+      return { x: r.x * sx, y: r.y * sy, w: r.w * sx, h: r.h * sy };
+    }
+    // 3) Pixel bruto (melhor esforço): desenha como está
+    return r;
+  }
+
   function drawAllRects(annotations) {
     if (!ctx || !canvas) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    (annotations || []).filter(a=>a.tipo==='imagem').forEach(a => {
-      (a.rects || []).forEach(r => drawRect(r, a.color));
+    (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
+      // Suporta rects como array bruto, normalizado ou objeto {basisW,basisH,items:[]}
+      const pack = a.rects;
+      const list = Array.isArray(pack) ? pack : (Array.isArray(pack?.items) ? pack.items : []);
+      list.forEach(r => drawRect(mapRectToCanvas(r, (Array.isArray(pack) ? a : { ...a, basisW: pack?.basisW, basisH: pack?.basisH })), a.color));
     });
   }
 
@@ -143,20 +169,14 @@
 
   function fitCanvas(annotations) {
     if (!imgEl || !canvas) return;
-    // Dimensões reais renderizadas da imagem
     const w = imgEl.clientWidth || imgEl.naturalWidth || 0;
     const h = imgEl.clientHeight || imgEl.naturalHeight || 0;
     if (!w || !h) return;
 
-    // Ajusta tamanho do canvas para combinar com a imagem
     canvas.width = w;
     canvas.height = h;
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
-
-    // Alinhar o canvas à posição visual da imagem dentro do container
-    // Quando a imagem está centralizada (display:inline-block + text-align:center),
-    // offsetLeft/Top dão a posição correta relativa ao .essay-view
     canvas.style.left = (imgEl.offsetLeft || 0) + 'px';
     canvas.style.top = (imgEl.offsetTop || 0) + 'px';
 
@@ -240,7 +260,7 @@
             img.onload = fit;
           }
           window.addEventListener('resize', fit);
-          setTimeout(fit, 60);
+          setTimeout(fit, 80);
         } else {
           const div = document.createElement('div');
           div.className = 'essay-text';

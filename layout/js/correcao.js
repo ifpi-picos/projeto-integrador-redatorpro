@@ -271,9 +271,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const annId = 'ann-' + (Date.now() + Math.random().toString(16).slice(2));
             const ann = {
                 id: annId, tipo: 'imagem',
-                rects: [rect],
+                // NOVO: salva rects com base (compatível com viewer)
+                rects: { basisW: canvas.width, basisH: canvas.height, items: [rect] },
                 rangeStart: null, rangeEnd: null, snippet: null,
-                color: currentColor, // NOVO
+                color: currentColor,
                 comment: ''
             };
             annotations.push(ann);
@@ -321,7 +322,11 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         annotations
           .filter(a => a.tipo === 'imagem')
-          .forEach(a => (a.rects || []).forEach(r => drawRect(r, a.color || '#ffea00')));
+          .forEach(a => {
+              const pack = a.rects;
+              const list = Array.isArray(pack) ? pack : (Array.isArray(pack?.items) ? pack.items : []);
+              list.forEach(r => drawRect(r, a.color || '#ffea00'));
+          });
     }
 
     function addObsItem(ann) {
@@ -535,15 +540,28 @@ document.addEventListener('DOMContentLoaded', function() {
             notas,
             notaTotal: total,
             comentariosGerais: comentariosGeraisEl ? comentariosGeraisEl.value : '',
-            annotations: annotations.map(a => ({
-                tipo: a.tipo,
-                rangeStart: a.rangeStart ?? null,
-                rangeEnd: a.rangeEnd ?? null,
-                snippet: a.snippet ?? null,
-                rects: a.rects ?? null,
-                color: a.color ?? '#ffea00',
-                comment: a.comment ?? ''
-            }))
+            // NOVO: mantém compatibilidade e envia rects com base quando possível
+            annotations: annotations.map(a => {
+                const out = {
+                    tipo: a.tipo,
+                    rangeStart: a.rangeStart ?? null,
+                    rangeEnd: a.rangeEnd ?? null,
+                    snippet: a.snippet ?? null,
+                    color: a.color ?? '#ffea00',
+                    comment: a.comment ?? ''
+                };
+                if (a.tipo === 'imagem') {
+                    if (Array.isArray(a.rects)) {
+                        // converte para pacote com base atual do canvas
+                        out.rects = { basisW: canvas?.width || null, basisH: canvas?.height || null, items: a.rects };
+                    } else {
+                        out.rects = a.rects ?? null; // já no formato {basisW,basisH,items}
+                    }
+                } else {
+                    out.rects = null;
+                }
+                return out;
+            })
         };
 
         try {

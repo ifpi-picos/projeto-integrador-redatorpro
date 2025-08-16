@@ -20,20 +20,36 @@
     height: 100%;
 }
 
-/* Controles (busca + filtros) */
+/* Controles (busca + filtros) - mais espaço ao redor */
 .pendentes-controls {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
-    margin: 6px 2px 8px 2px;
+    margin: 16px 0 16px 0; /* mais respiro do cabeçalho e dos cards */
     flex-wrap: wrap;
 }
+
+/* Wrapper com ícone de lupa */
+.search-wrap {
+    position: relative;
+    flex: 1 1 260px;
+    min-width: 220px;
+}
+.search-wrap i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--azul-escuro);
+    font-size: 18px;
+    pointer-events: none;
+}
 .pendentes-search {
-    flex: 1 1 220px;
-    height: 36px;
+    width: 100%;
+    height: 40px; /* um pouco mais alta */
     border: 1px solid var(--borda);
     border-radius: 8px;
-    padding: 0 10px;
+    padding: 0 10px 0 36px; /* espaço para o ícone */
     background: #fff;
     font-size: .95rem;
     outline: none;
@@ -44,7 +60,7 @@
 }
 .pendentes-filters {
     display: inline-flex;
-    gap: 6px;
+    gap: 8px;
 }
 .filter-chip {
     height: 32px;
@@ -102,9 +118,9 @@
     overflow: visible !important;
 }
 
-/* Lista */
+/* Lista com pequeno espaçamento superior */
 .pendentes-list {
-    margin-top: 8px;
+    margin-top: 12px;
     padding: 0;
     max-width: 100%;
 }
@@ -207,7 +223,7 @@
 /* Responsivo */
 @media (max-width: 900px) {
     .pendentes-container {
-        padding: 0 8px 56px;
+        padding: 0 8px 56px 8px;
     }
 }
 @media (max-width: 620px) {

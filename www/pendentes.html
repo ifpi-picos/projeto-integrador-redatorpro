@@ -3,22 +3,25 @@
         <a href="/index/" class="back-button"><i class="ri-arrow-left-s-line"></i></a>
     </div>
 
-    <!-- Header agora usando o mesmo padrão de iacorretor -->
-    <div class="correction-header">
-        <div class="header-icon">
-            <i class="ri-file-list-line"></i>
-        </div>
-        <h1>Redações Pendentes</h1>
-        <p class="header-subtitle">Acompanhe suas redações aguardando correção</p>
-    </div>
-
-    <!-- ADICIONADO: wrapper scrollável padrão F7 -->
+    <!-- Wrapper rolável -->
     <div class="page-content no-padding">
+        <!-- Cabeçalho agora rola junto -->
+        <div class="correction-header">
+            <div class="header-icon">
+                <i class="ri-file-list-line"></i>
+            </div>
+            <h1>Redações Pendentes</h1>
+            <p class="header-subtitle">Acompanhe suas redações aguardando correção</p>
+        </div>
+
         <!-- Container padronizado + classe específica para estilos dos cards -->
         <div class="correction-container pendentes-container">
             <!-- NOVO: controles -->
             <div class="pendentes-controls">
-                <input id="pendentes-search" type="search" class="pendentes-search" placeholder="Pesquisar por tema...">
+                <div class="search-wrap">
+                    <i class="ri-search-line" aria-hidden="true"></i>
+                    <input id="pendentes-search" type="search" class="pendentes-search" placeholder="Pesquisar por tema...">
+                </div>
                 <div class="pendentes-filters" role="group" aria-label="Filtro de status">
                     <button type="button" id="filter-all" class="filter-chip active">Todas</button>
                     <button type="button" id="filter-pendentes" class="filter-chip">Pendentes</button>

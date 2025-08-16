@@ -126,14 +126,10 @@ window.initPendentesPage = function () {
             const card = document.createElement('div');
             card.className = 'pendente-card ' + (status === 'Corrigida' ? 'card-corrigida' : 'card-pendente');
 
-            const prioridade = status === 'Corrigida' && !isViewed(p.id);
-            const prioridadeBadge = prioridade ? `<span class="pendente-status" style="background:#ffecb3;color:#8d6e63;">PRIORITÁRIA</span>` : '';
-
             card.innerHTML = `
                 <div class="pendente-header">
                     <span class="pendente-tema">${p.tema || 'Tema não informado'}</span>
                     <span class="pendente-status ${status === 'Corrigida' ? 'status-corrigida' : ''}">${status}</span>
-                    ${prioridade ? prioridadeBadge : ''}
                 </div>
                 <div class="pendente-info" style="font-size:0.97rem;color:#555;display:flex;gap:12px;align-items:center;margin-bottom:2px;">
                     ${dataFormatada ? `<span style='color:#888;font-size:0.95em;'><i class='ri-calendar-line'></i> ${dataFormatada}</span>` : ''}
@@ -229,6 +225,10 @@ window.initPendentesPage = function () {
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     setTimeout(() => window.initPendentesPage && window.initPendentesPage(), 50);
 } else {
+    document.addEventListener('DOMContentLoaded', function () {
+        window.initPendentesPage && window.initPendentesPage();
+    });
+}
     document.addEventListener('DOMContentLoaded', function () {
         window.initPendentesPage && window.initPendentesPage();
     });

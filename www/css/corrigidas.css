@@ -13,13 +13,16 @@
   width: 100%;
   padding: clamp(8px, 2vw, 18px);
   box-sizing: border-box;
+
+  max-width: 1320px; /* ocupa mais da largura útil */
+  margin: 0 auto;    /* centraliza no viewport */
 }
 
 /* Grid principal ocupando toda a largura disponível */
 .corr-layout {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: clamp(12px, 2vw, 18px);
+  gap: clamp(16px, 2.2vw, 24px); /* mais respiro entre os cards */
   align-items: start;
 }
 
@@ -27,51 +30,61 @@
   .corr-layout { grid-template-columns: 1fr; }
 }
 
-/* Cards */
+/* Cards com maior conforto */
 .corrigidas-page .card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: clamp(12px, 2vw, 18px);
-  box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+  border-radius: 16px;
+  padding: clamp(14px, 2.2vw, 22px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.06);
 }
 
-/* Meta da redação dentro do card */
+/* Título e meta com melhor hierarquia */
 .corrigidas-page .essay-meta h2 {
   margin: 0 0 2px;
   color: var(--primary-dark);
-  font-size: 1.25rem;
+  font-size: 1.35rem;
 }
 .corrigidas-page .essay-meta .muted {
   margin: 0 0 10px;
   color: var(--muted);
-  font-size: .95rem;
+  font-size: 1rem;
 }
 
-/* Área de visualização da redação */
+/* Área da redação mais confortável */
 .corrigidas-page .essay-view {
   position: relative;
   border: 1px solid var(--border);
   border-radius: 10px;
-  background: #fff;
-  min-height: 260px;
-  padding: 14px;
+  background: #fcfcfd;
+  padding: clamp(14px, 2.2vw, 22px);
   overflow: hidden;
 }
 .corrigidas-page .essay-text {
   white-space: pre-wrap;
-  line-height: 1.75;
-  font-size: 1rem;
-  color: #262626;
+  line-height: 1.85;
+  letter-spacing: 0.1px;
+  font-size: 1.075rem;
+  color: #1f2937;
 }
-.corrigidas-page .highlight { border-radius: 3px; padding: 0 2px; }
+.corrigidas-page .highlight {
+  border-radius: 3px;
+  padding: 0 2px;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.05);
+}
 
+/* Imagem com borda sutil para destacar marcações */
 .corrigidas-page #essayImage {
   max-width: 100%;
   height: auto;
-  display: block;
+  display: inline-block; /* necessário p/ offsetLeft correto quando centralizado */
   margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  background: #fff;
 }
+
+/* Canvas permanece absoluto */
 .corrigidas-page #essayCanvas {
   position: absolute;
   left: 0;
@@ -79,19 +92,21 @@
   pointer-events: none;
 }
 
-/* Lateral direita */
+/* Painel lateral mais legível e sticky em telas grandes */
 .corrigidas-page .side-card h3 {
-  margin: 12px 0 8px;
+  margin: 16px 0 10px;
   color: var(--primary);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
 }
-.corrigidas-page .nota-e-corretor {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 6px;
+@media (min-width: 901px) {
+  .corrigidas-page .side-card {
+    position: sticky;
+    top: clamp(8px, 2vw, 16px);
+    align-self: start;
+  }
 }
+
+/* Nota e corretor com melhor destaque */
 .corrigidas-page .nota-total {
   background:#fff;
   border:1px dashed var(--border);
@@ -102,7 +117,7 @@
   display:block; color:var(--muted); font-size:.8rem;
 }
 .corrigidas-page .nota-total .valor {
-  display:block; font-weight:800; font-size:1.4rem; color:var(--primary-dark);
+  display:block; font-weight:800; font-size:1.6rem; color:var(--primary-dark);
 }
 .corrigidas-page .corretor-info {
   display:flex; align-items:center; gap:8px;
@@ -111,16 +126,30 @@
 .corrigidas-page .corretor-info img {
   width:28px; height:28px; border-radius:50%; object-fit:cover; border:2px solid #e0e7ff;
 }
-.corrigidas-page .corretor-info span { font-weight:600; color:#374151 }
+.corrigidas-page .corretor-info span {
+  font-weight:600; color:#374151;
+  font-size: .95rem;
+}
 
+/* Competências: separadores sutis entre linhas */
 .corrigidas-page .competencias {
   display:grid;
   grid-template-columns: 1fr 80px;
   gap:8px;
+  row-gap: 10px;
 }
-.corrigidas-page .comp-label { color: var(--muted) }
-.corrigidas-page .comp-valor { justify-self:end; font-weight:700 }
+.corrigidas-page .comp-label {
+  color: var(--muted);
+  padding: 2px 0;
+  border-bottom: 1px dashed rgba(0,0,0,0.06);
+}
+.corrigidas-page .comp-valor {
+  justify-self:end;
+  font-weight:700;
+  border-bottom: 1px dashed rgba(0,0,0,0.06);
+}
 
+/* Comentários com tipografia maior */
 .corrigidas-page .comentarios {
   border:1px solid var(--border);
   border-radius:10px;
@@ -128,13 +157,25 @@
   background:#fafafa;
   color:#374151;
   white-space:pre-wrap;
+  font-size: 0.98rem;
+  line-height: 1.7;
 }
 
+/* Lista de observações com rolagem quando longa */
 .corrigidas-page .obs-list {
   display:flex; flex-direction:column; gap:10px; margin-top:8px;
+  max-height: 380px;
+  overflow: auto;
+}
+@media (max-width: 900px) {
+  .corrigidas-page .obs-list {
+    max-height: none;
+    overflow: visible;
+  }
 }
 .corrigidas-page .obs-item {
-  border:1px solid var(--border); border-radius:10px; padding:10px; background:#fff;
+  border:1px solid var(--border); border-radius:12px; padding:10px; background:#fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
 .corrigidas-page .obs-title {
   font-weight:600; margin-bottom:4px; color:#374151; display:flex; align-items:center; gap:6px;
@@ -144,9 +185,10 @@
 }
 .corrigidas-page .obs-text { color:#4b5563; white-space:pre-wrap }
 
-/* Estados */
+/* Estados com mais respiro */
 .corrigidas-page .state {
   text-align:center;
   color:#6b7280;
-  margin-top:18px;
+  margin: 22px 0 6px;
+  font-size: .95rem;
 }

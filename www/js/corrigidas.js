@@ -143,15 +143,23 @@
 
   function fitCanvas(annotations) {
     if (!imgEl || !canvas) return;
+    // Dimensões reais renderizadas da imagem
     const w = imgEl.clientWidth || imgEl.naturalWidth || 0;
     const h = imgEl.clientHeight || imgEl.naturalHeight || 0;
     if (!w || !h) return;
+
+    // Ajusta tamanho do canvas para combinar com a imagem
     canvas.width = w;
     canvas.height = h;
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
-    canvas.style.left = '0px';
-    canvas.style.top = '0px';
+
+    // Alinhar o canvas à posição visual da imagem dentro do container
+    // Quando a imagem está centralizada (display:inline-block + text-align:center),
+    // offsetLeft/Top dão a posição correta relativa ao .essay-view
+    canvas.style.left = (imgEl.offsetLeft || 0) + 'px';
+    canvas.style.top = (imgEl.offsetTop || 0) + 'px';
+
     ctx = canvas.getContext('2d');
     drawAllRects(annotations);
   }
@@ -196,6 +204,7 @@
       const essay = data.essay;
       const corr = data.correction;
 
+      // Cabeçalhos/infos
       if ($tema) $tema.textContent = essay?.tema || 'Correção';
       const dt = essay?.createdAt ? new Date(essay.createdAt).toLocaleString('pt-BR') : '—';
       if ($info) $info.textContent = `Enviada em ${dt} · Modelo: ${essay?.tipoCorrecao?.toUpperCase() || '—'}`;
@@ -224,9 +233,14 @@
           $essayView.appendChild(cvs);
 
           const fit = () => fitCanvas(corr?.annotations || []);
-          img.onload = fit;
+          if (img.complete) {
+            // Imagem já em cache
+            fit();
+          } else {
+            img.onload = fit;
+          }
           window.addEventListener('resize', fit);
-          setTimeout(fit, 50);
+          setTimeout(fit, 60);
         } else {
           const div = document.createElement('div');
           div.className = 'essay-text';

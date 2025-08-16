@@ -5,6 +5,18 @@
     --branco: #fff;
     --preto: #222;
     --borda: #e0e0e0;
+
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
 }
 
 .page[data-name="pendentes"] {
@@ -51,7 +63,8 @@
     border: 1px solid var(--borda) !important;
     border-radius: 8px !important;
     padding: 0 10px 0 44px !important;   /* MAIS espaço para não sobrepor o ícone */
-    background: #fff;
+    background: var(--color-bg-secondary) !important;
+    color: var(--color-text-placeholder) !important;
     font-size: .95rem;
     outline: none !important;
 }
@@ -68,8 +81,8 @@
     padding: 0 12px;
     border-radius: 16px;
     border: 1px solid var(--borda);
-    background: #fff;
-    color: var(--preto);
+    background: var(--color-bg-sidebar);
+    color: var(--color-text-primary);
     font-weight: 600;
     font-size: .85rem;
     cursor: pointer;
@@ -91,7 +104,7 @@
     padding: 6px 12px;
     border-radius: 8px;
     border: 1px solid var(--borda);
-    background: #fff;
+    background: var(--color-bg-sidebar);
     color: var(--azul-escuro);
     font-weight: 600;
     font-size: .85rem;
@@ -128,7 +141,7 @@
 
 /* Cards */
 .pendente-card {
-    background: var(--branco);
+    background: var(--color-bg-primary);
     border-radius: 14px;
     box-shadow: 0 2px 6px #00000012;
     border: 1px solid var(--borda);
@@ -179,14 +192,14 @@
     flex-wrap: wrap;
     gap: 14px;
     font-size: .85rem;
-    color: #555;
+    color: var(--color-text-placeholder);
     align-items: center;
 }
 
 .pendente-texto {
     font-size: 0.9rem;
     line-height: 1.45;
-    color: #333;
+    color: var(--color-text-primary);
 }
 
 .pendente-img {

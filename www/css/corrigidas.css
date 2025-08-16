@@ -1,55 +1,66 @@
-:root{
+/* Variáveis e escopo exclusivos da página "corrigidas" */
+.page[data-name="corrigidas"] {
   --card:#fff; --border:#e5e7eb; --muted:#6b7280; --text:#1f2937;
   --primary:#4361ee; --primary-dark:#2743b8; --ok:#16a34a; --bg:#f7f8fa;
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;background:linear-gradient(120deg,#f7f8fa 60%,#e9edfb 100%);color:var(--text)}
-.page{min-height:100vh}
-.buttons-top{position:sticky;top:0;padding:10px 12px;z-index:5}
-.back-button{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--text);text-decoration:none}
-.page-content{max-width:1100px;margin:0 auto;padding:8px 12px 24px}
 
-.corr-header{
+/* Remover resets globais (html, body, .page...) e aplicar apenas no escopo da página */
+.page[data-name="corrigidas"] .buttons-top { position: sticky; top: 0; padding: 10px 12px; z-index: 5; }
+.page[data-name="corrigidas"] .back-button {
+  display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--text);text-decoration:none;
+}
+.page[data-name="corrigidas"] .page-content { max-width:1100px; margin:0 auto; padding:8px 12px 24px; }
+
+/* Header */
+.page[data-name="corrigidas"] .corr-header{
   display:flex;align-items:center;justify-content:space-between;gap:16px;
   background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:0 6px 24px rgba(67,97,238,0.08);
 }
-.header-left{display:flex;align-items:center;gap:12px}
-.header-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(67,97,238,.08);color:var(--primary)}
-.corr-header h1{margin:0;font-size:1.35rem;color:var(--primary-dark)}
-.subtitle{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+.page[data-name="corrigidas"] .header-left{display:flex;align-items:center;gap:12px}
+.page[data-name="corrigidas"] .header-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(67,97,238,.08);color:var(--primary)}
+.page[data-name="corrigidas"] .corr-header h1{margin:0;font-size:1.35rem;color:var(--primary-dark)}
+.page[data-name="corrigidas"] .subtitle{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+.page[data-name="corrigidas"] .header-right{display:flex;align-items:center;gap:12px}
+.page[data-name="corrigidas"] .nota-total{background:#fff;border:1px dashed var(--border);border-radius:12px;padding:8px 12px;text-align:right}
+.page[data-name="corrigidas"] .nota-total .label{display:block;color:var(--muted);font-size:.8rem}
+.page[data-name="corrigidas"] .nota-total .valor{display:block;font-weight:800;font-size:1.4rem;color:var(--primary-dark)}
+.page[data-name="corrigidas"] .corretor-info{display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:12px;padding:6px 10px;background:#fff}
+.page[data-name="corrigidas"] .corretor-info img{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #e0e7ff}
+.page[data-name="corrigidas"] .corretor-info span{font-weight:600;color:#374151}
 
-.header-right{display:flex;align-items:center;gap:12px}
-.nota-total{background:#fff;border:1px dashed var(--border);border-radius:12px;padding:8px 12px;text-align:right}
-.nota-total .label{display:block;color:var(--muted);font-size:.8rem}
-.nota-total .valor{display:block;font-weight:800;font-size:1.4rem;color:var(--primary-dark)}
-.corretor-info{display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:12px;padding:6px 10px;background:#fff}
-.corretor-info img{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #e0e7ff}
-.corretor-info span{font-weight:600;color:#374151}
+/* Grid principal */
+.page[data-name="corrigidas"] .corr-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:14px}
+@media (max-width: 900px){
+  .page[data-name="corrigidas"] .corr-grid{grid-template-columns:1fr}
+}
 
-.corr-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:14px}
-@media (max-width: 900px){.corr-grid{grid-template-columns:1fr}}
-
-.essay-card,.side-card{
+/* Cards e conteúdo */
+.page[data-name="corrigidas"] .essay-card,
+.page[data-name="corrigidas"] .side-card{
   background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 16px 18px;
   box-shadow:0 6px 24px rgba(0,0,0,0.04)
 }
-.essay-card h2,.side-card h2{margin:0 0 12px;color:var(--primary);font-size:1.05rem}
-.essay-view{position:relative;border:1px solid var(--border);border-radius:10px;background:#fff;min-height:240px;padding:14px}
-.essay-text{white-space:pre-wrap;line-height:1.75;font-size:1rem;color:#262626}
-.highlight{border-radius:3px;padding:0 2px}
-#essayImage{max-width:100%;height:auto;display:block;margin:0 auto}
-#essayCanvas{position:absolute;left:14px;top:14px;pointer-events:none}
+.page[data-name="corrigidas"] .essay-card h2,
+.page[data-name="corrigidas"] .side-card h2{margin:0 0 12px;color:var(--primary);font-size:1.05rem}
 
-.side-card .competencias{display:grid;grid-template-columns:1fr 80px;gap:8px}
-.comp-label{color:var(--muted)}
-.comp-valor{justify-self:end;font-weight:700}
-.comentarios{border:1px solid var(--border);border-radius:10px;padding:10px;background:#fafafa;color:#374151;white-space:pre-wrap}
+.page[data-name="corrigidas"] .essay-view{position:relative;border:1px solid var(--border);border-radius:10px;background:#fff;min-height:240px;padding:14px}
+.page[data-name="corrigidas"] .essay-text{white-space:pre-wrap;line-height:1.75;font-size:1rem;color:#262626}
+.page[data-name="corrigidas"] .highlight{border-radius:3px;padding:0 2px}
+.page[data-name="corrigidas"] #essayImage{max-width:100%;height:auto;display:block;margin:0 auto}
+.page[data-name="corrigidas"] #essayCanvas{position:absolute;left:14px;top:14px;pointer-events:none}
 
-.obs-list{display:flex;flex-direction:column;gap:10px;margin-top:8px}
-.obs-item{border:1px solid var(--border);border-radius:10px;padding:10px;background:#fff}
-.obs-title{font-weight:600;margin-bottom:4px;color:#374151;display:flex;align-items:center;gap:6px}
-.obs-dot{width:10px;height:10px;border-radius:50%;border:1px solid #e5e7eb;display:inline-block}
-.obs-text{color:#4b5563;white-space:pre-wrap}
+/* Lateral direita */
+.page[data-name="corrigidas"] .side-card .competencias{display:grid;grid-template-columns:1fr 80px;gap:8px}
+.page[data-name="corrigidas"] .comp-label{color:var(--muted)}
+.page[data-name="corrigidas"] .comp-valor{justify-self:end;font-weight:700}
+.page[data-name="corrigidas"] .comentarios{border:1px solid var(--border);border-radius:10px;padding:10px;background:#fafafa;color:#374151;white-space:pre-wrap}
 
-.state{text-align:center;color:#6b7280;margin-top:18px}
+/* Observações */
+.page[data-name="corrigidas"] .obs-list{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.page[data-name="corrigidas"] .obs-item{border:1px solid var(--border);border-radius:10px;padding:10px;background:#fff}
+.page[data-name="corrigidas"] .obs-title{font-weight:600;margin-bottom:4px;color:#374151;display:flex;align-items:center;gap:6px}
+.page[data-name="corrigidas"] .obs-dot{width:10px;height:10px;border-radius:50%;border:1px solid #e5e7eb;display:inline-block}
+.page[data-name="corrigidas"] .obs-text{color:#4b5563;white-space:pre-wrap}
+
+/* Estados */
+.page[data-name="corrigidas"] .state{text-align:center;color:#6b7280;margin-top:18px}

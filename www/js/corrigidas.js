@@ -344,6 +344,12 @@
     ctx = null;
     imgEl = null;
 
+    // limpa também as áreas de UI relacionadas a marcações/observações
+    if ($obsList) $obsList.innerHTML = '';
+    if ($comentarios) $comentarios.textContent = '';
+    if ($competencias) $competencias.innerHTML = '';
+    if ($compUnica) $compUnica.innerHTML = '';
+    // limpa container da redação
     if ($essayView) {
       $essayView.innerHTML = '<div id="imgCanvasContainer" style="position:relative;width:100%;height:auto;min-height:100px;"></div>';
     }
@@ -560,6 +566,7 @@
 
       // Observações
       if ($obsList) {
+        // garantir limpeza antes de popular (evita duplicatas/itens antigos)
         $obsList.innerHTML = '';
         (corr?.annotations || []).forEach(a => {
           const item = document.createElement('div');

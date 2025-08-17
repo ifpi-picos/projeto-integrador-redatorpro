@@ -210,9 +210,11 @@
 
   function fitCanvas(annotations) {
     if (!imgEl || !canvas) return;
-    // Ajusta o canvas para cobrir exatamente a imagem exibida
-    const w = imgEl.offsetWidth || imgEl.naturalWidth || 0;
-    const h = imgEl.offsetHeight || imgEl.naturalHeight || 0;
+    // Use getBoundingClientRect para alinhar canvas à imagem exibida
+    const rect = imgEl.getBoundingClientRect();
+    const parentRect = imgEl.parentElement.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
     if (!w || !h) return;
 
     canvas.width = w;
@@ -220,8 +222,9 @@
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
     canvas.style.position = 'absolute';
-    canvas.style.left = imgEl.offsetLeft + 'px';
-    canvas.style.top = imgEl.offsetTop + 'px';
+    canvas.style.left = (imgEl.offsetLeft || 0) + 'px';
+    canvas.style.top = (imgEl.offsetTop || 0) + 'px';
+    canvas.style.zIndex = 2;
     ctx = canvas.getContext('2d');
     drawAllRects(annotations);
   }

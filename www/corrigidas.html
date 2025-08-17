@@ -1,54 +1,54 @@
 <div data-name="corrigidas" class="page">
   <div class="page-content no-padding">
-    <div class="correction-header correction-header-full">
-      <div class="header-icon">
+    <div class="corrigidas-header">
+      <div class="corrigidas-header-main">
         <i class="ri-check-double-line"></i>
+        <div>
+          <h1>Correção</h1>
+          <p class="header-subtitle">Veja o feedback detalhado da sua redação</p>
+        </div>
       </div>
-      <div class="header-main">
-        <h1>Correção</h1>
-        <p class="header-subtitle">Veja o feedback detalhado da sua redação</p>
-      </div>
-      <div class="header-nota">
+      <div class="corrigidas-header-nota">
         <span class="nota-label">Nota Total</span>
         <span class="nota-valor" id="notaTotalTxt">—</span>
       </div>
     </div>
-    <div class="correction-container corrigidas-container">
-      <div class="corrigidas-grid-full">
-        <!-- Coluna 1: Corretor + Redação Corrigida -->
-        <div class="corr-col corr-col-left">
-          <div class="corr-corretor">
-            <span class="corr-corretor-label">Corretor</span>
+    <div class="corrigidas-main-container">
+      <div class="corrigidas-main-grid">
+        <!-- Redação + Corretor -->
+        <section class="corrigidas-main-left">
+          <div class="corrigidas-corretor">
             <img id="corretorAvatar" alt="Corretor">
             <span id="corretorNome">—</span>
           </div>
-          <div class="corr-redacao">
-            <span class="corr-redacao-label">Redação Corrigida</span>
-            <div class="corr-redacao-tema">
-              <span id="temaTxt">—</span>
+          <div class="corrigidas-redacao-card">
+            <div class="corrigidas-redacao-info">
+              <span id="temaTxt" class="corrigidas-tema">—</span>
+              <span id="infoTxt" class="corrigidas-info">—</span>
             </div>
-            <div class="corr-redacao-info" id="infoTxt">—</div>
-            <div class="corr-essay-area" id="essayView"></div>
+            <div class="corrigidas-essay-area-wrapper">
+              <div class="corrigidas-essay-area" id="essayView"></div>
+            </div>
           </div>
-        </div>
-        <!-- Coluna 2: Comentário Geral + Marcações -->
-        <div class="corr-col corr-col-center">
-          <div class="corr-comentarios">
-            <span class="corr-comentarios-label">Comentário Geral</span>
+        </section>
+        <!-- Comentário Geral + Marcações -->
+        <section class="corrigidas-main-center">
+          <div class="corrigidas-card">
+            <h3>Comentário Geral</h3>
             <div id="comentariosBox">—</div>
           </div>
-          <div class="corr-anotacoes">
-            <span class="corr-anotacoes-label">Marcações e Anotações</span>
+          <div class="corrigidas-card">
+            <h3>Marcações e Anotações</h3>
             <div id="obsList"></div>
           </div>
-        </div>
-        <!-- Coluna 3: Notas e Comentários -->
-        <div class="corr-col corr-col-right">
-          <div class="corr-competencias">
-            <span class="corr-competencias-label">Notas e Comentários</span>
+        </section>
+        <!-- Notas e Comentários -->
+        <aside class="corrigidas-main-right">
+          <div class="corrigidas-card">
+            <h3>Notas e Comentários</h3>
             <div id="competenciasBox"></div>
           </div>
-        </div>
+        </aside>
       </div>
       <div id="loading" class="state">Carregando correção...</div>
       <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>

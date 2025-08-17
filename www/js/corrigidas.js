@@ -568,7 +568,8 @@
       if ($obsList) {
         // garantir limpeza antes de popular (evita duplicatas/itens antigos)
         $obsList.innerHTML = '';
-        (corr?.annotations || []).forEach(a => {
+        // Exibe apenas anotações de texto/imagem; ignora 'comp' (observações de competência)
+        (corr?.annotations || []).filter(a => a.tipo !== 'comp').forEach(a => {
           const item = document.createElement('div');
           item.className = 'obs-item';
           const dot = `<span class="obs-dot" style="background:${a.color||'#ffea00'}"></span>`;

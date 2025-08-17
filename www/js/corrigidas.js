@@ -317,6 +317,29 @@
       tooltipEl.remove();
       tooltipEl = null;
     }
+    // remove canvas event handlers e referencias antigas
+    try {
+      if (canvas) {
+        canvas.onmousemove = null;
+        canvas.onmouseleave = null;
+        canvas.onclick = null;
+      }
+    } catch(_) {}
+    // remove resize handler se registrado
+    if (__resizeHandler) {
+      window.removeEventListener('resize', __resizeHandler);
+      __resizeHandler = null;
+    }
+    // remove scroll handler se registrado
+    if (__scrollHandler && $essayView) {
+      $essayView.removeEventListener('scroll', __scrollHandler);
+      __scrollHandler = null;
+    }
+    // limpa referencias para evitar leaks
+    canvas = null;
+    ctx = null;
+    imgEl = null;
+
     if ($essayView) {
       $essayView.innerHTML = '<div id="imgCanvasContainer" style="position:relative;width:100%;height:auto;min-height:100px;"></div>';
     }
@@ -409,11 +432,11 @@
 
           // canvas overlay fix
           function fitAndSyncCanvas() {
-            // Só ajusta se a imagem já carregou e tem dimensões válidas
+            // Só ajusta se a imagem já tiver dimensão natural válida
             const w = img.naturalWidth;
             const h = img.naturalHeight;
             if (!w || !h) return;
-            // Ajusta o tamanho do canvas e do container
+            // Ajusta o tamanho do container e do canvas com base na largura exibida
             imgCanvasContainer.style.height = (img.offsetWidth * h / w) + 'px';
             cvs.width = w;
             cvs.height = h;
@@ -423,24 +446,35 @@
             drawAllRects(corr?.annotations || []);
           }
 
-          // Só chama ajuste quando a imagem realmente carregar
+          // remove qualquer resize handler antigo antes de adicionar
+          if (__resizeHandler) {
+            window.removeEventListener('resize', __resizeHandler);
+            __resizeHandler = null;
+          }
+          __resizeHandler = function() { fitAndSyncCanvas(); };
+          window.addEventListener('resize', __resizeHandler);
+
+          // registra scroll handler somente uma vez por carregamento
+          if (__scrollHandler) {
+            $essayView.removeEventListener('scroll', __scrollHandler);
+            __scrollHandler = null;
+          }
+          __scrollHandler = function() {
+            // redessena marcações sem alterar tamanho
+            if (ctx) drawAllRects(corr?.annotations || []);
+          };
+          $essayView.addEventListener('scroll', __scrollHandler);
+
+          // Só chama ajuste quando a imagem realmente carregar (ou já estiver em cache)
           img.onload = () => {
             fitAndSyncCanvas();
           };
-          // Se já estiver em cache
           if (img.complete && img.naturalWidth) {
             fitAndSyncCanvas();
           }
 
-          // Redimensiona canvas/container só em resize
-          window.addEventListener('resize', fitAndSyncCanvas);
-
-          // No scroll, apenas redesenha as marcações (não ajusta tamanho!)
-          $essayView.addEventListener('scroll', function() {
-            if (ctx) drawAllRects(corr?.annotations || []);
-          });
-
-          // Tooltip para marcações na imagem
+          // remova chamadas por setTimeout que causam múltiplas invocações
+          // ...existing code for tooltip handlers, mas substitui atribuições por funções (sem rebind múltiplo)...
           cvs.onmousemove = function(e) {
             if (!corr?.annotations) return;
             const rect = cvs.getBoundingClientRect();
@@ -458,11 +492,8 @@
                 }
               });
             });
-            if (found) {
-              showTooltip(found.comment, e.clientX, e.clientY);
-            } else {
-              hideTooltip();
-            }
+            if (found) showTooltip(found.comment, e.clientX, e.clientY);
+            else hideTooltip();
           };
           cvs.onmouseleave = hideTooltip;
           cvs.onclick = function(e) {
@@ -482,10 +513,7 @@
                 }
               });
             });
-            if (found) {
-              showTooltip(found.comment, e.clientX, e.clientY);
-              setTimeout(hideTooltip, 2500);
-            }
+            if (found) { showTooltip(found.comment, e.clientX, e.clientY); setTimeout(hideTooltip, 2500); }
           };
         } else {
           const div = document.createElement('div');
@@ -562,6 +590,9 @@
 
   // Garante recarregamento ao voltar/navegar entre correções
   function setupRouterReload() {
+    if (__routerSetupDone) return;
+    __routerSetupDone = true;
+
     // Para Framework7 ou navegação SPA
     window.addEventListener('popstate', () => setTimeout(load, 50));
     window.addEventListener('hashchange', () => setTimeout(load, 50));
@@ -572,16 +603,6 @@
         setTimeout(load, 100);
       }
     });
-    // NOVO: observa mudanças no DOM para recarregar se necessário (SPA)
-    if (window.MutationObserver) {
-      const observer = new MutationObserver(() => {
-        // Se a página de correção está visível, recarrega
-        if (document.getElementById('essayView')) {
-          setTimeout(load, 50);
-        }
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    }
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') {

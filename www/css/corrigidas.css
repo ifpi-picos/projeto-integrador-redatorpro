@@ -142,19 +142,15 @@
   color: #b3c6e0;
   font-size: .97rem;
 }
-.corrigidas-essay-area-wrapper {
+.corrigidas-essay-area-wrapper,
+.corrigidas-essay-area-wrapper.scroll-x {
   width: 100%;
   display: flex;
   justify-content: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 500px; /* ajuste conforme necessário */
+  max-height: 700px; /* aumente conforme necessário */
   padding-bottom: 8px;
-}
-.corrigidas-essay-area-wrapper.scroll-x {
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-width: 100%;
 }
 .corrigidas-essay-area {
   background: #10182b;
@@ -163,7 +159,7 @@
   min-height: 320px;
   min-width: 100%;
   max-width: 100%;
-  max-height: 500px; /* ajuste conforme necessário */
+  max-height: 700px; /* aumente conforme necessário */
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -184,16 +180,11 @@
   width: 100%;
   min-width: 0;
   max-width: 100%;
-  max-height: 500px; /* ajuste conforme necessário */
+  max-height: 700px; /* aumente conforme necessário */
   overflow-y: auto;
   overflow-x: hidden;
 }
 .corrigidas-essay-area #essayImage {
-  max-width: 100%;
-  width: 100%;
-  min-width: 0;
-  max-height: 480px; /* ajuste conforme necessário */
-  height: auto;
   display: block;
   margin: 0 auto;
   border-radius: 8px;
@@ -201,6 +192,21 @@
   position: relative;
   z-index: 1;
   object-fit: contain;
+  width: auto;
+  height: 100%;
+  max-height: 680px; /* canvas e imagem ficam do mesmo tamanho */
+  max-width: 100%;
+}
+.corrigidas-essay-area #essayCanvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* canvas cobre toda a área da imagem */
 }
 
 /* Blocos empilhados */

@@ -23,9 +23,11 @@
           <span id="temaTxt" class="corrigidas-tema">—</span>
           <span id="infoTxt" class="corrigidas-info">—</span>
         </div>
-        <!-- NOVO: wrapper com rolagem horizontal -->
+        <!-- Ajuste: wrapper para rolagem vertical -->
         <div class="corrigidas-essay-area-wrapper scroll-x">
-          <div class="corrigidas-essay-area" id="essayView"></div>
+          <div class="corrigidas-essay-area" id="essayView" style="position:relative;overflow-y:auto;height:400px;max-height:400px;">
+            <!-- A imagem e o canvas serão inseridos via JS, um sobre o outro, ambos com position: static -->
+          </div>
         </div>
       </div>
       <div class="corrigidas-block corrigidas-card">

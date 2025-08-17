@@ -207,15 +207,14 @@
     });
   }
 
-  function drawRect(r, color, comment, mouseX, mouseY, scrollY = 0) {
+  function drawRect(r, color, comment) {
     if (!ctx) return;
     ctx.save();
     ctx.fillStyle = hexToRgba(color || '#4cc3ff', 0.25);
     ctx.strokeStyle = color || '#4cc3ff';
     ctx.lineWidth = 3;
-    // Ajuste: subtrai scrollY do y para alinhar marcação com a parte visível
-    ctx.fillRect(r.x, r.y - scrollY, r.w, r.h);
-    ctx.strokeRect(r.x, r.y - scrollY, r.w, r.h);
+    ctx.fillRect(r.x, r.y, r.w, r.h);
+    ctx.strokeRect(r.x, r.y, r.w, r.h);
     ctx.restore();
     // Tooltip para imagem: handled via mousemove/click
   }
@@ -264,12 +263,9 @@
   function drawAllRects(annotations) {
     if (!ctx || !canvas) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // NOVO: obtenha o scroll vertical da área da redação
-    const area = canvas.parentElement;
-    const scrollY = area ? area.scrollTop : 0;
     (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
       const pack = extractRectsPack(a);
-      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment, undefined, undefined, scrollY));
+      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment));
     });
   }
 
@@ -287,29 +283,15 @@
 
   function fitCanvas(annotations) {
     if (!imgEl || !canvas) return;
-    // Define altura fixa para o canvas (igual à área visível)
-    const area = canvas.parentElement;
-    const w = area.offsetWidth;
-    const h = 400; // altura fixa
+    // O canvas deve ter o mesmo tamanho da imagem exibida (natural)
+    const w = imgEl.naturalWidth || imgEl.width;
+    const h = imgEl.naturalHeight || imgEl.height;
     canvas.width = w;
     canvas.height = h;
-    canvas.style.width = w + 'px';
-    canvas.style.height = h + 'px';
-    canvas.style.position = 'absolute';
-    canvas.style.left = '0px';
-    canvas.style.top = '0px';
-    canvas.style.zIndex = 2;
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
     ctx = canvas.getContext('2d');
     drawAllRects(annotations);
-    // Ajusta a imagem para acompanhar a rolagem
-    if (imgEl) {
-      imgEl.style.width = '100%';
-      imgEl.style.position = 'absolute';
-      imgEl.style.left = '0';
-      imgEl.style.top = -area.scrollTop + 'px';
-      imgEl.style.height = 'auto';
-      imgEl.style.maxHeight = 'none';
-    }
   }
 
   async function load() {
@@ -377,18 +359,16 @@
           cvs.id = 'essayCanvas';
           canvas = cvs;
 
+          // Adicione ambos na ordem: imagem, depois canvas
           $essayView.appendChild(img);
           $essayView.appendChild(cvs);
 
           $essayView.style.position = 'relative';
-          img.style.position = 'absolute';
-          cvs.style.position = 'absolute';
 
           // canvas overlay fix
           function fitAndSyncCanvas() {
             fitCanvas(corr?.annotations || []);
           }
-          // Garante ajuste após imagem carregar e após resize/scroll
           if (img.complete) { fitAndSyncCanvas(); } else { img.onload = fitAndSyncCanvas; }
           window.addEventListener('resize', fitAndSyncCanvas);
           $essayView.addEventListener('scroll', fitAndSyncCanvas);

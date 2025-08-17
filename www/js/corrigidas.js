@@ -85,9 +85,76 @@
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(nome || 'Corretor')}&background=4c6fff&color=fff`;
   }
 
+  // NOVO: elementos para navegação de competência
+  const $compNav = document.getElementById('competenciaNavegacao');
+  const $compAnterior = document.getElementById('btnCompAnterior');
+  const $compProximo = document.getElementById('btnCompProximo');
+  const $compAtualLabel = document.getElementById('compAtualLabel');
+  const $compUnica = document.getElementById('competenciaUnica');
+
+  // Tooltip customizado
+  let tooltipEl = null;
+  function showTooltip(text, x, y) {
+    if (!tooltipEl) {
+      tooltipEl = document.createElement('div');
+      tooltipEl.className = 'corrigidas-tooltip';
+      document.body.appendChild(tooltipEl);
+    }
+    tooltipEl.textContent = text;
+    tooltipEl.style.left = (x + 12) + 'px';
+    tooltipEl.style.top = (y + 12) + 'px';
+    tooltipEl.classList.add('active');
+  }
+  function hideTooltip() {
+    if (tooltipEl) tooltipEl.classList.remove('active');
+  }
+
+  // NOVO: renderiza apenas uma competência por vez
+  let competenciasData = [];
+  let competenciasObs = {};
+  let compAtual = 0; // índice 0..4
+
+  function renderCompetenciaAtual() {
+    if (!$compUnica) return;
+    $compUnica.innerHTML = '';
+    if (!competenciasData.length) return;
+    const c = competenciasData[compAtual];
+    const label = c.label;
+    const valor = c.valor;
+    const obs = c.obs;
+    $compAtualLabel.textContent = label;
+    // Valor
+    const row = document.createElement('div');
+    row.className = 'comp-row';
+    const l = document.createElement('div'); l.className='comp-label'; l.textContent = label;
+    const r = document.createElement('div'); r.className='comp-valor'; r.textContent = `${valor}`;
+    row.appendChild(l); row.appendChild(r);
+    $compUnica.appendChild(row);
+    // Observação
+    if (obs) {
+      const obsDiv = document.createElement('div');
+      obsDiv.className = 'comp-obs';
+      obsDiv.textContent = obs;
+      $compUnica.appendChild(obsDiv);
+    }
+    // Botões
+    $compAnterior.disabled = (compAtual === 0);
+    $compProximo.disabled = (compAtual === competenciasData.length - 1);
+  }
+
+  if ($compAnterior && $compProximo) {
+    $compAnterior.addEventListener('click', function() {
+      if (compAtual > 0) { compAtual--; renderCompetenciaAtual(); }
+    });
+    $compProximo.addEventListener('click', function() {
+      if (compAtual < competenciasData.length - 1) { compAtual++; renderCompetenciaAtual(); }
+    });
+  }
+
   function renderNotas(notasObj, obsObj) {
-    if (!$competencias) return;
-    $competencias.innerHTML = '';
+    // NOVO: popula array de competências para navegação
+    competenciasData = [];
+    competenciasObs = obsObj || {};
     const labels = [
       'Competência 1',
       'Competência 2',
@@ -97,22 +164,11 @@
     ];
     for (let i = 1; i <= 5; i++) {
       const v = (notasObj && (notasObj[i] ?? notasObj[String(i)])) ?? 0;
-      // Linha única por competência
-      const row = document.createElement('div');
-      row.className = 'comp-row';
-      const l = document.createElement('div'); l.className='comp-label'; l.textContent = labels[i-1];
-      const r = document.createElement('div'); r.className='comp-valor'; r.textContent = `${v}`;
-      row.appendChild(l); row.appendChild(r);
-      $competencias.appendChild(row);
-
-      // Observação por competência (se houver)
-      if (obsObj && obsObj[i]) {
-        const obs = document.createElement('div');
-        obs.className = 'comp-obs';
-        obs.textContent = obsObj[i];
-        $competencias.appendChild(obs);
-      }
+      const obs = obsObj && obsObj[i] ? obsObj[i] : '';
+      competenciasData.push({ label: labels[i-1], valor: v, obs });
     }
+    compAtual = 0;
+    renderCompetenciaAtual();
   }
 
   function applyTextAnnotations(container, texto, annotations) {
@@ -128,14 +184,30 @@
       const e = Math.min(texto.length, a.rangeEnd);
       if (s > pos) html += esc(texto.slice(pos, s));
       const snippet = texto.slice(s, e);
-      html += `<span class="highlight" style="background:${hexToRgba(a.color||'#4cc3ff',0.35)}">${esc(snippet)}</span>`;
+      // NOVO: data-comment para tooltip
+      html += `<span class="highlight" style="background:${hexToRgba(a.color||'#4cc3ff',0.35)}" data-comment="${esc(a.comment||'')}" tabindex="0">${esc(snippet)}</span>`;
       pos = e;
     });
     if (pos < texto.length) html += esc(texto.slice(pos));
     container.innerHTML = html;
+
+    // NOVO: eventos de tooltip para highlights
+    container.querySelectorAll('.highlight').forEach(span => {
+      const comment = span.getAttribute('data-comment');
+      if (comment && comment.trim()) {
+        span.addEventListener('mouseenter', e => showTooltip(comment, e.clientX, e.clientY));
+        span.addEventListener('mouseleave', hideTooltip);
+        span.addEventListener('focus', e => showTooltip(comment, e.target.getBoundingClientRect().left, e.target.getBoundingClientRect().bottom));
+        span.addEventListener('blur', hideTooltip);
+        span.addEventListener('click', e => {
+          showTooltip(comment, e.clientX, e.clientY);
+          setTimeout(hideTooltip, 2500);
+        });
+      }
+    });
   }
 
-  function drawRect(r, color) {
+  function drawRect(r, color, comment, mouseX, mouseY) {
     if (!ctx) return;
     ctx.save();
     ctx.fillStyle = hexToRgba(color || '#4cc3ff', 0.25);
@@ -144,6 +216,7 @@
     ctx.fillRect(r.x, r.y, r.w, r.h);
     ctx.strokeRect(r.x, r.y, r.w, r.h);
     ctx.restore();
+    // Tooltip para imagem: handled via mousemove/click
   }
 
   // NOVO: utilitário para obter lista de retângulos e base (tolerante a formatos antigos e string JSON)
@@ -192,7 +265,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
       const pack = extractRectsPack(a);
-      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color));
+      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment));
     });
   }
 
@@ -306,6 +379,51 @@
           if (img.complete) { fitSize(); } else { img.onload = fitSize; }
           window.addEventListener('resize', fitSize);
           setTimeout(fitSize, 80);
+
+          // NOVO: tooltip para marcações na imagem
+          cvs.addEventListener('mousemove', function(e) {
+            if (!corr?.annotations) return;
+            const rect = cvs.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (cvs.width / rect.width);
+            const y = (e.clientY - rect.top) * (cvs.height / rect.height);
+            let found = null;
+            corr.annotations.filter(a => a.tipo === 'imagem' && a.comment && a.comment.trim()).forEach(a => {
+              const pack = extractRectsPack(a);
+              pack.list.forEach(r => {
+                const rr = mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized);
+                if (x >= rr.x && x <= rr.x + rr.w && y >= rr.y && y <= rr.y + rr.h) {
+                  found = a;
+                }
+              });
+            });
+            if (found) {
+              showTooltip(found.comment, e.clientX, e.clientY);
+            } else {
+              hideTooltip();
+            }
+          });
+          cvs.addEventListener('mouseleave', hideTooltip);
+          // Clique também mostra tooltip por 2s
+          cvs.addEventListener('click', function(e) {
+            if (!corr?.annotations) return;
+            const rect = cvs.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (cvs.width / rect.width);
+            const y = (e.clientY - rect.top) * (cvs.height / rect.height);
+            let found = null;
+            corr.annotations.filter(a => a.tipo === 'imagem' && a.comment && a.comment.trim()).forEach(a => {
+              const pack = extractRectsPack(a);
+              pack.list.forEach(r => {
+                const rr = mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized);
+                if (x >= rr.x && x <= rr.x + rr.w && y >= rr.y && y <= rr.y + rr.h) {
+                  found = a;
+                }
+              });
+            });
+            if (found) {
+              showTooltip(found.comment, e.clientX, e.clientY);
+              setTimeout(hideTooltip, 2500);
+            }
+          });
         } else {
           const div = document.createElement('div');
           div.className = 'essay-text';

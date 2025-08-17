@@ -145,24 +145,35 @@
 .corrigidas-essay-area-wrapper {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 500px; /* ajuste conforme necessário */
+  padding-bottom: 8px;
+}
+.corrigidas-essay-area-wrapper.scroll-x {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 .corrigidas-essay-area {
   background: #10182b;
   border-radius: 8px;
   padding: 0;
   min-height: 320px;
-  min-width: 260px;
+  min-width: 100%;
   max-width: 100%;
+  max-height: 500px; /* ajuste conforme necessário */
   position: relative;
-  overflow: visible;
+  overflow-y: auto;
+  overflow-x: hidden;
   font-size: 1.13rem;
   color: #fff;
   border: 1.5px solid #4cc3ff;
   box-shadow: 0 2px 12px #00000018;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 .corrigidas-essay-area .essay-text {
   white-space: pre-wrap;
@@ -171,10 +182,17 @@
   color: #fff;
   padding: 24px 18px;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  max-height: 500px; /* ajuste conforme necessário */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .corrigidas-essay-area #essayImage {
   max-width: 100%;
-  max-height: 420px;
+  width: 100%;
+  min-width: 0;
+  max-height: 480px; /* ajuste conforme necessário */
   height: auto;
   display: block;
   margin: 0 auto;
@@ -182,16 +200,7 @@
   background: #fff;
   position: relative;
   z-index: 1;
-}
-.corrigidas-essay-area #essayCanvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  display: block;
+  object-fit: contain;
 }
 
 /* Blocos empilhados */
@@ -303,6 +312,50 @@
   color: #4cc3ff;
   margin: 22px 0 6px;
   font-size: .98rem;
+}
+
+/* Botões de navegação de competência */
+.btn-comp-nav {
+  background: #4cc3ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-comp-nav:disabled {
+  background: #b3c6e0;
+  color: #fff;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.btn-comp-nav:not(:disabled):hover {
+  background: #1a2236;
+}
+
+/* Tooltip customizado para marcações */
+.corrigidas-tooltip {
+  position: fixed;
+  z-index: 9999;
+  background: #232b45;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 2px 12px #00000030;
+  max-width: 350px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  white-space: pre-line;
+  word-break: break-word;
+}
+.corrigidas-tooltip.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Responsivo */

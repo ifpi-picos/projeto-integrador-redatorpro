@@ -23,9 +23,19 @@
           <span id="temaTxt" class="corrigidas-tema">—</span>
           <span id="infoTxt" class="corrigidas-info">—</span>
         </div>
-        <div class="corrigidas-essay-area-wrapper">
+        <!-- NOVO: wrapper com rolagem horizontal -->
+        <div class="corrigidas-essay-area-wrapper scroll-x">
           <div class="corrigidas-essay-area" id="essayView"></div>
         </div>
+      </div>
+      <div class="corrigidas-block corrigidas-card">
+        <h3>Notas e Competências</h3>
+        <div id="competenciaNavegacao" style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <button id="btnCompAnterior" class="btn-comp-nav" type="button" disabled>&lt; Anterior</button>
+          <span id="compAtualLabel" style="flex:1;text-align:center;"></span>
+          <button id="btnCompProximo" class="btn-comp-nav" type="button">&gt; Próximo</button>
+        </div>
+        <div id="competenciaUnica"></div>
       </div>
       <div class="corrigidas-block corrigidas-card">
         <h3>Comentário Geral</h3>
@@ -34,10 +44,6 @@
       <div class="corrigidas-block corrigidas-card">
         <h3>Marcações e Anotações</h3>
         <div id="obsList"></div>
-      </div>
-      <div class="corrigidas-block corrigidas-card">
-        <h3>Notas e Comentários</h3>
-        <div id="competenciasBox"></div>
       </div>
       <div id="loading" class="state">Carregando correção...</div>
       <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
@@ -50,14 +56,8 @@
 <script src="js/routes.js"></script>
 <script src="cordova.js"></script>
 <script src="js/corrigidas.js"></script>
-      <div id="loading" class="state">Carregando correção...</div>
-      <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
-      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>
-    </div>
-  </div>
-</div>
-<script src="lib/framework7-bundle.min.js"></script>
-<script src="lib/jquery-3.7.0.min.js"></script>
+<!-- Assets (fallback para acesso direto) -->cript>
+<script src="lib/framework7-bundle.min.js"></script><script src="lib/jquery-3.7.0.min.js"></script>
 <script src="js/routes.js"></script>
 <script src="cordova.js"></script>
 <script src="js/corrigidas.js"></script>

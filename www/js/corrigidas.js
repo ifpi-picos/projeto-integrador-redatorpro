@@ -265,7 +265,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
       const pack = extractRectsPack(a);
-      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment));
+      pack.list.forEach r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment));
     });
   }
 
@@ -348,7 +348,8 @@
 
       // Render redação
       if ($essayView) {
-        $essayView.innerHTML = '';
+        $essayView.innerHTML = '<div id="imgCanvasContainer" style="position:relative;width:100%;height:auto;min-height:100px;"></div>';
+        const imgCanvasContainer = document.getElementById('imgCanvasContainer');
         if (essay?.imagemUrl) {
           const img = document.createElement('img');
           img.id = 'essayImage';
@@ -359,27 +360,51 @@
           cvs.id = 'essayCanvas';
           canvas = cvs;
 
-          // Adicione ambos na ordem: imagem, depois canvas
-          $essayView.appendChild(img);
-          $essayView.appendChild(cvs);
+          imgCanvasContainer.appendChild(img);
+          imgCanvasContainer.appendChild(cvs);
 
-          $essayView.style.position = 'relative';
+          // Ajuste de empilhamento
+          imgCanvasContainer.style.position = 'relative';
+          img.style.position = 'absolute';
+          img.style.top = '0';
+          img.style.left = '0';
+          img.style.width = '100%';
+          img.style.height = 'auto';
+          cvs.style.position = 'absolute';
+          cvs.style.top = '0';
+          cvs.style.left = '0';
+          cvs.style.width = '100%';
+          cvs.style.height = '100%';
 
           // canvas overlay fix
           function fitAndSyncCanvas() {
-            fitCanvas(corr?.annotations || []);
+            // Ajusta altura do container para altura da imagem
+            const w = img.naturalWidth || img.width;
+            const h = img.naturalHeight || img.height;
+            if (w && h) {
+              imgCanvasContainer.style.height = h * (img.offsetWidth / w) + 'px';
+              cvs.width = w;
+              cvs.height = h;
+              cvs.style.width = '100%';
+              cvs.style.height = '100%';
+            }
+            ctx = cvs.getContext('2d');
+            drawAllRects(corr?.annotations || []);
           }
           if (img.complete) { fitAndSyncCanvas(); } else { img.onload = fitAndSyncCanvas; }
           window.addEventListener('resize', fitAndSyncCanvas);
           $essayView.addEventListener('scroll', fitAndSyncCanvas);
           setTimeout(fitAndSyncCanvas, 80);
 
-          // NOVO: tooltip para marcações na imagem
+          // Tooltip para marcações na imagem
           cvs.addEventListener('mousemove', function(e) {
             if (!corr?.annotations) return;
             const rect = cvs.getBoundingClientRect();
-            const x = (e.clientX - rect.left) * (cvs.width / rect.width);
-            const y = (e.clientY - rect.top) * (cvs.height / rect.height);
+            // Corrige escala para coordenadas reais do canvas
+            const scaleX = cvs.width / rect.width;
+            const scaleY = cvs.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
             let found = null;
             corr.annotations.filter(a => a.tipo === 'imagem' && a.comment && a.comment.trim()).forEach(a => {
               const pack = extractRectsPack(a);
@@ -401,8 +426,10 @@
           cvs.addEventListener('click', function(e) {
             if (!corr?.annotations) return;
             const rect = cvs.getBoundingClientRect();
-            const x = (e.clientX - rect.left) * (cvs.width / rect.width);
-            const y = (e.clientY - rect.top) * (cvs.height / rect.height);
+            const scaleX = cvs.width / rect.width;
+            const scaleY = cvs.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
             let found = null;
             corr.annotations.filter(a => a.tipo === 'imagem' && a.comment && a.comment.trim()).forEach(a => {
               const pack = extractRectsPack(a);
@@ -423,6 +450,23 @@
           div.className = 'essay-text';
           $essayView.appendChild(div);
           applyTextAnnotations(div, essay?.texto || essay?.text || '', corr?.annotations || []);
+
+          // Tooltip para highlights de texto
+          setTimeout(() => {
+            div.querySelectorAll('.highlight').forEach(span => {
+              const comment = span.getAttribute('data-comment');
+              if (comment && comment.trim()) {
+                span.addEventListener('mouseenter', e => showTooltip(comment, e.clientX, e.clientY));
+                span.addEventListener('mouseleave', hideTooltip);
+                span.addEventListener('focus', e => showTooltip(comment, e.target.getBoundingClientRect().left, e.target.getBoundingClientRect().bottom));
+                span.addEventListener('blur', hideTooltip);
+                span.addEventListener('click', e => {
+                  showTooltip(comment, e.clientX, e.clientY);
+                  setTimeout(hideTooltip, 2500);
+                });
+              }
+            });
+          }, 200);
         }
       }
 

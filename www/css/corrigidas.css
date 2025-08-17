@@ -184,6 +184,12 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+.corrigidas-essay-area #imgCanvasContainer {
+  position: relative;
+  width: 100%;
+  min-height: 100px;
+  /* altura será definida pelo JS conforme a imagem */
+}
 .corrigidas-essay-area #essayImage {
   display: block;
   width: 100%;
@@ -193,18 +199,20 @@
   background: #fff;
   z-index: 1;
   object-fit: contain;
-  position: static;
-  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .corrigidas-essay-area #essayCanvas {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   max-width: 100%;
   z-index: 2;
   pointer-events: none;
-  position: static;
-  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* Blocos empilhados */

@@ -630,4 +630,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSteps();
     setMarkModes(false, false);
     loadEssayAndCorrection();
+
+    // Adicione esta linha para garantir que obsTextareas está definido:
+    const obsTextareas = Array.from(document.querySelectorAll('.step-content[data-step] textarea')).slice(0, 5);
 });

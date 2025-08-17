@@ -101,12 +101,27 @@
       document.body.appendChild(tooltipEl);
     }
     tooltipEl.textContent = text;
-    tooltipEl.style.left = (x + 12) + 'px';
-    tooltipEl.style.top = (y + 12) + 'px';
-    tooltipEl.classList.add('active');
+    tooltipEl.style.opacity = '1';
+    tooltipEl.style.pointerEvents = 'auto';
+    tooltipEl.style.zIndex = '99999';
+    // Ajuste para não sair da tela
+    setTimeout(() => {
+      const rect = tooltipEl.getBoundingClientRect();
+      let left = x + 12;
+      let top = y + 12;
+      if (left + rect.width > window.innerWidth) left = window.innerWidth - rect.width - 8;
+      if (top + rect.height > window.innerHeight) top = y - rect.height - 12;
+      tooltipEl.style.left = left + 'px';
+      tooltipEl.style.top = top + 'px';
+      tooltipEl.classList.add('active');
+    }, 1);
   }
   function hideTooltip() {
-    if (tooltipEl) tooltipEl.classList.remove('active');
+    if (tooltipEl) {
+      tooltipEl.classList.remove('active');
+      tooltipEl.style.opacity = '0';
+      tooltipEl.style.pointerEvents = 'none';
+    }
   }
 
   // NOVO: renderiza apenas uma competência por vez
@@ -295,7 +310,21 @@
     drawAllRects(annotations);
   }
 
+  // Função para remover listeners e tooltips antigos ao recarregar
+  function cleanupEssayView() {
+    if (tooltipEl) {
+      tooltipEl.remove();
+      tooltipEl = null;
+    }
+    if ($essayView) {
+      $essayView.innerHTML = '<div id="imgCanvasContainer" style="position:relative;width:100%;height:auto;min-height:100px;"></div>';
+    }
+  }
+
   async function load() {
+    // Limpa conteúdo e tooltips antigos
+    cleanupEssayView();
+
     if (!essayId) {
       $loading && ($loading.style.display = 'none');
       $error && ($error.textContent = 'Redação não encontrada (id ausente).');
@@ -349,7 +378,7 @@
 
       // Render redação
       if ($essayView) {
-        $essayView.innerHTML = '<div id="imgCanvasContainer" style="position:relative;width:100%;height:auto;min-height:100px;"></div>';
+        // Já limpo pelo cleanupEssayView
         const imgCanvasContainer = document.getElementById('imgCanvasContainer');
         if (essay?.imagemUrl) {
           const img = document.createElement('img');
@@ -401,7 +430,6 @@
           cvs.addEventListener('mousemove', function(e) {
             if (!corr?.annotations) return;
             const rect = cvs.getBoundingClientRect();
-            // Corrige escala para coordenadas reais do canvas
             const scaleX = cvs.width / rect.width;
             const scaleY = cvs.height / rect.height;
             const x = (e.clientX - rect.left) * scaleX;
@@ -423,7 +451,6 @@
             }
           });
           cvs.addEventListener('mouseleave', hideTooltip);
-          // Clique também mostra tooltip por 2s
           cvs.addEventListener('click', function(e) {
             if (!corr?.annotations) return;
             const rect = cvs.getBoundingClientRect();
@@ -519,9 +546,23 @@
     }
   }
 
+  // Garante recarregamento ao voltar/navegar entre correções
+  function setupRouterReload() {
+    // Para Framework7 ou navegação SPA
+    window.addEventListener('popstate', () => setTimeout(load, 50));
+    window.addEventListener('hashchange', () => setTimeout(load, 50));
+    // Para navegação por links internos
+    document.body.addEventListener('click', function (e) {
+      const t = e.target.closest('a');
+      if (t && (t.href || '').includes('corrigidas')) {
+        setTimeout(load, 100);
+      }
+    });
+  }
+
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(load, 30);
+    setTimeout(() => { load(); setupRouterReload(); }, 30);
   } else {
-    document.addEventListener('DOMContentLoaded', load);
+    document.addEventListener('DOMContentLoaded', () => { load(); setupRouterReload(); });
   }
 })();

@@ -104,7 +104,6 @@
     tooltipEl.style.opacity = '1';
     tooltipEl.style.pointerEvents = 'auto';
     tooltipEl.style.zIndex = '99999';
-    // Ajuste para não sair da tela
     setTimeout(() => {
       const rect = tooltipEl.getBoundingClientRect();
       let left = x + 12;
@@ -322,7 +321,6 @@
   }
 
   async function load() {
-    // Limpa conteúdo e tooltips antigos
     cleanupEssayView();
 
     if (!essayId) {
@@ -378,7 +376,6 @@
 
       // Render redação
       if ($essayView) {
-        // Já limpo pelo cleanupEssayView
         const imgCanvasContainer = document.getElementById('imgCanvasContainer');
         if (essay?.imagemUrl) {
           const img = document.createElement('img');
@@ -405,10 +402,11 @@
           cvs.style.left = '0';
           cvs.style.width = '100%';
           cvs.style.height = '100%';
+          cvs.style.zIndex = '2';
+          cvs.style.pointerEvents = 'auto'; // Permite eventos de mouse para tooltip
 
           // canvas overlay fix
           function fitAndSyncCanvas() {
-            // Ajusta altura do container para altura da imagem
             const w = img.naturalWidth || img.width;
             const h = img.naturalHeight || img.height;
             if (w && h) {
@@ -427,7 +425,7 @@
           setTimeout(fitAndSyncCanvas, 80);
 
           // Tooltip para marcações na imagem
-          cvs.addEventListener('mousemove', function(e) {
+          cvs.onmousemove = function(e) {
             if (!corr?.annotations) return;
             const rect = cvs.getBoundingClientRect();
             const scaleX = cvs.width / rect.width;
@@ -449,9 +447,9 @@
             } else {
               hideTooltip();
             }
-          });
-          cvs.addEventListener('mouseleave', hideTooltip);
-          cvs.addEventListener('click', function(e) {
+          };
+          cvs.onmouseleave = hideTooltip;
+          cvs.onclick = function(e) {
             if (!corr?.annotations) return;
             const rect = cvs.getBoundingClientRect();
             const scaleX = cvs.width / rect.width;
@@ -472,7 +470,7 @@
               showTooltip(found.comment, e.clientX, e.clientY);
               setTimeout(hideTooltip, 2500);
             }
-          });
+          };
         } else {
           const div = document.createElement('div');
           div.className = 'essay-text';
@@ -558,6 +556,16 @@
         setTimeout(load, 100);
       }
     });
+    // NOVO: observa mudanças no DOM para recarregar se necessário (SPA)
+    if (window.MutationObserver) {
+      const observer = new MutationObserver(() => {
+        // Se a página de correção está visível, recarrega
+        if (document.getElementById('essayView')) {
+          setTimeout(load, 50);
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') {

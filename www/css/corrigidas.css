@@ -149,7 +149,8 @@
   justify-content: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 700px; /* aumente conforme necessário */
+  max-height: 400px; /* altura fixa menor */
+  height: 400px;
   padding-bottom: 8px;
   position: relative;
 }
@@ -157,10 +158,11 @@
   background: #10182b;
   border-radius: 8px;
   padding: 0;
-  min-height: 320px;
+  min-height: 400px;
   min-width: 100%;
   max-width: 100%;
-  max-height: 700px; /* aumente conforme necessário */
+  max-height: 400px;
+  height: 400px;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -181,7 +183,8 @@
   width: 100%;
   min-width: 0;
   max-width: 100%;
-  max-height: 700px; /* aumente conforme necessário */
+  max-height: 400px;
+  height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -190,13 +193,15 @@
   margin: 0 auto;
   border-radius: 8px;
   background: #fff;
-  position: relative;
+  position: absolute;
   z-index: 1;
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 680px; /* canvas e imagem ficam do mesmo tamanho */
+  min-height: 100%;
+  height: auto;
+  top: 0;
+  left: 0;
+  /* A imagem pode ser maior que a área, mas só a parte visível aparece */
 }
 .corrigidas-essay-area #essayCanvas {
   position: absolute;
@@ -205,8 +210,10 @@
   pointer-events: none;
   z-index: 2;
   width: 100%;
-  height: 100%;
+  height: 400px; /* igual à área visível */
+  max-height: 400px;
   display: block;
+  /* canvas cobre só a área visível */
 }
 
 /* Blocos empilhados */

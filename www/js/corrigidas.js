@@ -265,7 +265,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
       const pack = extractRectsPack(a);
-      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment));
+      pack.list.forEach r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment));
     });
   }
 
@@ -283,22 +283,29 @@
 
   function fitCanvas(annotations) {
     if (!imgEl || !canvas) return;
-    // Use offsetWidth/offsetHeight para garantir o mesmo tamanho visual
-    const w = imgEl.offsetWidth;
-    const h = imgEl.offsetHeight;
-    if (!w || !h) return;
-
-    // Ajusta o canvas para o mesmo tamanho da imagem
+    // Define altura fixa para o canvas (igual à área visível)
+    const area = canvas.parentElement;
+    const w = area.offsetWidth;
+    const h = 400; // altura fixa
     canvas.width = w;
     canvas.height = h;
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
     canvas.style.position = 'absolute';
-    canvas.style.left = (imgEl.offsetLeft || 0) + 'px';
-    canvas.style.top = (imgEl.offsetTop || 0) + 'px';
+    canvas.style.left = '0px';
+    canvas.style.top = '0px';
     canvas.style.zIndex = 2;
     ctx = canvas.getContext('2d');
     drawAllRects(annotations);
+    // Ajusta a imagem para acompanhar a rolagem
+    if (imgEl) {
+      imgEl.style.width = '100%';
+      imgEl.style.position = 'absolute';
+      imgEl.style.left = '0';
+      imgEl.style.top = -area.scrollTop + 'px';
+      imgEl.style.height = 'auto';
+      imgEl.style.maxHeight = 'none';
+    }
   }
 
   async function load() {
@@ -370,7 +377,7 @@
           $essayView.appendChild(cvs);
 
           $essayView.style.position = 'relative';
-          img.style.position = 'relative';
+          img.style.position = 'absolute';
           cvs.style.position = 'absolute';
 
           // canvas overlay fix

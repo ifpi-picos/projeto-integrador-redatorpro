@@ -469,7 +469,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             renderTexto(essay.texto || '');
         }
-        // Reforço: reavaliar após decidir o tipo
         setMarkModes(false, false);
 
         // correção existente
@@ -497,14 +496,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // marcações
                 (corr.annotations || []).forEach(a => {
-                    const ann = {
-                        id: a.id ? `ann-${a.id}` : ('ann-' + (Date.now() + Math.random().toString(16).slice(2))),
-                        tipo: a.tipo, rangeStart: a.rangeStart, rangeEnd: a.rangeEnd,
-                        snippet: a.snippet, rects: a.rects, rectsNormalized: a.rectsNormalized,
-                        color: a.color || '#ffea00', comment: a.comment || ''
-                    };
-                    annotations.push(ann);
-                    addObsItem(ann);
+                    // Marcações de texto/imagem
+                    if (a.tipo === 'texto' || a.tipo === 'imagem') {
+                        const ann = {
+                            id: a.id ? `ann-${a.id}` : ('ann-' + (Date.now() + Math.random().toString(16).slice(2))),
+                            tipo: a.tipo, rangeStart: a.rangeStart, rangeEnd: a.rangeEnd,
+                            snippet: a.snippet, rects: a.rects, rectsNormalized: a.rectsNormalized,
+                            color: a.color || '#ffea00', comment: a.comment || ''
+                        };
+                        annotations.push(ann);
+                        addObsItem(ann);
+                    }
+                    // Observações de competência
+                    if (a.tipo === 'comp' && a.rangeStart && a.comment) {
+                        const idx = Number(a.rangeStart) - 1;
+                        if (obsTextareas[idx]) obsTextareas[idx].value = a.comment;
+                    }
                 });
                 // aplica marcas visualmente
                 if (essay.texto) applySavedTextAnnotations(annotations);
@@ -526,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Envio com correção + marcações
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
+
         // Validar se todas as competências foram avaliadas
         let todasAvaliadas = true;
         notaSliders.forEach(slider => {
@@ -563,32 +570,42 @@ document.addEventListener('DOMContentLoaded', function() {
         const total = Object.values(notas).reduce((a,b)=>a+(b||0),0);
         totalNotaElement.textContent = total;
 
+        // NOVO: coletar observações das competências como annotations tipo 'comp'
+        const compAnnotations = obsTextareas.map((ta, idx) => ({
+            tipo: 'comp',
+            rangeStart: idx + 1,
+            comment: ta.value?.trim() || ''
+        })).filter(a => a.comment);
+
         const payload = {
             notas,
             notaTotal: total,
             comentariosGerais: comentariosGeraisEl ? comentariosGeraisEl.value : '',
-            // NOVO: mantém compatibilidade e envia rects com base quando possível
-            annotations: annotations.map(a => {
-                const out = {
-                    tipo: a.tipo,
-                    rangeStart: a.rangeStart ?? null,
-                    rangeEnd: a.rangeEnd ?? null,
-                    snippet: a.snippet ?? null,
-                    color: a.color ?? '#ffea00',
-                    comment: a.comment ?? ''
-                };
-                if (a.tipo === 'imagem') {
-                    if (Array.isArray(a.rects)) {
-                        // converte para pacote com base atual do canvas
-                        out.rects = { basisW: canvas?.width || null, basisH: canvas?.height || null, items: a.rects };
+            annotations: [
+                // Marcações de texto/imagem
+                ...annotations.map(a => {
+                    const out = {
+                        tipo: a.tipo,
+                        rangeStart: a.rangeStart ?? null,
+                        rangeEnd: a.rangeEnd ?? null,
+                        snippet: a.snippet ?? null,
+                        color: a.color ?? '#ffea00',
+                        comment: a.comment ?? ''
+                    };
+                    if (a.tipo === 'imagem') {
+                        if (Array.isArray(a.rects)) {
+                            out.rects = { basisW: canvas?.width || null, basisH: canvas?.height || null, items: a.rects };
+                        } else {
+                            out.rects = a.rects ?? null;
+                        }
                     } else {
-                        out.rects = a.rects ?? null; // já no formato {basisW,basisH,items}
+                        out.rects = null;
                     }
-                } else {
-                    out.rects = null;
-                }
-                return out;
-            })
+                    return out;
+                }),
+                // Observações das competências
+                ...compAnnotations
+            ]
         };
 
         try {

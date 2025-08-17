@@ -1,3 +1,56 @@
+/* Cabeçalho único, azul, ocupando toda a largura */
+.correction-header-full {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111a2f;
+  color: #4cc3ff;
+  padding: 32px 36px 24px 36px;
+  border-radius: 0 0 24px 24px;
+  margin-bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.header-icon {
+  font-size: 2.2rem;
+  margin-right: 18px;
+  color: #4cc3ff;
+}
+.header-main h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.1rem;
+  color: #4cc3ff;
+  margin: 0 0 4px 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.header-main .header-subtitle {
+  color: #fff;
+  font-size: 1.1rem;
+  opacity: .85;
+  margin: 0;
+}
+.header-nota {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 1.2rem;
+  color: #4cc3ff;
+  font-family: 'Poppins', sans-serif;
+}
+.header-nota .nota-label {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #4cc3ff;
+}
+.header-nota .nota-valor {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
 /* Layout moderno para página de correção */
 .corrigidas-modern-layout {
   --primary: #4361ee;
@@ -29,101 +82,110 @@
   background: var(--color-bg-primary, #f9fafb);
 }
 
-.corrigidas-grid {
+/* Grid principal: 3 colunas, ocupando toda a largura */
+.corrigidas-grid-full {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
-  gap: 32px;
+  gap: 18px;
   align-items: flex-start;
-  margin-top: 18px;
+  margin: 0;
+  width: 100%;
+  padding: 32px 36px 0 36px;
+  box-sizing: border-box;
 }
-@media (max-width: 900px) {
-  .corrigidas-grid {
+@media (max-width: 1100px) {
+  .corrigidas-grid-full {
     grid-template-columns: 1fr;
-    gap: 18px;
+    padding: 18px 8px 0 8px;
   }
 }
 
+/* Colunas */
 .corr-col {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
   min-width: 0;
 }
 
-/* Coluna esquerda: corretor + redação */
-.corr-col-left .corr-corretor {
+/* Corretor */
+.corr-corretor {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #fff;
-  border: 1px solid var(--color-border-hr, #e2e8f0);
-  border-radius: 12px;
-  padding: 10px 16px;
-  font-size: 1.05rem;
+  background: #181f36;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 1.08rem;
   font-weight: 600;
-  color: var(--azul-escuro, #1976d2);
+  color: #4cc3ff;
+  margin-bottom: 8px;
 }
 .corr-corretor-label {
-  color: var(--azul, #2196f3);
-  font-size: 1rem;
+  color: #4cc3ff;
+  font-size: 1.08rem;
   margin-right: 10px;
   font-weight: 700;
 }
 .corr-corretor img {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #e0e7ff;
+  border: 2px solid #4cc3ff;
   background: #fff;
 }
 
+/* Redação Corrigida */
 .corr-redacao {
-  background: #fff;
-  border: 1px solid var(--color-border-hr, #e2e8f0);
-  border-radius: 12px;
+  background: #181f36;
+  border-radius: 10px;
   padding: 16px 14px 18px 14px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 .corr-redacao-label {
-  color: var(--azul, #2196f3);
+  color: #4cc3ff;
   font-size: 1.08rem;
   font-weight: 700;
   margin-bottom: 2px;
 }
 .corr-redacao-tema {
-  color: var(--color-text-primary, #1F2936);
+  color: #fff;
   font-size: 1.05rem;
   font-weight: 600;
 }
 .corr-redacao-info {
-  color: var(--color-text-placeholder, #798EAE);
-  font-size: .95rem;
+  color: #b3c6e0;
+  font-size: .97rem;
   margin-bottom: 8px;
 }
 .corr-essay-area {
-  background: #f7f8fa;
-  border: 1px solid var(--color-border-hr, #e2e8f0);
+  background: #10182b;
   border-radius: 8px;
   padding: 12px 8px;
-  min-height: 180px;
+  min-height: 220px;
   position: relative;
   overflow-x: auto;
   overflow-y: auto;
-  font-size: 1.08rem;
-  color: var(--color-text-primary, #1F2936);
+  font-size: 1.13rem;
+  color: #fff;
+  border: 1.5px solid #4cc3ff;
+  box-shadow: 0 2px 12px #00000018;
 }
 .corr-essay-area .essay-text {
   white-space: pre-wrap;
   line-height: 1.85;
-  font-size: 1.08rem;
+  font-size: 1.13rem;
+  color: #fff;
 }
 .corr-essay-area .highlight {
   border-radius: 3px;
   padding: 0 2px;
-  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.05);
+  box-shadow: 0 0 0 2px #4cc3ff99;
+  background: #4cc3ff33 !important;
+  color: #fff;
 }
 .corr-essay-area #essayImage {
   max-width: 100%;
@@ -132,6 +194,8 @@
   margin: 0 auto;
   border-radius: 8px;
   background: #fff;
+  position: relative;
+  z-index: 1;
 }
 .corr-essay-area #essayCanvas {
   position: absolute;
@@ -139,27 +203,28 @@
   top: 0;
   pointer-events: none;
   z-index: 2;
+  width: 100%;
+  height: 100%;
 }
 
-/* Coluna central: comentários e marcações */
-.corr-col-center .corr-comentarios,
-.corr-col-center .corr-anotacoes {
-  background: #fff;
-  border: 1px solid var(--color-border-hr, #e2e8f0);
-  border-radius: 12px;
+/* Comentário Geral e Marcações */
+.corr-comentarios,
+.corr-anotacoes {
+  background: #181f36;
+  border-radius: 10px;
   padding: 14px 14px 16px 14px;
   margin-bottom: 8px;
 }
 .corr-comentarios-label,
 .corr-anotacoes-label {
-  color: var(--azul, #2196f3);
+  color: #4cc3ff;
   font-size: 1.08rem;
   font-weight: 700;
   margin-bottom: 6px;
   display: block;
 }
 #comentariosBox {
-  color: #374151;
+  color: #fff;
   font-size: 1.03rem;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -172,15 +237,16 @@
   min-height: 40px;
 }
 .obs-item {
-  border: 1px solid var(--color-border-hr, #e2e8f0);
+  border: 1px solid #4cc3ff44;
   border-radius: 8px;
   padding: 8px 10px;
-  background: #fafafa;
+  background: #10182b;
+  color: #fff;
 }
 .obs-title {
   font-weight: 600;
   margin-bottom: 4px;
-  color: #374151;
+  color: #4cc3ff;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -189,51 +255,23 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #4cc3ff;
   display: inline-block;
 }
 .obs-text {
-  color: #4b5563;
+  color: #b3c6e0;
   white-space: pre-wrap;
   font-size: .98rem;
 }
 
-/* Coluna direita: nota total + competências */
-.corr-col-right .corr-nota-total {
-  background: #fff;
-  border: 1.5px solid var(--azul, #2196f3);
-  border-radius: 12px;
-  padding: 18px 12px 14px 12px;
-  margin-bottom: 18px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.corr-nota-label {
-  color: var(--azul, #2196f3);
-  font-size: 1.08rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-.corr-nota-valor {
-  font-size: 2.1rem;
-  font-weight: 900;
-  color: var(--azul-escuro, #1976d2);
-  background: #f7f8fa;
-  border-radius: 8px;
-  padding: 6px 18px;
-  margin-top: 2px;
-  border: 2px solid var(--azul, #2196f3);
-  letter-spacing: 2px;
-}
+/* Notas e Comentários */
 .corr-competencias {
-  background: #fff;
-  border: 1px solid var(--color-border-hr, #e2e8f0);
-  border-radius: 12px;
+  background: #181f36;
+  border-radius: 10px;
   padding: 14px 12px 16px 12px;
 }
 .corr-competencias-label {
-  color: var(--azul, #2196f3);
+  color: #4cc3ff;
   font-size: 1.08rem;
   font-weight: 700;
   margin-bottom: 8px;
@@ -242,59 +280,58 @@
 #competenciasBox {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 .comp-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  border-bottom: 1px dashed #e0e7eb;
+  border-bottom: 1px dashed #4cc3ff44;
   padding-bottom: 6px;
   margin-bottom: 4px;
 }
 .comp-label {
-  color: var(--color-text-primary, #1F2936);
+  color: #fff;
   font-size: 1.01rem;
   font-weight: 600;
 }
 .comp-valor {
-  background: #f7f8fa;
-  color: var(--azul-escuro, #1976d2);
+  background: #10182b;
+  color: #4cc3ff;
   font-weight: 700;
   font-size: 1.08rem;
   border-radius: 6px;
   padding: 2px 14px;
-  border: 1.5px solid var(--azul, #2196f3);
+  border: 1.5px solid #4cc3ff;
 }
 .comp-obs {
-  color: #4b5563;
+  color: #b3c6e0;
   font-size: .97rem;
   margin-bottom: 8px;
-  background: #f6f8fa;
+  background: #10182b;
   border-radius: 6px;
   padding: 6px 10px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #4cc3ff44;
 }
 
 /* Estados */
 .state {
   text-align: center;
-  color: #6b7280;
+  color: #4cc3ff;
   margin: 22px 0 6px;
   font-size: .98rem;
 }
 
 /* Responsivo */
-@media (max-width: 900px) {
-  .correction-container.corrigidas-container {
-    padding: 0 8px 40px 8px;
-  }
-  .corrigidas-grid {
+@media (max-width: 1100px) {
+  .corrigidas-grid-full {
     grid-template-columns: 1fr;
-    gap: 18px;
+    padding: 18px 8px 0 8px;
   }
-  .corr-col {
-    gap: 16px;
+  .correction-header-full {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 8px 16px 8px;
   }
 }

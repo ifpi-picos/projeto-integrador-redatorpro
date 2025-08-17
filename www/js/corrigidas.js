@@ -72,7 +72,7 @@
   }
 
   function hexToRgba(hex, alpha = 0.5) {
-    let c = (hex || '#ffea00').replace('#', '');
+    let c = (hex || '#4cc3ff').replace('#', '');
     if (c.length === 3) c = c.split('').map(ch => ch + ch).join('');
     const r = parseInt(c.slice(0, 2), 16);
     const g = parseInt(c.slice(2, 4), 16);
@@ -128,7 +128,7 @@
       const e = Math.min(texto.length, a.rangeEnd);
       if (s > pos) html += esc(texto.slice(pos, s));
       const snippet = texto.slice(s, e);
-      html += `<span class="highlight" style="background:${hexToRgba(a.color||'#ffea00',0.5)}">${esc(snippet)}</span>`;
+      html += `<span class="highlight" style="background:${hexToRgba(a.color||'#4cc3ff',0.35)}">${esc(snippet)}</span>`;
       pos = e;
     });
     if (pos < texto.length) html += esc(texto.slice(pos));
@@ -138,9 +138,9 @@
   function drawRect(r, color) {
     if (!ctx) return;
     ctx.save();
-    ctx.fillStyle = hexToRgba(color || '#ffea00', 0.35);
-    ctx.strokeStyle = color || '#ffea00';
-    ctx.lineWidth = 2;
+    ctx.fillStyle = hexToRgba(color || '#4cc3ff', 0.25);
+    ctx.strokeStyle = color || '#4cc3ff';
+    ctx.lineWidth = 3;
     ctx.fillRect(r.x, r.y, r.w, r.h);
     ctx.strokeRect(r.x, r.y, r.w, r.h);
     ctx.restore();
@@ -210,22 +210,18 @@
 
   function fitCanvas(annotations) {
     if (!imgEl || !canvas) return;
-    // Use getBoundingClientRect para alinhar canvas à imagem exibida
-    const rect = imgEl.getBoundingClientRect();
-    const parentRect = imgEl.parentElement.getBoundingClientRect();
-    const w = imgEl.clientWidth || imgEl.naturalWidth || 0;
-    const h = imgEl.clientHeight || imgEl.naturalHeight || 0;
+    // Ajusta o canvas para cobrir exatamente a imagem exibida
+    const w = imgEl.offsetWidth || imgEl.naturalWidth || 0;
+    const h = imgEl.offsetHeight || imgEl.naturalHeight || 0;
     if (!w || !h) return;
 
     canvas.width = w;
     canvas.height = h;
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
-    // Ajuste para alinhar canvas sobre a imagem
     canvas.style.position = 'absolute';
-    canvas.style.left = (imgEl.offsetLeft || 0) + 'px';
-    canvas.style.top = (imgEl.offsetTop || 0) + 'px';
-
+    canvas.style.left = imgEl.offsetLeft + 'px';
+    canvas.style.top = imgEl.offsetTop + 'px';
     ctx = canvas.getContext('2d');
     drawAllRects(annotations);
   }
@@ -298,11 +294,11 @@
           $essayView.appendChild(img);
           $essayView.appendChild(cvs);
 
-          // canvas overlay fix
           $essayView.style.position = 'relative';
           img.style.position = 'relative';
           cvs.style.position = 'absolute';
 
+          // canvas overlay fix
           const fitSize = () => fitCanvas(corr?.annotations || []);
           if (img.complete) { fitSize(); } else { img.onload = fitSize; }
           window.addEventListener('resize', fitSize);

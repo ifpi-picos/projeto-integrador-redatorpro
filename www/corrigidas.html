@@ -1,18 +1,21 @@
 <div data-name="corrigidas" class="page">
-  <div class="buttons-top">
-    <a href="/pendentes/" class="back-button"><i class="ri-arrow-left-s-line"></i></a>
-  </div>
   <div class="page-content no-padding">
-    <div class="correction-header">
+    <div class="correction-header correction-header-full">
       <div class="header-icon">
         <i class="ri-check-double-line"></i>
       </div>
-      <h1>Correção</h1>
-      <p class="header-subtitle">Veja o feedback detalhado da sua redação</p>
+      <div class="header-main">
+        <h1>Correção</h1>
+        <p class="header-subtitle">Veja o feedback detalhado da sua redação</p>
+      </div>
+      <div class="header-nota">
+        <span class="nota-label">Nota Total</span>
+        <span class="nota-valor" id="notaTotalTxt">—</span>
+      </div>
     </div>
     <div class="correction-container corrigidas-container">
-      <div class="corrigidas-grid">
-        <!-- Coluna Esquerda: Corretor + Redação Corrigida -->
+      <div class="corrigidas-grid-full">
+        <!-- Coluna 1: Corretor + Redação Corrigida -->
         <div class="corr-col corr-col-left">
           <div class="corr-corretor">
             <span class="corr-corretor-label">Corretor</span>
@@ -28,7 +31,7 @@
             <div class="corr-essay-area" id="essayView"></div>
           </div>
         </div>
-        <!-- Coluna Central: Comentário Geral + Marcações -->
+        <!-- Coluna 2: Comentário Geral + Marcações -->
         <div class="corr-col corr-col-center">
           <div class="corr-comentarios">
             <span class="corr-comentarios-label">Comentário Geral</span>
@@ -39,12 +42,8 @@
             <div id="obsList"></div>
           </div>
         </div>
-        <!-- Coluna Direita: Nota Total + Competências -->
+        <!-- Coluna 3: Notas e Comentários -->
         <div class="corr-col corr-col-right">
-          <div class="corr-nota-total">
-            <span class="corr-nota-label">Nota Total</span>
-            <span class="corr-nota-valor" id="notaTotalTxt">—</span>
-          </div>
           <div class="corr-competencias">
             <span class="corr-competencias-label">Notas e Comentários</span>
             <div id="competenciasBox"></div>
@@ -61,6 +60,7 @@
 <script src="lib/jquery-3.7.0.min.js"></script>
 <script src="js/routes.js"></script>
 <script src="cordova.js"></script>
+<script src="js/corrigidas.js"></script>
 <script src="js/corrigidas.js"></script>
       <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
       <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div><!-- Assets (fallback para acesso direto, como em pendentes.html) -->

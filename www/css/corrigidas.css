@@ -67,7 +67,7 @@
 
 /* Container principal empilhado */
 .corrigidas-stack-container {
-  max-width: 600px;
+  max-width: 1100px;
   margin: 32px auto 0 auto;
   display: flex;
   flex-direction: column;

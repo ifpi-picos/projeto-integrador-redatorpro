@@ -403,7 +403,7 @@
           cvs.style.width = '100%';
           cvs.style.height = '100%';
           cvs.style.zIndex = '2';
-          cvs.style.pointerEvents = 'auto'; // Permite eventos de mouse para tooltip
+          cvs.style.pointerEvents = 'auto';
 
           // canvas overlay fix
           function fitAndSyncCanvas() {
@@ -419,9 +419,16 @@
             ctx = cvs.getContext('2d');
             drawAllRects(corr?.annotations || []);
           }
+
+          // Chame fitAndSyncCanvas apenas quando necessário
           if (img.complete) { fitAndSyncCanvas(); } else { img.onload = fitAndSyncCanvas; }
           window.addEventListener('resize', fitAndSyncCanvas);
-          $essayView.addEventListener('scroll', fitAndSyncCanvas);
+
+          // No scroll, apenas redesenhe as marcações, não altere tamanho!
+          $essayView.addEventListener('scroll', function() {
+            drawAllRects(corr?.annotations || []);
+          });
+
           setTimeout(fitAndSyncCanvas, 80);
 
           // Tooltip para marcações na imagem

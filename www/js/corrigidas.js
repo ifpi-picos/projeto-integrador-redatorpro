@@ -97,9 +97,13 @@
     ];
     for (let i = 1; i <= 5; i++) {
       const v = (notasObj && (notasObj[i] ?? notasObj[String(i)])) ?? 0;
+      // Linha única por competência
+      const row = document.createElement('div');
+      row.className = 'comp-row';
       const l = document.createElement('div'); l.className='comp-label'; l.textContent = labels[i-1];
-      const r = document.createElement('div'); r.className='comp-valor'; r.textContent = `${v} pts`;
-      $competencias.appendChild(l); $competencias.appendChild(r);
+      const r = document.createElement('div'); r.className='comp-valor'; r.textContent = `${v}`;
+      row.appendChild(l); row.appendChild(r);
+      $competencias.appendChild(row);
 
       // Observação por competência (se houver)
       if (obsObj && obsObj[i]) {

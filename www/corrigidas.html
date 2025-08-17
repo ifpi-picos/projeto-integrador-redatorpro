@@ -2,43 +2,55 @@
   <div class="buttons-top">
     <a href="/pendentes/" class="back-button"><i class="ri-arrow-left-s-line"></i></a>
   </div>
-  <div class="page-content">
-    <div class="corrigidas-modern-layout">
-      <header class="corr-header">
-        <div>
-          <h2 id="temaTxt">Correção</h2>
-          <p id="infoTxt" class="muted">—</p>
-        </div>
-        <div class="corr-nota-total">
-          <span class="label">Nota Total</span>
-          <span class="valor" id="notaTotalTxt">—</span>
-        </div>
-      </header>
-      <section class="corr-main">
-        <div class="corr-main-left">
+  <div class="page-content no-padding">
+    <div class="correction-header">
+      <div class="header-icon">
+        <i class="ri-check-double-line"></i>
+      </div>
+      <h1>Correção</h1>
+      <p class="header-subtitle">Veja o feedback detalhado da sua redação</p>
+    </div>
+    <div class="correction-container corrigidas-container">
+      <div class="corrigidas-grid">
+        <!-- Coluna Esquerda: Corretor + Redação Corrigida -->
+        <div class="corr-col corr-col-left">
           <div class="corr-corretor">
+            <span class="corr-corretor-label">Corretor</span>
             <img id="corretorAvatar" alt="Corretor">
             <span id="corretorNome">—</span>
           </div>
-          <div class="corr-essay-area" id="essayView">
-            <!-- Redação (texto ou imagem+canvas) -->
+          <div class="corr-redacao">
+            <span class="corr-redacao-label">Redação Corrigida</span>
+            <div class="corr-redacao-tema">
+              <span id="temaTxt">—</span>
+            </div>
+            <div class="corr-redacao-info" id="infoTxt">—</div>
+            <div class="corr-essay-area" id="essayView"></div>
           </div>
         </div>
-        <div class="corr-main-right">
+        <!-- Coluna Central: Comentário Geral + Marcações -->
+        <div class="corr-col corr-col-center">
           <div class="corr-comentarios">
-            <h3>Comentário Geral</h3>
+            <span class="corr-comentarios-label">Comentário Geral</span>
             <div id="comentariosBox">—</div>
           </div>
-          <div class="corr-competencias">
-            <h3>Notas por Competência</h3>
-            <div id="competenciasBox"></div>
-          </div>
-          <div class="corr-obs">
-            <h3>Marcações e Observações</h3>
+          <div class="corr-anotacoes">
+            <span class="corr-anotacoes-label">Marcações e Anotações</span>
             <div id="obsList"></div>
           </div>
         </div>
-      </section>
+        <!-- Coluna Direita: Nota Total + Competências -->
+        <div class="corr-col corr-col-right">
+          <div class="corr-nota-total">
+            <span class="corr-nota-label">Nota Total</span>
+            <span class="corr-nota-valor" id="notaTotalTxt">—</span>
+          </div>
+          <div class="corr-competencias">
+            <span class="corr-competencias-label">Notas e Comentários</span>
+            <div id="competenciasBox"></div>
+          </div>
+        </div>
+      </div>
       <div id="loading" class="state">Carregando correção...</div>
       <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
       <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>
@@ -50,18 +62,6 @@
 <script src="js/routes.js"></script>
 <script src="cordova.js"></script>
 <script src="js/corrigidas.js"></script>
-            </div>
-          </div>
-        </aside>
-          <div class="block">
-            <h3 class="section-title">Notas e Comentários</h3>
-            <div class="competencias" id="competenciasBox"></div>      <!-- Estados -->
-          </div>" class="state">Carregando correção...</div>
-        </aside> ainda não disponível.</div>
-      </main>
-
-      <!-- Estados -->
-      <div id="loading" class="state">Carregando correção...</div>
       <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
       <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div><!-- Assets (fallback para acesso direto, como em pendentes.html) -->
     </div>

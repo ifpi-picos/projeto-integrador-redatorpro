@@ -60,6 +60,10 @@
   const $error = document.getElementById('error');
 
   let canvas, ctx, imgEl;
+  // Variáveis de controle para handlers e setup único (evita ReferenceError)
+  let __resizeHandler = null;
+  let __scrollHandler = null;
+  let __routerSetupDone = false;
 
   function getToken() {
     const user = JSON.parse(localStorage.getItem('loggedUser') || 'null');

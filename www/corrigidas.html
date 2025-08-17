@@ -13,43 +13,43 @@
         <span class="nota-valor" id="notaTotalTxt">—</span>
       </div>
     </div>
-    <div class="corrigidas-main-container">
-      <div class="corrigidas-main-grid">
-        <!-- Redação + Corretor -->
-        <section class="corrigidas-main-left">
-          <div class="corrigidas-corretor">
-            <img id="corretorAvatar" alt="Corretor">
-            <span id="corretorNome">—</span>
-          </div>
-          <div class="corrigidas-redacao-card">
-            <div class="corrigidas-redacao-info">
-              <span id="temaTxt" class="corrigidas-tema">—</span>
-              <span id="infoTxt" class="corrigidas-info">—</span>
-            </div>
-            <div class="corrigidas-essay-area-wrapper">
-              <div class="corrigidas-essay-area" id="essayView"></div>
-            </div>
-          </div>
-        </section>
-        <!-- Comentário Geral + Marcações -->
-        <section class="corrigidas-main-center">
-          <div class="corrigidas-card">
-            <h3>Comentário Geral</h3>
-            <div id="comentariosBox">—</div>
-          </div>
-          <div class="corrigidas-card">
-            <h3>Marcações e Anotações</h3>
-            <div id="obsList"></div>
-          </div>
-        </section>
-        <!-- Notas e Comentários -->
-        <aside class="corrigidas-main-right">
-          <div class="corrigidas-card">
-            <h3>Notas e Comentários</h3>
-            <div id="competenciasBox"></div>
-          </div>
-        </aside>
+    <div class="corrigidas-stack-container">
+      <div class="corrigidas-block corrigidas-corretor">
+        <img id="corretorAvatar" alt="Corretor">
+        <span id="corretorNome">—</span>
       </div>
+      <div class="corrigidas-block corrigidas-redacao-card">
+        <div class="corrigidas-redacao-info">
+          <span id="temaTxt" class="corrigidas-tema">—</span>
+          <span id="infoTxt" class="corrigidas-info">—</span>
+        </div>
+        <div class="corrigidas-essay-area-wrapper">
+          <div class="corrigidas-essay-area" id="essayView"></div>
+        </div>
+      </div>
+      <div class="corrigidas-block corrigidas-card">
+        <h3>Comentário Geral</h3>
+        <div id="comentariosBox">—</div>
+      </div>
+      <div class="corrigidas-block corrigidas-card">
+        <h3>Marcações e Anotações</h3>
+        <div id="obsList"></div>
+      </div>
+      <div class="corrigidas-block corrigidas-card">
+        <h3>Notas e Comentários</h3>
+        <div id="competenciasBox"></div>
+      </div>
+      <div id="loading" class="state">Carregando correção...</div>
+      <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
+      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>
+    </div>
+  </div>
+</div>
+<script src="lib/framework7-bundle.min.js"></script>
+<script src="lib/jquery-3.7.0.min.js"></script>
+<script src="js/routes.js"></script>
+<script src="cordova.js"></script>
+<script src="js/corrigidas.js"></script>
       <div id="loading" class="state">Carregando correção...</div>
       <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
       <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div>

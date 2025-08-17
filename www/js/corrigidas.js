@@ -279,7 +279,9 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
       (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
         const pack = extractRectsPack(a);
-        pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment));
+        pack.list.forEach(r => {
+          drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment);
+        });
       });
     }
   
@@ -407,29 +409,36 @@
 
           // canvas overlay fix
           function fitAndSyncCanvas() {
-            const w = img.naturalWidth || img.width;
-            const h = img.naturalHeight || img.height;
-            if (w && h) {
-              imgCanvasContainer.style.height = h * (img.offsetWidth / w) + 'px';
-              cvs.width = w;
-              cvs.height = h;
-              cvs.style.width = '100%';
-              cvs.style.height = '100%';
-            }
+            // Só ajusta se a imagem já carregou e tem dimensões válidas
+            const w = img.naturalWidth;
+            const h = img.naturalHeight;
+            if (!w || !h) return;
+            // Ajusta o tamanho do canvas e do container
+            imgCanvasContainer.style.height = (img.offsetWidth * h / w) + 'px';
+            cvs.width = w;
+            cvs.height = h;
+            cvs.style.width = '100%';
+            cvs.style.height = '100%';
             ctx = cvs.getContext('2d');
             drawAllRects(corr?.annotations || []);
           }
 
-          // Chame fitAndSyncCanvas apenas quando necessário
-          if (img.complete) { fitAndSyncCanvas(); } else { img.onload = fitAndSyncCanvas; }
+          // Só chama ajuste quando a imagem realmente carregar
+          img.onload = () => {
+            fitAndSyncCanvas();
+          };
+          // Se já estiver em cache
+          if (img.complete && img.naturalWidth) {
+            fitAndSyncCanvas();
+          }
+
+          // Redimensiona canvas/container só em resize
           window.addEventListener('resize', fitAndSyncCanvas);
 
-          // No scroll, apenas redesenhe as marcações, não altere tamanho!
+          // No scroll, apenas redesenha as marcações (não ajusta tamanho!)
           $essayView.addEventListener('scroll', function() {
-            drawAllRects(corr?.annotations || []);
+            if (ctx) drawAllRects(corr?.annotations || []);
           });
-
-          setTimeout(fitAndSyncCanvas, 80);
 
           // Tooltip para marcações na imagem
           cvs.onmousemove = function(e) {

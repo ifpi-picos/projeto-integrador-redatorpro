@@ -283,13 +283,12 @@
 
   function fitCanvas(annotations) {
     if (!imgEl || !canvas) return;
-    // Use getBoundingClientRect para alinhar canvas à imagem exibida
-    const rect = imgEl.getBoundingClientRect();
-    const parentRect = imgEl.parentElement.getBoundingClientRect();
-    const w = rect.width;
-    const h = rect.height;
+    // Use offsetWidth/offsetHeight para garantir o mesmo tamanho visual
+    const w = imgEl.offsetWidth;
+    const h = imgEl.offsetHeight;
     if (!w || !h) return;
 
+    // Ajusta o canvas para o mesmo tamanho da imagem
     canvas.width = w;
     canvas.height = h;
     canvas.style.width = w + 'px';
@@ -375,10 +374,14 @@
           cvs.style.position = 'absolute';
 
           // canvas overlay fix
-          const fitSize = () => fitCanvas(corr?.annotations || []);
-          if (img.complete) { fitSize(); } else { img.onload = fitSize; }
-          window.addEventListener('resize', fitSize);
-          setTimeout(fitSize, 80);
+          function fitAndSyncCanvas() {
+            fitCanvas(corr?.annotations || []);
+          }
+          // Garante ajuste após imagem carregar e após resize/scroll
+          if (img.complete) { fitAndSyncCanvas(); } else { img.onload = fitAndSyncCanvas; }
+          window.addEventListener('resize', fitAndSyncCanvas);
+          $essayView.addEventListener('scroll', fitAndSyncCanvas);
+          setTimeout(fitAndSyncCanvas, 80);
 
           // NOVO: tooltip para marcações na imagem
           cvs.addEventListener('mousemove', function(e) {

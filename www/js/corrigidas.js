@@ -207,14 +207,15 @@
     });
   }
 
-  function drawRect(r, color, comment, mouseX, mouseY) {
+  function drawRect(r, color, comment, mouseX, mouseY, scrollY = 0) {
     if (!ctx) return;
     ctx.save();
     ctx.fillStyle = hexToRgba(color || '#4cc3ff', 0.25);
     ctx.strokeStyle = color || '#4cc3ff';
     ctx.lineWidth = 3;
-    ctx.fillRect(r.x, r.y, r.w, r.h);
-    ctx.strokeRect(r.x, r.y, r.w, r.h);
+    // Ajuste: subtrai scrollY do y para alinhar marcação com a parte visível
+    ctx.fillRect(r.x, r.y - scrollY, r.w, r.h);
+    ctx.strokeRect(r.x, r.y - scrollY, r.w, r.h);
     ctx.restore();
     // Tooltip para imagem: handled via mousemove/click
   }
@@ -263,9 +264,12 @@
   function drawAllRects(annotations) {
     if (!ctx || !canvas) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // NOVO: obtenha o scroll vertical da área da redação
+    const area = canvas.parentElement;
+    const scrollY = area ? area.scrollTop : 0;
     (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
       const pack = extractRectsPack(a);
-      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment));
+      pack.list.forEach(r => drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment, undefined, undefined, scrollY));
     });
   }
 

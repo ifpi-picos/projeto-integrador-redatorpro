@@ -5,6 +5,7 @@
     --azul-hover: #1976d2;
     --cinza: #d9e1ec;
     --sombra: rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
     --preto: #1a1a1a;
 
     --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;

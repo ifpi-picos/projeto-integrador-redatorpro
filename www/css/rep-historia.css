@@ -6,23 +6,24 @@
     --cinza: #d9e1ec;
     --sombra: rgba(0, 0, 0, 0.1);
     --preto: #1a1a1a;
+    
 
     --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
 }
 
-html, body {
+body {
     margin: 0;
-    padding: 0;
     font-family: var(--f7-font-family);
     background-color: var(--gelo);
     color: var(--preto);
     height: auto;
     min-height: 100%;
-    overflow-y: auto !important; /* força rolagem mesmo com Framework7 */
+    overflow-y: scroll; /* força barra mesmo sem precisar */
 }
 
-/* Corrigido: era .buttons-top, agora é .button-top */
-.button-top a {
+
+
+.buttons-top a {
     position: fixed;
     top: 20px;
     left: 20px;
@@ -53,7 +54,7 @@ header {
     text-align: center;
     font-size: 20px;
     margin: 30px auto 20px;
-    color: #1a1a1a;
+    color: #1a1a1a
 }
 
 .historia-container {
@@ -88,7 +89,7 @@ header {
 .historia-info h3 {
     margin: 0 0 10px;
     font-size: 22px;
-    color: #1a1a1a;
+    color: #1a1a1a
 }
 
 .historia-info p {

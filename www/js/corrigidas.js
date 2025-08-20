@@ -355,6 +355,98 @@
     }
   }
 
+  // NOVO: elementos de rating / chat
+  const $starRating = document.getElementById('starRating');
+  const $ratingMsg = document.getElementById('ratingMsg');
+  const $btnTirarDuvida = document.getElementById('btnTirarDuvida');
+
+  // Preenche UI das estrelas segundo valor médio (0..5)
+  function setStarUI(avg, readOnly) {
+    if (!$starRating) return;
+    const stars = Array.from($starRating.querySelectorAll('.star'));
+    const rounded = Math.round((avg || 0) * 2) / 2; // meia-estrela não renderizada, arredonda
+    stars.forEach(s => {
+      const v = Number(s.getAttribute('data-value'));
+      s.classList.toggle('filled', v <= Math.round(avg || 0));
+      s.setAttribute('aria-checked', (v <= Math.round(avg || 0)).toString());
+      if (readOnly) s.setAttribute('tabindex', '-1'); else s.setAttribute('tabindex', '0');
+    });
+    if ($ratingMsg) $ratingMsg.textContent = avg ? `Média: ${Number(avg).toFixed(1)} / 5` : '';
+  }
+
+  // Envia avaliação ao backend
+  async function enviarAvaliacao(corretorUserId, rating) {
+    const token = getToken();
+    if (!corretorUserId || !rating) return;
+    try {
+      const resp = await fetch(`${API}/red-corretores/${encodeURIComponent(corretorUserId)}/avaliar`, {
+        method: 'POST',
+        headers: Object.assign({ 'Content-Type': 'application/json' }, token ? { Authorization: `Bearer ${token}` } : {}),
+        body: JSON.stringify({ rating: Number(rating) })
+      });
+      if (!resp.ok) {
+        const txt = await resp.text().catch(()=>null);
+        console.error('Erro ao enviar avaliação', resp.status, txt);
+        if ($ratingMsg) $ratingMsg.textContent = 'Erro ao enviar avaliação.';
+        return null;
+      }
+      const json = await resp.json();
+      if ($ratingMsg) $ratingMsg.textContent = 'Obrigado pelo seu feedback!';
+      // Atualiza UI com nova média
+      setStarUI(json.rating ?? json.novoRating ?? 0, true);
+      return json;
+    } catch (e) {
+      console.error(e);
+      if ($ratingMsg) $ratingMsg.textContent = 'Erro ao enviar avaliação.';
+      return null;
+    }
+  }
+
+  // Ativa interatividade das estrelas (delegation)
+  if ($starRating) {
+    $starRating.addEventListener('click', async (ev) => {
+      const s = ev.target.closest('.star');
+      if (!s) return;
+      const v = Number(s.getAttribute('data-value'));
+      const corrUser = window.__corrigidasCachedCorretor; // setado abaixo em load()
+      if (!corrUser || !corrUser.id) {
+        if ($ratingMsg) $ratingMsg.textContent = 'Você precisa estar logado para avaliar.';
+        return;
+      }
+      // envia e bloqueia novas alterações após sucesso
+      $starRating.querySelectorAll('.star').forEach(st => st.classList.add('disabled'));
+      await enviarAvaliacao(corrUser.id, v);
+      $starRating.querySelectorAll('.star').forEach(st => st.classList.remove('disabled'));
+    });
+
+    // keyboard support (Enter/Space)
+    $starRating.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        const s = ev.target.closest('.star');
+        if (s) s.click();
+      }
+    });
+  }
+
+  // Chat: tenta abrir rota /chat?userId=ID (ajuste conforme app)
+  if ($btnTirarDuvida) {
+    $btnTirarDuvida.addEventListener('click', () => {
+      const corrUser = window.__corrigidasCachedCorretor;
+      const id = corrUser?.id;
+      if (!id) {
+        // se não logado, redireciona para login (opcional)
+        window.location.href = '#/login';
+        return;
+      }
+      // abre chat (ajuste conforme rota real do app)
+      const href = `#/chat/?userId=${encodeURIComponent(id)}`;
+      if (window.app?.views?.main?.router) {
+        try { window.app.views.main.router.navigate(`/chat/?userId=${encodeURIComponent(id)}`); return; } catch(_) {}
+      }
+      window.location.href = href;
+    });
+  }
+
   async function load() {
     cleanupEssayView();
 
@@ -408,6 +500,13 @@
       const corrUser = corr?.corretor;
       if ($corrNome) $corrNome.textContent = corrUser?.name || 'Corretor';
       if ($corrAvatar) $corrAvatar.src = avatarUrl(corrUser?.name, corrUser?.fotoPerfil || null);
+
+      // Cache do corretor para ações (avaliar/chat)
+      window.__corrigidasCachedCorretor = corrUser || null;
+
+      // NOVO: inicializa UI de estrelas com média atual (corretor.rating ou null)
+      const avgRating = corrUser?.rating ?? null;
+      setStarUI(avgRating, false);
 
       // Render redação
       if ($essayView) {

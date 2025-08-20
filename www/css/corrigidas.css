@@ -108,6 +108,7 @@
   font-weight: 600;
   color: #4cc3ff;
   box-shadow: none;
+  justify-content: space-between; /* garante espaço para ações à direita */
 }
 .corrigidas-corretor img {
   width: 38px;
@@ -116,6 +117,53 @@
   object-fit: cover;
   border: 2px solid #4cc3ff;
   background: #fff;
+}
+
+/* Container de ações do corretor (chat + estrelas) */
+.corretor-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+/* botão chat */
+.btn-chat {
+  background: transparent;
+  border: 1px solid #4cc3ff44;
+  color: #4cc3ff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-chat i { font-size: 1.1rem; }
+.btn-chat:hover { background: rgba(76,195,255,0.08); }
+
+/* Avaliação por estrelas */
+.star-rating {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+.star {
+  font-size: 1.2rem;
+  color: #cfcfcf;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.12s, transform 0.08s;
+  line-height: 1;
+}
+.star:hover, .star:focus { transform: translateY(-2px); }
+.star.filled { color: #FFD166; } /* cor de estrela selecionada */
+
+/* mensagem de rating */
+.rating-msg {
+  font-size: .9rem;
+  color: #b3c6e0;
+  margin-left: 8px;
 }
 
 /* Redação */

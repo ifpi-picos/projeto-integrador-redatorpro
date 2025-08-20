@@ -17,6 +17,25 @@
       <div class="corrigidas-block corrigidas-corretor">
         <img id="corretorAvatar" alt="Corretor">
         <span id="corretorNome">—</span>
+
+        <!-- Adicionado: ações do corretor (chat + avaliação) -->
+        <div class="corretor-actions" aria-hidden="false">
+          <button id="btnTirarDuvida" class="btn-chat" type="button" title="Tirar dúvida">
+            <i class="ri-chat-3-line"></i>
+            <span class="sr-only">Tirar dúvida</span>
+          </button>
+
+          <div class="star-rating" id="starRating" role="radiogroup" aria-label="Avaliar corretor">
+            <!-- estrelas preenchidas via JS; cada .star tem data-value 1..5 -->
+            <span class="star" data-value="1" role="radio" aria-checked="false" tabindex="0">★</span>
+            <span class="star" data-value="2" role="radio" aria-checked="false" tabindex="0">★</span>
+            <span class="star" data-value="3" role="radio" aria-checked="false" tabindex="0">★</span>
+            <span class="star" data-value="4" role="radio" aria-checked="false" tabindex="0">★</span>
+            <span class="star" data-value="5" role="radio" aria-checked="false" tabindex="0">★</span>
+          </div>
+          <div id="ratingMsg" class="rating-msg" aria-live="polite"></div>
+        </div>
+
       </div>
       <div class="corrigidas-block corrigidas-redacao-card">
         <div class="corrigidas-redacao-info">

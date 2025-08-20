@@ -138,46 +138,45 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  justify-content: center;
 }
 .btn-chat:hover { background: rgba(76,195,255,0.06); }
 
-/* Avaliação por estrelas com suporte a meia-estrela */
-.star-rating {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
+/* Avaliação por estrelas com suporte visual a meia-estrela */
+.star-rating { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; user-select: none; }
+/* estrela base */
 .star {
-  font-size: 1.2rem;
-  color: #cfcfcf;
+  font-size: 1.35rem;
+  color: #cfcfcf; /* cor base (cinza) */
   position: relative;
   width: 1.2em;
+  height: 1.2em;
+  line-height: 1.2em;
+  display: inline-block;
   text-align: center;
-  transition: transform 0.08s;
+  transition: transform .08s ease, color .12s ease;
+  user-select: none;
 }
-.star:hover, .star:focus { transform: translateY(-3px); }
-
-/* full star */
-.star.filled { color: #FFD166; }
-
-/* half star: usa background-clip para colorir esquerda apenas */
-.star.half {
-  color: #cfcfcf;
-}
-.star.half::before {
+/* hover eleva um pouco */
+.star:hover, .star:focus { transform: translateY(-3px); outline: none; }
+/* pseudo que faz o preenchimento (meia ou total) */
+.star::before{
   content: '★';
   position: absolute;
   left: 0;
   top: 0;
-  width: 50%;
+  height: 100%;
+  width: 0%;
   overflow: hidden;
-  color: #FFD166;
-  -webkit-text-stroke: 0;
+  color: #FFD166; /* cor dourada */
+  pointer-events: none;
 }
-
-/* disabled */
+/* full filled: pinta toda a estrela (usa ::before para consistência) */
+.star.filled::before { width: 100%; }
+.star.filled { color: #FFD166; }
+/* half: deixa só metade preenchida */
+.star.half::before { width: 50%; }
+/* estado desabilitado (quando enviando/aguardando) */
 .star.disabled { opacity: 0.6; pointer-events: none; }
 
 /* mensagem de rating */
@@ -447,6 +446,12 @@
   font-weight: 600;
   margin-right: 6px;
   display: inline-block;
+}
+.action-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 10px; /* afasta os blocos entre si */
 }
 
 /* Responsivo */

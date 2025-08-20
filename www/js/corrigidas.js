@@ -355,11 +355,10 @@
     }
   }
 
-  // NOVO: elementos de rating / chat / botão enviar
+  // NOVO: elementos de rating / chat (removido btnAvaliarCorrecao)
   const $starRating = document.getElementById('starRating');
   const $ratingMsg = document.getElementById('ratingMsg');
   const $btnTirarDuvida = document.getElementById('btnTirarDuvida');
-  const $btnAvaliarCorrecao = document.getElementById('btnAvaliarCorrecao');
 
   // estado local
   window.__corrigidasCachedCorretor = window.__corrigidasCachedCorretor || null;
@@ -399,36 +398,55 @@
     $starRating.addEventListener('mousemove', (ev) => {
       const preview = valueFromClientX(ev.clientX);
       setStarUI(preview, false, true);
-      // removed numeric message update
     });
     $starRating.addEventListener('mouseleave', () => {
       const show = window.__corrSelectedRating ?? window.__corrCurrentRating ?? 0;
       setStarUI(show, false, true);
-      // removed numeric message update
     });
 
-    $starRating.addEventListener('click', (ev) => {
+    // click: seleciona e envia imediatamente (removido botão)
+    $starRating.addEventListener('click', async (ev) => {
       const sel = valueFromClientX(ev.clientX);
       window.__corrSelectedRating = sel;
       setStarUI(sel, false, true);
-      // removed numeric message update
+      const corrUser = window.__corrigidasCachedCorretor;
+      if (!corrUser || !corrUser.id) {
+        if ($ratingMsg) { $ratingMsg.textContent = 'Faça login para avaliar.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
+        return;
+      }
+      // desabilita stars enquanto envia
+      $starRating.querySelectorAll('.star').forEach(s => s.classList.add('disabled'));
+      await enviarAvaliacao(corrUser.id, sel);
+      $starRating.querySelectorAll('.star').forEach(s => s.classList.remove('disabled'));
     });
 
-    // keyboard support: Left/Right adjust, Enter to select
-    $starRating.addEventListener('keydown', (ev) => {
+    // keyboard support: Left/Right adjust, Enter/Space envia
+    $starRating.addEventListener('keydown', async (ev) => {
       if (!window.__corrSelectedRating) window.__corrSelectedRating = Math.round((window.__corrCurrentRating||0)*2)/2 || 0;
-      if (ev.key === 'ArrowRight') { window.__corrSelectedRating = Math.min(5, window.__corrSelectedRating + 0.5); setStarUI(window.__corrSelectedRating, false, true); ev.preventDefault(); }
-      if (ev.key === 'ArrowLeft') { window.__corrSelectedRating = Math.max(0.5, window.__corrSelectedRating - 0.5); setStarUI(window.__corrSelectedRating, false, true); ev.preventDefault(); }
-      if (ev.key === 'Enter' || ev.key === ' ') { if ($btnAvaliarCorrecao) $btnAvaliarCorrecao.click(); ev.preventDefault(); }
+      if (ev.key === 'ArrowRight') { window.__corrSelectedRating = Math.min(5, window.__corrSelectedRating + 0.5); setStarUI(window.__corrSelectedRating, false, true); ev.preventDefault(); return; }
+      if (ev.key === 'ArrowLeft') { window.__corrSelectedRating = Math.max(0.5, window.__corrSelectedRating - 0.5); setStarUI(window.__corrSelectedRating, false, true); ev.preventDefault(); return; }
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        const sel = (window.__corrSelectedRating ?? (Math.round((window.__corrCurrentRating||0)*2)/2)) || 0.5;
+        window.__corrSelectedRating = sel;
+        const corrUser = window.__corrigidasCachedCorretor;
+        if (!corrUser || !corrUser.id) {
+          if ($ratingMsg) { $ratingMsg.textContent = 'Faça login para avaliar.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
+          ev.preventDefault();
+          return;
+        }
+        $starRating.querySelectorAll('.star').forEach(s => s.classList.add('disabled'));
+        await enviarAvaliacao(corrUser.id, sel);
+        $starRating.querySelectorAll('.star').forEach(s => s.classList.remove('disabled'));
+        ev.preventDefault();
+      }
     });
   }
 
-  // Envia avaliação ao backend (aceita decimal)
+  // Envia avaliação ao backend (aceita decimal) - removi manipulação de botão
   async function enviarAvaliacao(corretorUserId, rating) {
     const token = getToken();
     if (!corretorUserId || !rating) return null;
     try {
-      if ($btnAvaliarCorrecao) $btnAvaliarCorrecao.disabled = true;
       const resp = await fetch(`${API}/red-corretores/${encodeURIComponent(corretorUserId)}/avaliar`, {
         method: 'POST',
         headers: Object.assign({ 'Content-Type': 'application/json' }, token ? { Authorization: `Bearer ${token}` } : {}),
@@ -441,7 +459,6 @@
         return null;
       }
       const json = await resp.json();
-      // atualiza estados locais e UI: bloqueia alteração (readOnly)
       window.__corrCurrentRating = json.rating ?? (Number(json.ratingSum || 0) / (json.ratingCount || 1));
       window.__corrSelectedRating = null;
       setStarUI(window.__corrCurrentRating || 0, true, true);
@@ -451,28 +468,7 @@
       console.error(e);
       if ($ratingMsg) { $ratingMsg.textContent = 'Erro ao enviar avaliação.'; setTimeout(()=> $ratingMsg.textContent = '', 3000); }
       return null;
-    } finally {
-      if ($btnAvaliarCorrecao) $btnAvaliarCorrecao.disabled = false;
     }
-  }
-
-  // botão avaliar: envia a seleção atual (mantém validações)
-  if ($btnAvaliarCorrecao) {
-    $btnAvaliarCorrecao.addEventListener('click', async () => {
-      const corrUser = window.__corrigidasCachedCorretor;
-      if (!corrUser || !corrUser.id) {
-        if ($ratingMsg) { $ratingMsg.textContent = 'Faça login para avaliar.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
-        return;
-      }
-      const sel = window.__corrSelectedRating ?? null;
-      if (!sel) {
-        if ($ratingMsg) { $ratingMsg.textContent = 'Selecione a nota (0.5,..,5).'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
-        return;
-      }
-      if ($btnAvaliarCorrecao) $btnAvaliarCorrecao.disabled = true;
-      await enviarAvaliacao(corrUser.id, sel);
-      if ($btnAvaliarCorrecao) $btnAvaliarCorrecao.disabled = false;
-    });
   }
 
   // Chat: tenta abrir rota /chat?userId=ID (ajuste conforme app)

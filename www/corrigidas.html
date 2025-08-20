@@ -18,7 +18,7 @@
         <img id="corretorAvatar" alt="Corretor">
         <span id="corretorNome">—</span>
 
-        <!-- Adicionado: ações do corretor (chat + avaliação) -->
+        <!-- Adicionado/ajustado: ações do corretor (chat + avaliação com botão de envio) -->
         <div class="corretor-actions" aria-hidden="false">
           <button id="btnTirarDuvida" class="btn-chat" type="button" title="Tirar dúvida">
             <i class="ri-chat-3-line"></i>
@@ -33,6 +33,8 @@
             <span class="star" data-value="4" role="radio" aria-checked="false" tabindex="0">★</span>
             <span class="star" data-value="5" role="radio" aria-checked="false" tabindex="0">★</span>
           </div>
+
+          <button id="btnAvaliarCorrecao" class="btn-chat" type="button" title="Avaliar correção">Avaliar</button>
           <div id="ratingMsg" class="rating-msg" aria-live="polite"></div>
         </div>
 

@@ -127,7 +127,7 @@
   margin-left: auto;
 }
 
-/* botão chat */
+/* botão chat / avaliar (reuso de estilo) */
 .btn-chat {
   background: transparent;
   border: 1px solid #4cc3ff44;
@@ -139,25 +139,46 @@
   align-items: center;
   gap: 8px;
 }
-.btn-chat i { font-size: 1.1rem; }
-.btn-chat:hover { background: rgba(76,195,255,0.08); }
+.btn-chat:hover { background: rgba(76,195,255,0.06); }
 
-/* Avaliação por estrelas */
+/* Avaliação por estrelas com suporte a meia-estrela */
 .star-rating {
   display: inline-flex;
   gap: 6px;
   align-items: center;
+  cursor: pointer;
+  user-select: none;
 }
 .star {
   font-size: 1.2rem;
   color: #cfcfcf;
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.12s, transform 0.08s;
-  line-height: 1;
+  position: relative;
+  width: 1.2em;
+  text-align: center;
+  transition: transform 0.08s;
 }
-.star:hover, .star:focus { transform: translateY(-2px); }
-.star.filled { color: #FFD166; } /* cor de estrela selecionada */
+.star:hover, .star:focus { transform: translateY(-3px); }
+
+/* full star */
+.star.filled { color: #FFD166; }
+
+/* half star: usa background-clip para colorir esquerda apenas */
+.star.half {
+  color: #cfcfcf;
+}
+.star.half::before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  overflow: hidden;
+  color: #FFD166;
+  -webkit-text-stroke: 0;
+}
+
+/* disabled */
+.star.disabled { opacity: 0.6; pointer-events: none; }
 
 /* mensagem de rating */
 .rating-msg {

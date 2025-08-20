@@ -281,13 +281,13 @@
   function drawAllRects(annotations) {
     if (!ctx || !canvas) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-      (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
-        const pack = extractRectsPack(a);
-        pack.list.forEach(r => {
-          drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment);
-        });
+    (annotations || []).filter(a => a.tipo === 'imagem').forEach(a => {
+      const pack = extractRectsPack(a);
+      pack.list.forEach(r => {
+        drawRect(mapRectToCanvas(r, pack.basisW, pack.basisH, pack.normalized), a.color, a.comment);
       });
-    }
+    });
+  }
   
 
   async function markViewed(essayId) {
@@ -376,11 +376,10 @@
       s.classList.remove('filled', 'half');
       if (v <= full) s.classList.add('filled');
       else if (v === full + 1 && half) s.classList.add('half');
-      // aria
       s.setAttribute('aria-checked', (v <= Math.round(avg || 0)).toString());
       if (readOnly) s.setAttribute('tabindex', '-1'); else s.setAttribute('tabindex', '0');
     });
-    if ($ratingMsg && !noMsg) $ratingMsg.textContent = avg ? `Média: ${Number(avg).toFixed(1)} / 5` : '';
+    // NÃO exibir mensagem numérica de média/preview aqui
   }
 
   // calcula valor (0.5..5.0) a partir de posição do mouse dentro do container
@@ -395,26 +394,24 @@
     return val;
   }
 
-  // preview on mousemove
+  // preview on mousemove (mantém meia-estrela) - sem texto numérico
   if ($starRating) {
     $starRating.addEventListener('mousemove', (ev) => {
       const preview = valueFromClientX(ev.clientX);
       setStarUI(preview, false, true);
-      if ($ratingMsg) $ratingMsg.textContent = `Selecionar: ${preview.toFixed(1)} / 5`;
+      // removed numeric message update
     });
     $starRating.addEventListener('mouseleave', () => {
-      // volta para média ou seleção já confirmada
       const show = window.__corrSelectedRating ?? window.__corrCurrentRating ?? 0;
-      setStarUI(show, false, false);
-      if ($ratingMsg) $ratingMsg.textContent = show ? `Média: ${Number(window.__corrCurrentRating || 0).toFixed(1)} / 5` : '';
+      setStarUI(show, false, true);
+      // removed numeric message update
     });
 
-    // click: somente seleciona (envio via botão "Avaliar")
     $starRating.addEventListener('click', (ev) => {
       const sel = valueFromClientX(ev.clientX);
       window.__corrSelectedRating = sel;
       setStarUI(sel, false, true);
-      if ($ratingMsg) $ratingMsg.textContent = `Selecionado: ${sel.toFixed(1)} — clique em "Avaliar"`;
+      // removed numeric message update
     });
 
     // keyboard support: Left/Right adjust, Enter to select
@@ -440,36 +437,36 @@
       if (!resp.ok) {
         const txt = await resp.text().catch(()=>null);
         console.error('Erro ao enviar avaliação', resp.status, txt);
-        if ($ratingMsg) $ratingMsg.textContent = 'Erro ao enviar avaliação.';
+        if ($ratingMsg) { $ratingMsg.textContent = 'Erro ao enviar avaliação.'; setTimeout(()=> $ratingMsg.textContent = '', 3000); }
         return null;
       }
       const json = await resp.json();
       // atualiza estados locais e UI: bloqueia alteração (readOnly)
       window.__corrCurrentRating = json.rating ?? (Number(json.ratingSum || 0) / (json.ratingCount || 1));
       window.__corrSelectedRating = null;
-      setStarUI(window.__corrCurrentRating || 0, true, false);
-      if ($ratingMsg) $ratingMsg.textContent = 'Obrigado pelo seu feedback!';
+      setStarUI(window.__corrCurrentRating || 0, true, true);
+      if ($ratingMsg) { $ratingMsg.textContent = 'Avaliação enviada'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
       return json;
     } catch (e) {
       console.error(e);
-      if ($ratingMsg) $ratingMsg.textContent = 'Erro ao enviar avaliação.';
+      if ($ratingMsg) { $ratingMsg.textContent = 'Erro ao enviar avaliação.'; setTimeout(()=> $ratingMsg.textContent = '', 3000); }
       return null;
     } finally {
       if ($btnAvaliarCorrecao) $btnAvaliarCorrecao.disabled = false;
     }
   }
 
-  // botão avaliar: envia a seleção atual
+  // botão avaliar: envia a seleção atual (mantém validações)
   if ($btnAvaliarCorrecao) {
     $btnAvaliarCorrecao.addEventListener('click', async () => {
       const corrUser = window.__corrigidasCachedCorretor;
       if (!corrUser || !corrUser.id) {
-        if ($ratingMsg) $ratingMsg.textContent = 'Você precisa estar logado para avaliar.';
+        if ($ratingMsg) { $ratingMsg.textContent = 'Faça login para avaliar.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
         return;
       }
       const sel = window.__corrSelectedRating ?? null;
       if (!sel) {
-        if ($ratingMsg) $ratingMsg.textContent = 'Selecione a nota (clique nas estrelas, é possível 0.5).';
+        if ($ratingMsg) { $ratingMsg.textContent = 'Selecione a nota (0.5,..,5).'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
         return;
       }
       if ($btnAvaliarCorrecao) $btnAvaliarCorrecao.disabled = true;
@@ -553,7 +550,7 @@
       window.__corrigidasCachedCorretor = corrUser || null;
       window.__corrCurrentRating = (corrUser?.rating ?? corrUser?.rating ?? 0);
       // inicializa UI de estrelas com média atual (meia-estrela suportada)
-      setStarUI(window.__corrCurrentRating || 0, false, false);
+      setStarUI(window.__corrCurrentRating || 0, false, true);
 
       // Render redação
       if ($essayView) {

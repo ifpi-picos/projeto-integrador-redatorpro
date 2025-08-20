@@ -20,11 +20,12 @@
 
         <!-- Adicionado/ajustado: ações do corretor (chat + avaliação com botão de envio) -->
         <div class="corretor-actions" aria-hidden="false">
+          <span class="action-label">Tirar dúvida:</span>
           <button id="btnTirarDuvida" class="btn-chat" type="button" title="Tirar dúvida">
             <i class="ri-chat-3-line"></i>
-            <span class="sr-only">Tirar dúvida</span>
           </button>
 
+          <span class="action-label">Avaliar Corretor:</span>
           <div class="star-rating" id="starRating" role="radiogroup" aria-label="Avaliar corretor">
             <!-- estrelas preenchidas via JS; cada .star tem data-value 1..5 -->
             <span class="star" data-value="1" role="radio" aria-checked="false" tabindex="0">★</span>
@@ -35,7 +36,7 @@
           </div>
 
           <button id="btnAvaliarCorrecao" class="btn-chat" type="button" title="Avaliar correção">Avaliar</button>
-          <div id="ratingMsg" class="rating-msg" aria-live="polite"></div>
+          <div id="ratingMsg" class="rating-msg" aria-live="polite" style="display:inline-block;margin-left:6px;"></div>
         </div>
 
       </div>

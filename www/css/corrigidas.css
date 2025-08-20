@@ -185,6 +185,7 @@
   font-size: .9rem;
   color: #b3c6e0;
   margin-left: 8px;
+  /* normalmente vazio; será usado apenas para sucesso/erro */
 }
 
 /* Redação */
@@ -437,6 +438,15 @@
 .corrigidas-tooltip.active {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Rótulos de ação */
+.action-label {
+  color: #b3c6e0;
+  font-size: .95rem;
+  font-weight: 600;
+  margin-right: 6px;
+  display: inline-block;
 }
 
 /* Responsivo */

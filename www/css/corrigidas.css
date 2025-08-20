@@ -142,55 +142,48 @@
 }
 .btn-chat:hover { background: rgba(76,195,255,0.06); }
 
-/* Avaliação por estrelas com suporte visual a meia-estrela */
-.star-rating { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; user-select: none; }
-/* estrela base: usa duas camadas para alinhamento perfeito */
-.star {
-  font-size: 1.35rem;
-  position: relative;
-  display: inline-block;
-  width: 1.2em;
-  height: 1.2em;
-  line-height: 1.2em; /* garante alinhamento vertical igual entre layers */
-  text-align: center;
+/* Avaliação por estrelas com SVG e suporte a meia-estrela */
+.star-rating {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  cursor: pointer;
   user-select: none;
-  color: transparent; /* esconder caractere principal; usamos pseudo-elementos */
 }
-.star::before, .star::after {
-  font-size: 1.35rem;
-  line-height: 1.2rem;
+.star {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform .08s;
+  outline: none;
 }
-/* estrela de fundo (cinza) */
-.star::after {
-  content: '★';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  color: #cfcfcf;
-  display: inline-block;
+.star:focus, .star:hover {
+  transform: translateY(-3px) scale(1.08);
+}
+.star.disabled {
+  opacity: 0.6;
   pointer-events: none;
 }
-/* estrela dourada (visível parcialmente por width) */
-.star::before {
-  content: '★';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 0%;
-  overflow: hidden;
-  color: #FFD166;
-  display: inline-block;
-  pointer-events: none;
-  transition: width .08s ease;
+.star-svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+  fill: #cfcfcf;
+  transition: fill .12s;
 }
-/* estados */
-.star.filled::before { width: 100%; }
-.star.half::before { width: 50%; }
-.star.disabled { opacity: 0.6; pointer-events: none; }
-.star:hover, .star:focus { transform: translateY(-3px); outline: none; }
+.star.full .star-svg {
+  fill: #FFD166;
+}
+.star.half .star-svg {
+  /* metade preenchida: usa gradiente linear */
+  fill: url(#half-star-gradient);
+}
+.star.empty .star-svg {
+  fill: #cfcfcf;
+}
 
 /* mensagem de rating */
 .rating-msg {

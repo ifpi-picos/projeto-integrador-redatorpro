@@ -30,12 +30,22 @@
           <div class="action-block rating-block">
             <span class="action-label">Avaliar Corretor:</span>
             <div class="star-rating" id="starRating" role="radiogroup" aria-label="Avaliar corretor">
-              <!-- estrelas preenchidas via JS; cada .star tem data-value 1..5 -->
-              <span class="star" data-value="1" role="radio" aria-checked="false" tabindex="0">★</span>
-              <span class="star" data-value="2" role="radio" aria-checked="false" tabindex="0">★</span>
-              <span class="star" data-value="3" role="radio" aria-checked="false" tabindex="0">★</span>
-              <span class="star" data-value="4" role="radio" aria-checked="false" tabindex="0">★</span>
-              <span class="star" data-value="5" role="radio" aria-checked="false" tabindex="0">★</span>
+              <!-- estrelas SVG preenchidas via JS -->
+              <span class="star" data-value="1" role="radio" aria-checked="false" tabindex="0">
+                <svg viewBox="0 0 24 24" class="star-svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </span>
+              <span class="star" data-value="2" role="radio" aria-checked="false" tabindex="0">
+                <svg viewBox="0 0 24 24" class="star-svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </span>
+              <span class="star" data-value="3" role="radio" aria-checked="false" tabindex="0">
+                <svg viewBox="0 0 24 24" class="star-svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </span>
+              <span class="star" data-value="4" role="radio" aria-checked="false" tabindex="0">
+                <svg viewBox="0 0 24 24" class="star-svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </span>
+              <span class="star" data-value="5" role="radio" aria-checked="false" tabindex="0">
+                <svg viewBox="0 0 24 24" class="star-svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </span>
             </div>
 
             <div id="ratingMsg" class="rating-msg" aria-live="polite" style="display:inline-block;margin-left:6px;"></div>
@@ -83,16 +93,6 @@
 <script src="js/routes.js"></script>
 <script src="cordova.js"></script>
 <script src="js/corrigidas.js"></script>
-<!-- Assets (fallback para acesso direto) -->cript>
-<script src="lib/framework7-bundle.min.js"></script><script src="lib/jquery-3.7.0.min.js"></script>
-<script src="js/routes.js"></script>
-<script src="cordova.js"></script>
-<script src="js/corrigidas.js"></script>
-<script src="js/corrigidas.js"></script>
-      <div id="empty" class="state" style="display:none;">Correção ainda não disponível.</div>
-      <div id="error" class="state" style="display:none;">Erro ao carregar correção.</div><!-- Assets (fallback para acesso direto, como em pendentes.html) -->
-    </div>
-  </div>
 </div>
 
 <!-- Assets (fallback para acesso direto) -->cript>

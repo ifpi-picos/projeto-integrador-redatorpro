@@ -378,16 +378,49 @@
     return val;
   }
 
+  // --- ESTRELAS SVG: gradiente para meia estrela
+  function ensureHalfStarGradient() {
+    // Adiciona gradiente linear no primeiro SVG, se não existir
+    const $starRating = document.getElementById('starRating');
+    if (!$starRating) return;
+    const firstStar = $starRating.querySelector('.star-svg');
+    if (!firstStar) return;
+    let defs = firstStar.querySelector('defs');
+    if (!defs) {
+      defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+      const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+      grad.setAttribute('id', 'half-star-gradient');
+      grad.setAttribute('x1', '0%');
+      grad.setAttribute('x2', '100%');
+      grad.setAttribute('y1', '0%');
+      grad.setAttribute('y2', '0%');
+      const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+      stop1.setAttribute('offset', '50%');
+      stop1.setAttribute('stop-color', '#FFD166');
+      const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+      stop2.setAttribute('offset', '50%');
+      stop2.setAttribute('stop-color', '#cfcfcf');
+      grad.appendChild(stop1);
+      grad.appendChild(stop2);
+      defs.appendChild(grad);
+      firstStar.insertBefore(defs, firstStar.firstChild);
+    }
+  }
+
+  // Atualiza visual das estrelas SVG (cheia, meia, vazia)
   function setStarUI(avg, readOnly, noMsg) {
     if (!$starRating) return;
+    ensureHalfStarGradient();
     const stars = Array.from($starRating.querySelectorAll('.star'));
     stars.forEach(s => {
-      s.classList.remove('filled', 'half');
+      s.classList.remove('full', 'half', 'empty');
       const v = Number(s.getAttribute('data-value'));
       if ((avg || 0) >= v) {
-        s.classList.add('filled');
+        s.classList.add('full');
       } else if ((avg || 0) >= v - 0.5) {
         s.classList.add('half');
+      } else {
+        s.classList.add('empty');
       }
       s.setAttribute('aria-checked', (v <= Math.round(avg || 0)).toString());
       if (readOnly) s.setAttribute('tabindex', '-1'); else s.setAttribute('tabindex', '0');
@@ -506,8 +539,8 @@
 
   // --- NOVO: força recarregamento quando SPA retorna à página 'corrigidas'
   function setupFramework7Reload() {
-    // F7 page events
-    ['page:init', 'page:mounted', 'page:reinit'].forEach(evtName => {
+    // Framework7 page events
+    ['page:init', 'page:mounted', 'page:reinit', 'page:afterin'].forEach(evtName => {
       document.addEventListener(evtName, function (ev) {
         try {
           const pageEl = ev.detail?.page?.el;
@@ -518,7 +551,7 @@
       }, false);
     });
 
-    // Se houver app/router do Framework7, também observa mudanças de rota
+    // Observa mudanças de rota do Framework7
     try {
       if (window.app && window.app.views && Array.isArray(window.app.views)) {
         const mainView = window.app.views.find(v => v.name === 'main') || window.app.views[0];
@@ -529,6 +562,10 @@
         window.app.views.main.router.on('routeChange', () => { setTimeout(load, 50); });
       }
     } catch (_) {}
+
+    // Fallback: hashchange/popstate para navegação SPA
+    window.addEventListener('popstate', () => setTimeout(load, 50));
+    window.addEventListener('hashchange', () => setTimeout(load, 50));
   }
 
   async function load() {
@@ -826,9 +863,10 @@
     });
   }
 
+  // Inicialização: sempre configura reloads corretos
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(() => { load(); setupRouterReload(); }, 30);
+    setTimeout(() => { load(); setupFramework7Reload(); }, 30);
   } else {
-    document.addEventListener('DOMContentLoaded', () => { load(); setupRouterReload(); });
+    document.addEventListener('DOMContentLoaded', () => { load(); setupFramework7Reload(); });
   }
 })();

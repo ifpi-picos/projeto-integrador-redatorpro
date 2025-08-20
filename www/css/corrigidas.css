@@ -123,7 +123,7 @@
 .corretor-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 25px;
   margin-left: auto;
 }
 
@@ -144,23 +144,32 @@
 
 /* Avaliação por estrelas com suporte visual a meia-estrela */
 .star-rating { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; user-select: none; }
-/* estrela base */
+/* estrela base: usa duas camadas para alinhamento perfeito */
 .star {
   font-size: 1.35rem;
-  color: #cfcfcf; /* cor base (cinza) */
   position: relative;
+  display: inline-block;
   width: 1.2em;
   height: 1.2em;
   line-height: 1.2em;
-  display: inline-block;
   text-align: center;
-  transition: transform .08s ease, color .12s ease;
   user-select: none;
+  color: transparent; /* esconder caractere principal; usamos pseudo-elementos */
 }
-/* hover eleva um pouco */
-.star:hover, .star:focus { transform: translateY(-3px); outline: none; }
-/* pseudo que faz o preenchimento (meia ou total) */
-.star::before{
+/* estrela de fundo (cinza) */
+.star::after {
+  content: '★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  color: #cfcfcf;
+  display: inline-block;
+  pointer-events: none;
+}
+/* estrela dourada (visível parcialmente por width) */
+.star::before {
   content: '★';
   position: absolute;
   left: 0;
@@ -168,16 +177,16 @@
   height: 100%;
   width: 0%;
   overflow: hidden;
-  color: #FFD166; /* cor dourada */
+  color: #FFD166;
+  display: inline-block;
   pointer-events: none;
+  transition: width .08s ease;
 }
-/* full filled: pinta toda a estrela (usa ::before para consistência) */
+/* estados */
 .star.filled::before { width: 100%; }
-.star.filled { color: #FFD166; }
-/* half: deixa só metade preenchida */
 .star.half::before { width: 50%; }
-/* estado desabilitado (quando enviando/aguardando) */
 .star.disabled { opacity: 0.6; pointer-events: none; }
+.star:hover, .star:focus { transform: translateY(-3px); outline: none; }
 
 /* mensagem de rating */
 .rating-msg {

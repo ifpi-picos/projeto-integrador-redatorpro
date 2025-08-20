@@ -409,14 +409,13 @@
       const sel = valueFromClientX(ev.clientX);
       window.__corrSelectedRating = sel;
       setStarUI(sel, false, true);
+      if (!essayId) { if ($ratingMsg) { $ratingMsg.textContent = 'Erro: essayId ausente.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); } return; }
       const corrUser = window.__corrigidasCachedCorretor;
-      if (!corrUser || !corrUser.id) {
-        if ($ratingMsg) { $ratingMsg.textContent = 'Faça login para avaliar.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
-        return;
-      }
-      // desabilita stars enquanto envia
+      // somente autor pode avaliar — backend validará; no front avisa se não logado
+      const tokenUser = getToken();
+      if (!tokenUser) { if ($ratingMsg) { $ratingMsg.textContent = 'Faça login para avaliar.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); } return; }
       $starRating.querySelectorAll('.star').forEach(s => s.classList.add('disabled'));
-      await enviarAvaliacao(corrUser.id, sel);
+      await enviarAvaliacao(essayId, sel);
       $starRating.querySelectorAll('.star').forEach(s => s.classList.remove('disabled'));
     });
 
@@ -428,14 +427,10 @@
       if (ev.key === 'Enter' || ev.key === ' ') {
         const sel = (window.__corrSelectedRating ?? (Math.round((window.__corrCurrentRating||0)*2)/2)) || 0.5;
         window.__corrSelectedRating = sel;
-        const corrUser = window.__corrigidasCachedCorretor;
-        if (!corrUser || !corrUser.id) {
-          if ($ratingMsg) { $ratingMsg.textContent = 'Faça login para avaliar.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
-          ev.preventDefault();
-          return;
-        }
+        const tokenUser = getToken();
+        if (!tokenUser) { if ($ratingMsg) { $ratingMsg.textContent = 'Faça login para avaliar.'; setTimeout(()=> $ratingMsg.textContent = '', 2500); } ev.preventDefault(); return; }
         $starRating.querySelectorAll('.star').forEach(s => s.classList.add('disabled'));
-        await enviarAvaliacao(corrUser.id, sel);
+        await enviarAvaliacao(essayId, sel);
         $starRating.querySelectorAll('.star').forEach(s => s.classList.remove('disabled'));
         ev.preventDefault();
       }
@@ -443,11 +438,11 @@
   }
 
   // Envia avaliação ao backend (aceita decimal) - removi manipulação de botão
-  async function enviarAvaliacao(corretorUserId, rating) {
+  async function enviarAvaliacao(essayIdParam, rating) {
     const token = getToken();
-    if (!corretorUserId || !rating) return null;
+    if (!essayIdParam || !rating) return null;
     try {
-      const resp = await fetch(`${API}/red-corretores/${encodeURIComponent(corretorUserId)}/avaliar`, {
+      const resp = await fetch(`${API}/red-corretores/${encodeURIComponent(essayIdParam)}/avaliar`, {
         method: 'POST',
         headers: Object.assign({ 'Content-Type': 'application/json' }, token ? { Authorization: `Bearer ${token}` } : {}),
         body: JSON.stringify({ rating: Number(rating) })
@@ -459,9 +454,18 @@
         return null;
       }
       const json = await resp.json();
-      window.__corrCurrentRating = json.rating ?? (Number(json.ratingSum || 0) / (json.ratingCount || 1));
-      window.__corrSelectedRating = null;
-      setStarUI(window.__corrCurrentRating || 0, true, true);
+      if (json.message && json.message.includes('já avaliou')) {
+        if ($ratingMsg) { $ratingMsg.textContent = 'Você já avaliou.'; setTimeout(()=> $ratingMsg.textContent = '', 2000); }
+        window.__corrSelectedRating = json.value ?? window.__corrSelectedRating;
+        setStarUI(window.__corrSelectedRating || 0, true, true);
+        if ($starRating) $starRating.querySelectorAll('.star').forEach(s => s.classList.add('disabled'));
+        return json;
+      }
+      // sucesso: json pode conter rating médio do corretor
+      window.__corrCurrentRating = json.rating ?? window.__corrCurrentRating;
+      window.__corrSelectedRating = json.yourRating ?? Number(rating);
+      setStarUI(window.__corrSelectedRating || window.__corrCurrentRating || 0, true, true);
+      if ($starRating) $starRating.querySelectorAll('.star').forEach(s => s.classList.add('disabled'));
       if ($ratingMsg) { $ratingMsg.textContent = 'Avaliação enviada'; setTimeout(()=> $ratingMsg.textContent = '', 2500); }
       return json;
     } catch (e) {
@@ -533,6 +537,9 @@
       // Cabeçalhos/infos
       if ($tema) $tema.textContent = essay?.tema || 'Correção';
       const dt = essay?.createdAt ? new Date(essay.createdAt).toLocaleString('pt-BR') : '—';
+
+      // Cabeçalhos/infos
+      if ($tema) $tema.textContent = essay?.tema || 'Correção';
       if ($info) $info.textContent = `Enviada em ${dt} · Modelo: ${essay?.tipoCorrecao?.toUpperCase() || '—'}`;
 
       const total = (corr?.notaTotal ?? essay?.notaTotal);
@@ -544,9 +551,35 @@
 
       // Cache do corretor para ações (avaliar/chat)
       window.__corrigidasCachedCorretor = corrUser || null;
-      window.__corrCurrentRating = (corrUser?.rating ?? corrUser?.rating ?? 0);
-      // inicializa UI de estrelas com média atual (meia-estrela suportada)
-      setStarUI(window.__corrCurrentRating || 0, false, true);
+      window.__corrCurrentRating = (corrUser?.rating ?? 0);
+
+      // Verifica se o usuário atual já avaliou este corretor
+      let userRating = null;
+      try {
+        const token2 = getToken();
+        const rResp = await fetch(`${API}/red-corretores/${encodeURIComponent(corrUser?.id)}/avaliacao`, {
+          headers: token2 ? { Authorization: `Bearer ${token2}` } : {}
+        });
+        if (rResp.ok) {
+          const jr = await rResp.json();
+          if (jr && jr.value !== undefined && jr.value !== null) {
+            userRating = Number(jr.value);
+          }
+        }
+      } catch (e) {
+        // ignora erro de fetch de avaliação (não bloqueia)
+      }
+
+      if (userRating !== null) {
+        // usuário já avaliou -> mostra a nota dele e bloqueia interação
+        window.__corrSelectedRating = userRating;
+        setStarUI(userRating, true, true); // readOnly
+        // bloqueia interactions visualmente
+        if ($starRating) $starRating.querySelectorAll('.star').forEach(s => s.classList.add('disabled'));
+      } else {
+        // se não avaliou, mostra média global (read only = false)
+        setStarUI(window.__corrCurrentRating || 0, false, true);
+      }
 
       // Render redação
       if ($essayView) {

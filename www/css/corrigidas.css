@@ -151,10 +151,14 @@
   display: inline-block;
   width: 1.2em;
   height: 1.2em;
-  line-height: 1.2em;
+  line-height: 1.2em; /* garante alinhamento vertical igual entre layers */
   text-align: center;
   user-select: none;
   color: transparent; /* esconder caractere principal; usamos pseudo-elementos */
+}
+.star::before, .star::after {
+  font-size: 1.35rem;
+  line-height: 1.2rem;
 }
 /* estrela de fundo (cinza) */
 .star::after {

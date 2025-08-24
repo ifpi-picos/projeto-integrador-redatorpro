@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redefinir Senha</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <main>
+      <div class="box">
+        <div class="inner-box">
+          <div class="forms-wrap" style="width:100%;display:flex;align-items:center;justify-content:center;">
+            <form id="resetarSenhaForm" class="sign-in-form" style="max-width:320px;width:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div class="logo" style="margin-bottom:1.5rem;">
+                <img src="imagens/logo nome.png" alt="RedatorPRO" />
+              </div>
+              <div class="heading" style="text-align:center;">
+                <h2 style="margin-bottom:1rem;">Redefinir Senha</h2>
+                <p class="text" style="margin-bottom:1.5rem;">
+                  Digite sua nova senha abaixo.
+                </p>
+              </div>
+              <div class="actual-form" style="text-align:center;">
+                <div class="input-wrap">
+                  <input
+                    id="novaSenha"
+                    type="password"
+                    class="input-field"
+                    minlength="4"
+                    autocomplete="off"
+                    required
+                  />
+                  <label>Nova Senha</label>
+                </div>
+                <div class="input-wrap">
+                  <input
+                    id="confirmarSenha"
+                    type="password"
+                    class="input-field"
+                    minlength="4"
+                    autocomplete="off"
+                    required
+                  />
+                  <label>Confirmar Nova Senha</label>
+                </div>
+                <button type="submit" class="sign-btn" style="margin-top:1.5rem;">Redefinir</button>
+                <div id="statusMsg" style="margin-top:1.5rem;"></div>
+                <a href="login.html" class="sign-btn" style="margin-top:2rem;">Voltar para o Login</a>
+              </div>
+            </form>
+          </div>
+          <div class="carousel" style="display:none;"></div>
+        </div>
+      </div>
+    </main>
+    <script>
+      // Script para processar o token da URL e enviar nova senha
+      document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        const form = document.getElementById('resetarSenhaForm');
+        const statusMsg = document.getElementById('statusMsg');
+        if (!token) {
+          statusMsg.innerHTML = '<span style="color:red;">Token de redefinição não encontrado na URL.</span>';
+          form.querySelector('button[type="submit"]').disabled = true;
+          return;
+        }
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          statusMsg.innerHTML = "Enviando...";
+          const senha = document.getElementById('novaSenha').value;
+          const confirmar = document.getElementById('confirmarSenha').value;
+          if (senha.length < 4) {
+            statusMsg.innerHTML = '<span style="color:red;">A senha deve ter pelo menos 4 caracteres.</span>';
+            return;
+          }
+          if (senha !== confirmar) {
+            statusMsg.innerHTML = '<span style="color:red;">As senhas não coincidem.</span>';
+            return;
+          }
+          try {
+            const resp = await fetch('https://express-e3hm.onrender.com/users/resetar-senha', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token, novaSenha: senha })
+            });
+            const data = await resp.json();
+            if (resp.ok) {
+              statusMsg.innerHTML = `<span style="color:green;">${data.message || "Senha redefinida com sucesso! Você já pode fazer login."}</span>`;
+              form.reset();
+            } else {
+              statusMsg.innerHTML = `<span style="color:red;">${data.error || "Erro ao redefinir senha."}</span>`;
+            }
+          } catch (err) {
+            statusMsg.innerHTML = '<span style="color:red;">Erro ao conectar ao servidor.</span>';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

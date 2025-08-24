@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recuperar Senha</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <main>
+      <div class="box">
+        <div class="inner-box">
+          <div class="forms-wrap" style="width:100%;display:flex;align-items:center;justify-content:center;">
+            <form id="recuperarForm" class="sign-in-form" style="max-width:320px;width:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div class="logo" style="margin-bottom:1.5rem;">
+                <img src="imagens/logo nome.png" alt="RedatorPRO" />
+              </div>
+              <div class="heading" style="text-align:center;">
+                <h2 style="margin-bottom:1rem;">Recuperar Senha</h2>
+                <p class="text" style="margin-bottom:1.5rem;">
+                  Informe seu e-mail cadastrado para receber um link de recuperação.
+                </p>
+              </div>
+              <div class="actual-form" style="text-align:center;">
+                <div class="input-wrap">
+                  <input
+                    id="emailRecuperar"
+                    type="email"
+                    class="input-field"
+                    autocomplete="off"
+                    required
+                  />
+                  <label>Email</label>
+                </div>
+                <button type="submit" class="sign-btn" style="margin-top:1.5rem;">Enviar</button>
+                <div id="statusMsg" style="margin-top:1.5rem;"></div>
+                <a href="login.html" class="sign-btn" style="margin-top:2rem;">Voltar para o Login</a>
+              </div>
+            </form>
+          </div>
+          <div class="carousel" style="display:none;"></div>
+        </div>
+      </div>
+    </main>
+    <script src="js/recuperar.js"></script>
+  </body>
+</html>

@@ -6,98 +6,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redefinir Senha</title>
     <link rel="stylesheet" href="css/estilo.css" />
+    <style>
+      /* estilos locais para esta página */
+      .auth-page { display:flex; align-items:center; justify-content:center; min-height:100vh; background: linear-gradient(180deg,#50E4E4 0%, #9de1e1 60%); padding:2rem; }
+      .auth-card{ width:100%; max-width:480px; background:#fff; border-radius:14px; padding:28px; box-shadow: 0 12px 40px rgba(15,30,40,0.12); }
+      .auth-card .logo img{ width:170px; display:block; margin:0 auto 12px; }
+      .auth-card h2{ text-align:center; color:#203646; margin-bottom:6px; }
+      .auth-card p.lead{ text-align:center; color:#6b6b6b; margin-bottom:18px; font-size:0.95rem; }
+      .auth-card .field { margin-bottom:14px; }
+      .auth-card label{ display:block; font-size:0.9rem; color:#4f4f4f; margin-bottom:6px; }
+      .auth-card input.input-field{ width:100%; padding:12px 14px; border:1px solid #d7e6ea; border-radius:8px; background:transparent; color:#203646; font-size:0.95rem; }
+      .auth-card .sign-btn{ width:100%; padding:12px; border-radius:10px; background:#246493; color:#fff; border:none; font-weight:600; cursor:pointer; }
+      .auth-card .sign-btn[disabled]{ opacity:0.6; cursor:not-allowed; }
+      #statusMsg{ text-align:center; margin-top:12px; min-height:24px; font-size:0.95rem; }
+      .pwd-strength{ font-size:0.85rem; color:#6b6b6b; margin-top:4px; }
+      @media (max-width:480px){ .auth-card{ padding:18px; } .auth-card .logo img{ width:150px; } }
+    </style>
   </head>
   <body>
-    <main>
-      <div class="box">
-        <div class="inner-box">
-          <div class="forms-wrap" style="width:100%;display:flex;align-items:center;justify-content:center;">
-            <form id="resetarSenhaForm" class="sign-in-form" style="max-width:320px;width:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-              <div class="logo" style="margin-bottom:1.5rem;">
-                <img src="imagens/logo nome.png" alt="RedatorPRO" />
-              </div>
-              <div class="heading" style="text-align:center;">
-                <h2 style="margin-bottom:1rem;">Redefinir Senha</h2>
-                <p class="text" style="margin-bottom:1.5rem;">
-                  Digite sua nova senha abaixo.
-                </p>
-              </div>
-              <div class="actual-form" style="text-align:center;">
-                <div class="input-wrap">
-                  <input
-                    id="novaSenha"
-                    type="password"
-                    class="input-field"
-                    minlength="4"
-                    autocomplete="off"
-                    required
-                  />
-                  <label>Nova Senha</label>
-                </div>
-                <div class="input-wrap">
-                  <input
-                    id="confirmarSenha"
-                    type="password"
-                    class="input-field"
-                    minlength="4"
-                    autocomplete="off"
-                    required
-                  />
-                  <label>Confirmar Nova Senha</label>
-                </div>
-                <button type="submit" class="sign-btn" style="margin-top:1.5rem;">Redefinir</button>
-                <div id="statusMsg" style="margin-top:1.5rem;"></div>
-                <a href="login.html" class="sign-btn" style="margin-top:2rem;">Voltar para o Login</a>
-              </div>
-            </form>
-          </div>
-          <div class="carousel" style="display:none;"></div>
+    <main class="auth-page">
+      <section class="auth-card" aria-labelledby="reset-title">
+        <div class="logo">
+          <img src="imagens/logo nome.png" alt="RedatorPRO" />
         </div>
-      </div>
+
+        <h2 id="reset-title">Redefinir Senha</h2>
+        <p class="lead">Escolha uma nova senha. O link expira em breve.</p>
+
+        <form id="resetarSenhaForm" novalidate>
+          <div class="field">
+            <label for="novaSenha">Nova senha</label>
+            <input id="novaSenha" class="input-field" type="password" minlength="4" autocomplete="new-password" required placeholder="Mínimo 4 caracteres" />
+            <div id="pwdInfo" class="pwd-strength"></div>
+          </div>
+
+          <div class="field">
+            <label for="confirmarSenha">Confirmar nova senha</label>
+            <input id="confirmarSenha" class="input-field" type="password" minlength="4" autocomplete="new-password" required placeholder="Repita a nova senha" />
+          </div>
+
+          <button id="btnRedefinir" class="sign-btn" type="submit" disabled>Redefinir senha</button>
+
+          <div id="statusMsg" aria-live="polite"></div>
+
+          <div style="margin-top:12px; display:flex; justify-content:center;">
+            <a href="login.html" style="color:#246493; font-weight:600; text-decoration:none;">Voltar ao login</a>
+          </div>
+        </form>
+      </section>
     </main>
+
     <script>
-      // Script para processar o token da URL e enviar nova senha
-      document.addEventListener('DOMContentLoaded', function () {
+      (function(){
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
         const form = document.getElementById('resetarSenhaForm');
-        const statusMsg = document.getElementById('statusMsg');
+        const nova = document.getElementById('novaSenha');
+        const conf = document.getElementById('confirmarSenha');
+        const btn = document.getElementById('btnRedefinir');
+        const status = document.getElementById('statusMsg');
+        const pwdInfo = document.getElementById('pwdInfo');
+
         if (!token) {
-          statusMsg.innerHTML = '<span style="color:red;">Token de redefinição não encontrado na URL.</span>';
-          form.querySelector('button[type="submit"]').disabled = true;
+          status.innerHTML = '<span style="color:#c33;">Token de redefinição não encontrado na URL.</span>';
+          btn.disabled = true;
+          nova.disabled = true;
+          conf.disabled = true;
           return;
         }
-        form.addEventListener('submit', async function (e) {
+
+        function atualizarEstado() {
+          const s = nova.value || '';
+          let ok = s.length >= 4 && s === conf.value && conf.value.length>0;
+          btn.disabled = !ok;
+          // info simples de força
+          if (s.length === 0) { pwdInfo.textContent = ''; }
+          else if (s.length < 6) { pwdInfo.textContent = 'Senha fraca'; pwdInfo.style.color = '#c66'; }
+          else { pwdInfo.textContent = 'Senha OK'; pwdInfo.style.color = '#2a9d8f'; }
+        }
+
+        nova.addEventListener('input', atualizarEstado);
+        conf.addEventListener('input', atualizarEstado);
+
+        form.addEventListener('submit', async (e) => {
           e.preventDefault();
-          statusMsg.innerHTML = "Enviando...";
-          const senha = document.getElementById('novaSenha').value;
-          const confirmar = document.getElementById('confirmarSenha').value;
-          if (senha.length < 4) {
-            statusMsg.innerHTML = '<span style="color:red;">A senha deve ter pelo menos 4 caracteres.</span>';
+          if (nova.value.length < 4) {
+            status.innerHTML = '<span style="color:#c33;">A senha deve ter ao menos 4 caracteres.</span>';
             return;
           }
-          if (senha !== confirmar) {
-            statusMsg.innerHTML = '<span style="color:red;">As senhas não coincidem.</span>';
+          if (nova.value !== conf.value) {
+            status.innerHTML = '<span style="color:#c33;">As senhas não coincidem.</span>';
             return;
           }
+          btn.disabled = true;
+          status.innerHTML = 'Enviando...';
           try {
-            const resp = await fetch('https://express-e3hm.onrender.com/users/resetar-senha', {
+            const resp = await fetch('/users/resetar-senha', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ token, novaSenha: senha })
+              body: JSON.stringify({ token, novaSenha: nova.value })
             });
             const data = await resp.json();
             if (resp.ok) {
-              statusMsg.innerHTML = `<span style="color:green;">${data.message || "Senha redefinida com sucesso! Você já pode fazer login."}</span>`;
+              status.innerHTML = '<span style="color:green;">' + (data.message || 'Senha redefinida com sucesso. Faça login com a nova senha.') + '</span>';
               form.reset();
+              btn.disabled = true;
+              pwdInfo.textContent = '';
             } else {
-              statusMsg.innerHTML = `<span style="color:red;">${data.error || "Erro ao redefinir senha."}</span>`;
+              status.innerHTML = '<span style="color:#c33;">' + (data.error || 'Erro ao redefinir senha.') + '</span>';
+              btn.disabled = false;
             }
           } catch (err) {
-            statusMsg.innerHTML = '<span style="color:red;">Erro ao conectar ao servidor.</span>';
+            console.error(err);
+            status.innerHTML = '<span style="color:#c33;">Erro ao conectar ao servidor.</span>';
+            btn.disabled = false;
           }
         });
-      });
+      })();
     </script>
   </body>
 </html>

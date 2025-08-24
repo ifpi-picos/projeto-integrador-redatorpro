@@ -6,43 +6,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recuperar Senha</title>
     <link rel="stylesheet" href="css/estilo.css" />
+    <style>
+      /* estilizações locais para esta página (sobrescrevem CSS global problemático) */
+      .auth-page {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        min-height:100vh;
+        background: linear-gradient(180deg,#50E4E4 0%, #9de1e1 60%);
+        padding:2rem;
+      }
+      .auth-card{
+        width:100%;
+        max-width:420px;
+        background:#fff;
+        border-radius:14px;
+        padding:28px;
+        box-shadow: 0 12px 40px rgba(15,30,40,0.12);
+        text-align:left;
+      }
+      .auth-card .logo img{ width:180px; display:block; margin:0 auto 12px; }
+      .auth-card h2{ text-align:center; color:#203646; margin-bottom:6px; }
+      .auth-card p.lead{ text-align:center; color:#6b6b6b; margin-bottom:18px; font-size:0.95rem; }
+      .auth-card .field { margin-bottom:14px; }
+      .auth-card label{ display:block; font-size:0.9rem; color:#4f4f4f; margin-bottom:6px; }
+      .auth-card input.input-field{
+        width:100%;
+        padding:12px 14px;
+        border:1px solid #d7e6ea;
+        border-radius:8px;
+        background:transparent;
+        color:#203646;
+        font-size:0.95rem;
+      }
+      .auth-card .sign-btn{ width:100%; padding:12px; border-radius:10px; background:#246493; color:#fff; border:none; font-weight:600; cursor:pointer; }
+      .auth-card .sign-btn[disabled]{ opacity:0.6; cursor:not-allowed; }
+      #statusMsg{ text-align:center; margin-top:12px; min-height:24px; font-size:0.95rem; }
+      .helper-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:12px; }
+      .link-ghost{ background:transparent; border:1px solid transparent; color:#246493; text-decoration:none; font-weight:600; }
+      @media (max-width:480px){ .auth-card{ padding:18px; } .auth-card .logo img{ width:160px; } }
+    </style>
   </head>
   <body>
-    <main>
-      <div class="box">
-        <div class="inner-box">
-          <div class="forms-wrap" style="width:100%;display:flex;align-items:center;justify-content:center;">
-            <form id="recuperarForm" class="sign-in-form" style="max-width:320px;width:100%;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-              <div class="logo" style="margin-bottom:1.5rem;">
-                <img src="imagens/logo nome.png" alt="RedatorPRO" />
-              </div>
-              <div class="heading" style="text-align:center;">
-                <h2 style="margin-bottom:1rem;">Recuperar Senha</h2>
-                <p class="text" style="margin-bottom:1.5rem;">
-                  Informe seu e-mail cadastrado para receber um link de recuperação.
-                </p>
-              </div>
-              <div class="actual-form" style="text-align:center;">
-                <div class="input-wrap">
-                  <input
-                    id="emailRecuperar"
-                    type="email"
-                    class="input-field"
-                    autocomplete="off"
-                    required
-                  />
-                  <label>Email</label>
-                </div>
-                <button type="submit" class="sign-btn" style="margin-top:1.5rem;">Enviar</button>
-                <div id="statusMsg" style="margin-top:1.5rem;"></div>
-                <a href="login.html" class="sign-btn" style="margin-top:2rem;">Voltar para o Login</a>
-              </div>
-            </form>
-          </div>
-          <div class="carousel" style="display:none;"></div>
+    <main class="auth-page">
+      <section class="auth-card" aria-labelledby="rec-title">
+        <div class="logo">
+          <img src="imagens/logo nome.png" alt="RedatorPRO" />
         </div>
-      </div>
+
+        <h2 id="rec-title">Recuperar Senha</h2>
+        <p class="lead">Informe o e‑mail cadastrado. Enviaremos um link para redefinir sua senha.</p>
+
+        <form id="recuperarForm" novalidate>
+          <div class="field">
+            <label for="emailRecuperar">E-mail</label>
+            <input id="emailRecuperar" class="input-field" type="email" autocomplete="email" required placeholder="seu@exemplo.com" />
+          </div>
+
+          <button id="btnEnviar" class="sign-btn" type="submit" disabled>Enviar link de recuperação</button>
+
+          <div id="statusMsg" aria-live="polite"></div>
+
+          <div class="helper-row">
+            <a href="login.html" class="link-ghost">Voltar ao login</a>
+            <small style="color:#9aa7ac;">Receba o link em alguns segundos.</small>
+          </div>
+        </form>
+      </section>
     </main>
-    <script src="js/recuperar.js"></script>
+
+    <script>
+      (function(){
+        const form = document.getElementById('recuperarForm');
+        const emailInput = document.getElementById('emailRecuperar');
+        const btn = document.getElementById('btnEnviar');
+        const status = document.getElementById('statusMsg');
+
+        function validaEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+        emailInput.addEventListener('input', () => {
+          btn.disabled = !validaEmail(emailInput.value.trim());
+          status.textContent = '';
+        });
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = emailInput.value.trim();
+          if (!validaEmail(email)) {
+            status.innerHTML = '<span style="color:#c33;">E-mail inválido.</span>';
+            return;
+          }
+          btn.disabled = true;
+          status.innerHTML = 'Enviando...';
+          try {
+            const resp = await fetch('/users/recuperar-senha', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
+            });
+            const data = await resp.json();
+            if (resp.ok) {
+              status.innerHTML = '<span style="color:green;">' + (data.message || 'Verifique seu e-mail para o link de recuperação.') + '</span>';
+            } else {
+              status.innerHTML = '<span style="color:#c33;">' + (data.error || 'Erro ao solicitar recuperação.') + '</span>';
+            }
+          } catch (err) {
+            console.error(err);
+            status.innerHTML = '<span style="color:#c33;">Erro ao conectar ao servidor.</span>';
+          } finally {
+            btn.disabled = false;
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

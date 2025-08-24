@@ -30,7 +30,7 @@
       .auth-card .field { margin-bottom:14px; }
       .auth-card label{ display:block; font-size:0.9rem; color:#4f4f4f; margin-bottom:6px; }
       .auth-card input.input-field{
-        width:100%;
+        width: 93%;
         padding:12px 14px;
         border:1px solid #d7e6ea;
         border-radius:8px;
@@ -76,6 +76,7 @@
 
     <script>
       (function(){
+        const BACKEND = 'https://express-e3hm.onrender.com'; // use a URL completa do backend
         const form = document.getElementById('recuperarForm');
         const emailInput = document.getElementById('emailRecuperar');
         const btn = document.getElementById('btnEnviar');
@@ -98,16 +99,27 @@
           btn.disabled = true;
           status.innerHTML = 'Enviando...';
           try {
-            const resp = await fetch('/users/recuperar-senha', {
+            const resp = await fetch(`${BACKEND}/users/recuperar-senha`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email })
             });
-            const data = await resp.json();
+
+            // tenta parsear JSON; se não for JSON, lê como texto
+            const ct = (resp.headers.get('content-type') || '').toLowerCase();
+            let data;
+            if (ct.includes('application/json')) {
+              data = await resp.json();
+            } else {
+              const text = await resp.text();
+              data = { message: text };
+            }
+
             if (resp.ok) {
               status.innerHTML = '<span style="color:green;">' + (data.message || 'Verifique seu e-mail para o link de recuperação.') + '</span>';
             } else {
-              status.innerHTML = '<span style="color:#c33;">' + (data.error || 'Erro ao solicitar recuperação.') + '</span>';
+              // Se o backend retornou HTML (ex.: página de erro), mostramos o texto bruto
+              status.innerHTML = '<span style="color:#c33;">' + (data.error || data.message || 'Erro ao solicitar recuperação.') + '</span>';
             }
           } catch (err) {
             console.error(err);

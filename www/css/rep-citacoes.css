@@ -1,3 +1,16 @@
+:root {
+    --branco: #ffffff;
+    --gelo: #f5f9ff;
+    --azul: #2196f3;
+    --azul-hover: #1976d2;
+    --cinza: #d9e1ec;
+    --sombra: rgba(0, 0, 0, 0.1);
+    --preto: #1a1a1a;
+
+    --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+}
+
+
 .page[data-name="repertorios"] {
     display: flex;
     flex-direction: column;
@@ -6,9 +19,9 @@
     overflow: auto; /* Permite rolagem */
 }
 
+
 body {
     margin: 0;
-    font-family: var(--f7-font-family);
     background-color: var(--gelo);
     color: var(--preto);
 }
@@ -54,7 +67,7 @@ header {
     color: #1a1a1a
 }
 
-.livros-container {
+.citações-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,7 +75,7 @@ header {
     padding: 0 20px 40px;
 }
 
-.livros-box {
+.citações-box {
     display: flex;
     background-color: var(--branco);
     box-shadow: 0 4px 12px var(--sombra);
@@ -73,30 +86,30 @@ header {
     transition: transform 0.2s ease;
 }
 
-.livros-box:hover {
+.citações-box:hover {
     transform: translateY(-4px);
 }
 
-.livros-box img {
+.citações-box img {
     width: 100px;
     height: 100%;
     object-fit: cover;
 }
 
-.livros-info {
+.citações-info {
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.livros-info h3 {
+.citações-info h3 {
     margin: 0 0 10px;
     font-size: 22px;
     color: #1a1a1a
 }
 
-.livros-info p {
+.citações-info p {
     margin: 0;
     font-size: 16px;
     line-height: 1.5;
@@ -104,17 +117,17 @@ header {
 }
 
 @media screen and (max-width: 700px) {
-    .livros-box {
+    .citações-box {
         flex-direction: column;
         align-items: center;
     }
 
-.livros-box img {
+.citações-box img {
         width: 100%;
         height: 200px;
     }
 
-.livros-info {
+.citações-info {
         padding: 15px;
     }
 }

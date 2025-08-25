@@ -63,8 +63,8 @@ header {
 .texto {
     text-align: center;
     font-size: 20px;
-    margin: 30px auto 20px;
-    color: #1a1a1a
+    margin: 10px auto 20px;
+    color: #850202
 }
 
 .citações-container {
@@ -91,7 +91,7 @@ header {
 }
 
 .citações-box img {
-    width: 100px;
+    width: 330px;
     height: 100%;
     object-fit: cover;
 }

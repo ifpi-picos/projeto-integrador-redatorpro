@@ -14,7 +14,7 @@ fetch('js/backend.json')
         data.forEach(funcao => {
             var functionHTML = `
             <div class="item-card">
-                <a href="${funcao.url}" class="item-function" data-rating="${funcao.rating}">
+                <a href="${funcao.url}" class="item-function ${funcao.external}" data-rating="${funcao.rating}">
                     <div class="img-container">
                         <img src="${funcao.imagem}">
                     </div>

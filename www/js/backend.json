@@ -5,7 +5,8 @@
         "nome": "Escrever Redação",
         "rating": "",
         "icone": "",
-        "url": "/iacorretor/"
+        "url": "/iacorretor/",
+        "external": ""
     },
     {
         "id": 2,
@@ -13,7 +14,8 @@
         "nome": "Temas",
         "rating": "",
         "icone": "",
-        "url": "/temas/"
+        "url": "/temas/",
+        "external": ""
     },
     {
         "id": 3,
@@ -21,7 +23,8 @@
         "nome": "Exercícios",
         "rating": "premium",
         "icone": "ri-lock-star-fill",
-        "url": "/page404/"
+        "url": "/page404/",
+        "external": ""
     },
     {
         "id": 4,
@@ -29,7 +32,8 @@
         "nome": "Banco de Redações",
         "rating": "",
         "icone": "",
-        "url": "/banco/"
+        "url": "/banco/",
+        "external": ""
     },
     {
         "id": 5,
@@ -37,7 +41,8 @@
         "nome": "Corretores",
         "rating": "premium",
         "icone": "ri-lock-star-fill",
-        "url": "/link2/"
+        "url": "/link2/",
+        "external": ""
     },
     {
         "id": 6,
@@ -45,7 +50,8 @@
         "nome": "Repertórios",
         "rating": "",
         "icone": "",
-        "url": "https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/repertorios.html"
+        "url": "https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/repertorios.html",
+        "external": "external"
     },
     {
         "id": 7,
@@ -53,7 +59,8 @@
         "nome": "Progresso",
         "rating": "premium",
         "icone": "ri-lock-star-fill",
-        "url": "/page404/"
+        "url": "/page404/",
+        "external": ""
     },
     {
         "id": 8,
@@ -61,6 +68,7 @@
         "nome": "Comunidade",
         "rating": "",
         "icone": "",
-        "url": "/page404/"
+        "url": "/page404/",
+        "external": ""
     }
 ]

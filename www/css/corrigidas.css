@@ -1,3 +1,15 @@
+:root {
+    --color-text-primary: #1F2936;
+    --color-text-placeholder: #798EAE;
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ECECFD;
+    --color-bg-sidebar: #FFFFFF;
+    --color-border-hr: #E2E8F0;
+    --color-hover-primary: #695CFE;
+    --color-hover-secondary: #e2e2fb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+}
+
 /* Reset básico */
 .corrigidas-header, .corrigidas-main-container, .corrigidas-main-grid, .corrigidas-card, .corrigidas-redacao-card {
   box-sizing: border-box;
@@ -8,8 +20,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1a2236;
-  color: #fff;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   padding: 32px 32px 18px 32px;
   border-radius: 0 0 18px 18px;
   margin-bottom: 0;
@@ -34,7 +46,7 @@
   letter-spacing: 1px;
 }
 .header-subtitle {
-  color: #fff;
+  color: var(--color-text-placeholder);
   font-size: 1.08rem;
   opacity: .85;
   margin: 0;
@@ -53,7 +65,7 @@
 .corrigidas-header-nota .nota-valor {
   font-size: 2.1rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--color-text-primary);
   letter-spacing: 2px;
   margin-top: 2px;
 }
@@ -101,7 +113,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  background: #232b45;
+  background: var(--color-bg-secondary);
   border-radius: 10px;
   padding: 14px 18px;
   font-size: 1.08rem;
@@ -116,7 +128,7 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #4cc3ff;
-  background: #fff;
+  background: var(--color-bg-sidebar);
 }
 
 /* Container de ações do corretor (chat + estrelas) */
@@ -188,14 +200,14 @@
 /* mensagem de rating */
 .rating-msg {
   font-size: .9rem;
-  color: #b3c6e0;
+  color: var(--color-text-placeholder);
   margin-left: 8px;
   /* normalmente vazio; será usado apenas para sucesso/erro */
 }
 
 /* Redação */
 .corrigidas-redacao-card {
-  background: #232b45;
+  background: var(--color-bg-secondary);
   border-radius: 12px;
   padding: 18px 14px 18px 14px;
   display: flex;
@@ -209,7 +221,7 @@
   margin-bottom: 8px;
 }
 .corrigidas-tema {
-  color: #fff;
+  color: var(--color-text-primary);
   font-size: 1.08rem;
   font-weight: 600;
 }
@@ -228,7 +240,7 @@
   position: relative;
 }
 .corrigidas-essay-area {
-  background: #10182b;
+  background: var(--color-bg-sidebar);
   border-radius: 8px;
   padding: 0;
   min-height: 400px;
@@ -240,16 +252,16 @@
   overflow-y: auto;
   overflow-x: hidden;
   font-size: 1.13rem;
-  color: #fff;
+  color: var(--color-text-primary);
   border: 1.5px solid #4cc3ff;
-  box-shadow: 0 2px 12px #00000018;
+  box-shadow: 0 2px 12px var(--color-shadow);
   display: block;
 }
 .corrigidas-essay-area .essay-text {
   white-space: pre-wrap;
   line-height: 1.85;
   font-size: 1.13rem;
-  color: #fff;
+  color: var(--color-text-primary);
   padding: 24px 18px;
   width: 100%;
   min-width: 0;
@@ -271,7 +283,7 @@
   height: auto;
   max-width: 100%;
   border-radius: 8px;
-  background: #fff;
+  background: var(--color-text-primary);
   z-index: 1;
   object-fit: contain;
   position: absolute;
@@ -292,10 +304,10 @@
 
 /* Blocos empilhados */
 .corrigidas-block {
-  background: #232b45;
+  background: var(--color-bg-secondary);
   border-radius: 12px;
   padding: 22px 18px 22px 18px;
-  box-shadow: 0 2px 12px #00000010;
+  box-shadow: 0 2px 12px var(--color-shadow);
   width: 100%;
 }
 
@@ -307,7 +319,7 @@
   margin-bottom: 8px;
 }
 #comentariosBox {
-  color: #fff;
+  color: var(--color-text-primary);
   font-size: 1.03rem;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -323,8 +335,8 @@
   border: 1px solid #4cc3ff44;
   border-radius: 8px;
   padding: 8px 10px;
-  background: #10182b;
-  color: #fff;
+  background: var(--color-text-placeholder);
+  color: var(--color-text-primary);
 }
 .obs-title {
   font-weight: 600;
@@ -342,7 +354,7 @@
   display: inline-block;
 }
 .obs-text {
-  color: #b3c6e0;
+  color: var(--color-text-placeholder);
   white-space: pre-wrap;
   font-size: .98rem;
 }
@@ -361,12 +373,12 @@
   margin-bottom: 4px;
 }
 .comp-label {
-  color: #fff;
+  color: var(--color-text-primary);
   font-size: 1.01rem;
   font-weight: 600;
 }
 .comp-valor {
-  background: #10182b;
+  background: var(--color-bg-primary);
   color: #4cc3ff;
   font-weight: 700;
   font-size: 1.08rem;
@@ -375,10 +387,10 @@
   border: 1.5px solid #4cc3ff;
 }
 .comp-obs {
-  color: #b3c6e0;
+  color: var(--color-text-placeholder);
   font-size: .97rem;
   margin-bottom: 8px;
-  background: #10182b;
+  background: var(--color-bg-primary);
   border-radius: 6px;
   padding: 6px 10px;
   border: 1px solid #4cc3ff44;
@@ -390,7 +402,7 @@
   padding: 0 2px;
   box-shadow: 0 0 0 2px #4cc3ff99;
   background: #4cc3ff33 !important;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 /* Estados */
@@ -404,7 +416,7 @@
 /* Botões de navegação de competência */
 .btn-comp-nav {
   background: #4cc3ff;
-  color: #fff;
+  color: var(--color-bg-primary);
   border: none;
   border-radius: 6px;
   padding: 6px 16px;
@@ -414,8 +426,8 @@
   transition: background 0.2s;
 }
 .btn-comp-nav:disabled {
-  background: #b3c6e0;
-  color: #fff;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   cursor: not-allowed;
   opacity: 0.7;
 }

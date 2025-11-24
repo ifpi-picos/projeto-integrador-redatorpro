@@ -1,245 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Histórico de Correções</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-    <link rel="stylesheet" href="css/historico.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="themes/colors/colors.css">
-    
-</head>
-<body>
+    <link rel="stylesheet" href="css/historico.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="themes/colors/colors.css" />
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <div>
-                <h1>Histórico de Correções</h1>
-                <p>Veja todas as redações que você corrigiu</p>
-            </div>
-            <div class="stats">
-                <p><strong>Total corrigido:</strong> 127 redações</p>
-            </div>
-        </header>
-
-        <div class="search-filter">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Buscar por aluno ou tema...">
-            </div>
-            <div class="filter-dropdown">
-                <select>
-                    <option value="">Todos os modelos</option>
-                    <option value="enem">ENEM</option>
-                    <option value="esa">ESA</option>
-                    <option value="fuvest">FUVEST</option>
-                    <option value="unicamp">UNICAMP</option>
-                </select>
-            </div>
-            <div class="filter-dropdown">
-                <select>
-                    <option value="">Todas as edições</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                </select>
-            </div>
+      <header>
+        <div>
+          <h1>Histórico de Correções</h1>
+          <p>Veja todas as redações que você corrigiu</p>
         </div>
-
-        <div class="corrections-grid">
-            <!-- Card 1 -->
-            <div class="correction-card">
-                <div class="card-header">
-                    <span class="card-model">ENEM</span>
-                    <span class="card-edition">2023</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-date">
-                        <i class="far fa-calendar-alt"></i> 15/03/2024
-                    </div>
-                    <div class="card-student">Ana Carolina Silva</div>
-                    <div class="card-theme">Desafios para a valorização de comunidades tradicionais no Brasil</div>
-                    <div class="card-grade">
-                        <i class="fas fa-star"></i> Nota: 880
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn btn-outline">Detalhes</button>
-                    <button class="btn btn-primary">Revisar</button>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="correction-card">
-                <div class="card-header">
-                    <span class="card-model">ESA</span>
-                    <span class="card-edition">2024</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-date">
-                        <i class="far fa-calendar-alt"></i> 10/03/2024
-                    </div>
-                    <div class="card-student">João Pedro Oliveira</div>
-                    <div class="card-theme">A importância da ética no serviço público</div>
-                    <div class="card-grade">
-                        <i class="fas fa-star"></i> Nota: 92
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn btn-outline">Detalhes</button>
-                    <button class="btn btn-primary">Revisar</button>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="correction-card">
-                <div class="card-header">
-                    <span class="card-model">FUVEST</span>
-                    <span class="card-edition">2024</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-date">
-                        <i class="far fa-calendar-alt"></i> 05/03/2024
-                    </div>
-                    <div class="card-student">Mariana Costa</div>
-                    <div class="card-theme">O papel da ficção científica na reflexão sobre o futuro da humanidade</div>
-                    <div class="card-grade">
-                        <i class="fas fa-star"></i> Nota: 78
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn btn-outline">Detalhes</button>
-                    <button class="btn btn-primary">Revisar</button>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="correction-card">
-                <div class="card-header">
-                    <span class="card-model">ENEM</span>
-                    <span class="card-edition">2022</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-date">
-                        <i class="far fa-calendar-alt"></i> 28/02/2024
-                    </div>
-                    <div class="card-student">Lucas Mendes</div>
-                    <div class="card-theme">O estigma associado às doenças mentais na sociedade brasileira</div>
-                    <div class="card-grade">
-                        <i class="fas fa-star"></i> Nota: 920
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn btn-outline">Detalhes</button>
-                    <button class="btn btn-primary">Revisar</button>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="correction-card">
-                <div class="card-header">
-                    <span class="card-model">UNICAMP</span>
-                    <span class="card-edition">2023</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-date">
-                        <i class="far fa-calendar-alt"></i> 22/02/2024
-                    </div>
-                    <div class="card-student">Fernanda Almeida</div>
-                    <div class="card-theme">Análise crítica do discurso publicitário na era digital</div>
-                    <div class="card-grade">
-                        <i class="fas fa-star"></i> Nota: 85
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn btn-outline">Detalhes</button>
-                    <button class="btn btn-primary">Revisar</button>
-                </div>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="correction-card">
-                <div class="card-header">
-                    <span class="card-model">ENEM</span>
-                    <span class="card-edition">2024</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-date">
-                        <i class="far fa-calendar-alt"></i> 18/02/2024
-                    </div>
-                    <div class="card-student">Ricardo Gonçalves</div>
-                    <div class="card-theme">Estratégias para combater a desinformação em saúde no Brasil</div>
-                    <div class="card-grade">
-                        <i class="fas fa-star"></i> Nota: 760
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn btn-outline">Detalhes</button>
-                    <button class="btn btn-primary">Revisar</button>
-                </div>
-            </div>
-
-            <!-- Card 7 -->
-            <div class="correction-card">
-                <div class="card-header">
-                    <span class="card-model">ENEM</span>
-                    <span class="card-edition">2024</span>
-                </div>
-                <div class="card-body">
-                    <div class="card-date">
-                        <i class="far fa-calendar-alt"></i> 18/02/2024
-                    </div>
-                    <div class="card-student">Ricard Rockbell</div>
-                    <div class="card-theme">Estratégias para combater a desinformação em saúde no Brasil</div>
-                    <div class="card-grade">
-                        <i class="fas fa-star"></i> Nota: 760
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn btn-outline">Detalhes</button>
-                    <button class="btn btn-primary">Revisar</button>
-                </div>
-            </div>
+        <div class="stats">
+          <p>
+            <strong>Total corrigido:</strong>
+            <span id="totalCorrigido">0 redações</span>
+          </p>
         </div>
+      </header>
 
-        <div class="pagination">
-            <div class="page-btn"><i class="fas fa-chevron-left"></i></div>
-            <div class="page-btn active">1</div>
-            <div class="page-btn">2</div>
-            <div class="page-btn">3</div>
-            <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+      <div class="search-filter">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Buscar por aluno ou tema..." />
         </div>
+        <div class="filter-dropdown">
+          <select>
+            <option value="">Todos os modelos</option>
+            <option value="enem">ENEM</option>
+            <option value="esa">ESA</option>
+            <option value="fuvest">FUVEST</option>
+            <option value="unicamp">UNICAMP</option>
+          </select>
+        </div>
+        <div class="filter-dropdown">
+          <select>
+            <option value="">Todas as edições</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+          </select>
+        </div>
+      </div>
 
+      <div id="history-state" class="history-state text-muted" role="status">
+        Carregando histórico...
+      </div>
 
-        <!-- Navbar responsiva-->
-        <nav class="app-navbar">
-            <div class="navbar-container">
-                <a href="area-trabalho.html" class="nav-btn" id="workspaceBtn">
-                <div class="nav-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <span class="nav-label">Trabalho</span>
-                </a>
-                
-                
-                <a href="themes/themes.html" class="nav-btn" id="themeToggleBtn">
-                    <div class="nav-icon">
-                        <i class="fas fa-moon" id="themeIcon"></i>
-                    </div>
-                    <span class="nav-label">Tema</span>
-                </a>
-                
-                
-                <a href="index.html" class="nav-btn" id="profileBtn">
-                <div class="nav-icon">
-                    <i class="fas fa-user"></i>
-                </div>
-                <span class="nav-label">Perfil</span>
-                </a>
+      <div class="corrections-grid"></div>
+
+      <div class="pagination"></div>
+
+      <!-- Navbar responsiva-->
+      <nav class="app-navbar">
+        <div class="navbar-container">
+          <a href="area-trabalho.html" class="nav-btn" id="workspaceBtn">
+            <div class="nav-icon">
+              <i class="fas fa-briefcase"></i>
             </div>
-        </nav>
+            <span class="nav-label">Trabalho</span>
+          </a>
 
+          <a href="themes/themes.html" class="nav-btn" id="themeToggleBtn">
+            <div class="nav-icon">
+              <i class="fas fa-moon" id="themeIcon"></i>
+            </div>
+            <span class="nav-label">Tema</span>
+          </a>
+
+          <a href="index.html" class="nav-btn" id="profileBtn">
+            <div class="nav-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-label">Perfil</span>
+          </a>
+        </div>
+      </nav>
     </div>
 
     <!-- Bootstrap JS -->
@@ -250,15 +95,17 @@
     <script src="js/historico.js"></script>
 
     <!-- Adicione este HTML antes do fechamento </body> -->
-    <div id="filters-feedback" style="display: none;">
-        <div class="no-results">
-            <div class="no-results-image">
-                <i class="fas fa-search fa-3x"></i>
-            </div>
-            <h3>Nenhuma redação encontrada</h3>
-            <p>Não encontramos resultados com os filtros atuais.</p>
-            <button id="reset-filters" class="btn btn-primary">Limpar todos os filtros</button>
+    <div id="filters-feedback" style="display: none">
+      <div class="no-results">
+        <div class="no-results-image">
+          <i class="fas fa-search fa-3x"></i>
         </div>
+        <h3>Nenhuma redação encontrada</h3>
+        <p>Não encontramos resultados com os filtros atuais.</p>
+        <button id="reset-filters" class="btn btn-primary">
+          Limpar todos os filtros
+        </button>
+      </div>
     </div>
-</body>
+  </body>
 </html>

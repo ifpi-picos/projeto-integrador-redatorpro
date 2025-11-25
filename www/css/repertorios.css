@@ -150,3 +150,37 @@ header h1 {
         font-size: 20px;
     }
 }
+
+/* Botão "Adicionar repertório" */
+.add-repertorio-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    animation: fadeIn 0.8s ease;
+}
+
+.add-repertorio-btn button {
+    background-color: var(--azul);
+    color: var(--branco);
+    border: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 17px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 16px var(--sombra);
+    transition: 0.3s ease;
+}
+
+.add-repertorio-btn button i {
+    font-size: 18px;
+}
+
+.add-repertorio-btn button:hover {
+    background-color: var(--azul-hover);
+    transform: translateY(-3px);
+}

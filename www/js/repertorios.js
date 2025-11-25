@@ -24,3 +24,17 @@ window.initRepertorio = function() {
             });
         });
 };
+
+function enviarRepertorio() {
+    const nome = document.getElementById('nomeRepertorio').value;
+    const motivo = document.getElementById('motivoRepertorio').value;
+
+    if (!nome || !motivo) {
+        app.dialog.alert('Preencha todos os campos obrigatórios!');
+        return;
+    }
+
+    document.getElementById('mensagem-sucesso').style.display = 'block';
+
+    document.getElementById('form-repertorio').reset();
+}

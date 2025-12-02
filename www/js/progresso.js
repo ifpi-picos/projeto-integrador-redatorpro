@@ -1,6 +1,34 @@
 (function () {
   const API = "https://express-e3hm.onrender.com/progresso";
+  const CHART_SRC =
+    "https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js";
   const chartRefs = window.__progressCharts || {};
+  let chartLoaderPromise = null;
+
+  function ensureChartLibrary() {
+    if (typeof window.Chart !== "undefined") return Promise.resolve();
+    if (chartLoaderPromise) return chartLoaderPromise;
+
+    chartLoaderPromise = new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[src="${CHART_SRC}"]`);
+      if (existing) {
+        existing.addEventListener("load", () => resolve(), { once: true });
+        existing.addEventListener("error", (err) => reject(err), {
+          once: true,
+        });
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = CHART_SRC;
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = (err) => reject(err);
+      document.head.appendChild(script);
+    });
+
+    return chartLoaderPromise;
+  }
 
   function formatScore(value) {
     if (value === null || value === undefined || Number.isNaN(value))
@@ -286,9 +314,15 @@
 
     const stateRefs = { loader, error, content };
 
-    const handleRefresh = () => fetchProgress(stateRefs);
-    refreshBtn?.addEventListener("click", handleRefresh);
+    const runWithCharts = () =>
+      ensureChartLibrary().then(() => fetchProgress(stateRefs));
+    refreshBtn?.addEventListener("click", runWithCharts);
 
-    fetchProgress(stateRefs);
+    ensureChartLibrary()
+      .then(() => fetchProgress(stateRefs))
+      .catch((err) => {
+        console.error("Falha ao carregar Chart.js", err);
+        showState(stateRefs, "error", "Não foi possível carregar os gráficos.");
+      });
   };
 })();

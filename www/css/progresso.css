@@ -18,13 +18,16 @@
     rgba(33, 150, 243, 0.18),
     transparent 45%
   );
-  background: var(--color-bg-primary, #f9fafb);
+  background-color: var(--color-bg-primary, #f5f7fb);
   min-height: 100vh;
-  padding: 24px 18px 48px;
+  padding: 28px 34px 56px 24px;
   box-sizing: border-box;
-  margin: 0 18px 30px !important;
+  margin: 0 28px 36px 18px !important;
   position: relative;
   isolation: isolate;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 18px;
 }
 
 .progresso-page::before,
@@ -33,6 +36,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
+  pointer-events: none;
 }
 
 .progresso-page::before {
@@ -42,6 +46,11 @@
 .progresso-page::after {
   background: var(--gradient-two);
   opacity: 0.7;
+}
+
+.view-main .page.progresso-page {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .progresso-page .top-nav {

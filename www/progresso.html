@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#2196f3" />
+
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css" />
+    <link rel="stylesheet" href="css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/banco.css" />
+    <link rel="stylesheet" href="css/redacoes.css" />
+    <link rel="stylesheet" href="css/progresso.css" />
+
+    <title>Seu Progresso</title>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"
+      defer
+    ></script>
+    <script src="js/progresso.js" defer></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="view view-main">
+        <div data-name="progresso" class="page progresso-page">
+          <div class="top-nav">
+            <div>
+              <p class="subtitle">Acompanhe sua evolução</p>
+              <h1>Progresso</h1>
+            </div>
+            <div class="nav-actions">
+              <button class="refresh-btn" id="btnRefreshProgresso">
+                <i class="mdi mdi-refresh"></i>
+                Atualizar
+              </button>
+            </div>
+          </div>
+
+          <div id="progress-loader" class="progress-loader">
+            <div class="preloader"></div>
+            <p>Carregando indicadores...</p>
+          </div>
+
+          <div id="progress-error" class="progress-state hidden"></div>
+
+          <div id="progress-content" class="progress-content hidden">
+            <section class="summary-grid">
+              <article class="summary-card">
+                <p>Média Geral</p>
+                <h2 id="overview-media">—</h2>
+                <span id="overview-ultima" class="muted">Última nota —</span>
+              </article>
+              <article class="summary-card">
+                <p>Correções por IA</p>
+                <h2 id="overview-ia">0</h2>
+                <span class="muted">Média atualizada automaticamente</span>
+              </article>
+              <article class="summary-card">
+                <p>Correções por Corretor</p>
+                <h2 id="overview-corretor">0</h2>
+                <span class="muted">Inclui todas as avaliações humanas</span>
+              </article>
+              <article class="summary-card">
+                <p>Melhor Nota</p>
+                <h2 id="overview-melhor">—</h2>
+                <span id="overview-total" class="muted"
+                  >Total de redações —</span
+                >
+              </article>
+            </section>
+
+            <section class="charts-grid">
+              <article class="chart-card full">
+                <header>
+                  <div>
+                    <h3>Evolução Mensal</h3>
+                    <p class="muted">Médias gerais e por tipo de correção</p>
+                  </div>
+                </header>
+                <canvas id="chartMonthly"></canvas>
+              </article>
+
+              <article class="chart-card">
+                <header>
+                  <div>
+                    <h3>Distribuição por Tipo</h3>
+                    <p class="muted">Correções IA x Corretores</p>
+                  </div>
+                </header>
+                <canvas id="chartDistribution"></canvas>
+              </article>
+
+              <article class="chart-card">
+                <header>
+                  <div>
+                    <h3>Médias por Competência</h3>
+                    <p class="muted">Comparativo em barras</p>
+                  </div>
+                </header>
+                <canvas id="chartCompetenciesBar"></canvas>
+              </article>
+
+              <article class="chart-card">
+                <header>
+                  <div>
+                    <h3>Radar de Competências</h3>
+                    <p class="muted">Visualização circular das médias</p>
+                  </div>
+                </header>
+                <canvas id="chartCompetenciesRadar"></canvas>
+              </article>
+            </section>
+
+            <section class="recent-section">
+              <div class="section-header">
+                <h3>Últimas redações</h3>
+                <p class="muted">Notas recentes e tipo de correção</p>
+              </div>
+              <div id="recent-list" class="recent-list"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="lib/framework7-bundle.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-3.7.0.min.js"></script>
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="cordova.js"></script>
+  </body>
+</html>

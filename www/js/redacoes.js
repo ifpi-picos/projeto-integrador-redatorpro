@@ -1,5 +1,5 @@
 window.initRedacoes = async function () {
-  const lista = document.getElementById('text-list');
+  const lista = document.getElementById("text-list");
   if (!lista) {
     return;
   }
@@ -11,34 +11,37 @@ window.initRedacoes = async function () {
   `;
 
   // Verifica se o usuário está logado
-  const user = JSON.parse(localStorage.getItem('loggedUser'));
+  const user = JSON.parse(localStorage.getItem("loggedUser"));
   if (!user || !user.token) {
-    lista.innerHTML = '<p class="texto-colorido" style="display: flex; justify-content: center; text-align: center;">Você precisa estar logado para ver suas redações.</p>';
+    lista.innerHTML =
+      '<p class="texto-colorido" style="display: flex; justify-content: center; text-align: center;">Você precisa estar logado para ver suas redações.</p>';
     return;
   }
 
   let redacoes = [];
   try {
-    const resp = await fetch('https://express-e3hm.onrender.com/redacoes', {
+    const resp = await fetch("https://express-e3hm.onrender.com/redacoes", {
       headers: {
-        'Authorization': 'Bearer ' + user.token
-      }
+        Authorization: "Bearer " + user.token,
+      },
     });
-    
+
     if (resp.status === 401) {
-      lista.innerHTML = '';
-      app.toast.create({
-        text: 'Você precisa estar logado para ver suas redações.',
-        closeTimeout: 3000,
-        cssClass: 'color-red'
-      }).open();
+      lista.innerHTML = "";
+      app.toast
+        .create({
+          text: "Você precisa estar logado para ver suas redações.",
+          closeTimeout: 3000,
+          cssClass: "color-red",
+        })
+        .open();
       return;
     }
-    
+
     redacoes = await resp.json();
   } catch (e) {
-    lista.innerHTML = '';
-    app.dialog.alert('Erro ao carregar redações.', 'Erro');
+    lista.innerHTML = "";
+    app.dialog.alert("Erro ao carregar redações.", "Erro");
     return;
   }
 
@@ -52,11 +55,19 @@ window.initRedacoes = async function () {
     return;
   }
 
+  // Garante que apenas correções por IA serão consideradas (fallback para cache antigo)
+  redacoes = redacoes.filter(
+    (r) =>
+      (r.corrigidaPor || "").toLowerCase() === "ia" &&
+      typeof r.correcaoIa === "string" &&
+      r.correcaoIa.trim().length
+  );
+
   if (!redacoes.length) {
     lista.innerHTML = `
       <div class="block-title">Nenhuma redação</div>
       <div class="block block-strong text-color-gray">
-        <p>Não encontramos nada por aqui...</p>
+        <p>Você ainda não possui correções feitas pela IA.</p>
       </div>
     `;
     return;
@@ -64,23 +75,23 @@ window.initRedacoes = async function () {
 
   // --- Filtro por tipoCorrecao ---
   let filtroAtual = ""; // valor padrão (sem filtro)
-  window.filtrarEspecialidade = function(tipo) {
+  window.filtrarEspecialidade = function (tipo) {
     filtroAtual = tipo;
     renderizarRedacoes();
   };
 
   // --- Filtro por busca ---
-  window.filtrar = function() {
+  window.filtrar = function () {
     renderizarRedacoes();
   };
 
   // Mapeamento para normalizar os filtros
   const mapFiltro = {
-    'enem': ['enem'],
-    'fuvest': ['fuvest'],
-    'fcc': ['concursos', 'fcc'],
-    'vestibular': ['fuvest', 'vestibular', 'vest'],
-    'ita': ['ita', 'concursos', 'fcc']
+    enem: ["enem"],
+    fuvest: ["fuvest"],
+    fcc: ["concursos", "fcc"],
+    vestibular: ["fuvest", "vestibular", "vest"],
+    ita: ["ita", "concursos", "fcc"],
   };
 
   function renderizarRedacoes() {
@@ -90,57 +101,73 @@ window.initRedacoes = async function () {
     if (filtroAtual && filtroAtual !== "") {
       let tipoFiltro = filtroAtual.toLowerCase();
       let tiposAceitos = mapFiltro[tipoFiltro] || [tipoFiltro];
-      filtradas = filtradas.filter(r =>
-        tiposAceitos.includes((r.tipoCorrecao || '').toLowerCase())
+      filtradas = filtradas.filter((r) =>
+        tiposAceitos.includes((r.tipoCorrecao || "").toLowerCase())
       );
     }
 
     // Filtro por busca
-    const busca = (document.getElementById('inputBusca')?.value || "").toLowerCase();
+    const busca = (
+      document.getElementById("inputBusca")?.value || ""
+    ).toLowerCase();
     if (busca) {
-      filtradas = filtradas.filter(r =>
-        (r.tema || "").toLowerCase().includes(busca) ||
-        (r.text || "").toLowerCase().includes(busca)
+      filtradas = filtradas.filter(
+        (r) =>
+          (r.tema || "").toLowerCase().includes(busca) ||
+          (r.text || "").toLowerCase().includes(busca)
       );
     }
 
-    lista.innerHTML = '';
+    lista.innerHTML = "";
     if (!filtradas.length) {
-      lista.innerHTML = '<p id="no-results">Não encontramos nada por aqui...</p>';
+      lista.innerHTML =
+        '<p id="no-results">Não encontramos nada por aqui...</p>';
       return;
     }
 
     filtradas.forEach((redacao, idx) => {
       try {
-        const card = document.createElement('div');
-        card.className = 'item redacao-card';
+        const card = document.createElement("div");
+        card.className = "item redacao-card";
 
         // Garante que a prévia do texto SEMPRE aparece para texto, nunca para imagem
-        let previewHtml = '';
+        let previewHtml = "";
         if (redacao.urlImage) {
-          previewHtml = '<span style="color:#1976d2;">Redação enviada como imagem</span>';
-        } else if (typeof redacao.text === 'string' && redacao.text.trim().length > 0) {
+          previewHtml =
+            '<span style="color:#1976d2;">Redação enviada como imagem</span>';
+        } else if (
+          typeof redacao.text === "string" &&
+          redacao.text.trim().length > 0
+        ) {
           // Remove quebras de linha e espaços extras para a prévia
-          const previewText = redacao.text.replace(/\s+/g, ' ').trim();
-          previewHtml = previewText.slice(0, 80) + (previewText.length > 80 ? '...' : '');
+          const previewText = redacao.text.replace(/\s+/g, " ").trim();
+          previewHtml =
+            previewText.slice(0, 80) + (previewText.length > 80 ? "..." : "");
         } else {
-          previewHtml = '';
+          previewHtml = "";
         }
 
         // Corpo do card
         card.innerHTML = `
           <div class="redacao-info">
             <div class="redacao-header">
-              <span class="redacao-tema">Tema: <b>${redacao.tema || '-'}</b></span>
-              <span class="redacao-nota">Nota: <b>${redacao.notaTotal ?? '-'}</b></span>
+              <span class="redacao-tema">Tema: <b>${
+                redacao.tema || "-"
+              }</b></span>
+              <span class="redacao-nota">Nota: <b>${
+                redacao.notaTotal ?? "-"
+              }</b></span>
             </div>
             <div class="redacao-preview">${previewHtml}</div>
           </div>
           <div class="redacao-detalhes" style="display:none;">
             <div class="redacao-texto">${
               redacao.urlImage
-                ? ''
-                : (typeof redacao.text === 'string' && redacao.text.trim().length > 0 ? redacao.text : '')
+                ? ""
+                : typeof redacao.text === "string" &&
+                  redacao.text.trim().length > 0
+                ? redacao.text
+                : ""
             }</div>
             <div class="redacao-texto">
               ${
@@ -150,7 +177,7 @@ window.initRedacoes = async function () {
                        <img src="${redacao.urlImage}" alt="Redação enviada" style="max-width:98vw;max-height:420px;border-radius:8px;box-shadow:0 2px 8px #0002;display:block;margin:0 auto 12px auto;">
                        <button class="btn-ocultar-imagem" style="background:#b00;color:#fff;border:none;padding:7px 18px;border-radius:5px;cursor:pointer;">Ocultar redação</button>
                      </div>`
-                  : ''
+                  : ""
               }
             </div>
             <div class="redacao-actions">
@@ -159,69 +186,83 @@ window.initRedacoes = async function () {
                 <i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar PDF
               </button>
             </div>
-            <div class="correcao-ia" style="display:none;">${redacao.correcaoIa || 'Sem correção.'}</div>
+            <div class="correcao-ia" style="display:none;">${
+              redacao.correcaoIa || "Sem correção."
+            }</div>
           </div>
         `;
 
         // Ao clicar no card, mostra/oculta detalhes
-        card.addEventListener('click', function (e) {
-          if (e.target.classList.contains('btn-exibir-correcao') || e.target.classList.contains('btn-baixar-pdf')) return;
+        card.addEventListener("click", function (e) {
           if (
-            e.target.classList.contains('btn-exibir-correcao') ||
-            e.target.classList.contains('btn-baixar-pdf') ||
-            e.target.classList.contains('btn-exibir-imagem') ||
-            e.target.classList.contains('btn-ocultar-imagem')
-          ) return;
+            e.target.classList.contains("btn-exibir-correcao") ||
+            e.target.classList.contains("btn-baixar-pdf")
+          )
+            return;
+          if (
+            e.target.classList.contains("btn-exibir-correcao") ||
+            e.target.classList.contains("btn-baixar-pdf") ||
+            e.target.classList.contains("btn-exibir-imagem") ||
+            e.target.classList.contains("btn-ocultar-imagem")
+          )
+            return;
           e.preventDefault?.();
-          const detalhes = card.querySelector('.redacao-detalhes');
-          detalhes.style.display = detalhes.style.display === 'none' ? 'block' : 'none';
+          const detalhes = card.querySelector(".redacao-detalhes");
+          detalhes.style.display =
+            detalhes.style.display === "none" ? "block" : "none";
         });
 
         // Botão para exibir correção
-        const btnCorrecao = card.querySelector('.btn-exibir-correcao');
+        const btnCorrecao = card.querySelector(".btn-exibir-correcao");
         if (btnCorrecao) {
-          btnCorrecao.addEventListener('click', function (e) {
+          btnCorrecao.addEventListener("click", function (e) {
             e.stopPropagation();
-            const correcao = card.querySelector('.correcao-ia');
-            correcao.style.display = correcao.style.display === 'none' ? 'block' : 'none';
-            this.innerText = correcao.style.display === 'block' ? 'Ocultar correção' : 'Exibir correção';
+            const correcao = card.querySelector(".correcao-ia");
+            correcao.style.display =
+              correcao.style.display === "none" ? "block" : "none";
+            this.innerText =
+              correcao.style.display === "block"
+                ? "Ocultar correção"
+                : "Exibir correção";
           });
         }
 
         // Botão para exibir/ocultar imagem da redação
         if (redacao.urlImage) {
-          const btnExibirImg = card.querySelector('.btn-exibir-imagem');
-          const btnOcultarImg = card.querySelector('.btn-ocultar-imagem');
-          const containerImg = card.querySelector('.container-redacao-img');
+          const btnExibirImg = card.querySelector(".btn-exibir-imagem");
+          const btnOcultarImg = card.querySelector(".btn-ocultar-imagem");
+          const containerImg = card.querySelector(".container-redacao-img");
           if (btnExibirImg && containerImg) {
-            btnExibirImg.addEventListener('click', function (e) {
+            btnExibirImg.addEventListener("click", function (e) {
               e.stopPropagation();
-              containerImg.style.display = 'block';
-              btnExibirImg.style.display = 'none';
+              containerImg.style.display = "block";
+              btnExibirImg.style.display = "none";
             });
           }
           if (btnOcultarImg && btnExibirImg && containerImg) {
-            btnOcultarImg.addEventListener('click', function (e) {
+            btnOcultarImg.addEventListener("click", function (e) {
               e.stopPropagation();
-              containerImg.style.display = 'none';
-              btnExibirImg.style.display = 'inline-block';
+              containerImg.style.display = "none";
+              btnExibirImg.style.display = "inline-block";
             });
           }
         }
 
         // Botão para baixar PDF ou imagem
-        const btnPdf = card.querySelector('.btn-baixar-pdf');
+        const btnPdf = card.querySelector(".btn-baixar-pdf");
         if (btnPdf) {
-          btnPdf.addEventListener('click', async function (e) {
+          btnPdf.addEventListener("click", async function (e) {
             e.stopPropagation();
             e.preventDefault?.();
             btnPdf.disabled = true;
-            btnPdf.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Baixando...';
+            btnPdf.innerHTML =
+              '<i class="mdi mdi-loading mdi-spin"></i> Baixando...';
             try {
               if (redacao.urlImage) {
                 // Baixar a imagem original
                 const response = await fetch(redacao.urlImage);
-                if (!response.ok) throw new Error("Erro ao baixar imagem: " + response.status);
+                if (!response.ok)
+                  throw new Error("Erro ao baixar imagem: " + response.status);
                 const blob = await response.blob();
                 if (blob.size === 0) throw new Error("A imagem está vazia!");
                 const url = window.URL.createObjectURL(blob);
@@ -236,20 +277,25 @@ window.initRedacoes = async function () {
                 a.download = "redacao-imagem" + ext;
                 document.body.appendChild(a);
                 setTimeout(() => {
-                  a.dispatchEvent(new MouseEvent('click'));
+                  a.dispatchEvent(new MouseEvent("click"));
                   document.body.removeChild(a);
                   window.URL.revokeObjectURL(url);
                 }, 100);
               } else if (redacao.text && redacao.text.trim()) {
                 // PDF do texto
-                const response = await fetch("https://express-e3hm.onrender.com/pdf/gerar-pdf", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ texto: redacao.text }),
-                });
-                if (!response.ok) throw new Error("Erro ao gerar PDF: " + response.status);
+                const response = await fetch(
+                  "https://express-e3hm.onrender.com/pdf/gerar-pdf",
+                  {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ texto: redacao.text }),
+                  }
+                );
+                if (!response.ok)
+                  throw new Error("Erro ao gerar PDF: " + response.status);
                 const blob = await response.blob();
-                if (blob.size === 0) throw new Error("O PDF gerado está vazio!");
+                if (blob.size === 0)
+                  throw new Error("O PDF gerado está vazio!");
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.style.display = "none";
@@ -257,18 +303,19 @@ window.initRedacoes = async function () {
                 a.download = "redacao.pdf";
                 document.body.appendChild(a);
                 setTimeout(() => {
-                  a.dispatchEvent(new MouseEvent('click'));
+                  a.dispatchEvent(new MouseEvent("click"));
                   document.body.removeChild(a);
                   window.URL.revokeObjectURL(url);
                 }, 100);
               } else {
-                alert('Não há texto ou imagem para baixar.');
+                alert("Não há texto ou imagem para baixar.");
               }
             } catch (err) {
-              alert('Erro ao baixar arquivo. Tente novamente.');
+              alert("Erro ao baixar arquivo. Tente novamente.");
             }
             btnPdf.disabled = false;
-            btnPdf.innerHTML = '<i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar Redação';
+            btnPdf.innerHTML =
+              '<i class="mdi mdi-file-pdf" style="margin-right:6px"></i>Baixar Redação';
           });
         }
 
@@ -283,8 +330,8 @@ window.initRedacoes = async function () {
   async function gerarPdfComImagem(blob) {
     // Carrega pdf-lib dinamicamente se necessário
     if (!window.PDFLib) {
-      await new Promise(resolve => {
-        const script = document.createElement('script');
+      await new Promise((resolve) => {
+        const script = document.createElement("script");
         script.src = "https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js";
         script.onload = resolve;
         document.head.appendChild(script);
@@ -295,12 +342,21 @@ window.initRedacoes = async function () {
     const page = pdfDoc.addPage([600, 900]);
     // Fundo azul claro igual ao texto
     page.drawRectangle({
-      x: 0, y: 0, width: 600, height: 900, color: rgb(0.82, 0.92, 0.98)
+      x: 0,
+      y: 0,
+      width: 600,
+      height: 900,
+      color: rgb(0.82, 0.92, 0.98),
     });
     // Borda decorativa
     page.drawRectangle({
-      x: 10, y: 10, width: 580, height: 880,
-      borderColor: rgb(0.13, 0.45, 0.82), borderWidth: 2, color: rgb(1, 1, 1, 0)
+      x: 10,
+      y: 10,
+      width: 580,
+      height: 880,
+      borderColor: rgb(0.13, 0.45, 0.82),
+      borderWidth: 2,
+      color: rgb(1, 1, 1, 0),
     });
     // Título
     const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
@@ -325,8 +381,10 @@ window.initRedacoes = async function () {
       imgDims = img.scale(1);
     }
     // Calcula tamanho para caber na folha
-    let maxW = 540, maxH = 700;
-    let w = imgDims.width, h = imgDims.height;
+    let maxW = 540,
+      maxH = 700;
+    let w = imgDims.width,
+      h = imgDims.height;
     let scale = Math.min(maxW / w, maxH / h, 1);
     w = w * scale;
     h = h * scale;
@@ -334,7 +392,7 @@ window.initRedacoes = async function () {
       x: (600 - w) / 2,
       y: 120,
       width: w,
-      height: h
+      height: h,
     });
     // Rodapé decorativo
     page.drawLine({

@@ -55,7 +55,7 @@
     },
     {
         "id": 7,
-        "imagem": "img/default.png",
+        "imagem": "img/progresso.png",
         "nome": "Progresso",
         "rating": "premium",
         "icone": "ri-lock-star-fill",

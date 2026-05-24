@@ -31,9 +31,9 @@ if (signInForm) {
 
             // Redireciona para a página principal ou para o painel do corretor
             if (data.user.tipo === 'corretor') {
-                window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/layout/index.html';
+                window.location.replace('https://ifpi-picos.github.io/projeto-integrador-redatorpro/layout/index.html');
             } else {
-                window.location.href = 'https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html';
+                window.location.replace('https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/index.html');
             }
         } catch (error) {
             console.error('Erro ao conectar ao backend:', error);

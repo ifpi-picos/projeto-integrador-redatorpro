@@ -163,8 +163,8 @@ var app = new Framework7({
                                   <img src="${
                                     corretor.fotoPerfil || "img/default.png"
                                   }" alt="${
-                    corretor.name
-                  }" class="person-photo">
+                                    corretor.name
+                                  }" class="person-photo">
                                   <div class="person-details">
                                       <h3 class="person-name">${
                                         corretor.name
@@ -519,7 +519,7 @@ var app = new Framework7({
               }, 1200);
             })
             .catch((error) =>
-              console.error("Error ao fazer fetch dos dados: " + error)
+              console.error("Error ao fazer fetch dos dados: " + error),
             );
         },
         pageBeforeRemove: function (event, page) {
@@ -647,11 +647,11 @@ var app = new Framework7({
           $.getScript("js/pendentes.js")
             .done(() => {
               console.log(
-                "[Routes] js/pendentes.js carregado para /pendentes/"
+                "[Routes] js/pendentes.js carregado para /pendentes/",
               );
             })
             .fail(() =>
-              console.error("[Routes] Erro ao carregar js/pendentes.js")
+              console.error("[Routes] Erro ao carregar js/pendentes.js"),
             );
         },
         pageBeforeRemove: function (event, page) {
@@ -668,11 +668,11 @@ var app = new Framework7({
           $.getScript("js/corrigidas.js")
             .done(() =>
               console.log(
-                "[Routes] js/corrigidas.js carregado para /corrigidas/"
-              )
+                "[Routes] js/corrigidas.js carregado para /corrigidas/",
+              ),
             )
             .fail(() =>
-              console.error("[Routes] Erro ao carregar js/corrigidas.js")
+              console.error("[Routes] Erro ao carregar js/corrigidas.js"),
             );
         },
       },
@@ -712,8 +712,49 @@ var app = new Framework7({
 
 //Para testes direto no navegador
 var mainView = app.views.create(".view-main", { url: "/index/" });
+// Para testes direto no navegador
+var mainView = app.views.create(".view-main", { url: "/index/" });
 
-//EVENTO PARA SABER O ITEM DO MENU ATUAL
+// Se a página foi aberta a partir do login, impedimos que o "voltar"
+// do navegador retorne o usuário para a tela de login. Isso cria um
+// estado de histórico interno e intercepta popstate para manter o
+// usuário navegando dentro do app Framework7 (voltar -> home).
+if (document.referrer && document.referrer.indexOf("login") !== -1) {
+  try {
+    // Cria um estado marcador
+    history.replaceState(
+      { f7root: true },
+      "",
+      window.location.pathname + window.location.search,
+    );
+    // Empurra um estado extra para que o primeiro 'back' acione nosso handler
+    history.pushState(
+      { f7root: true },
+      "",
+      window.location.pathname + window.location.search,
+    );
+
+    window.addEventListener("popstate", function (e) {
+      // Se o estado é nosso marcador, navegamos para a home do F7
+      if (e.state && e.state.f7root) {
+        // Navega para a rota inicial do Framework7
+        try {
+          app.views.main.router.navigate("/index/");
+        } catch (err) {
+          /* fallback silencioso */
+        }
+        // Recoloca o estado para evitar sair do app
+        history.pushState(
+          { f7root: true },
+          "",
+          window.location.pathname + window.location.search,
+        );
+      }
+    });
+  } catch (err) {
+    console.warn("Falha ao aplicar workaround de histórico:", err);
+  }
+}
 app.on("routeChange", function (route) {
   var currentRoute = route.url;
   console.log(currentRoute);
@@ -721,7 +762,7 @@ app.on("routeChange", function (route) {
     el.classList.remove("active");
   });
   var targetEl = document.querySelector(
-    '.tab-link[href="' + currentRoute + '"]'
+    '.tab-link[href="' + currentRoute + '"]',
   );
   if (targetEl) {
     targetEl.classList.add("active");
@@ -746,6 +787,6 @@ function onDeviceReady() {
         mainView.router.back({ force: true });
       }
     },
-    false
+    false,
   );
 }

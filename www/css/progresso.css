@@ -67,19 +67,36 @@
 }
 
 .progresso-page .top-nav {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin: 0 0 24px;
-  padding: 26px 24px 20px;
-  border-radius: 24px;
+  gap: 18px;
+  margin: 0 0 32px;
+  padding: 24px 26px;
+  border-radius: 28px;
   background: var(--page-surface);
   border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.08);
   position: relative;
   z-index: 2;
+}
+
+.progresso-page .top-nav > div:first-child {
+  min-width: 0;
+}
+
+.progresso-page .top-nav h1 {
+  margin: 8px 0 0;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.progresso-page .top-nav .subtitle {
+  display: inline-block;
+  margin: 0;
+  font-size: 0.95rem;
+  color: #475569;
 }
 
 .progresso-page .top-nav h1 {
@@ -182,15 +199,23 @@
 }
 
 .summary-card:nth-child(1) {
-  background: linear-gradient(135deg, #2196f3, #5aa8f5);
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
   color: #fff;
-  border-color: rgba(33, 150, 243, 0.35);
+  border-color: rgba(29, 78, 216, 0.35);
 }
 
 .summary-card:nth-child(1) p,
 .summary-card:nth-child(1) h2,
 .summary-card:nth-child(1) .muted {
   color: #fff;
+}
+
+.summary-card:first-child p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.summary-card:first-child .muted {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .summary-card:nth-child(2)::after {
@@ -245,23 +270,32 @@
   grid-column: span 2;
 }
 
+.charts-grid {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
 .chart-card header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: rgba(56, 189, 248, 0.12);
 }
 
 .chart-card header h3 {
   margin: 0;
   color: var(--text-primary);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
 }
 
 .chart-card header .muted {
-  margin: 2px 0 14px;
-  color: var(--text-muted);
-  font-size: 0.88rem;
+  margin: 0;
+  color: #475569;
+  font-size: 0.93rem;
+  line-height: 1.4;
 }
 
 .chart-card canvas {

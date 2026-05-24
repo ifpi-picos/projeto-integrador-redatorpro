@@ -341,6 +341,71 @@
       .join("");
   }
 
+  async function fetchAIAnalysis(payload = {}) {
+    const AI_API = API.replace("/progresso", "/ai-analysis");
+    const user = JSON.parse(localStorage.getItem("loggedUser") || "null");
+    try {
+      const resp = await fetch(AI_API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          overview: payload.overview || {},
+          competencies: payload.competencies || [],
+          distribution: payload.distribution || {},
+          recent: payload.recent || [],
+        }),
+      });
+
+      if (!resp.ok) return null;
+      const data = await resp.json();
+      return data.analysis || { fullText: data.fullText } || null;
+    } catch (err) {
+      console.error("fetchAIAnalysis error", err);
+      return null;
+    }
+  }
+
+  function renderAIAnalysisFromServer(analysis, payload = {}) {
+    const container = document.getElementById("insights-list");
+    if (!container) return;
+
+    if (!analysis) {
+      // fallback para heurística local
+      return renderAIInsights(payload);
+    }
+
+    // se vier tips estruturadas
+    if (Array.isArray(analysis.tips) && analysis.tips.length) {
+      container.innerHTML = analysis.tips
+        .map(
+          (t) => `
+          <article class="insight-card">
+            <h4>${t.title}</h4>
+            <p>${t.text}</p>
+          </article>`,
+        )
+        .join("");
+      return;
+    }
+
+    // se vier summary ou texto livre
+    if (analysis.summary || analysis.fullText) {
+      const text = analysis.summary || analysis.fullText;
+      container.innerHTML = `
+        <article class="insight-card">
+          <h4>Análise</h4>
+          <p>${text}</p>
+        </article>`;
+      return;
+    }
+
+    // fallback genérico
+    renderAIInsights(payload);
+  }
+
   async function fetchProgress(stateRefs) {
     const user = JSON.parse(localStorage.getItem("loggedUser") || "null");
     if (!user || !user.token) {
@@ -367,7 +432,9 @@
       const data = await resp.json();
       renderSummary(data.overview || {});
       renderCharts(data);
-      renderAIInsights(data);
+      // solicita análise estruturada ao backend (Gemini)
+      const ai = await fetchAIAnalysis(data);
+      renderAIAnalysisFromServer(ai, data);
       renderRecent(data.recent || []);
       showState(stateRefs, "ready");
     } catch (err) {

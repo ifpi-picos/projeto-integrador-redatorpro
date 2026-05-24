@@ -8,6 +8,16 @@
 }
 
 .progresso-page {
+  --card-bg: #ffffff;
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+  --border-color: rgba(226, 232, 240, 0.8);
+  --accent: #1d4ed8;
+  --accent-dark: #1e40af;
+  --bg-page: #eef4fb;
+  --page-surface: rgba(255, 255, 255, 0.98);
+  color-scheme: light;
+  background-color: var(--bg-page);
   --gradient-one: linear-gradient(
     135deg,
     rgba(33, 150, 243, 0.12),
@@ -15,12 +25,12 @@
   );
   --gradient-two: radial-gradient(
     circle at top right,
-    rgba(33, 150, 243, 0.22),
+    rgba(33, 150, 243, 0.18),
     transparent 45%
   );
-  background-color: var(--color-bg-primary, #eef4fb);
+  background-color: var(--bg-page);
   min-height: 100vh;
-  padding: 26px 24px 36px;
+  padding: 28px 24px 36px;
   box-sizing: border-box;
   margin: 0;
   position: relative;
@@ -52,15 +62,24 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.progresso-page .page-content {
+  padding-top: 18px;
+}
+
 .progresso-page .top-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 14px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  margin: 0 0 24px;
+  padding: 26px 24px 20px;
+  border-radius: 24px;
+  background: var(--page-surface);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+  position: relative;
+  z-index: 2;
 }
 
 .progresso-page .top-nav h1 {
@@ -106,15 +125,15 @@
 
 .progress-loader,
 .progress-state {
-  background: var(--card-bg);
+  background: var(--page-surface);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 20px;
   padding: 24px;
   text-align: center;
   color: var(--text-muted);
   margin-bottom: 20px;
-  box-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(16px);
 }
 
 .progress-loader .preloader {
@@ -214,12 +233,12 @@
 }
 
 .chart-card {
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 18px;
+  background: var(--page-surface);
+  border-radius: 20px;
   padding: 24px 26px;
   border: 1px solid rgba(15, 23, 42, 0.08);
   box-shadow: 0 22px 45px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
 }
 
 .chart-card.full {
@@ -369,27 +388,30 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  .progresso-page,
+  .progresso-page .top-nav,
   .summary-card,
   .chart-card,
   .recent-section,
   .insights-section,
   .recent-item,
   .progress-loader,
-  .progress-state {
-    box-shadow: none;
-    background: rgba(15, 23, 42, 0.5);
-    border-color: rgba(148, 163, 184, 0.45);
-    color: #e2e8f0;
+  .progress-state,
+  .insight-card {
+    background: var(--page-surface) !important;
+    color: var(--text-primary) !important;
+    border-color: rgba(226, 232, 240, 0.7) !important;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08) !important;
   }
 
   .summary-card::after,
   .chart-card::after,
   .insight-card::after {
-    opacity: 0.15;
+    opacity: 0.12;
   }
 
   .recent-item::before {
-    opacity: 0.6;
+    opacity: 0.7;
   }
 }
 

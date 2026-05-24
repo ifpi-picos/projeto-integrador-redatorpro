@@ -29,20 +29,21 @@
     <div id="app">
       <div class="view view-main">
         <div data-name="progresso" class="page progresso-page">
-          <div class="top-nav">
-            <div>
-              <p class="subtitle">Acompanhe sua evolução</p>
-              <h1>Progresso</h1>
+          <div class="page-content">
+            <div class="top-nav">
+              <div>
+                <p class="subtitle">Acompanhe sua evolução</p>
+                <h1>Progresso</h1>
+              </div>
+              <div class="nav-actions">
+                <button class="refresh-btn" id="btnRefreshProgresso">
+                  <i class="mdi mdi-refresh"></i>
+                  Atualizar
+                </button>
+              </div>
             </div>
-            <div class="nav-actions">
-              <button class="refresh-btn" id="btnRefreshProgresso">
-                <i class="mdi mdi-refresh"></i>
-                Atualizar
-              </button>
-            </div>
-          </div>
 
-          <div id="progress-loader" class="progress-loader">
+            <div id="progress-loader" class="progress-loader">
             <div class="preloader"></div>
             <p>Carregando indicadores...</p>
           </div>
@@ -137,7 +138,7 @@
               </div>
               <div id="recent-list" class="recent-list"></div>
             </section>
-          </div
+          </div>
         </div>
       </div>
     </div>

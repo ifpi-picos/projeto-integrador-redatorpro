@@ -356,6 +356,7 @@
           competencies: payload.competencies || [],
           distribution: payload.distribution || {},
           recent: payload.recent || [],
+          selectedType: payload.selectedType || "all",
         }),
       });
 
@@ -406,6 +407,8 @@
     renderAIInsights(payload);
   }
 
+  let selectedType = "all";
+
   async function fetchProgress(stateRefs) {
     const user = JSON.parse(localStorage.getItem("loggedUser") || "null");
     if (!user || !user.token) {
@@ -419,7 +422,11 @@
 
     try {
       showState(stateRefs, "loading");
-      const resp = await fetch(API, {
+      const query =
+        selectedType && selectedType !== "all"
+          ? `?tipo=${encodeURIComponent(selectedType)}`
+          : "";
+      const resp = await fetch(`${API}${query}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -459,10 +466,18 @@
     const content = page.querySelector("#progress-content");
     const refreshBtn = page.querySelector("#btnRefreshProgresso");
 
+    const typeFilterSelect = page.querySelector("#progress-type-filter");
     const stateRefs = { loader, error, content };
 
+    selectedType = typeFilterSelect?.value || "all";
     const runWithCharts = () =>
       ensureChartLibrary().then(() => fetchProgress(stateRefs));
+
+    typeFilterSelect?.addEventListener("change", (event) => {
+      selectedType = event.target.value || "all";
+      runWithCharts();
+    });
+
     refreshBtn?.addEventListener("click", runWithCharts);
 
     ensureChartLibrary()

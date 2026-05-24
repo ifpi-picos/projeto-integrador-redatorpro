@@ -1,79 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
+  <head>
     <!-- Required meta tags-->
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <!-- Color theme for statusbar (Android only) -->
-    <meta name="theme-color" content="#2196f3">
+    <meta name="theme-color" content="#2196f3" />
     <!-- Path to Framework7 Library Bundle CSS -->
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
+    <link rel="stylesheet" href="lib/framework7-bundle.min.css" />
     <!--Ícones Material Design-->
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/materialdesignicons.min.css" />
 
-    <link rel="stylesheet" href="css/banco.css">
-    <link rel="stylesheet" href="css/link2.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/redacoes.css">
+    <link rel="stylesheet" href="css/banco.css" />
+    <link rel="stylesheet" href="css/link2.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/redacoes.css" />
 
     <title>Suas redação</title>
+  </head>
 
-</head>
-
-<body class="#">
+  <body class="#">
     <div id="app">
-        <div class="view view-main">
-            <div data-name="redacoes" class="page">
+      <div class="view view-main">
+        <div data-name="redacoes" class="page">
+          <!-- CONTEÚDO -->
 
-                <!-- CONTEÚDO -->
+          <!-- Título topo -->
+          <div class="top-nav">
+            <h1 class="title-logo"><span class="pro">Redações</span></h1>
+          </div>
 
-                <!-- Título topo -->
-                <div class="top-nav">
-                    <h1 class="title-logo"><span class="pro">Redações</span></h1>
+          <!--filtro e barra de pesquisa-->
+          <form onsubmit="return false;">
+            <input
+              id="inputBusca"
+              onkeyup="filtrar()"
+              placeholder="Busque aqui"
+              type="text"
+              class="search"
+            />
+            <i class="icone-busca ri-search-2-line"></i>
+          </form>
+
+          <div class="filter-button">
+            <button onclick="filtrarEspecialidade('')" class="geral">
+              Geral
+            </button>
+            <button onclick="filtrarEspecialidade('Enem')">Enem</button>
+            <button onclick="filtrarEspecialidade('Vestibular')">
+              Vestibular
+            </button>
+            <button onclick="filtrarEspecialidade('Ita')">Concurso</button>
+          </div>
+
+          <div class="page-content">
+            <div id="text-list" class="text-list">
+              <!-- Exemplo de card de redação -->
+              <a href="#" class="item redacao-card">
+                <div class="redacao-info">
+                  <div class="redacao-header">
+                    <span class="redacao-tema"
+                      >Tema: <b><!-- tema aqui --></b></span
+                    >
+                    <span class="redacao-nota"
+                      >Nota: <b><!-- nota aqui --></b></span
+                    >
+                  </div>
+                  <div class="redacao-preview">
+                    <!-- trecho da redação aqui -->
+                  </div>
                 </div>
-
-                <!--filtro e barra de pesquisa-->
-                <form onsubmit="return false;">
-                    <input id="inputBusca" onkeyup="filtrar()" placeholder="Busque aqui" type="text" class="search">
-                    <i class="icone-busca ri-search-2-line"></i>
-                </form>
-
-                <div class="filter-button">
-                    <button onclick="filtrarEspecialidade('')" class="geral">Geral</button>
-                    <button onclick="filtrarEspecialidade('Enem')">Enem</button>
-                    <button onclick="filtrarEspecialidade('Vestibular')">Fuvest</button>
-                    <button onclick="filtrarEspecialidade('Ita')">FCC</button>
+                <div class="redacao-detalhes" style="display: none">
+                  <div class="redacao-texto">
+                    <!-- texto completo da redação -->
+                  </div>
+                  <button class="btn-exibir-correcao">Exibir correção</button>
+                  <div class="correcao-ia" style="display: none">
+                    <!-- correção da IA -->
+                  </div>
                 </div>
+              </a>
 
-
-                <div class="page-content">
-                    <div id="text-list" class="text-list">
-
-                       <!-- Exemplo de card de redação -->
-                                <a href="#" class="item redacao-card">
-                                <div class="redacao-info">
-                                    <div class="redacao-header">
-                                    <span class="redacao-tema">Tema: <b><!-- tema aqui --></b></span>
-                                    <span class="redacao-nota">Nota: <b><!-- nota aqui --></b></span>
-                                    </div>
-                                    <div class="redacao-preview"><!-- trecho da redação aqui --></div>
-                                </div>
-                                <div class="redacao-detalhes" style="display:none;">
-                                    <div class="redacao-texto"><!-- texto completo da redação --></div>
-                                    <button class="btn-exibir-correcao">Exibir correção</button>
-                                    <div class="correcao-ia" style="display:none;"><!-- correção da IA --></div>
-                                </div>
-                                </a>
-
-                        <p id="no-results" style="display: none;" class="display-flex justify-content-center align-items-center texto-colorido">Não encontramos nada por aqui...</p>
-                    </div>
-                </div>
-
+              <p
+                id="no-results"
+                style="display: none"
+                class="display-flex justify-content-center align-items-center texto-colorido"
+              >
+                Não encontramos nada por aqui...
+              </p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- SCRIPTS -->
@@ -85,18 +107,19 @@
     <script src="js/redacoes.js" defer></script>
 
     <script>
-        // Previne o envio do formulário
-        document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
+      // Previne o envio do formulário
+      document
+        .querySelector("form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
         });
 
-        // Previne o comportamento global de pressionar Enter
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Impede o comportamento padrão
-            }
-        });
+      // Previne o comportamento global de pressionar Enter
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Impede o comportamento padrão
+        }
+      });
     </script>
-
-</body>
+  </body>
 </html>

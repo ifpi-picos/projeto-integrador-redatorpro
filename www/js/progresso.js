@@ -104,7 +104,48 @@
     }
   }
 
+  function getTypeLabel(type) {
+    if (type === "enem") return "ENEM";
+    if (type === "vestibular") return "Vestibular";
+    if (type === "concursos") return "Concurso";
+    return "Redação";
+  }
+
+  function updateChartTitles(typeLabel) {
+    const monthlyCard = document
+      .querySelector("#chartMonthly")
+      ?.closest(".chart-card");
+    const barCard = document
+      .querySelector("#chartCompetenciesBar")
+      ?.closest(".chart-card");
+    const radarCard = document
+      .querySelector("#chartCompetenciesRadar")
+      ?.closest(".chart-card");
+
+    if (monthlyCard) {
+      monthlyCard.querySelector("header h3")?.textContent =
+        `${typeLabel} — Evolução Mensal`;
+      monthlyCard.querySelector("header .muted")?.textContent =
+        `Médias gerais e por tipo de correção para ${typeLabel}`;
+    }
+    if (barCard) {
+      barCard.querySelector("header h3")?.textContent =
+        `${typeLabel} — Médias por Competência`;
+      barCard.querySelector("header .muted")?.textContent =
+        `Comparativo das competências mais relevantes`;
+    }
+    if (radarCard) {
+      radarCard.querySelector("header h3")?.textContent =
+        `${typeLabel} — Radar de Competências`;
+      radarCard.querySelector("header .muted")?.textContent =
+        `Visão geral das habilidades avaliadas`;
+    }
+  }
+
   function renderCharts(payload) {
+    const typeLabel = getTypeLabel(payload.selectedType);
+    updateChartTitles(typeLabel);
+
     const monthlyLabels = payload.monthlyScores?.map((m) => m.label) || [];
     const monthlyGeneral =
       payload.monthlyScores?.map((m) => m.mediaGeral ?? 0) || [];
@@ -269,12 +310,13 @@
     const overview = payload.overview || {};
     const competencies = payload.competencies || [];
     const distribution = payload.distribution || {};
+    const typeLabel = getTypeLabel(payload.selectedType);
 
     if (!overview.totalRedacoes) {
       container.innerHTML = `
         <article class="insight-card">
           <h4>Comece a praticar!</h4>
-          <p>Envie sua primeira redação para receber recomendações personalizadas de IA e acompanhar seu progresso.</p>
+          <p>Envie sua primeira redação ${typeLabel} para receber recomendações personalizadas de IA e acompanhar seu progresso.</p>
         </article>`;
       return;
     }
@@ -288,21 +330,18 @@
     if (overview.mediaGeral !== null) {
       if (overview.mediaGeral >= 750) {
         insights.push({
-          title: "Bom desempenho geral",
-          description:
-            "Sua média está sólida. Continue mantendo a rotina de prática e busque aprimorar a consistência em cada competência.",
+          title: `${typeLabel}: bom desempenho geral`,
+          description: `Sua média ${typeLabel.toLowerCase()} está sólida para esse tipo de redação. Continue mantendo a rotina de prática e busque aprimorar a consistência em cada competência.`,
         });
       } else if (overview.mediaGeral >= 550) {
         insights.push({
-          title: "Rendimento em crescimento",
-          description:
-            "Você já tem uma boa base. Foque em estruturar melhor seus argumentos e revisar a correção gramatical para subir ainda mais.",
+          title: `${typeLabel}: rendimento em crescimento`,
+          description: `Você já tem uma boa base em ${typeLabel.toLowerCase()}. Foque em estruturar melhor seus argumentos e revisar a correção gramatical para subir ainda mais.`,
         });
       } else {
         insights.push({
-          title: "Oportunidade de evolução",
-          description:
-            "Os resultados mostram que vale a pena reforçar os pontos fracos: gramática, coerência e proposta de intervenção.",
+          title: `${typeLabel}: oportunidade de evolução`,
+          description: `Os resultados do ${typeLabel.toLowerCase()} mostram que vale a pena reforçar os pontos fracos: gramática, coerência e proposta de intervenção.`,
         });
       }
     }
@@ -407,7 +446,7 @@
     renderAIInsights(payload);
   }
 
-  let selectedType = "all";
+  let selectedType = "enem";
 
   async function fetchProgress(stateRefs) {
     const user = JSON.parse(localStorage.getItem("loggedUser") || "null");
@@ -422,10 +461,7 @@
 
     try {
       showState(stateRefs, "loading");
-      const query =
-        selectedType && selectedType !== "all"
-          ? `?tipo=${encodeURIComponent(selectedType)}`
-          : "";
+      const query = `?tipo=${encodeURIComponent(selectedType || "enem")}`;
       const resp = await fetch(`${API}${query}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -469,12 +505,12 @@
     const typeFilterSelect = page.querySelector("#progress-type-filter");
     const stateRefs = { loader, error, content };
 
-    selectedType = typeFilterSelect?.value || "all";
+    selectedType = typeFilterSelect?.value || "enem";
     const runWithCharts = () =>
       ensureChartLibrary().then(() => fetchProgress(stateRefs));
 
     typeFilterSelect?.addEventListener("change", (event) => {
-      selectedType = event.target.value || "all";
+      selectedType = event.target.value || "enem";
       runWithCharts();
     });
 

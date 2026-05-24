@@ -91,7 +91,7 @@
     setText("overview-melhor", formatScore(overview.melhorNota));
     setText(
       "overview-total",
-      `Total de redações ${overview.totalRedacoes ?? 0}`
+      `Total de redações ${overview.totalRedacoes ?? 0}`,
     );
 
     const ultima = document.getElementById("overview-ultima");
@@ -155,7 +155,7 @@
             suggestedMax: 1000,
           },
         },
-      }
+      },
     );
 
     const totalIa = payload.distribution?.ia ?? 0;
@@ -177,7 +177,7 @@
         plugins: {
           legend: { position: "bottom" },
         },
-      }
+      },
     );
 
     const compLabels = payload.competencies?.map((c) => c.label) || [];
@@ -204,7 +204,7 @@
             suggestedMax: 200,
           },
         },
-      }
+      },
     );
 
     createChart(
@@ -229,7 +229,7 @@
             suggestedMax: 200,
           },
         },
-      }
+      },
     );
   }
 
@@ -251,13 +251,92 @@
 						<h4>${item.tema || "Redação"}</h4>
 						<div class="meta">
 							${formatDate(item.data)} • <span class="badge ${
-          item.fonte === "IA" ? "ia" : "corretor"
-        }">${item.fonte}</span>
+                item.fonte === "IA" ? "ia" : "corretor"
+              }">${item.fonte}</span>
 						</div>
 					</div>
 					<div class="score">${formatScore(item.nota)}</div>
 				</div>
-			`
+			`,
+      )
+      .join("");
+  }
+
+  function renderAIInsights(payload = {}) {
+    const container = document.getElementById("insights-list");
+    if (!container) return;
+
+    const overview = payload.overview || {};
+    const competencies = payload.competencies || [];
+    const distribution = payload.distribution || {};
+
+    if (!overview.totalRedacoes) {
+      container.innerHTML = `
+        <article class="insight-card">
+          <h4>Comece a praticar!</h4>
+          <p>Envie sua primeira redação para receber recomendações personalizadas de IA e acompanhar seu progresso.</p>
+        </article>`;
+      return;
+    }
+
+    const lowCompetencies = competencies
+      .filter((item) => item.average !== null && item.average < 120)
+      .slice(0, 3);
+
+    const insights = [];
+
+    if (overview.mediaGeral !== null) {
+      if (overview.mediaGeral >= 750) {
+        insights.push({
+          title: "Bom desempenho geral",
+          description:
+            "Sua média está sólida. Continue mantendo a rotina de prática e busque aprimorar a consistência em cada competência.",
+        });
+      } else if (overview.mediaGeral >= 550) {
+        insights.push({
+          title: "Rendimento em crescimento",
+          description:
+            "Você já tem uma boa base. Foque em estruturar melhor seus argumentos e revisar a correção gramatical para subir ainda mais.",
+        });
+      } else {
+        insights.push({
+          title: "Oportunidade de evolução",
+          description:
+            "Os resultados mostram que vale a pena reforçar os pontos fracos: gramática, coerência e proposta de intervenção.",
+        });
+      }
+    }
+
+    if (lowCompetencies.length) {
+      insights.push({
+        title: "Foco nas competências",
+        description: `As competências com menor média são: ${lowCompetencies
+          .map((item) => item.label)
+          .join(", ")}. Dedique atividades específicas para cada uma.`,
+      });
+    }
+
+    if (distribution.ia >= distribution.corretor) {
+      insights.push({
+        title: "Diversifique suas correções",
+        description:
+          "Você tem usado bastante a IA. Experimente também enviar algumas redações para corretores humanos para obter feedback mais detalhado e pedagógico.",
+      });
+    } else {
+      insights.push({
+        title: "Bom equilíbrio entre IA e corretores",
+        description:
+          "A combinação de IA e corretores pode acelerar sua evolução. Continue usando ambos para revisar diferentes aspectos do texto.",
+      });
+    }
+
+    container.innerHTML = insights
+      .map(
+        (insight) => `
+          <article class="insight-card">
+            <h4>${insight.title}</h4>
+            <p>${insight.description}</p>
+          </article>`,
       )
       .join("");
   }
@@ -268,7 +347,7 @@
       showState(
         stateRefs,
         "error",
-        "Faça login para visualizar seu progresso."
+        "Faça login para visualizar seu progresso.",
       );
       return;
     }
@@ -288,6 +367,7 @@
       const data = await resp.json();
       renderSummary(data.overview || {});
       renderCharts(data);
+      renderAIInsights(data);
       renderRecent(data.recent || []);
       showState(stateRefs, "ready");
     } catch (err) {
@@ -295,7 +375,7 @@
       showState(
         stateRefs,
         "error",
-        "Erro ao carregar progresso. Tente novamente."
+        "Erro ao carregar progresso. Tente novamente.",
       );
     }
   }

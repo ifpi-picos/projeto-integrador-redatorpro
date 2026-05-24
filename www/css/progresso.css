@@ -10,24 +10,23 @@
 .progresso-page {
   --gradient-one: linear-gradient(
     135deg,
-    rgba(33, 150, 243, 0.08),
+    rgba(33, 150, 243, 0.12),
     rgba(255, 255, 255, 0)
   );
   --gradient-two: radial-gradient(
     circle at top right,
-    rgba(33, 150, 243, 0.18),
+    rgba(33, 150, 243, 0.22),
     transparent 45%
   );
-  background-color: var(--color-bg-primary, #f5f7fb);
+  background-color: var(--color-bg-primary, #eef4fb);
   min-height: 100vh;
-  padding: 28px 34px 56px 24px;
+  padding: 26px 24px 36px;
   box-sizing: border-box;
-  margin: 0 28px 36px 18px !important;
+  margin: 0;
   position: relative;
   isolation: isolate;
   overflow-x: hidden;
   overflow-y: auto;
-  border-radius: 18px;
 }
 
 .progresso-page::before,
@@ -58,8 +57,10 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .progresso-page .top-nav h1 {
@@ -90,7 +91,10 @@
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
   box-shadow: 0 10px 24px rgba(33, 150, 243, 0.15);
 }
 
@@ -135,11 +139,11 @@
 }
 
 .summary-card {
-  background: var(--card-bg);
-  border-radius: 14px;
-  padding: 18px 20px;
-  border: 1px solid rgba(226, 232, 240, 0.6);
-  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), #ffffff);
+  border-radius: 20px;
+  padding: 22px 24px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(12px);
@@ -159,13 +163,9 @@
 }
 
 .summary-card:nth-child(1) {
-  background: linear-gradient(
-    135deg,
-    rgba(33, 150, 243, 0.18),
-    rgba(255, 255, 255, 0.9)
-  );
+  background: linear-gradient(135deg, #2196f3, #5aa8f5);
   color: #fff;
-  border-color: rgba(33, 150, 243, 0.4);
+  border-color: rgba(33, 150, 243, 0.35);
 }
 
 .summary-card:nth-child(1) p,
@@ -214,12 +214,12 @@
 }
 
 .chart-card {
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 22px 24px;
-  border: 1px solid rgba(226, 232, 240, 0.7);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 18px;
+  padding: 24px 26px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 22px 45px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(16px);
 }
 
 .chart-card.full {
@@ -247,21 +247,23 @@
 
 .chart-card canvas {
   width: 100% !important;
-  max-height: 320px;
+  max-height: 360px;
+  min-height: 260px;
 }
 
-.recent-section {
-  margin-top: 30px;
-  background: var(--card-bg);
-  border: 1px solid rgba(226, 232, 240, 0.7);
-  border-radius: 16px;
+.recent-section,
+.insights-section {
+  margin-top: 28px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 22px;
   padding: 24px;
-  box-shadow: 0 18px 32px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(12px);
+  box-shadow: 0 22px 40px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(14px);
 }
 
 .section-header {
-  margin-bottom: 16px;
+  margin-bottom: 22px;
 }
 
 .section-header h3 {
@@ -277,7 +279,7 @@
 .recent-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .recent-item {
@@ -361,21 +363,28 @@
   .summary-card h2 {
     font-size: 1.6rem;
   }
+  .progresso-page {
+    padding: 20px 16px 32px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   .summary-card,
   .chart-card,
   .recent-section,
+  .insights-section,
   .recent-item,
   .progress-loader,
   .progress-state {
     box-shadow: none;
     background: rgba(15, 23, 42, 0.5);
     border-color: rgba(148, 163, 184, 0.45);
+    color: #e2e8f0;
   }
 
-  .summary-card::after {
+  .summary-card::after,
+  .chart-card::after,
+  .insight-card::after {
     opacity: 0.15;
   }
 
@@ -387,10 +396,48 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 14px, 0);
   }
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+}
+
+.insight-card {
+  border-radius: 18px;
+  padding: 24px;
+  background: #f8fbff;
+  border: 1px solid rgba(33, 150, 243, 0.12);
+  box-shadow: 0 16px 34px rgba(33, 150, 243, 0.08);
+}
+
+.insight-card h4 {
+  margin: 0 0 10px;
+  color: #174a86;
+}
+
+.insight-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.insight-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(33, 150, 243, 0.12);
+  color: #0b4f8a;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 14px;
 }

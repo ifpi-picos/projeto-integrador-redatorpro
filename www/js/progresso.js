@@ -123,22 +123,28 @@
       ?.closest(".chart-card");
 
     if (monthlyCard) {
-      monthlyCard.querySelector("header h3")?.textContent =
-        `${typeLabel} — Evolução Mensal`;
-      monthlyCard.querySelector("header .muted")?.textContent =
-        `Médias gerais e por tipo de correção para ${typeLabel}`;
+      const monthlyTitle = monthlyCard.querySelector("header h3");
+      const monthlyDesc = monthlyCard.querySelector("header .muted");
+      if (monthlyTitle)
+        monthlyTitle.textContent = `${typeLabel} — Evolução Mensal`;
+      if (monthlyDesc)
+        monthlyDesc.textContent = `Médias gerais e por tipo de correção para ${typeLabel}`;
     }
     if (barCard) {
-      barCard.querySelector("header h3")?.textContent =
-        `${typeLabel} — Médias por Competência`;
-      barCard.querySelector("header .muted")?.textContent =
-        `Comparativo das competências mais relevantes`;
+      const barTitle = barCard.querySelector("header h3");
+      const barDesc = barCard.querySelector("header .muted");
+      if (barTitle)
+        barTitle.textContent = `${typeLabel} — Médias por Competência`;
+      if (barDesc)
+        barDesc.textContent = `Comparativo das competências mais relevantes`;
     }
     if (radarCard) {
-      radarCard.querySelector("header h3")?.textContent =
-        `${typeLabel} — Radar de Competências`;
-      radarCard.querySelector("header .muted")?.textContent =
-        `Visão geral das habilidades avaliadas`;
+      const radarTitle = radarCard.querySelector("header h3");
+      const radarDesc = radarCard.querySelector("header .muted");
+      if (radarTitle)
+        radarTitle.textContent = `${typeLabel} — Radar de Competências`;
+      if (radarDesc)
+        radarDesc.textContent = `Visão geral das habilidades avaliadas`;
     }
   }
 

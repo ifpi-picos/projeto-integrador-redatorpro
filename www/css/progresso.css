@@ -63,7 +63,7 @@
 }
 
 .progresso-page .page-content {
-  padding-top: 0px;
+  padding-top: 8px;
 }
 
 .progresso-page .top-nav {
@@ -71,8 +71,8 @@
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 18px;
-  margin: 0 0 34px;
-  padding: 30px 28px 28px;
+  margin: 0 0 46px;
+  padding: 36px 28px 36px;
   border-radius: 32px;
   background: linear-gradient(
     180deg,
@@ -126,7 +126,7 @@
 
 .progresso-page .top-nav .nav-actions {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
   gap: 14px;
 }
@@ -149,6 +149,11 @@
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.03em;
+}
+
+/* permitir esconder cards de gráfico dinamicamente */
+.chart-card.hidden {
+  display: none !important;
 }
 
 .filter-group select {

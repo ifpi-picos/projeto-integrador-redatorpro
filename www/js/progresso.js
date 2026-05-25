@@ -366,6 +366,39 @@
       },
       typeChartConfig.options,
     );
+    // Ajusta visibilidade dos cards para mostrar apenas 3 gráficos pertinentes
+    applyChartVisibility(payload.selectedType);
+  }
+
+  function applyChartVisibility(selectedType) {
+    const map = {
+      enem: ["chartMonthly", "chartCompetenciesRadar", "chartTypeSpecific"],
+      vestibular: ["chartMonthly", "chartCompetenciesBar", "chartTypeSpecific"],
+      concursos: [
+        "chartMonthly",
+        "chartCompetenciesBar",
+        "chartCompetenciesRadar",
+      ],
+      all: ["chartMonthly", "chartCompetenciesBar", "chartCompetenciesRadar"],
+    };
+
+    const toShow = map[selectedType] || map.all;
+    const allIds = [
+      "chartMonthly",
+      "chartCompetenciesBar",
+      "chartCompetenciesRadar",
+      "chartTypeSpecific",
+    ];
+
+    allIds.forEach((id) => {
+      const card = document.getElementById(id)?.closest(".chart-card");
+      if (!card) return;
+      if (toShow.includes(id)) {
+        card.classList.remove("hidden");
+      } else {
+        card.classList.add("hidden");
+      }
+    });
   }
 
   function renderRecent(list = []) {

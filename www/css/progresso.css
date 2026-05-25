@@ -17,7 +17,6 @@
   --bg-page: #eef4fb;
   --page-surface: rgba(255, 255, 255, 0.98);
   color-scheme: light;
-  background-color: var(--bg-page);
   --gradient-one: linear-gradient(
     135deg,
     rgba(33, 150, 243, 0.12),
@@ -52,7 +51,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.progresso-page::after {
+.progresso-page {
   padding-left: 10px;
 }
 

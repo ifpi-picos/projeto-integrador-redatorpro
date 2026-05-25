@@ -28,7 +28,6 @@
     rgba(33, 150, 243, 0.18),
     transparent 45%
   );
-  background-color: var(--bg-page);
   min-height: 100vh;
   padding: 28px 24px 36px;
   box-sizing: border-box;
@@ -53,7 +52,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.progresso-page .page-content {
+.progresso-page::after {
   padding-left: 10px;
 }
 
@@ -486,6 +485,72 @@
   }
   .progresso-page {
     padding: 20px 16px 32px;
+  }
+  /* Responsividade do top-nav: empilhar título e ações, reduzir tamanhos */
+  .progresso-page .top-nav {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+    margin: 0 0 22px;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .progresso-page .top-nav h1 {
+    font-size: 1.6rem;
+    line-height: 1.05;
+  }
+
+  .progresso-page .top-nav .nav-actions {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .filter-group {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .filter-group label {
+    text-align: left;
+  }
+
+  .filter-group select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .refresh-btn {
+    width: 100%;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .progresso-page .top-nav {
+    padding: 14px 12px;
+    border-radius: 18px;
+    gap: 10px;
+  }
+
+  .progresso-page .top-nav h1 {
+    font-size: 1.4rem;
+  }
+
+  .filter-group label {
+    font-size: 0.68rem;
+  }
+
+  .filter-group select {
+    padding: 9px 10px;
+    font-size: 0.9rem;
+  }
+
+  .refresh-btn {
+    padding: 9px 10px;
+    font-size: 0.92rem;
   }
 }
 

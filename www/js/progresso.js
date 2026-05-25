@@ -148,6 +148,94 @@
     }
   }
 
+  function getTypeSpecificChartConfig(type, payload) {
+    const typeLabel = getTypeLabel(type);
+    const monthlyLabels = payload.monthlyScores?.map((m) => m.label) || [];
+    const monthlyIa = payload.monthlyScores?.map((m) => m.mediaIa ?? 0) || [];
+    const monthlyHuman =
+      payload.monthlyScores?.map((m) => m.mediaCorretor ?? 0) || [];
+    const compLabels = payload.competencies?.map((c) => c.label) || [];
+    const compValues = payload.competencies?.map((c) => c.average ?? 0) || [];
+    const distribution = payload.distribution || {};
+
+    if (type === "vestibular") {
+      return {
+        type: "bar",
+        labels: compLabels,
+        datasets: [
+          {
+            label: `${typeLabel} - Competências`,
+            data: compValues,
+            backgroundColor: "#6366f1",
+          },
+        ],
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          scales: {
+            x: {
+              beginAtZero: true,
+              suggestedMax: 200,
+            },
+          },
+        },
+        title: `${typeLabel} — Competências por núcleo`,
+        subtitle: "Média das competências avaliadas no seu tipo de correção",
+      };
+    }
+
+    if (type === "concursos") {
+      return {
+        type: "bar",
+        labels: monthlyLabels,
+        datasets: [
+          {
+            label: "IA",
+            data: monthlyIa,
+            backgroundColor: "#4caf50",
+          },
+          {
+            label: "Corretores",
+            data: monthlyHuman,
+            backgroundColor: "#fb8c00",
+          },
+        ],
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              beginAtZero: true,
+              stacked: true,
+              suggestedMax: 100,
+            },
+          },
+        },
+        title: `${typeLabel} — Correções por fonte`,
+        subtitle: "Volume de avaliações IA x humano nos últimos meses",
+      };
+    }
+
+    return {
+      type: "doughnut",
+      labels: ["IA", "Corretores"],
+      datasets: [
+        {
+          data: [distribution.ia ?? 0, distribution.corretor ?? 0],
+          backgroundColor: ["#4caf50", "#ffb74d"],
+          borderWidth: 0,
+        },
+      ],
+      options: {
+        responsive: true,
+      },
+      title: `${typeLabel} — Distribuição das correções`,
+      subtitle: "Proporção entre correções por IA e por corretor",
+    };
+  }
+
   function renderCharts(payload) {
     const typeLabel = getTypeLabel(payload.selectedType);
     updateChartTitles(typeLabel);
@@ -158,6 +246,8 @@
     const monthlyIa = payload.monthlyScores?.map((m) => m.mediaIa ?? 0) || [];
     const monthlyHuman =
       payload.monthlyScores?.map((m) => m.mediaCorretor ?? 0) || [];
+    const compLabels = payload.competencies?.map((c) => c.label) || [];
+    const compValues = payload.competencies?.map((c) => c.average ?? 0) || [];
 
     createChart(
       "chartMonthly",
@@ -207,28 +297,6 @@
 
     const totalIa = payload.distribution?.ia ?? 0;
     const totalCorretor = payload.distribution?.corretor ?? 0;
-    createChart(
-      "chartDistribution",
-      "doughnut",
-      {
-        labels: ["IA", "Corretores"],
-        datasets: [
-          {
-            data: [totalIa, totalCorretor],
-            backgroundColor: ["#4caf50", "#ffb74d"],
-            borderWidth: 0,
-          },
-        ],
-      },
-      {
-        plugins: {
-          legend: { position: "bottom" },
-        },
-      },
-    );
-
-    const compLabels = payload.competencies?.map((c) => c.label) || [];
-    const compValues = payload.competencies?.map((c) => c.average ?? 0) || [];
 
     createChart(
       "chartCompetenciesBar",
@@ -277,6 +345,26 @@
           },
         },
       },
+    );
+
+    const typeChartConfig = getTypeSpecificChartConfig(
+      payload.selectedType,
+      payload,
+    );
+    const typeChartTitle = document.getElementById("typeSpecificTitle");
+    const typeChartSubtitle = document.getElementById("typeSpecificSubtitle");
+    if (typeChartTitle) typeChartTitle.textContent = typeChartConfig.title;
+    if (typeChartSubtitle)
+      typeChartSubtitle.textContent = typeChartConfig.subtitle;
+
+    createChart(
+      "chartTypeSpecific",
+      typeChartConfig.type,
+      {
+        labels: typeChartConfig.labels,
+        datasets: typeChartConfig.datasets,
+      },
+      typeChartConfig.options,
     );
   }
 

@@ -71,8 +71,8 @@
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 18px;
-  margin: 0 0 26px;
-  padding: 26px 26px 24px;
+  margin: 0 0 34px;
+  padding: 30px 28px 28px;
   border-radius: 32px;
   background: linear-gradient(
     180deg,
@@ -80,7 +80,7 @@
     rgba(241, 245, 249, 0.95)
   );
   border: 1px solid rgba(15, 23, 42, 0.1);
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.09);
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.11);
   position: relative;
   z-index: 2;
 }
@@ -112,8 +112,8 @@
 
 .progresso-page .top-nav h1 {
   margin: 0;
-  font-size: 2.1rem;
-  line-height: 1.05;
+  font-size: 2.4rem;
+  line-height: 1.02;
   color: var(--text-primary);
 }
 
@@ -126,7 +126,7 @@
 
 .progresso-page .top-nav .nav-actions {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
   gap: 14px;
 }
@@ -319,7 +319,7 @@
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
@@ -334,6 +334,10 @@
 
 .chart-card.full {
   grid-column: span 2;
+}
+
+.chart-card.type-specific-card {
+  min-height: 380px;
 }
 
 .charts-grid {

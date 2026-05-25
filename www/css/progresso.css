@@ -105,9 +105,11 @@
   font-size: 2.4rem;
   line-height: 1.02;
   color: var(--text-primary);
-}
-
-.progresso-page .top-nav .subtitle {
+  margin: 0 0 30px;
+  padding: 50px 28px 50px;
+  box-sizing: border-box;
+  /* garantir que não seja forçado a altura fixa por regras globais */
+  height: auto !important;
   display: inline-block;
   margin: 0 0 8px 0;
   font-size: 0.82rem;
@@ -485,21 +487,24 @@
   .progresso-page {
     padding: 20px 16px 32px;
   }
-  /* Responsividade do top-nav: empilhar título e ações, reduzir tamanhos */
+  /* Responsividade do top-nav: usar fluxo normal e empilhar com flex */
   .progresso-page .top-nav {
-    grid-template-columns: 1fr;
-    padding: 20px 16px;
-    margin: 0 0 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 14px;
+    margin: 0 0 36px; /* aumentar espaçamento para evitar sobreposição */
     gap: 12px;
-    align-items: start;
   }
 
   .progresso-page .top-nav h1 {
     font-size: 1.6rem;
     line-height: 1.05;
+    margin-bottom: 4px;
   }
 
   .progresso-page .top-nav .nav-actions {
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
@@ -524,6 +529,11 @@
   .refresh-btn {
     width: 100%;
     padding: 10px 12px;
+  }
+
+  /* garantir espaço extra entre topo e gráficos */
+  .charts-grid {
+    margin-top: 12px;
   }
 }
 

@@ -48,7 +48,19 @@
 .view-main .page.progresso-page {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding-left: 30px !important;
+}
+
+/* padding-left aplicado apenas em desktop */
+@media (min-width: 769px) {
+  .view-main .page.progresso-page {
+    padding-left: 30px !important;
+  }
+}
+
+/* Forçar fundo branco apenas para a página de progresso */
+.progresso-page .page-content {
+  background: #fff !important;
+}
 }
 
 .progresso-page .top-nav {
@@ -487,7 +499,7 @@
     flex-direction: column;
     align-items: stretch;
     padding: 12px 12px 18px 12px;
-    margin: 0 0 80px; /* espaço maior para empurrar os indicadores e evitar sobreposições */
+    margin: 0 0 120px; /* espaço maior para empurrar os indicadores e evitar sobreposições */
     gap: 10px;
     box-sizing: border-box;
     position: relative;
@@ -542,7 +554,7 @@
 
   /* garantir espaçamento extra entre top-nav e os cards de resumo */
   .summary-grid {
-    margin-top: 18px;
+    margin-top: 36px;
   }
 }
 

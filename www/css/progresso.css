@@ -14,7 +14,6 @@
   --border-color: rgba(226, 232, 240, 0.8);
   --accent: #1d4ed8;
   --accent-dark: #1e40af;
-  --bg-page: #eef4fb;
   --page-surface: rgba(255, 255, 255, 0.98);
   color-scheme: light;
   --gradient-one: linear-gradient(
@@ -49,10 +48,7 @@
 .view-main .page.progresso-page {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-}
-
-.progresso-page {
-  padding-left: 10px !important;
+  padding-left: 30px !important;
 }
 
 .progresso-page .top-nav {
@@ -490,18 +486,21 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 14px 12px;
-    margin: 0 0 32px; /* espaço para empurrar os indicadores */
+    padding: 12px 12px 18px 12px;
+    margin: 0 0 80px; /* espaço maior para empurrar os indicadores e evitar sobreposições */
     gap: 10px;
     box-sizing: border-box;
     position: relative;
-    z-index: 5;
+    z-index: 8;
+    border-radius: 18px; /* radius menor em mobile para melhor encaixe */
   }
 
   .progresso-page .top-nav h1 {
     font-size: 1.5rem;
     line-height: 1.05;
     margin: 0 0 6px 0;
+    background: transparent; /* garantir sem bloco de fundo visível */
+    padding: 0;
   }
 
   /* manter select + botão na mesma linha para economizar espaço vertical */
@@ -512,12 +511,14 @@
     justify-content: space-between;
     gap: 10px;
     width: 100%;
+    flex-wrap: wrap; /* permite que o select quebre para a linha abaixo sem sobrepor */
   }
 
   .filter-group {
     align-items: center;
     width: 100%;
     flex: 1 1 auto;
+    min-width: 0;
   }
 
   .filter-group label {
@@ -532,9 +533,16 @@
   }
 
   .refresh-btn {
-    min-width: 120px;
+    min-width: 110px;
     padding: 10px 12px;
     white-space: nowrap;
+    align-self: center;
+    z-index: 10; /* manter acima dos cards */
+  }
+
+  /* garantir espaçamento extra entre top-nav e os cards de resumo */
+  .summary-grid {
+    margin-top: 18px;
   }
 }
 

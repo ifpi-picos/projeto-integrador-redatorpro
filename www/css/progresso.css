@@ -485,35 +485,45 @@
   .progresso-page {
     padding: 20px 16px 32px;
   }
-  /* Responsividade do top-nav: empilhar título e ações, reduzir tamanhos */
+  /* Responsividade do top-nav: layout mais compacto em mobile */
   .progresso-page .top-nav {
-    grid-template-columns: 1fr;
-    padding: 20px 16px;
-    margin: 0 0 22px;
-    gap: 12px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 12px;
+    margin: 0 0 32px; /* espaço para empurrar os indicadores */
+    gap: 10px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 5;
   }
 
   .progresso-page .top-nav h1 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     line-height: 1.05;
+    margin: 0 0 6px 0;
   }
 
+  /* manter select + botão na mesma linha para economizar espaço vertical */
   .progresso-page .top-nav .nav-actions {
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     gap: 10px;
     width: 100%;
   }
 
   .filter-group {
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
+    flex: 1 1 auto;
   }
 
   .filter-group label {
     text-align: left;
+    display: block;
+    margin-bottom: 4px;
   }
 
   .filter-group select {
@@ -522,8 +532,9 @@
   }
 
   .refresh-btn {
-    width: 100%;
+    min-width: 120px;
     padding: 10px 12px;
+    white-space: nowrap;
   }
 }
 

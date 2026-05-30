@@ -49,7 +49,7 @@
         "imagem": "img/repertorios.png",
         "nome": "Repertórios",
         "rating": "",
-        "icone": "ri-lock-star-fill",
+        "icone": "",
         "url": "https://ifpi-picos.github.io/projeto-integrador-redatorpro/www/repertorios.html",
         "external": "external"
     },
@@ -67,7 +67,7 @@
         "imagem": "img/comunidade.png",
         "nome": "Comunidade",
         "rating": "",
-        "icone": "ri-lock-star-fill",
+        "icone": "",
         "url": "/page404/",
         "external": ""
     }

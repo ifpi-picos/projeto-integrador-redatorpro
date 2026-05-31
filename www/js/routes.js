@@ -705,6 +705,18 @@ var app = new Framework7({
     {
       path: "/adicionar-repertorio/",
       url: "adcrepertorio.html",
+      animate: false,
+      on: {
+        pageInit: function () {
+          if (typeof window.initAdminRepertorio === "function") {
+            window.initAdminRepertorio();
+          } else {
+            $.getScript("js/repertorios.js", function () {
+              window.initAdminRepertorio?.();
+            });
+          }
+        },
+      },
     },
   ],
   // ... other parameters

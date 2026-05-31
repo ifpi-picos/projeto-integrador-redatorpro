@@ -2,133 +2,68 @@
     --branco: #ffffff;
     --gelo: #f5f9ff;
     --azul: #2196f3;
-    --azul-claro: #e0f0ff;
-    --azul-gelo: #cce7ff;
     --azul-hover: #1976d2;
-    --cinza: #d9e1ec;
     --preto: #1a1a1a;
     --sombra: rgba(0, 0, 0, 0.1);
-
     --f7-font-family: 'Poppins', -apple-system, system-ui, sans-serif;
 }
 
-
-/* Estilo da página de adicionar repertório */
 .page-add-repertorio {
     background-color: var(--gelo);
 }
 
-.navbar-inner {
-    background-color: var(--azul-claro);
-    box-shadow: 0 2px 4px var(--sombra);
+.admin-repertorio-top {
+    background: var(--color-bg-primary, #f9fafb);
+    padding: 0 5%;
 }
 
-.navbar .title {
-    color: var(--azul-hover);
-    font-weight: 600;
+.admin-lock {
+    pointer-events: none;
 }
 
-.titulo-add {
-    text-align: center;
-    margin-top: 25px;
-    font-size: 22px;
-    color: var(--preto);
-    animation: fadeIn 0.8s ease;
-}
-
-/* Card central */
-.card-add {
-    width: 90%;
-    background-color: var(--branco);
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 8px 18px var(--sombra);
-    animation: fadeInBox 0.7s ease;
-}
-
-/* Inputs */
-.input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 18px;
-}
-
-.input-group label {
-    color: var(--azul-hover);
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-.input-group input,
-.input-group textarea {
-    padding: 12px;
-    border: 2px solid var(--cinza);
-    border-radius: 10px;
-    background: var(--azul-claro);
-    font-size: 15px;
-    font-family: var(--f7-font-family);
-    transition: 0.3s ease;
-}
-
-.input-group input:focus,
-.input-group textarea:focus {
-    border-color: var(--azul);
-    background: var(--azul-gelo);
-    outline: none;
-}
-
-/* Textarea */
-.input-group textarea {
-    min-height: 100px;
-    resize: none;
-}
-
-/* Botões */
-.botoes-form {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    margin: 25px auto;
-}
-
-.btn-cancelar,
-.btn-enviar {
-    width: 48%;
-    padding: 12px 0;
-    border-radius: 12px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 6px 16px var(--sombra);
-    transition: 0.3s ease;
-}
-
-.btn-cancelar {
-    background-color: var(--cinza);
-    color: var(--preto);
-}
-
-.btn-cancelar:hover {
-    transform: translateY(-3px);
-}
-
-.btn-enviar {
-    background-color: var(--azul);
-    color: var(--branco);
-}
-
-.btn-enviar:hover {
-    background-color: var(--azul-hover);
-    transform: translateY(-3px);
-}
-
-/* Mensagem de sucesso */
-.sucesso-msg {
+.admin-repertorio-top .btn-cart::before {
     display: none;
+}
+
+.admin-repertorio-notice {
+    width: min(90%, 560px);
+    margin: 48px auto;
+    padding: 28px;
+    border-radius: 8px;
+    background: var(--branco);
+    box-shadow: 0 8px 18px var(--sombra);
     text-align: center;
-    margin-top: 20px;
-    font-weight: bold;
-    color: var(--azul-hover);
-    font-size: 18px;
+}
+
+.admin-repertorio-notice i {
+    color: var(--azul);
+    font-size: 44px;
+}
+
+.admin-repertorio-notice h2 {
+    margin: 12px 0 8px;
+    color: var(--preto);
+    font-size: 24px;
+}
+
+.admin-repertorio-notice p {
+    margin: 0 0 20px;
+    color: var(--color-text-placeholder, #798eae);
+    line-height: 1.45;
+}
+
+.admin-repertorio-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 8px;
+    background: var(--azul);
+    color: var(--branco) !important;
+    font-weight: 700;
+}
+
+.admin-repertorio-link:hover {
+    background: var(--azul-hover);
 }

@@ -1,75 +1,43 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2196f3">
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="css/repertorios.css">
-    <script src="repertorios.js" defer></script>
-    <title>Repertórios</title>
-</head>
+<div data-name="repertorios" class="page repertorios-page">
+    <div class="top-nav repertorios-top-nav">
+        <a href="/index/" class="btn-cart repertorios-back" aria-label="Voltar">
+            <i class="ri-arrow-left-s-line"></i>
+        </a>
+        <h1 class="title-logo"><span>Repertorios</span></h1>
+        <a href="/adicionar-repertorio/" class="btn-cart" aria-label="Adicionar repertorio">
+            <i class="ri-add-line"></i>
+        </a>
+    </div>
 
-<body class="body-repertorios">
-    <div id="app">
-        <div class="view view-main">
-            <div data-name="repertorios" class="page">
+    <form class="repertorios-search" id="form-busca-repertorios">
+        <input id="busca-repertorios" placeholder="Pesquisar repertorios" type="text">
+        <i class="icone-busca ri-search-2-line"></i>
+    </form>
 
-                <div class="buttons-top">
-                    <a href="/index/"><i class="fas fa-arrow-left"></i></a>
+    <div class="page-content repertorios-content">
+        <div class="block no-margin-top">
+            <div class="repertorios-actions">
+                <div>
+                    <h2 class="h2-left">Repertorios</h2>
+                    <p>Explore obras, dados e citacoes para fortalecer sua argumentacao.</p>
                 </div>
-
-                <header>
-                    <h1>Repertórios</h1>
-                </header>
-
-                <h2 class="h2-repertorios">Escolha um tipo de repertório:</h2>
-
-            <div class="add-repertorio-btn">
-                <button onclick="window.location.href='./adcrepertorio.html'">
-                Adicionar Repertórios
+                <button class="repertorios-filter" id="limpar-filtro-repertorios" type="button">
+                    <i class="ri-filter-off-line"></i>
+                    Limpar
                 </button>
             </div>
 
+            <div id="repertorios-sections" class="repertorios-sections">
+                <div class="repertorios-loading skeleton-effect-wave"></div>
+                <div class="repertorios-loading skeleton-effect-wave"></div>
+                <div class="repertorios-loading skeleton-effect-wave"></div>
+            </div>
 
-
-                <div class="repertorios-container">
-                    <div class="repertorio-box filmes-series" onclick="window.location.href='filmes.html'">
-                        <div class="repertorio-content">
-                            <img src="img/rep-filmes.png" alt="Filmes e Séries">
-                            <h3>Filmes e Séries</h3>
-                        </div>
-                    </div>
-                    <div class="repertorio-box livros" onclick="window.location.href='livros.html'">
-                        <div class="repertorio-content">
-                            <img src="img/rep-livros.png" alt="Livros">
-                            <h3>Livros</h3>
-                        </div>
-                    </div>
-                    <div class="repertorio-box fatos-historicos" onclick="window.location.href='historia.html'">
-                        <div class="repertorio-content">
-                            <img src="img/rep-historia.png" alt="Fatos Históricos">
-                            <h3>Fatos Históricos</h3>
-                        </div>
-                    </div>
-                    <div class="repertorio-box citacoes-outros" onclick="window.location.href='citacoes.html'">
-                        <div class="repertorio-content">
-                            <img src="img/rep-citacoes.png" alt="Citações e Outros">
-                            <h3>Citações e Outros</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <script src="lib/framework7-bundle.min.js"></script>
-                <script src="lib/jquery-3.7.0.min.js"></script>
-                <script src="js/routes.js"></script>
-                <script src="cordova.js"></script>
+            <div id="repertorios-empty" class="repertorios-empty">
+                <i class="ri-bookmark-3-line"></i>
+                <strong>Nenhum repertorio encontrado</strong>
+                <span>Tente outro termo de busca ou cadastre um novo item.</span>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>

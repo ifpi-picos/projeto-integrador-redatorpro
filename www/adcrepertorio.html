@@ -1,64 +1,20 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2196f3">
-    <link rel="stylesheet" href="lib/framework7-bundle.min.css">
-    <link rel="stylesheet" href="css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="css/adcrepertorio.css">
-    <script src="js/repertorios.js" defer></script>
-    <title>Adicionar Repertórios</title>
-</head>
-
-
 <div data-name="adicionar-repertorio" class="page page-add-repertorio">
-
-    <div class="navbar">
-        <div class="navbar-inner">
-            <a class="link back">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-            <div class="title">Adicionar Repertório</div>
-        </div>
+    <div class="top-nav admin-repertorio-top">
+        <a class="btn-cart link back" aria-label="Voltar">
+            <i class="ri-arrow-left-s-line"></i>
+        </a>
+        <h1 class="title-logo"><span>Painel</span><span class="pro"> Repertorios</span></h1>
+        <span class="btn-cart admin-lock"><i class="ri-shield-user-line"></i></span>
     </div>
 
     <div class="page-content">
-
-        <h2 class="titulo-add">Preencha as informações</h2>
-
-        <div class="card-add">
-            <form id="form-repertorio">
-
-                <div class="input-group">
-                    <label>Nome da obra / filme / citação *</label>
-                    <input type="text" id="nomeRepertorio" placeholder="Ex: A Revolução dos Bichos" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Imagem (opcional)</label>
-                    <input type="file" id="imgRepertorio" accept="image/*">
-                </div>
-
-                <div class="input-group">
-                    <label>Motivo *</label>
-                    <textarea id="motivoRepertorio" placeholder="Por que esse repertório é útil?" required></textarea>
-                </div>
-
-            </form>
+        <div class="admin-repertorio-notice">
+            <i class="ri-shield-user-line"></i>
+            <h2>Cadastro administrativo</h2>
+            <p>O cadastro de repertorios agora fica apenas no painel administrativo do back-end.</p>
+            <a class="admin-repertorio-link external" href="https://express-e3hm.onrender.com/admin/painel-repertorios.html" target="_blank">
+                Abrir painel administrativo
+            </a>
         </div>
-
-        <div class="botoes-form">
-            <button class="btn-cancelar" onclick="app.views.main.router.back()">Cancelar</button>
-            <button class="btn-enviar" onclick="enviarRepertorio()">Enviar sugestão</button>
-        </div>
-
-        <p id="mensagem-sucesso" class="sucesso-msg">
-            O seu repertório será analisado
-        </p>
-
     </div>
 </div>

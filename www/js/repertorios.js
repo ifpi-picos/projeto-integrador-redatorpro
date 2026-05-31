@@ -49,7 +49,7 @@
     if (!value) return [];
     if (Array.isArray(value)) return value.filter(Boolean);
     return String(value)
-      .split(/\n|,/) 
+      .split(/\n|,/)
       .map((item) => item.trim())
       .filter(Boolean);
   }
@@ -317,9 +317,31 @@
 
           ${axes.length ? `<div class="repertorio-tags repertorio-detail-tags">${axes.map((axis) => `<span>${escapeHtml(axis)}</span>`).join("")}</div>` : ""}
 
-          ${item.streamingLinks ? `<div class="repertorio-detail-group"><strong>Streamings e links</strong>${normalizeList(item.streamingLinks).map((l) => `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`).join("")}</div>` : ""}
+          ${
+            item.streamingLinks
+              ? `<div class="repertorio-detail-group"><strong>Streamings e links</strong>${normalizeList(
+                  item.streamingLinks,
+                )
+                  .map(
+                    (l) =>
+                      `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`,
+                  )
+                  .join("")}</div>`
+              : ""
+          }
 
-          ${item.sourceLinks ? `<div class="repertorio-detail-group"><strong>Fontes e links uteis</strong>${normalizeList(item.sourceLinks).map((l) => `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`).join("")}</div>` : ""}
+          ${
+            item.sourceLinks
+              ? `<div class="repertorio-detail-group"><strong>Fontes e links uteis</strong>${normalizeList(
+                  item.sourceLinks,
+                )
+                  .map(
+                    (l) =>
+                      `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`,
+                  )
+                  .join("")}</div>`
+              : ""
+          }
 
         </div>
       </div>

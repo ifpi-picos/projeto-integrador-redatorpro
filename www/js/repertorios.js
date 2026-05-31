@@ -49,7 +49,7 @@
     if (!value) return [];
     if (Array.isArray(value)) return value.filter(Boolean);
     return String(value)
-      .split(/\n|,/)
+      .split(/\n|,/) 
       .map((item) => item.trim())
       .filter(Boolean);
   }
@@ -291,40 +291,36 @@
     const meta = repertorioMeta(item);
     const trailer = parseYouTubeEmbed(item.trailerUrl);
     const html = `
-      <div class="repertorio-detail layout-horizontal">
-        <div class="repertorio-poster">${repertorioImage(item)}</div>
+      <div class="repertorio-detail modern-detail">
+        <div class="repertorio-media">
+          <div class="repertorio-poster">${repertorioImage(item)}</div>
+          ${trailer ? `<div class="repertorio-player"><div class="video-wrapper"><iframe src="${escapeHtml(trailer)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>` : `<div class="repertorio-player placeholder"></div>`}
+        </div>
         <div class="repertorio-info">
           <h2>${escapeHtml(item.title || "")}</h2>
-          ${meta.length ? `<p class="repertorio-detail-meta">${escapeHtml(meta.join(" - "))}</p>` : ""}
+          ${meta.length ? `<p class="repertorio-detail-meta">${escapeHtml(meta.join(" • "))}</p>` : ""}
+
+          <div class="repertorio-actions-row">
+            <button class="btn-primary">Salvar</button>
+            <button class="btn-ghost">Compartilhar</button>
+            <div style="margin-left:auto;" class="muted">${escapeHtml(item.source || "")}</div>
+          </div>
+
+          <div class="repertorio-meta-grid">
+            ${meta.map((m) => `<div class="repertorio-meta-item">${escapeHtml(m)}</div>`).join("")}
+            <div class="repertorio-meta-item">${axes.length ? escapeHtml(axes.join(", ")) : ""}</div>
+          </div>
+
           ${item.synopsis ? `<div class="repertorio-detail-group"><strong>Sinopse</strong><p>${escapeHtml(item.synopsis)}</p></div>` : ""}
           ${item.info ? `<div class="repertorio-detail-group"><strong>Informacoes</strong><p>${escapeHtml(item.info)}</p></div>` : ""}
           ${item.essayUse ? `<div class="repertorio-detail-group"><strong>Uso na redacao</strong><p>${escapeHtml(item.essayUse)}</p></div>` : ""}
+
           ${axes.length ? `<div class="repertorio-tags repertorio-detail-tags">${axes.map((axis) => `<span>${escapeHtml(axis)}</span>`).join("")}</div>` : ""}
-          ${
-            item.streamingLinks
-              ? `<div class="repertorio-detail-group"><strong>Streamings e links</strong>${normalizeList(
-                  item.streamingLinks,
-                )
-                  .map(
-                    (l) =>
-                      `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`,
-                  )
-                  .join("")}</div>`
-              : ""
-          }
-          ${
-            item.sourceLinks
-              ? `<div class="repertorio-detail-group"><strong>Fontes e links uteis</strong>${normalizeList(
-                  item.sourceLinks,
-                )
-                  .map(
-                    (l) =>
-                      `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`,
-                  )
-                  .join("")}</div>`
-              : ""
-          }
-          ${trailer ? `<div class="repertorio-detail-group"><strong>Trailer</strong><div class="video-wrapper"><iframe width="100%" height="360" src="${escapeHtml(trailer)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>` : ""}
+
+          ${item.streamingLinks ? `<div class="repertorio-detail-group"><strong>Streamings e links</strong>${normalizeList(item.streamingLinks).map((l) => `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`).join("")}</div>` : ""}
+
+          ${item.sourceLinks ? `<div class="repertorio-detail-group"><strong>Fontes e links uteis</strong>${normalizeList(item.sourceLinks).map((l) => `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`).join("")}</div>` : ""}
+
         </div>
       </div>
     `;

@@ -34,12 +34,13 @@
 .repertorios-search input {
   width: 100%;
   max-width: 980px;
-  padding: 12px 18px;
-  border-radius: 9999px;
+  padding: 14px 18px;
+  height: 54px;
+  border-radius: 28px;
   border: 1px solid var(--color-border-hr, #e2e8f0);
   background: var(--color-bg-sidebar, #fff);
   font-size: 16px;
-  box-shadow: none;
+  box-shadow: 0 6px 16px rgba(16,24,40,0.04);
 }
 
 .repertorios-content {
@@ -106,11 +107,29 @@
   border: 1px solid var(--color-border-hr, #e2e8f0);
   background: var(--color-bg-sidebar, #fff);
   color: var(--azul, #2196f3);
-  border-radius: 8px;
-  min-height: 40px;
-  padding: 0 12px;
-  display: inline-flex;
-  align-items: center;
+.repertorio-poster img, .repertorio-poster .repertorio-card-icon { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 12px 30px rgba(16,24,40,0.08); }
+.repertorio-player { flex: 1 1 auto; min-height: 300px; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(34,197,94,0.03), rgba(59,130,246,0.02)); border-radius: 10px; padding: 10px; }
+.repertorio-detail h2 { font-size: 26px; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.2px; }
+.repertorio-detail-meta { color: var(--color-text-placeholder); margin-bottom: 14px; font-weight:700; }
+.repertorio-detail-group p { color: var(--color-text-primary); font-size:15px; line-height:1.6; }
+
+/* Action row: buttons for salvar, compartilhar, etc (visual only) */
+.repertorio-actions-row { display:flex; gap:10px; margin-top:12px; align-items:center; }
+.btn-primary { background: var(--azul, #2196f3); color:#fff; padding:8px 12px; border-radius:8px; font-weight:800; border:none; cursor:pointer; }
+.btn-ghost { background:transparent; color:var(--color-text-primary); padding:8px 12px; border-radius:8px; border:1px solid #e6eefc; cursor:pointer; }
+
+.repertorio-detail-tags span { background: linear-gradient(90deg,#eef2ff,#f0f9ff); color: #0f172a; padding:6px 10px; border-radius:999px; font-weight:700; margin-right:6px; display:inline-block; }
+
+/* Layout for metadata columns */
+.repertorio-meta-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; margin-top:10px; }
+.repertorio-meta-item { background: rgba(15,23,42,0.02); padding:10px; border-radius:8px; font-size:14px; }
+
+@media (max-width: 900px) {
+  .repertorio-media { flex-direction: column; }
+  .repertorio-poster { width: 100%; flex: none; }
+  .repertorio-player { min-height: 200px; }
+  .repertorio-meta-grid { grid-template-columns: 1fr; }
+}
   gap: 6px;
   font-weight: 700;
 }
@@ -230,6 +249,7 @@
 .repertorio-card p {
   color: var(--color-text-placeholder, #798eae);
   display: -webkit-box;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -303,6 +323,35 @@
   gap: 12px;
   text-align: left;
 }
+
+/* Modern card for details */
+.modern-detail {
+  background: var(--color-bg-sidebar, #fff);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 8px 30px rgba(16,24,40,0.06);
+}
+
+.repertorio-media {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.repertorio-poster { flex: 0 0 260px; }
+.repertorio-poster img, .repertorio-poster .repertorio-card-icon { width: 100%; height: auto; border-radius: 8px; }
+
+.repertorio-player { flex: 1 1 auto; min-height: 260px; }
+
+.repertorio-detail h2 { font-size: 22px; margin-bottom: 6px; }
+.repertorio-detail-meta { color: var(--color-text-placeholder); margin-bottom: 12px; }
+.repertorio-detail-group p { color: var(--color-text-primary); }
+
+/* smaller clear button */
+#limpar-filtro-repertorios { min-height: 36px; font-size: 14px; padding: 6px 10px; }
+
+.muted { color: var(--color-text-placeholder, #798eae); }
 
 .repertorio-detail > img,
 .repertorio-detail > .repertorio-card-icon {

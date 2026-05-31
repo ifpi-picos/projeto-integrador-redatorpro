@@ -300,17 +300,6 @@
           <h2>${escapeHtml(item.title || "")}</h2>
           ${meta.length ? `<p class="repertorio-detail-meta">${escapeHtml(meta.join(" • "))}</p>` : ""}
 
-          <div class="repertorio-actions-row">
-            <button class="btn-primary">Salvar</button>
-            <button class="btn-ghost">Compartilhar</button>
-            <div style="margin-left:auto;" class="muted">${escapeHtml(item.source || "")}</div>
-          </div>
-
-          <div class="repertorio-meta-grid">
-            ${meta.map((m) => `<div class="repertorio-meta-item">${escapeHtml(m)}</div>`).join("")}
-            <div class="repertorio-meta-item">${axes.length ? escapeHtml(axes.join(", ")) : ""}</div>
-          </div>
-
           ${item.synopsis ? `<div class="repertorio-detail-group"><strong>Sinopse</strong><p>${escapeHtml(item.synopsis)}</p></div>` : ""}
           ${item.info ? `<div class="repertorio-detail-group"><strong>Informacoes</strong><p>${escapeHtml(item.info)}</p></div>` : ""}
           ${item.essayUse ? `<div class="repertorio-detail-group"><strong>Uso na redacao</strong><p>${escapeHtml(item.essayUse)}</p></div>` : ""}

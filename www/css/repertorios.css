@@ -414,23 +414,27 @@
 .repertorio-media {
   display: flex;
   gap: 18px;
-  align-items: flex-start;
+  align-items: stretch;
+  height: clamp(360px, 34vw, 490px);
   margin-bottom: 12px;
 }
 
 .repertorio-poster {
-  flex: 0 0 260px;
+  flex: 0 0 326px;
+  min-width: 0;
 }
 .repertorio-poster img,
 .repertorio-poster .repertorio-card-icon {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 8px;
+  object-fit: cover;
 }
 
 .repertorio-player {
   flex: 1 1 auto;
-  min-height: 260px;
+  min-width: 0;
+  min-height: 0;
 }
 
 .repertorio-detail h2 {
@@ -488,7 +492,7 @@
 
 .video-wrapper {
   position: relative;
-  padding-top: 56.25%;
+  height: 100%;
 }
 .video-wrapper iframe {
   position: absolute;
@@ -529,5 +533,29 @@
 
   .repertorio-section-head h2 {
     font-size: 21px;
+  }
+
+  .repertorio-media {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .repertorio-poster {
+    flex: none;
+    width: 100%;
+  }
+
+  .repertorio-poster img,
+  .repertorio-poster .repertorio-card-icon {
+    height: auto;
+  }
+
+  .repertorio-player {
+    min-height: 220px;
+  }
+
+  .video-wrapper {
+    height: auto;
+    padding-top: 56.25%;
   }
 }

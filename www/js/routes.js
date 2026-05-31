@@ -106,6 +106,22 @@ var app = new Framework7({
       },
     },
     {
+      path: "/repertorio/",
+      url: "repertorio-detalhe.html",
+      animate: false,
+      on: {
+        pageInit: function (event, page) {
+          if (typeof window.initRepertorioDetalhe === "function") {
+            window.initRepertorioDetalhe();
+          } else {
+            $.getScript("js/repertorios.js")
+              .done(() => window.initRepertorioDetalhe?.())
+              .fail(() => console.error("Erro ao carregar repertorios.js"));
+          }
+        },
+      },
+    },
+    {
       path: "/link2/",
       url: "link2.html",
       //options: {
@@ -710,16 +726,14 @@ var app = new Framework7({
 
     {
       path: "/adicionar-repertorio/",
-      url: "adcrepertorio.html",
       animate: false,
       on: {
         pageInit: function () {
-          if (typeof window.initAdminRepertorio === "function") {
-            window.initAdminRepertorio();
-          } else {
-            $.getScript("js/repertorios.js", function () {
-              window.initAdminRepertorio?.();
-            });
+          try {
+            const base = window.REPERTORIOS_API_BASE || (window.location && window.location.origin) || '';
+            window.location.href = String(base).replace(/\/$/, '') + '/admin/painel-repertorios.html';
+          } catch (err) {
+            console.error('Erro ao redirecionar para painel admin', err);
           }
         },
       },

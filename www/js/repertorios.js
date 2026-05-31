@@ -35,76 +35,12 @@
     },
   ];
 
-  const repertoriosFallback = [
-    {
-      id: "seed-cinema-1",
-      category: "cinema",
-      type: "Filme",
-      title: "Tempos Modernos",
-      coverUrl: "img/temposmodernos.jpg",
-      genre: "Comedia dramatica",
-      duration: "87 min",
-      rating: "Livre",
-      country: "Estados Unidos",
-      thematicAxes: ["Trabalho", "Industrializacao", "Desigualdade"],
-      streamingLinks: [
-        "https://www.youtube.com/results?search_query=Tempos+Modernos",
-      ],
-      trailerUrl:
-        "https://www.youtube.com/results?search_query=Tempos+Modernos+trailer",
-      synopsis:
-        "Charlie Chaplin critica a mecanizacao do trabalho e a perda da dignidade humana em meio a rotina industrial.",
-      essayUse:
-        "Pode ser usado em temas sobre precarizacao do trabalho, alienacao produtiva e impactos sociais da tecnologia.",
-    },
-    {
-      id: "seed-book-1",
-      category: "livros",
-      title: "Quarto de Despejo",
-      coverUrl: "img/quartodedespejo.jpg",
-      genre: "Diario",
-      pages: "200",
-      thematicAxes: ["Desigualdade social", "Fome", "Moradia"],
-      sourceLinks: ["https://www.google.com/search?q=Quarto+de+Despejo"],
-      synopsis:
-        "Carolina Maria de Jesus registra a rotina de fome, exclusao e resistencia na favela do Caninde.",
-      essayUse:
-        "Ajuda a discutir invisibilidade social, desigualdade estrutural e omissao do Estado.",
-    },
-    {
-      id: "seed-knowledge-1",
-      category: "conhecimentos-gerais",
-      knowledgeArea: "Filosofia",
-      title: "Contrato social",
-      coverUrl: "img/rousseau.png",
-      info: "A ideia de contrato social discute como individuos cedem parte de sua liberdade para viver em uma sociedade organizada por direitos e deveres.",
-      sourceLinks: ["https://www.google.com/search?q=contrato+social+Rousseau"],
-      thematicAxes: ["Cidadania", "Estado", "Direitos"],
-      essayUse:
-        "Serve para fundamentar argumentos sobre responsabilidade estatal, pacto coletivo e participacao cidada.",
-    },
-    {
-      id: "seed-data-1",
-      category: "dados-pesquisas",
-      title: "Dados sociais brasileiros",
-      info: "Dados publicos podem evidenciar problemas sociais e sustentar a tese com materialidade.",
-      highlightedData: ["Use percentuais", "Compare periodos", "Cite a fonte"],
-      sourceLinks: ["https://www.ibge.gov.br/"],
-      thematicAxes: ["Politicas publicas", "Desigualdade", "Educacao"],
-      essayUse:
-        "Use os dados para comprovar a gravidade do problema antes de apresentar causas e intervencoes.",
-    },
-    {
-      id: "seed-quote-1",
-      category: "citacoes",
-      title:
-        "A educacao e a arma mais poderosa que voce pode usar para mudar o mundo.",
-      author: "Nelson Mandela",
-      thematicAxes: ["Educacao", "Transformacao social", "Cidadania"],
-      essayUse:
-        "A citacao pode abrir repertorios sobre o papel da educacao na reducao de desigualdades.",
-    },
-  ];
+  // fallback vazio — itens somente virão do backend/admin
+  const repertoriosFallback = [];
+
+  // estado para filtros por eixo
+  let selectedAxes = new Set();
+  let currentSearch = "";
 
   let repertoriosState = [];
   let repertoriosSwipers = [];
@@ -192,6 +128,107 @@
     repertoriosSwipers = [];
   }
 
+  function renderFilters() {
+    const container = document.getElementById('repertorios-filters');
+    if (!container) return;
+    container.innerHTML = '';
+    const axesSet = new Set();
+    repertoriosState.forEach((item) => normalizeList(item.thematicAxes).forEach((ax) => axesSet.add(ax)));
+    const axes = Array.from(axesSet).sort((a,b)=>a.localeCompare(b));
+    if (!axes.length) return;
+    axes.forEach((ax) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'filter-chip';
+      btn.dataset.axis = ax;
+      btn.textContent = ax;
+      btn.addEventListener('click', () => {
+        if (selectedAxes.has(ax)) { selectedAxes.delete(ax); btn.classList.remove('active'); }
+        else { selectedAxes.add(ax); btn.classList.add('active'); }
+        applyFilters();
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  function applyFilters() {
+    const term = currentSearch || '';
+    const axes = Array.from(selectedAxes);
+    const filtered = repertoriosState.filter((item) => {
+      if (axes.length) {
+        const itemAxes = normalizeList(item.thematicAxes).map(s=>s.toLowerCase());
+        const has = axes.some(a => itemAxes.includes(a.toLowerCase()));
+        if (!has) return false;
+      }
+      if (!term) return true;
+      return [item.title, item.author, item.genre, item.knowledgeArea, item.info, item.synopsis, item.essayUse, normalizeList(item.thematicAxes).join(' ')]
+        .join(' ')
+        .toLowerCase()
+        .includes(term.toLowerCase());
+    });
+    renderRepertorios(filtered);
+  }
+
+  function parseYouTubeEmbed(url) {
+    if (!url) return null;
+    try {
+      const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+      if (m && m[1]) return 'https://www.youtube.com/embed/' + m[1] + '?rel=0';
+    } catch (err) {
+      /* ignore */
+    }
+    return null;
+  }
+
+  window.initRepertorioDetalhe = async function () {
+    const container = document.getElementById('repertorio-detalhe-container');
+    if (!container) return;
+    let raw = localStorage.getItem('repertorio_detail');
+    let item = null;
+    try {
+      if (raw) item = JSON.parse(raw);
+    } catch (err) {
+      raw = null;
+    }
+    if (!item) {
+      const params = new URLSearchParams(window.location.search || '');
+      const id = params.get('id');
+      if (id) {
+        try {
+          const url = String(window.REPERTORIOS_API_BASE || '').replace(/\/$/, '') + '/repertorios/' + encodeURIComponent(id);
+          const resp = await fetch(url, { credentials: 'include' });
+          if (resp.ok) item = await resp.json();
+        } catch (err) {
+          console.warn('Erro ao buscar repertório por id', err);
+        }
+      }
+    }
+    if (!item) {
+      container.innerHTML = '<div class="repertorios-empty"><i class="ri-bookmark-3-line"></i><strong>Nenhum repertorio selecionado</strong></div>';
+      return;
+    }
+
+    const axes = normalizeList(item.thematicAxes);
+    const meta = repertorioMeta(item);
+    const trailer = parseYouTubeEmbed(item.trailerUrl);
+    const html = `
+      <div class="repertorio-detail">
+        ${repertorioImage(item)}
+        <span class="repertorio-kind">${escapeHtml(getCategory(item.category)?.title || '')}</span>
+        <h2>${escapeHtml(item.title || '')}</h2>
+        ${meta.length ? `<p class="repertorio-detail-meta">${escapeHtml(meta.join(' - '))}</p>` : ''}
+        ${item.synopsis ? `<div class="repertorio-detail-group"><strong>Sinopse</strong><p>${escapeHtml(item.synopsis)}</p></div>` : ''}
+        ${item.info ? `<div class="repertorio-detail-group"><strong>Informacoes</strong><p>${escapeHtml(item.info)}</p></div>` : ''}
+        ${item.essayUse ? `<div class="repertorio-detail-group"><strong>Uso na redacao</strong><p>${escapeHtml(item.essayUse)}</p></div>` : ''}
+        ${axes.length ? `<div class="repertorio-tags repertorio-detail-tags">${axes.map((axis)=>`<span>${escapeHtml(axis)}</span>`).join('')}</div>` : ''}
+        ${item.streamingLinks ? `<div class="repertorio-detail-group"><strong>Streamings e links</strong>${normalizeList(item.streamingLinks).map(l=>`<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`).join('')}</div>` : ''}
+        ${item.sourceLinks ? `<div class="repertorio-detail-group"><strong>Fontes e links uteis</strong>${normalizeList(item.sourceLinks).map(l=>`<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`).join('')}</div>` : ''}
+        ${trailer ? `<div class="repertorio-detail-group"><strong>Trailer</strong><div class="video-wrapper"><iframe width="100%" height="360" src="${escapeHtml(trailer)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>` : ''}
+      </div>
+    `;
+    container.innerHTML = html;
+  };
+
   function renderRepertorios(items) {
     const container = document.getElementById("repertorios-sections");
     const empty = document.getElementById("repertorios-empty");
@@ -233,7 +270,7 @@
     container.querySelectorAll(".repertorio-card").forEach((card) => {
       card.addEventListener("click", () => {
         const item = JSON.parse(decodeURIComponent(card.dataset.repertorio));
-        openRepertorioDetails(item);
+          openRepertorioDetails(item);
       });
     });
 
@@ -302,61 +339,22 @@
   }
 
   function openRepertorioDetails(item) {
-    const axes = normalizeList(item.thematicAxes);
-    const highlighted = normalizeList(item.highlightedData);
-    const meta = repertorioMeta(item);
-    const content = `
-    <div class="repertorio-detail">
-      ${repertorioImage(item)}
-      <span class="repertorio-kind">${escapeHtml(getCategory(item.category)?.title || "")}</span>
-      <h2>${escapeHtml(item.title || "")}</h2>
-      ${meta.length ? `<p class="repertorio-detail-meta">${escapeHtml(meta.join(" - "))}</p>` : ""}
-      ${item.synopsis ? `<div class="repertorio-detail-group"><strong>Sinopse</strong><p>${escapeHtml(item.synopsis)}</p></div>` : ""}
-      ${item.info ? `<div class="repertorio-detail-group"><strong>Informacoes</strong><p>${escapeHtml(item.info)}</p></div>` : ""}
-      ${highlighted.length ? `<div class="repertorio-highlight">${highlighted.map((data) => `<mark>${escapeHtml(data)}</mark>`).join("")}</div>` : ""}
-      ${item.essayUse ? `<div class="repertorio-detail-group"><strong>Uso na redacao</strong><p>${escapeHtml(item.essayUse)}</p></div>` : ""}
-      ${axes.length ? `<div class="repertorio-tags repertorio-detail-tags">${axes.map((axis) => `<span>${escapeHtml(axis)}</span>`).join("")}</div>` : ""}
-      ${linkList("Streamings e links", item.streamingLinks)}
-      ${linkList("Fontes e links uteis", item.sourceLinks)}
-      ${item.trailerUrl ? linkList("Trailer", [item.trailerUrl]) : ""}
-    </div>
-  `;
-    app.dialog
-      .create({
-        title: "Detalhes do repertorio",
-        text: content,
-        cssClass: "repertorio-dialog",
-        buttons: [{ text: "Fechar" }],
-        verticalButtons: true,
-      })
-      .open();
+    try {
+      localStorage.setItem('repertorio_detail', JSON.stringify(item));
+      if (typeof app !== 'undefined' && app.views && app.views.main && app.views.main.router) {
+        app.views.main.router.navigate('/repertorio/');
+        return;
+      }
+    } catch (err) {
+      console.error('Erro ao abrir detalhe', err);
+    }
+    // fallback para página estática
+    window.location.href = 'repertorio-detalhe.html';
   }
 
   function filterRepertorios(term) {
-    const search = String(term || "")
-      .toLowerCase()
-      .trim();
-    if (!search) {
-      renderRepertorios(repertoriosState);
-      return;
-    }
-    renderRepertorios(
-      repertoriosState.filter((item) =>
-        [
-          item.title,
-          item.author,
-          item.genre,
-          item.knowledgeArea,
-          item.info,
-          item.synopsis,
-          item.essayUse,
-          normalizeList(item.thematicAxes).join(" "),
-        ]
-          .join(" ")
-          .toLowerCase()
-          .includes(search),
-      ),
-    );
+    currentSearch = String(term || "").toLowerCase().trim();
+    applyFilters();
   }
 
   async function fetchRepertorios() {
@@ -398,7 +396,8 @@
 
     repertoriosState = await fetchRepertorios();
     localStorage.setItem("repertorios", JSON.stringify(repertoriosState));
-    renderRepertorios(repertoriosState);
+    renderFilters();
+    applyFilters();
 
     form?.addEventListener("submit", (event) => event.preventDefault());
     search?.addEventListener("input", (event) =>
@@ -406,7 +405,10 @@
     );
     clear?.addEventListener("click", () => {
       if (search) search.value = "";
-      renderRepertorios(repertoriosState);
+      selectedAxes.clear();
+      document.querySelectorAll('#repertorios-filters .filter-chip.active').forEach((b) => b.classList.remove('active'));
+      currentSearch = "";
+      applyFilters();
     });
   };
 

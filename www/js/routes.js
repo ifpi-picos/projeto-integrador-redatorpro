@@ -378,6 +378,12 @@ var app = new Framework7({
       on: {
         pageBeforeIn: function (event, page) {
           // Fazer algo antes de a página de login ser exibida
+          if (!document.querySelector('link[href="css/repertorios.css"]')) {
+            const link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = "css/repertorios.css";
+            document.head.appendChild(link);
+          }
         },
         pageAfterIn: function (event, page) {
           // Fazer algo depois de a página de login ser exibida

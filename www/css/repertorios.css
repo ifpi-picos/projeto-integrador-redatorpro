@@ -6,6 +6,17 @@
   padding: 0 5%;
 }
 
+/* Centralizar título no topo sem deslocar o botão voltar */
+.repertorios-top-nav {
+  position: relative;
+}
+.repertorios-top-nav .title-logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: 0;
+}
+
 .repertorios-top-nav .btn-cart::before {
   display: none;
 }
@@ -58,6 +69,30 @@
   background: var(--azul, #2196f3);
   color: #fff;
   border-color: var(--azul, #2196f3);
+}
+
+.repertorios-filters-preview span {
+  background: var(--color-bg-secondary);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* Detail layout: poster + info side-by-side on wider screens */
+.repertorio-detail.layout-horizontal {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.repertorio-poster img,
+.repertorio-poster .repertorio-card-icon {
+  width: 240px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.repertorio-info {
+  flex: 1;
 }
 
 .repertorios-actions p,

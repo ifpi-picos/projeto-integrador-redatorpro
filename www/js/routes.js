@@ -730,10 +730,15 @@ var app = new Framework7({
       on: {
         pageInit: function () {
           try {
-            const base = window.REPERTORIOS_API_BASE || (window.location && window.location.origin) || '';
-            window.location.href = String(base).replace(/\/$/, '') + '/admin/painel-repertorios.html';
+            const base =
+              window.REPERTORIOS_API_BASE ||
+              (window.location && window.location.origin) ||
+              "";
+            window.location.href =
+              String(base).replace(/\/$/, "") +
+              "/admin/painel-repertorios.html";
           } catch (err) {
-            console.error('Erro ao redirecionar para painel admin', err);
+            console.error("Erro ao redirecionar para painel admin", err);
           }
         },
       },

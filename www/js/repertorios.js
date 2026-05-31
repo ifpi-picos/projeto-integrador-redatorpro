@@ -85,13 +85,16 @@
         item.type,
         item.genre,
         item.duration,
+        item.year ? String(item.year) : null,
         item.rating,
         item.country,
       ].filter(Boolean);
     if (item.category === "livros")
-      return [item.genre, item.pages ? `${item.pages} paginas` : ""].filter(
-        Boolean,
-      );
+      return [
+        item.genre,
+        item.pages ? `${item.pages} paginas` : "",
+        item.year ? String(item.year) : null,
+      ].filter(Boolean);
     if (item.category === "conhecimentos-gerais")
       return [item.knowledgeArea].filter(Boolean);
     if (item.category === "citacoes") return [item.author].filter(Boolean);
@@ -108,7 +111,6 @@
       <button class="repertorio-card${quoteClass}" type="button" data-repertorio="${data}">
         <div class="repertorio-cover">${repertorioImage(item)}</div>
         <div class="repertorio-card-body">
-          <span class="repertorio-kind">${escapeHtml(getCategory(item.category)?.title || "Repertorio")}</span>
           <strong>${escapeHtml(item.title || "Sem titulo")}</strong>
           <small>${escapeHtml(repertorioMeta(item).join(" - "))}</small>
           <p>${escapeHtml(item.essayUse || item.synopsis || item.info || "")}</p>
@@ -129,40 +131,111 @@
   }
 
   function renderFilters() {
-    const container = document.getElementById('repertorios-filters');
+    const container = document.getElementById("repertorios-filters");
+    const preview = document.getElementById("repertorios-filters-preview");
     if (!container) return;
-    container.innerHTML = '';
+    container.innerHTML = "";
     const axesSet = new Set();
-    repertoriosState.forEach((item) => normalizeList(item.thematicAxes).forEach((ax) => axesSet.add(ax)));
-    const axes = Array.from(axesSet).sort((a,b)=>a.localeCompare(b));
+    repertoriosState.forEach((item) =>
+      normalizeList(item.thematicAxes).forEach((ax) => axesSet.add(ax)),
+    );
+    const axes = Array.from(axesSet).sort((a, b) => a.localeCompare(b));
+    window.availableAxes = axes;
+    // update preview
+    if (preview) {
+      preview.innerHTML = "";
+      Array.from(selectedAxes)
+        .slice(0, 3)
+        .forEach((ax) => {
+          const span = document.createElement("span");
+          span.textContent = ax;
+          preview.appendChild(span);
+        });
+      if (!selectedAxes.size) {
+        preview.innerHTML =
+          '<span class="muted">Nenhum eixo selecionado</span>';
+      }
+    }
     if (!axes.length) return;
+    // keep hidden container populated for reference if needed
     axes.forEach((ax) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'filter-chip';
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "filter-chip";
       btn.dataset.axis = ax;
       btn.textContent = ax;
-      btn.addEventListener('click', () => {
-        if (selectedAxes.has(ax)) { selectedAxes.delete(ax); btn.classList.remove('active'); }
-        else { selectedAxes.add(ax); btn.classList.add('active'); }
+      if (selectedAxes.has(ax)) btn.classList.add("active");
+      btn.addEventListener("click", () => {
+        if (selectedAxes.has(ax)) {
+          selectedAxes.delete(ax);
+          btn.classList.remove("active");
+        } else {
+          selectedAxes.add(ax);
+          btn.classList.add("active");
+        }
         applyFilters();
+        renderFilters();
       });
       container.appendChild(btn);
     });
   }
 
+  function openAxesModal() {
+    const axes = window.availableAxes || [];
+    if (!axes.length) {
+      app.dialog.alert("Nenhum eixo disponível");
+      return;
+    }
+    const content = `<div class="axes-modal">${axes.map((ax) => `<button class="filter-chip" data-axis="${escapeHtml(ax)}">${escapeHtml(ax)}</button>`).join("")}</div>`;
+    const dialog = app.dialog.create({
+      title: "Eixos Temáticos",
+      text: content,
+      cssClass: "repertorios-axes-dialog",
+      buttons: [{ text: "Fechar" }],
+    });
+    dialog.open();
+    // attach listeners after a brief delay to ensure DOM is present
+    setTimeout(() => {
+      const modalButtons = document.querySelectorAll(
+        ".repertorios-axes-dialog .filter-chip",
+      );
+      modalButtons.forEach((b) => {
+        const ax = b.dataset.axis;
+        if (selectedAxes.has(ax)) b.classList.add("active");
+        b.addEventListener("click", () => {
+          if (selectedAxes.has(ax)) selectedAxes.delete(ax);
+          else selectedAxes.add(ax);
+          b.classList.toggle("active");
+          applyFilters();
+          renderFilters();
+        });
+      });
+    }, 50);
+  }
+
   function applyFilters() {
-    const term = currentSearch || '';
+    const term = currentSearch || "";
     const axes = Array.from(selectedAxes);
     const filtered = repertoriosState.filter((item) => {
       if (axes.length) {
-        const itemAxes = normalizeList(item.thematicAxes).map(s=>s.toLowerCase());
-        const has = axes.some(a => itemAxes.includes(a.toLowerCase()));
+        const itemAxes = normalizeList(item.thematicAxes).map((s) =>
+          s.toLowerCase(),
+        );
+        const has = axes.some((a) => itemAxes.includes(a.toLowerCase()));
         if (!has) return false;
       }
       if (!term) return true;
-      return [item.title, item.author, item.genre, item.knowledgeArea, item.info, item.synopsis, item.essayUse, normalizeList(item.thematicAxes).join(' ')]
-        .join(' ')
+      return [
+        item.title,
+        item.author,
+        item.genre,
+        item.knowledgeArea,
+        item.info,
+        item.synopsis,
+        item.essayUse,
+        normalizeList(item.thematicAxes).join(" "),
+      ]
+        .join(" ")
         .toLowerCase()
         .includes(term.toLowerCase());
     });
@@ -172,8 +245,10 @@
   function parseYouTubeEmbed(url) {
     if (!url) return null;
     try {
-      const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-      if (m && m[1]) return 'https://www.youtube.com/embed/' + m[1] + '?rel=0';
+      const m = url.match(
+        /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/,
+      );
+      if (m && m[1]) return "https://www.youtube.com/embed/" + m[1] + "?rel=0";
     } catch (err) {
       /* ignore */
     }
@@ -181,9 +256,9 @@
   }
 
   window.initRepertorioDetalhe = async function () {
-    const container = document.getElementById('repertorio-detalhe-container');
+    const container = document.getElementById("repertorio-detalhe-container");
     if (!container) return;
-    let raw = localStorage.getItem('repertorio_detail');
+    let raw = localStorage.getItem("repertorio_detail");
     let item = null;
     try {
       if (raw) item = JSON.parse(raw);
@@ -191,20 +266,24 @@
       raw = null;
     }
     if (!item) {
-      const params = new URLSearchParams(window.location.search || '');
-      const id = params.get('id');
+      const params = new URLSearchParams(window.location.search || "");
+      const id = params.get("id");
       if (id) {
         try {
-          const url = String(window.REPERTORIOS_API_BASE || '').replace(/\/$/, '') + '/repertorios/' + encodeURIComponent(id);
-          const resp = await fetch(url, { credentials: 'include' });
+          const url =
+            String(window.REPERTORIOS_API_BASE || "").replace(/\/$/, "") +
+            "/repertorios/" +
+            encodeURIComponent(id);
+          const resp = await fetch(url, { credentials: "include" });
           if (resp.ok) item = await resp.json();
         } catch (err) {
-          console.warn('Erro ao buscar repertório por id', err);
+          console.warn("Erro ao buscar repertório por id", err);
         }
       }
     }
     if (!item) {
-      container.innerHTML = '<div class="repertorios-empty"><i class="ri-bookmark-3-line"></i><strong>Nenhum repertorio selecionado</strong></div>';
+      container.innerHTML =
+        '<div class="repertorios-empty"><i class="ri-bookmark-3-line"></i><strong>Nenhum repertorio selecionado</strong></div>';
       return;
     }
 
@@ -212,18 +291,41 @@
     const meta = repertorioMeta(item);
     const trailer = parseYouTubeEmbed(item.trailerUrl);
     const html = `
-      <div class="repertorio-detail">
-        ${repertorioImage(item)}
-        <span class="repertorio-kind">${escapeHtml(getCategory(item.category)?.title || '')}</span>
-        <h2>${escapeHtml(item.title || '')}</h2>
-        ${meta.length ? `<p class="repertorio-detail-meta">${escapeHtml(meta.join(' - '))}</p>` : ''}
-        ${item.synopsis ? `<div class="repertorio-detail-group"><strong>Sinopse</strong><p>${escapeHtml(item.synopsis)}</p></div>` : ''}
-        ${item.info ? `<div class="repertorio-detail-group"><strong>Informacoes</strong><p>${escapeHtml(item.info)}</p></div>` : ''}
-        ${item.essayUse ? `<div class="repertorio-detail-group"><strong>Uso na redacao</strong><p>${escapeHtml(item.essayUse)}</p></div>` : ''}
-        ${axes.length ? `<div class="repertorio-tags repertorio-detail-tags">${axes.map((axis)=>`<span>${escapeHtml(axis)}</span>`).join('')}</div>` : ''}
-        ${item.streamingLinks ? `<div class="repertorio-detail-group"><strong>Streamings e links</strong>${normalizeList(item.streamingLinks).map(l=>`<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`).join('')}</div>` : ''}
-        ${item.sourceLinks ? `<div class="repertorio-detail-group"><strong>Fontes e links uteis</strong>${normalizeList(item.sourceLinks).map(l=>`<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`).join('')}</div>` : ''}
-        ${trailer ? `<div class="repertorio-detail-group"><strong>Trailer</strong><div class="video-wrapper"><iframe width="100%" height="360" src="${escapeHtml(trailer)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>` : ''}
+      <div class="repertorio-detail layout-horizontal">
+        <div class="repertorio-poster">${repertorioImage(item)}</div>
+        <div class="repertorio-info">
+          <h2>${escapeHtml(item.title || "")}</h2>
+          ${meta.length ? `<p class="repertorio-detail-meta">${escapeHtml(meta.join(" - "))}</p>` : ""}
+          ${item.synopsis ? `<div class="repertorio-detail-group"><strong>Sinopse</strong><p>${escapeHtml(item.synopsis)}</p></div>` : ""}
+          ${item.info ? `<div class="repertorio-detail-group"><strong>Informacoes</strong><p>${escapeHtml(item.info)}</p></div>` : ""}
+          ${item.essayUse ? `<div class="repertorio-detail-group"><strong>Uso na redacao</strong><p>${escapeHtml(item.essayUse)}</p></div>` : ""}
+          ${axes.length ? `<div class="repertorio-tags repertorio-detail-tags">${axes.map((axis) => `<span>${escapeHtml(axis)}</span>`).join("")}</div>` : ""}
+          ${
+            item.streamingLinks
+              ? `<div class="repertorio-detail-group"><strong>Streamings e links</strong>${normalizeList(
+                  item.streamingLinks,
+                )
+                  .map(
+                    (l) =>
+                      `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`,
+                  )
+                  .join("")}</div>`
+              : ""
+          }
+          ${
+            item.sourceLinks
+              ? `<div class="repertorio-detail-group"><strong>Fontes e links uteis</strong>${normalizeList(
+                  item.sourceLinks,
+                )
+                  .map(
+                    (l) =>
+                      `<a href="${escapeHtml(l)}" target="_blank" class="external">${escapeHtml(l)}</a>`,
+                  )
+                  .join("")}</div>`
+              : ""
+          }
+          ${trailer ? `<div class="repertorio-detail-group"><strong>Trailer</strong><div class="video-wrapper"><iframe width="100%" height="360" src="${escapeHtml(trailer)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>` : ""}
+        </div>
       </div>
     `;
     container.innerHTML = html;
@@ -270,7 +372,7 @@
     container.querySelectorAll(".repertorio-card").forEach((card) => {
       card.addEventListener("click", () => {
         const item = JSON.parse(decodeURIComponent(card.dataset.repertorio));
-          openRepertorioDetails(item);
+        openRepertorioDetails(item);
       });
     });
 
@@ -340,20 +442,27 @@
 
   function openRepertorioDetails(item) {
     try {
-      localStorage.setItem('repertorio_detail', JSON.stringify(item));
-      if (typeof app !== 'undefined' && app.views && app.views.main && app.views.main.router) {
-        app.views.main.router.navigate('/repertorio/');
+      localStorage.setItem("repertorio_detail", JSON.stringify(item));
+      if (
+        typeof app !== "undefined" &&
+        app.views &&
+        app.views.main &&
+        app.views.main.router
+      ) {
+        app.views.main.router.navigate("/repertorio/");
         return;
       }
     } catch (err) {
-      console.error('Erro ao abrir detalhe', err);
+      console.error("Erro ao abrir detalhe", err);
     }
     // fallback para página estática
-    window.location.href = 'repertorio-detalhe.html';
+    window.location.href = "repertorio-detalhe.html";
   }
 
   function filterRepertorios(term) {
-    currentSearch = String(term || "").toLowerCase().trim();
+    currentSearch = String(term || "")
+      .toLowerCase()
+      .trim();
     applyFilters();
   }
 
@@ -406,10 +515,15 @@
     clear?.addEventListener("click", () => {
       if (search) search.value = "";
       selectedAxes.clear();
-      document.querySelectorAll('#repertorios-filters .filter-chip.active').forEach((b) => b.classList.remove('active'));
+      document
+        .querySelectorAll("#repertorios-filters .filter-chip.active")
+        .forEach((b) => b.classList.remove("active"));
       currentSearch = "";
       applyFilters();
+      renderFilters();
     });
+    const openBtn = document.getElementById("open-eixos-btn");
+    openBtn?.addEventListener("click", openAxesModal);
   };
 
   window.initAdminRepertorio = function () {

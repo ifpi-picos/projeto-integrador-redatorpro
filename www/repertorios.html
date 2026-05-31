@@ -1,42 +1,69 @@
-<link rel="stylesheet" href="css/repertorios.css">
+<link rel="stylesheet" href="css/repertorios.css" />
 
 <div data-name="repertorios" class="page repertorios-page">
-    <div class="top-nav repertorios-top-nav">
-        <a href="/index/" class="btn-cart repertorios-back" aria-label="Voltar">
-            <i class="ri-arrow-left-s-line"></i>
-        </a>
-        <h1 class="title-logo"><span>Repertorios</span></h1>
-    </div>
+  <div class="top-nav repertorios-top-nav">
+    <a href="/index/" class="btn-cart repertorios-back" aria-label="Voltar">
+      <i class="ri-arrow-left-s-line"></i>
+    </a>
+    <h1 class="title-logo"><span>Repertorios</span></h1>
+  </div>
 
-    <form class="repertorios-search" id="form-busca-repertorios">
-        <input id="busca-repertorios" placeholder="Pesquisar repertorios" type="text">
-        <i class="icone-busca ri-search-2-line"></i>
-    </form>
+  <form class="repertorios-search" id="form-busca-repertorios">
+    <input
+      id="busca-repertorios"
+      placeholder="Pesquisar repertorios"
+      type="text"
+    />
+    <i class="icone-busca ri-search-2-line"></i>
+  </form>
 
-    <div class="page-content repertorios-content">
-        <div class="block no-margin-top">
-            <div class="repertorios-actions">
-                <div>
-                    <p>Explore obras, dados e citacoes para fortalecer sua argumentacao.</p>
-                    <div id="repertorios-filters" class="repertorios-filters"></div>
-                </div>
-                <button class="repertorios-filter" id="limpar-filtro-repertorios" type="button">
-                    <i class="ri-filter-off-line"></i>
-                    Limpar
-                </button>
-            </div>
-
-            <div id="repertorios-sections" class="repertorios-sections">
-                <div class="repertorios-loading skeleton-effect-wave"></div>
-                <div class="repertorios-loading skeleton-effect-wave"></div>
-                <div class="repertorios-loading skeleton-effect-wave"></div>
-            </div>
-
-            <div id="repertorios-empty" class="repertorios-empty">
-                <i class="ri-bookmark-3-line"></i>
-                <strong>Nenhum repertorio encontrado</strong>
-                <span>Tente outro termo de busca ou cadastre um novo item.</span>
-            </div>
+  <div class="page-content repertorios-content">
+    <div class="block no-margin-top">
+      <div class="repertorios-actions">
+        <div>
+          <p>
+            Explore obras, dados e citacoes para fortalecer sua argumentacao.
+          </p>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <button
+              id="open-eixos-btn"
+              class="repertorios-filter"
+              type="button"
+            >
+              <i class="ri-list-unordered"></i> Eixos temáticos
+            </button>
+            <div
+              id="repertorios-filters-preview"
+              style="display: flex; gap: 6px; align-items: center"
+            ></div>
+          </div>
+          <div
+            id="repertorios-filters"
+            class="repertorios-filters"
+            style="display: none"
+          ></div>
         </div>
+        <button
+          class="repertorios-filter"
+          id="limpar-filtro-repertorios"
+          type="button"
+        >
+          <i class="ri-filter-off-line"></i>
+          Limpar
+        </button>
+      </div>
+
+      <div id="repertorios-sections" class="repertorios-sections">
+        <div class="repertorios-loading skeleton-effect-wave"></div>
+        <div class="repertorios-loading skeleton-effect-wave"></div>
+        <div class="repertorios-loading skeleton-effect-wave"></div>
+      </div>
+
+      <div id="repertorios-empty" class="repertorios-empty">
+        <i class="ri-bookmark-3-line"></i>
+        <strong>Nenhum repertorio encontrado</strong>
+        <span>Tente outro termo de busca ou cadastre um novo item.</span>
+      </div>
     </div>
+  </div>
 </div>
